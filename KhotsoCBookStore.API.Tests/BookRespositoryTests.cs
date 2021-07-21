@@ -19,7 +19,6 @@ namespace KhotsoCBookStore.API.Tests
             _output = output;
         }
 
-
         [Fact]
         public void GetBooks_That_ReturnsThreeBooks()
         {
