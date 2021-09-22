@@ -10,7 +10,7 @@
 
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FacesSharedLib\MessagingConstantsAndInterfaces\MessagingConstantsAndInterfaces.csproj" />
+    <ProjectReference Include="..\..\..\SharedLib\MessagingConstantsAndInterfaces\MessagingConstantsAndInterfaces.csproj" />
   </ItemGroup>
 
 </Project>

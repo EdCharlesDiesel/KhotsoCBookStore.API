@@ -17,6 +17,9 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="MassTransit" Version="7.2.2" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.2.2" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="5.0.3" />
@@ -34,6 +37,14 @@
     <PackageReference Include="Moq" Version="4.16.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharedLib\MessagingConstantsAndInterfaces\MessagingConstantsAndInterfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Faces\FacesApi\Controllers\" />
   </ItemGroup>
 
 </Project>
