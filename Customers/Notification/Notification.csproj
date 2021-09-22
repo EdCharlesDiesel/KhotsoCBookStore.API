@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="6.2.5" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="6.2.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="6.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0-preview.3.20215.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0-preview.3.20215.2" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0-preview.3.20214.6" />
+  </ItemGroup>
+  
+  
+  
+  <ItemGroup>
+   
+    <ProjectReference Include="..\..\FacesSharedLib\MessagingConstantsAndInterfaces\MessagingConstantsAndInterfaces.csproj" />
+    <ProjectReference Include="..\EmailService\EmailService.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

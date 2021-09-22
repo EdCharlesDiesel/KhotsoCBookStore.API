@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KhotsoCBookStore.API</name>
+    </assembly>
+    <members>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooksAPIOptions">
+            <summary>
+            List of all the actions that are allows with this API
+            </summary>
+            <returns>An IActionResult of actions allowed</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooks">
+            <summary>
+            Get all the books
+            </summary>
+            <returns>An ActionResult of type Book</returns>
+            <response code="200">Returns the requested books</response>
+            <response code="404">Returns no books found</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.Get(System.Int32)">
+            <summary>
+            Get the specific book data corresponding to the BookId
+            </summary>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.CategoryDetails">
+            <summary>
+            Get the list of available categories
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.Post">
+            <summary>
+            Add a new book record
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.Put">
+            <summary>
+            Update a particular book record
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.Delete(System.Int32)">
+            <summary>
+            Delete a particular book record
+            </summary>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Get(System.Int32)">
+            <summary>
+            Get the list of books subscriptions
+            </summary>
+            <param name="userId"></param>
+            <returns>List of book subscriptions</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Post(System.Int32,System.Int32)">
+            <summary>
+            Add a new book subscription
+            </summary>
+            <param name="bookId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Delete(System.Int32)">
+            <summary>
+            Clear the BookSubscription
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.Post(System.Int32,KhotsoCBookStore.API.Models.OrdersDto)">
+            <summary>
+            Checkout from shopping cart
+            </summary>
+            <param name="userId"></param>
+            <param name="checkedOutItems"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Models.AuthenticateModel)">
+            <summary>
+            Login to the application
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.OrderController.Get(System.Int32)">
+            <summary>
+            Get the list of all the orders placed by a particular user
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Get(System.Int32,System.Int32)">
+            <summary>
+            Get the shopping cart for a user upon Login. If the user logs in for the first time, creates the shopping cart.
+            </summary>
+            <param name="oldUserId"></param>
+            <param name="newUserId"></param>
+            <returns>The count of items in shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Get(System.Int32)">
+            <summary>
+            Get the list of items in the shopping cart
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Post(System.Int32,System.Int32)">
+            <summary>
+            Add a single item into the shopping cart. If the item already exists, increase the quantity by one
+            </summary>
+            <param name="userId"></param>
+            <param name="bookId"></param>
+            <returns>Count of items in the shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Put(System.Int32,System.Int32)">
+            <summary>
+            Reduces the quantity by one for an item in shopping cart
+            </summary>
+            <param name="userId"></param>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Delete(System.Int32,System.Int32)">
+            <summary>
+            Delete a single item from the cart 
+            </summary>
+            <param name="userId"></param>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Delete(System.Int32)">
+            <summary>
+            Clear the shopping cart
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.UserController.Get(System.Int32)">
+            <summary>
+            Get the count of item in the shopping cart
+            </summary>
+            <param name="userId"></param>
+            <returns>The count of items in shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.UserController.ValidateUserName(System.String)">
+            <summary>
+            Check the availability of the username
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.WishlistController.Get(System.Int32)">
+            <summary>
+            Get the list of items in the Wishlist
+            </summary>
+            <param name="userId"></param>
+            <returns>All the items in the Wishlist</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.WishlistController.Post(System.Int32,System.Int32)">
+            <summary>
+            Toggle the items in Wishlist. If item doesn't exists, it will be added to the Wishlist else it will be removed.
+            </summary>
+            <param name="userId"></param>
+            <param name="bookId"></param>
+            <returns>All the items in the Wishlist</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.WishlistController.Delete(System.Int32)">
+             <summary>
+             Clear the Wishlist
+             </summary>
+             <param name="userId"></param>
+             <returns></returns>
+            [Authorize]
+        </member>
+    </members>
+</doc>
