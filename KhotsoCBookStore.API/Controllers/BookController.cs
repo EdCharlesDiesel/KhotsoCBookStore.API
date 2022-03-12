@@ -37,7 +37,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// List of all the actions that are allows with this API
+        /// List of all the actions the API supports
         /// </summary>
         /// <returns>An IActionResult of actions allowed</returns>
         [HttpOptions]
@@ -53,17 +53,25 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>An ActionResult of type Book</returns>
         /// <response code="200">Returns the requested books</response>
         /// <response code="404">Returns no books found</response>
-        [HttpGet()]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
-        {
-            return await Task.FromResult(_bookService.GetAllBooks()).ConfigureAwait(true);            
-        }
+        // [HttpGet()]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [ProducesDefaultResponseType]
+        // public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        // { 
+        //     if(_bookService.GetAllBooks == null)
+        //     {
+        //         return  NotFound();
+        //     }
+        //     else
+        //     {
+        //         return await Task.FromResult(_bookService.GetAllBooks()).ConfigureAwait(true);
+        //     }
+                        
+        // }
 
         /// <summary>
-        /// Get the specific book data corresponding to the BookId
+        /// Get the specific book with BookId
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
@@ -79,7 +87,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Get the list of available categories
+        /// Get the list of categories.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -90,11 +98,11 @@ namespace KhotsoCBookStore.API.Controllers
         }    
 
         /// <summary>
-        /// Add a new book record
+        /// Add a new book.
         /// </summary>
         /// <returns></returns>
         [HttpPost, DisableRequestSizeLimit]
-      //  [Authorize(Policy = UserRoles.Admin)]
+        //[Authorize(Policy = UserRoles.Admin)]
         public int Post()
         {
             Book book = JsonConvert.DeserializeObject<Book>(Request.Form["bookFormData"].ToString());
@@ -105,7 +113,8 @@ namespace KhotsoCBookStore.API.Controllers
 
                 if (file.Length > 0)
                 {
-                    string fileName = Guid.NewGuid() + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    string fileName = Guid.NewGuid() + ContentDispositionHeaderValue
+                    .Parse(file.ContentDisposition).FileName.Trim('"');
                     string fullPath = Path.Combine(coverImageFolderPath, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
@@ -122,11 +131,11 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Update a particular book record
+        /// Update a specific book.
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-      //  [Authorize(Policy = UserRoles.Admin)]
+        // [Authorize(Policy = UserRoles.Admin)]
         public int Put()
         {
             Book book = JsonConvert.DeserializeObject<Book>(Request.Form["bookFormData"].ToString());
@@ -136,7 +145,8 @@ namespace KhotsoCBookStore.API.Controllers
 
                 if (file.Length > 0)
                 {
-                    string fileName = Guid.NewGuid() + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    string fileName = Guid.NewGuid() + ContentDispositionHeaderValue
+                    .Parse(file.ContentDisposition).FileName.Trim('"');
                     string fullPath = Path.Combine(coverImageFolderPath, fileName);
                     bool isFileExists = Directory.Exists(fullPath);
 
@@ -154,12 +164,12 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Delete a particular book record
+        /// Delete a specific book.
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
         [HttpDelete("{bookId}")]
-     //   [Authorize(Policy = UserRoles.Admin)]
+         // [Authorize(Policy = UserRoles.Admin)]
         public int Delete(int bookId)
         {
             string coverFileName = _bookService.DeleteBook(bookId);

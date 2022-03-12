@@ -9,7 +9,9 @@ namespace KhotsoCBookStore.API.Helpers
         public UserMappingProfile()
         {
             CreateMap<UserMaster, UserMaster>();
+
             CreateMap<RegisterModel, UserMaster>();
+            
             CreateMap<UpdateModel, UserMaster>();
         }
     }

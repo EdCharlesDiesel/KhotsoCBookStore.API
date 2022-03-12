@@ -4,7 +4,7 @@ using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 namespace KhotsoCBookStore.API.Controllers
 {
     [Route("api/Wishlist")]
@@ -16,9 +16,9 @@ namespace KhotsoCBookStore.API.Controllers
 
         public WishlistController(IWishlistService wishlistService, IBookService bookService, IUserService userService)
         {
-            _wishlistService = wishlistService;
-            _bookService = bookService;
-            _userService = userService;
+            _wishlistService = wishlistService?? throw new ArgumentNullException(nameof(_wishlistService));
+            _bookService = bookService?? throw new ArgumentNullException(nameof(_bookService));
+            _userService = userService?? throw new ArgumentNullException(nameof(_userService));
         }
 
         /// <summary>

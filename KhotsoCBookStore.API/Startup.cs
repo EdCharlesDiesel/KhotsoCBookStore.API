@@ -91,11 +91,8 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IBookService, BookRepository>();
             services.AddTransient<IBookSubscriptionService, BookSubscriptionRepository>();
             services.AddTransient<ICartService, CartRepository>();
-            services.AddTransient<IOrderService, OrderRepository>();
             services.AddTransient<IUserService, UserRepository>();
             services.AddTransient<IWishlistService, WishlistRepository>();
-
-
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddJwtBearer(options =>
@@ -134,9 +131,9 @@ namespace KhotsoCBookStore.API
             {
                 setupAction.SwaggerDoc("KhotsoCBookStoreAPISpecification", new OpenApiInfo()
                 {
-                    Title = "KhotsoCBookStore API V1.0",
-                    Version = "1.0",
-                    Description = "API for an online book store  where  a user can purchase a subscription to any book available in the product catalogue created with ASP.NET Core 5.0",
+                    Title = "KhotsoCBookStore API V2.1.1",
+                    Version = "2.1",
+                    Description = "API for an online book store where a user can purchase a subscription to any book available in the product catalogue created with ASP.NET Core 5.0",
                     Contact = new OpenApiContact()
                     {
                         Email = "Mokhetkc@hotmail.com",
@@ -155,8 +152,6 @@ namespace KhotsoCBookStore.API
 
                 setupAction.OperationFilter<SecurityRequirementsOperationFilter>();
 
-
-
                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
@@ -167,9 +162,7 @@ namespace KhotsoCBookStore.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-
         {
             if (env.IsDevelopment())
             {
@@ -185,7 +178,7 @@ namespace KhotsoCBookStore.API
 
             app.UseSwaggerUI(setupAction =>
             {
-                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json", "KhotsoCBookStore API V1.0");
+                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json", "KhotsoCBookStore API V2.1.1");
 
                 setupAction.RoutePrefix = "";
 

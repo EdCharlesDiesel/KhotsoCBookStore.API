@@ -6,7 +6,7 @@ using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using System;
 namespace KhotsoCBookStore.API.Controllers
 {
     [Route("api/User")]
@@ -17,14 +17,12 @@ namespace KhotsoCBookStore.API.Controllers
         private readonly AppSettings _appSettings;
         readonly ICartService _cartService;
 
-        public UserController(IUserService userService, ICartService cartService, 
-            IMapper mapper,
-            IOptions<AppSettings> appSettings)
+        public UserController(IUserService userService, ICartService cartService, IMapper mapper,IOptions<AppSettings> appSettings)
         {
-            _userService = userService;
-              _mapper = mapper;
+            _userService = userService ?? throw new ArgumentNullException(nameof(_userService));;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));;
             _appSettings = appSettings.Value;
-            _cartService = cartService;
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));;
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Check the availability of the username
+        /// Check username availability. 
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
@@ -51,24 +49,15 @@ namespace KhotsoCBookStore.API.Controllers
             return _userService.CheckUserAvailabity(userName);
         }
 
-        ///// <summary>
-        ///// Register a new user
-        ///// </summary>
-        ///// <param name="userData"></param>
-        //[HttpPost]
-        //public void Post([FromBody] UserMaster userData,string password)
-        //{
-        //    _userService.RegisterUser(userData,password);
-        //}
-
-        
+        /// <summary>
+        /// Register a new user.
+        /// </summary>
+        /// <param name="user model"></param>
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody]RegisterModel model)
         {
-            // map model to entity
             var user = _mapper.Map<UserMaster>(model);
-
             try
             {
                 // create user
