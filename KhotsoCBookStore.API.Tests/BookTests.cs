@@ -9,14 +9,14 @@ namespace KhotsoCBookStore.API.Tests
         Book book;
         public BookTests()
         {
-            Book = new Book
+            book = new Book
             {
-                BookId =1,
+                BookId = 1,
                 Name ="Data Structures And Algorithms",
                 Text ="Data Structures are really important",
                 Author = "EdCharlesDiesel",
                 Category="Back-End Development",
-                PurchasePrice=33.50d,
+                PurchasePrice=33.50M,
                 CoverFileName ="Default-Image"
             };
         }
