@@ -1,5 +1,5 @@
 ﻿using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Services
@@ -12,10 +12,8 @@ namespace KhotsoCBookStore.API.Services
         Book GetBookData(int bookId);
         string DeleteBook(int bookId);
         List<Categories> GetCategories();       
-        List<CartItemModel> GetBooksAvailableInCart(string cartId);
+        List<CartItemDto> GetBooksAvailableInCart(string cartId);
         List<Book> GetBooksAvailableInWishlist(string wishlistID);
-
         List<Book> GetBooksAvailableInBookSubscription(string bookSubscriptionId);
-        
     }
 }

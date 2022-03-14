@@ -1,11 +1,10 @@
-﻿using KhotsoCBookStore.API.Models;
+﻿using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 namespace KhotsoCBookStore.API.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     public class CheckOutController : Controller
     {
@@ -25,7 +24,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="checkedOutItems"></param>
         /// <returns></returns>
         [HttpPost("{userId}")]
-        public int Post(int userId, [FromBody] OrdersModel checkedOutItems)
+        public int Post(int userId, [FromBody] OrdersDto checkedOutItems)
         {
             _orderService.CreateOrder(userId, checkedOutItems);
             return _cartService.ClearCart(userId);

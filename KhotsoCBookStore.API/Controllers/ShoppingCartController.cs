@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,12 +39,12 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        // [HttpGet("{userId}")]
-        // public async Task<List<CartItemModel>> Get(int userId)
-        // {
-        //     string cartid = _cartService.GetCartId(userId);
-        //     return await Task.FromResult(_bookService.GetBooksAvailableInCart(cartid)).ConfigureAwait(true);
-        // }
+        [HttpGet("{userId}")]
+        public async Task<List<CartItemDto>> Get(int userId)
+        {
+            string cartid = _cartService.GetCartId(userId);
+            return await Task.FromResult(_bookService.GetBooksAvailableInCart(cartid)).ConfigureAwait(true);
+        }
 
         /// <summary>
         /// Add a single item into the shopping cart. If the item already exists, increase the quantity by one

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +24,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        //[HttpGet("{userId}")]
-        // public async Task<List<OrdersModel>> Get(int userId)
-        // {
-        //     return await Task.FromResult(_orderService.GetOrderList(userId)).ConfigureAwait(true);
-        // }
+        [HttpGet("{userId}")]
+        public async Task<List<OrdersDto>> Get(int userId)
+        {
+            return await Task.FromResult(_orderService.GetOrderList(userId)).ConfigureAwait(true);
+        }
     }
 }

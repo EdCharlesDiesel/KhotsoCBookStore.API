@@ -50,25 +50,17 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get all the books
         /// </summary>
-        /// <returns>An ActionResult of type Book</returns>
+        /// <returns>Returns books</returns>
         /// <response code="200">Returns the requested books</response>
         /// <response code="404">Returns no books found</response>
-        // [HttpGet()]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [ProducesDefaultResponseType]
-        // public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
-        // { 
-        //     if(_bookService.GetAllBooks == null)
-        //     {
-        //         return  NotFound();
-        //     }
-        //     else
-        //     {
-        //         return await Task.FromResult(_bookService.GetAllBooks()).ConfigureAwait(true);
-        //     }
-                        
-        // }
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        { 
+                return await Task.FromResult(_bookService.GetAllBooks()).ConfigureAwait(true);              
+        }
 
         /// <summary>
         /// Get the specific book with BookId
