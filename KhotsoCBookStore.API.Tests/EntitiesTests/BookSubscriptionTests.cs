@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Tests
+namespace KhotsoCBookStore.API.Tests.Entities
 {
     public class BookSubscriptionTests : IDisposable
     {
