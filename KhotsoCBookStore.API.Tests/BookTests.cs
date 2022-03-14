@@ -27,6 +27,17 @@ namespace KhotsoCBookStore.API.Tests
         }
 
         [Fact]
+        public void CanChangeId()
+        {
+            //Arrange
+            //Act
+            book.BookId = 2;
+
+            //Assert
+            Assert.Equal(2, book.BookId);
+        }
+
+        [Fact]
         public void CanChangeName()
         {
             //Arrange
