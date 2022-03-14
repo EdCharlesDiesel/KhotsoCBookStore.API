@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.002" branch-rate="0" version="1.9" timestamp="1647217157" lines-covered="7" lines-valid="3449" branches-covered="0" branches-valid="174">
+<coverage line-rate="0.0026" branch-rate="0" version="1.9" timestamp="1647226613" lines-covered="9" lines-valid="3449" branches-covered="0" branches-valid="174">
   <sources>
     <source>C:\Khotso\Projects\KhotsoCBookStore\KhotsoCBookStore.API\</source>
   </sources>
   <packages>
-    <package name="KhotsoCBookStore.API" line-rate="0.002" branch-rate="0" complexity="329">
+    <package name="KhotsoCBookStore.API" line-rate="0.0026" branch-rate="0" complexity="329">
       <classes>
         <class name="KhotsoCBookStore.API.Program" filename="Program.cs" line-rate="0" branch-rate="1" complexity="2">
           <methods>
@@ -6798,60 +6798,60 @@
           <methods>
             <method name="get_BookId" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="4" branch="False" />
+                <line number="8" hits="5" branch="False" />
               </lines>
             </method>
             <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="10" hits="4" branch="False" />
+                <line number="10" hits="5" branch="False" />
               </lines>
             </method>
             <method name="get_Text" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="12" hits="2" branch="False" />
+                <line number="12" hits="3" branch="False" />
               </lines>
             </method>
             <method name="get_Author" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="14" hits="2" branch="False" />
+                <line number="14" hits="3" branch="False" />
               </lines>
             </method>
             <method name="get_Category" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="16" hits="2" branch="False" />
+                <line number="16" hits="3" branch="False" />
               </lines>
             </method>
             <method name="get_PurchasePrice" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="18" hits="2" branch="False" />
+                <line number="18" hits="3" branch="False" />
               </lines>
             </method>
             <method name="get_CoverFileName" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="20" hits="2" branch="False" />
+                <line number="20" hits="5" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="8" hits="4" branch="False" />
-            <line number="10" hits="4" branch="False" />
-            <line number="12" hits="2" branch="False" />
-            <line number="14" hits="2" branch="False" />
-            <line number="16" hits="2" branch="False" />
-            <line number="18" hits="2" branch="False" />
-            <line number="20" hits="2" branch="False" />
+            <line number="8" hits="5" branch="False" />
+            <line number="10" hits="5" branch="False" />
+            <line number="12" hits="3" branch="False" />
+            <line number="14" hits="3" branch="False" />
+            <line number="16" hits="3" branch="False" />
+            <line number="18" hits="3" branch="False" />
+            <line number="20" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="KhotsoCBookStore.API.Entities.BookSubscription" filename="Entities\BookSubscription.cs" line-rate="0" branch-rate="1" complexity="3">
+        <class name="KhotsoCBookStore.API.Entities.BookSubscription" filename="Entities\BookSubscription.cs" line-rate="0.6666" branch-rate="1" complexity="3">
           <methods>
-            <method name="get_BookSubscriptionId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_BookSubscriptionId" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="10" hits="0" branch="False" />
+                <line number="10" hits="4" branch="False" />
               </lines>
             </method>
-            <method name="get_UserId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_UserId" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="12" hits="0" branch="False" />
+                <line number="12" hits="4" branch="False" />
               </lines>
             </method>
             <method name="get_DateCreated" signature="()" line-rate="0" branch-rate="1" complexity="1">
@@ -6861,8 +6861,8 @@
             </method>
           </methods>
           <lines>
-            <line number="10" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
+            <line number="10" hits="4" branch="False" />
+            <line number="12" hits="4" branch="False" />
             <line number="14" hits="0" branch="False" />
           </lines>
         </class>

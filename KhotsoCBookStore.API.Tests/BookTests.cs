@@ -47,6 +47,17 @@ namespace KhotsoCBookStore.API.Tests
             //Assert
             Assert.Equal("Data Structures And Algotithms", book.Name);
         }
+
+        [Fact]
+        public void CanChangeCoverFileName()
+        {
+            //Arrange
+            //Act
+            book.CoverFileName = "Default image";
+
+            //Assert
+            Assert.Equal("Default image", book.CoverFileName);
+        }
     }
 }
     
