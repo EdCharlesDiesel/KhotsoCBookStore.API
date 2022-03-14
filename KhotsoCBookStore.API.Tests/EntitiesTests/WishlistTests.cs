@@ -4,59 +4,56 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class WishlistTest : IDisposable
+    public class WishTest : IDisposable
     {
-        Wishlist wishlist;
-        public WishlistTest()
+        CustomerOrders customerOrder;
+        public WishTest()
         {
-            wishlist = new Wishlist
+            customerOrder = new CustomerOrders
             {
-                WishlistId = "1",
+                CartTotal = 1,
                 UserId = 1,
-                DateCreated = new DateTime()
-
+                DateCreated = new DateTime(2021, 12, 25)
             };
         }
 
         public void Dispose()
         {
-            wishlist = null;
+            customerOrder = null;
         }
-    
 
-    [Fact]
-    public void CanChangeWishlistId()
-    {
-        //Arrange
-        //Act
-        wishlist.WishlistId = "2";
+        [Fact]
+        public void CanChangeCartTotal()
+        {
+            //Arrange
+            //Act
+            customerOrder.CartTotal = 2;
 
-        //Assert
-        Assert.Equal("2", wishlist.WishlistId);
-    }
+            //Assert
+            Assert.Equal(2, customerOrder.CartTotal);
+        }
 
-    [Fact]
-    public void CanChangeUserId()
-    {
-        //Arrange
-        //Act
-        wishlist.UserId = 2;
+        [Fact]
+        public void CanChangeUserId()
+        {
+            //Arrange
+            //Act
+            customerOrder.UserId = 2;
 
-        //Assert
-        Assert.Equal(2, wishlist.UserId);
-    }
+            //Assert
+            Assert.Equal(2, customerOrder.UserId);
+        }
 
-    [Fact]
-    public void CanChangeDateCreated()
-    {
-        //Arrange
-        //Act
-        wishlist.DateCreated = new DateTime(2021, 02, 06);
-        var expected = new DateTime(2021, 02, 06);
+        [Fact]
+        public void CanChangeDateCreated()
+        {
+            //Arrange
+            //Act
+            customerOrder.DateCreated = new DateTime(2021, 02, 06);
+            var expected = new DateTime(2021, 02, 06);
 
-        //Assert
-        Assert.Equal(expected, wishlist.DateCreated);
+            //Assert
+            Assert.Equal(expected, customerOrder.DateCreated);
+        }
     }
 }
-}
-    

@@ -1,63 +1,95 @@
-// using System;
-// using Xunit;
-// using KhotsoCBookStore.API.Entities;
+using System;
+using Xunit;
+using KhotsoCBookStore.API.Dtos;
 
-// namespace KhotsoCBookStore.API.Tests.Entities
-// {
-//     public class BookTests : IDisposable
-//     {
-//         Book book;
-//         public BookTests()
-//         {
-//             book = new Book
-//             {
-//                 BookId = 1,
-//                 Name ="Data Structures And Algorithms",
-//                 Text ="Data Structures are really important",
-//                 Author = "EdCharlesDiesel",
-//                 Category="Back-End Development",
-//                 PurchasePrice=33.50M,
-//                 CoverFileName ="Default-Image"
-//             };
-//         }
+namespace KhotsoCBookStore.API.Tests.Dto
+{
+    public class RegisterDtoTests : IDisposable
+    {
+        RegisterDto registerDto;
+        public RegisterDtoTests()
+        {
+            registerDto = new RegisterDto
+            {
+                UserTypeId = 1,
+                Username ="admin",
+                Password ="admin",
+                FirstName ="Khotso",
+                LastName ="Mokhethi",
+                EmailAddress = "Mokhetkc@hotmai.com"
+            };
+        }
 
-//         public void Dispose()
-//         {
-//            book  = null;
-//         }
+        public void Dispose()
+        {
+           registerDto  = null;
+        }
 
-//         [Fact]
-//         public void CanChangeId()
-//         {
-//             //Arrange
-//             //Act
-//             book.BookId = 2;
+        [Fact]
+        public void CanChangeUserTypeId()
+        {
+            //Arrange
+            //Act
+            registerDto.UserTypeId = 2;
 
-//             //Assert
-//             Assert.Equal(2, book.BookId);
-//         }
+            //Assert
+            Assert.Equal(2, registerDto.UserTypeId);
+        }
 
-//         [Fact]
-//         public void CanChangeName()
-//         {
-//             //Arrange
-//             //Act
-//             book.Name = "Data Structures And Algotithms";
+        [Fact]
+        public void CanChangeUsername()
+        {
+            //Arrange
+            //Act
+            registerDto.Username = "Admin";
 
-//             //Assert
-//             Assert.Equal("Data Structures And Algotithms", book.Name);
-//         }
+            //Assert
+            Assert.Equal("Admin", registerDto.Username);
+        }
 
-//         [Fact]
-//         public void CanChangeCoverFileName()
-//         {
-//             //Arrange
-//             //Act
-//             book.CoverFileName = "Default image";
+        [Fact]
+        public void CanChangePassword()
+        {
+            //Arrange
+            //Act
+            registerDto.Password = "Admin";
 
-//             //Assert
-//             Assert.Equal("Default image", book.CoverFileName);
-//         }
-//     }
-// }
+            //Assert
+            Assert.Equal("Admin", registerDto.Password);
+        }
+
+        [Fact]
+        public void CanChangeFirstname()
+        {
+            //Arrange
+            //Act
+            registerDto.FirstName = "khotso";
+
+            //Assert
+            Assert.Equal("khotso", registerDto.FirstName);
+        }
+
+        [Fact]
+        public void CanChangeLastname()
+        {
+            //Arrange
+            //Act
+            registerDto.LastName = "Legwale";
+
+            //Assert
+            Assert.Equal("Legwale", registerDto.LastName);
+        }  
+
+        [Fact]
+        public void CanChangeEmailAddress()
+        {
+            //Arrange
+            //Act
+            registerDto.EmailAddress = "Ckhotso@gmail.com";
+
+            //Assert
+            Assert.Equal("Ckhotso@gmail.com", registerDto.EmailAddress);
+        }
+    }
+}
     

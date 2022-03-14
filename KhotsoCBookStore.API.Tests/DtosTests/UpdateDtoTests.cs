@@ -1,63 +1,71 @@
-// using System;
-// using Xunit;
-// using KhotsoCBookStore.API.Entities;
+using System;
+using Xunit;
+using KhotsoCBookStore.API.Dtos;
 
-// namespace KhotsoCBookStore.API.Tests.Entities
-// {
-//     public class BookTests : IDisposable
-//     {
-//         Book book;
-//         public BookTests()
-//         {
-//             book = new Book
-//             {
-//                 BookId = 1,
-//                 Name ="Data Structures And Algorithms",
-//                 Text ="Data Structures are really important",
-//                 Author = "EdCharlesDiesel",
-//                 Category="Back-End Development",
-//                 PurchasePrice=33.50M,
-//                 CoverFileName ="Default-Image"
-//             };
-//         }
+namespace KhotsoCBookStore.API.Tests.Dtos
+{
+    public class UpdateDtoTests : IDisposable
+    {
+        UpdateDto updateDto;
+        public UpdateDtoTests()
+        {
+            updateDto = new UpdateDto
+            {
+                Password = "admin",
+                Username = "admin",
+                FirstName = "Khotso",
+                LastName = "Mokhethi"
+            };
+        }
 
-//         public void Dispose()
-//         {
-//            book  = null;
-//         }
+        public void Dispose()
+        {
+           updateDto  = null;
+        }
 
-//         [Fact]
-//         public void CanChangeId()
-//         {
-//             //Arrange
-//             //Act
-//             book.BookId = 2;
+        [Fact]
+        public void CanChangeUsername()
+        {
+            //Arrange
+            //Act
+            updateDto.Username = "Admin";
 
-//             //Assert
-//             Assert.Equal(2, book.BookId);
-//         }
+            //Assert
+            Assert.Equal("Admin", updateDto.Username);
+        }
 
-//         [Fact]
-//         public void CanChangeName()
-//         {
-//             //Arrange
-//             //Act
-//             book.Name = "Data Structures And Algotithms";
+        [Fact]
+        public void CanChangePassword()
+        {
+            //Arrange
+            //Act
+            updateDto.Password = "Admin";
 
-//             //Assert
-//             Assert.Equal("Data Structures And Algotithms", book.Name);
-//         }
+            //Assert
+            Assert.Equal("Admin", updateDto.Password);
+        }
 
-//         [Fact]
-//         public void CanChangeCoverFileName()
-//         {
-//             //Arrange
-//             //Act
-//             book.CoverFileName = "Default image";
+        [Fact]
+        public void CanChangeFirstname()
+        {
+            //Arrange
+            //Act
+            updateDto.FirstName = "khotso";
 
-//             //Assert
-//             Assert.Equal("Default image", book.CoverFileName);
-//         }
-//     }
-// }
+            //Assert
+            Assert.Equal("khotso", updateDto.FirstName);
+        }
+
+        [Fact]
+        public void CanChangeLastname()
+        {
+            //Arrange
+            //Act
+            updateDto.LastName = "Legwale";
+
+            //Assert
+            Assert.Equal("Legwale", updateDto.LastName);
+        }    
+    }
+}
     
