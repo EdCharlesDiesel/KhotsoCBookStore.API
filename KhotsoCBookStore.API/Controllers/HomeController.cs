@@ -3,25 +3,18 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using MassTransit;
 using System.IO;
 
-using MessagingInterfacesConstants.Constants;
-using MessagingInterfacesConstants.Commands;
-using KhotsoCBookStore.API.ViewModels;
 
 namespace KhotsoCBookStore.API.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IBusControl _busControl;
 
-        public HomeController(ILogger<HomeController> logger, IBusControl busControl)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
-            _busControl = busControl;
+            _logger = logger ?? throw new ArgumentNullException(nameof(_logger));
         }
 
         public IActionResult Index()
@@ -34,35 +27,7 @@ namespace KhotsoCBookStore.API.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> RegisterOrder(OrderViewModel model)
-        {
-            MemoryStream memory = new MemoryStream();
-            using (var uploadedFile = model.File.OpenReadStream())
-            {
-                await uploadedFile.CopyToAsync(memory);
-
-            }
-
-            model.ImageData = memory.ToArray();
-            model.PictureUrl = model.File.FileName;
-            model.OrderId = Guid.NewGuid();
-            var sendToUri = new Uri($"{RabbitMqMassTransitConstants.RabbitMqUri }" +
-
-                $"{RabbitMqMassTransitConstants.RegisterOrderCommandQueue}");
-
-            var endPoint = await _busControl.GetSendEndpoint(sendToUri);
-            await endPoint.Send<IRegisterOrderCommand>(
-               new
-               {
-                   model.OrderId,
-                   model.UserEmail,
-                   model.ImageData,
-                   model.PictureUrl
-               });
-            ViewData["OrderId"] = model.OrderId;
-            return View("Thanks");
-        }
+        
 
 
 

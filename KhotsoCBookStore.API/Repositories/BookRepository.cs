@@ -112,15 +112,15 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
        
-        public List<CartItemDto> GetBooksAvailableInCart(string cartID)
+        public List<CartItemModel> GetBooksAvailableInCart(string cartID)
         {
             try
             {
-                List<CartItemDto> cartItemList = new List<CartItemDto>();
+                List<CartItemModel> cartItemList = new List<CartItemModel>();
                 foreach (CartItems item in _dbContext.CartItems.Where(x => x.CartId == cartID).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
-                    CartItemDto objCartItem = new CartItemDto
+                    CartItemModel objCartItem = new CartItemModel
                     {
                         Book = book,
                         Quantity = item.Quantity

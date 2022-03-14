@@ -17,9 +17,7 @@ namespace KhotsoCBookStore.API.Contexts
 
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<BookSubscription>  BookSubscription { get; set; }
-
         public virtual DbSet<BookSubscriptionItems>  BookSubscriptionItems { get; set; }
-
         public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItems> CartItems { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
@@ -30,8 +28,7 @@ namespace KhotsoCBookStore.API.Contexts
         public virtual DbSet<Wishlist> Wishlist { get; set; }
         public virtual DbSet<WishlistItems> WishlistItems { get; set; }
         
-
-             protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>(entity =>
             {
@@ -108,7 +105,7 @@ namespace KhotsoCBookStore.API.Contexts
             modelBuilder.Entity<CustomerOrders>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Customer__C3905BCF96C8F1E7");
+                    .HasName("PK__CustomerID__C3905BCF96C8F1E7");
 
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(20)
@@ -257,12 +254,12 @@ namespace KhotsoCBookStore.API.Contexts
              new Categories
              {
                  CategoryId = 1,
-                 CategoryName = "Web Development",
+                 CategoryName = "Front-End Development",
              },
              new Categories
              {
                  CategoryId = 2,
-                 CategoryName = "Programming",
+                 CategoryName = "Back-End Development",
              },
              new Categories
              {
@@ -272,7 +269,12 @@ namespace KhotsoCBookStore.API.Contexts
              new Categories
              {
                  CategoryId = 4,
-                 CategoryName = "Administration",
+                 CategoryName = "Data Structures and Algorithms",
+             },
+             new Categories
+             {
+                 CategoryId = 5,
+                 CategoryName = "System Analysis and Design",
              });
 
             OnModelCreatingPartial(modelBuilder);

@@ -24,11 +24,9 @@ namespace KhotsoCBookStore.API.Controllers
 
         public BookSubscriptionController(IBookSubscriptionService bookSubscriptionService, IBookService bookService, IUserService userService)
         {
-
-            _bookSubscriptionService = bookSubscriptionService;
-            _bookService = bookService;
-            _userService = userService;
-
+            _bookSubscriptionService = bookSubscriptionService ?? throw new ArgumentNullException(nameof(_bookSubscriptionService));
+            _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService)); 
+            _userService = userService ?? throw new ArgumentNullException(nameof(_userService));
         }
 
         /// <summary>
@@ -58,10 +56,10 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Clear the BookSubscription
+        /// Delete a book subscription
         /// </summary>
         /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <returns>0 or 1</returns>
         [Authorize]
         [HttpDelete("{userId}")]
         public int Delete(int userId)
@@ -69,7 +67,12 @@ namespace KhotsoCBookStore.API.Controllers
             return _bookSubscriptionService.ClearBookSubscription(userId);
         }
 
-        List<Book> GetUserBookSubscription(int userId)
+        /// <summary>
+        /// Get a list of user book subscriptions
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>List of book subscription</returns>
+        private  List<Book> GetUserBookSubscription(int userId)
         {
             bool user = _userService.isUserExists(userId);
             if (user)

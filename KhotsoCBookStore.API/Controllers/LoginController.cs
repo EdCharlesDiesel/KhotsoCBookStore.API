@@ -21,12 +21,12 @@ namespace KhotsoCBookStore.API.Controllers
 
         public LoginController(IConfiguration config, IUserService userService)
         {
-            _config = config;
-            _userService = userService;
+            _config = config ?? throw new ArgumentNullException(nameof(_config));
+            _userService = userService?? throw new ArgumentNullException(nameof(_userService));
         }
 
         /// <summary>
-        /// Login to the application
+        /// Login.
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
@@ -34,13 +34,11 @@ namespace KhotsoCBookStore.API.Controllers
         [AllowAnonymous]
         public IActionResult Login([FromBody] AuthenticateModel model)
         {
-
-
-
             var user = _userService.Authenticate(model.Username, model.Password);
-
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+            {
+            return BadRequest(new { message = "Username or password is incorrect" });
+            }  
 
             var tokenString = GenerateJSONWebToken(user);
             return Ok(new
@@ -48,12 +46,9 @@ namespace KhotsoCBookStore.API.Controllers
                 token = tokenString,
                 userDetails = user,
             });
-
-
-            //return response;
         }
 
-        string GenerateJSONWebToken(UserMaster userInfo)
+        private string GenerateJSONWebToken(UserMaster userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

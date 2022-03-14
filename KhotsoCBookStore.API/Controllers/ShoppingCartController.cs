@@ -4,7 +4,7 @@ using KhotsoCBookStore.API.Models;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 namespace KhotsoCBookStore.API.Controllers
 {
     [Route("api/ShoppingCart")]
@@ -15,12 +15,12 @@ namespace KhotsoCBookStore.API.Controllers
 
         public ShoppingCartController(ICartService cartService, IBookService bookService)
         {
-            _cartService = cartService;
-            _bookService = bookService;
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
+            _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService));
         }
 
         /// <summary>
-        /// Get the shopping cart for a user upon Login. If the user logs in for the first time, creates the shopping cart.
+        /// Get the shopping cart for user.
         /// </summary>
         /// <param name="oldUserId"></param>
         /// <param name="newUserId"></param>
@@ -39,12 +39,12 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpGet("{userId}")]
-        public async Task<List<CartItemDto>> Get(int userId)
-        {
-            string cartid = _cartService.GetCartId(userId);
-            return await Task.FromResult(_bookService.GetBooksAvailableInCart(cartid)).ConfigureAwait(true);
-        }
+        // [HttpGet("{userId}")]
+        // public async Task<List<CartItemModel>> Get(int userId)
+        // {
+        //     string cartid = _cartService.GetCartId(userId);
+        //     return await Task.FromResult(_bookService.GetBooksAvailableInCart(cartid)).ConfigureAwait(true);
+        // }
 
         /// <summary>
         /// Add a single item into the shopping cart. If the item already exists, increase the quantity by one
@@ -61,7 +61,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Reduces the quantity by one for an item in shopping cart
+        /// Update item in shopping cart
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="bookId"></param>
@@ -74,7 +74,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Delete a single item from the cart 
+        /// Delete a single item from the cart. 
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="bookId"></param>
@@ -87,7 +87,7 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Clear the shopping cart
+        /// Delete user cart.
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
