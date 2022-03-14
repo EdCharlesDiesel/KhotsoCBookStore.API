@@ -10,7 +10,8 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public CustomerOrdersTest()
         {
             customerOrders = new CustomerOrders
-            {
+            { 
+                OrderId = "1",
                 CartTotal = 1,
                 UserId=1,
                 DateCreated = new DateTime(2021,12,25)
@@ -20,6 +21,17 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public void Dispose()
         {
            customerOrders  = null;
+        }
+
+        [Fact]
+        public void CanChangeOrderId()
+        {
+            //Arrange
+            //Act
+            customerOrders.OrderId = "2";
+            
+            //Assert
+            Assert.Equal("2", customerOrders.OrderId);
         }
 
         [Fact]
