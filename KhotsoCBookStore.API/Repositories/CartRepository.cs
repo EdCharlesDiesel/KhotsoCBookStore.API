@@ -22,7 +22,7 @@ namespace KhotsoCBookStore.API.Repositories
             string cartId = GetCartId(userId);
             int quantity = 1;
 
-            CartItems existingCartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
+            CartItem existingCartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
 
             if (existingCartItem != null)
             {
@@ -32,7 +32,7 @@ namespace KhotsoCBookStore.API.Repositories
             }
             else
             {
-                CartItems cartItems = new CartItems
+                CartItem cartItems = new CartItem
                 {
                     CartId = cartId,
                     ProductId = bookId,
@@ -47,7 +47,7 @@ namespace KhotsoCBookStore.API.Repositories
         {
             try
             {
-                Cart cart = _dbContext.Cart.FirstOrDefault(x => x.UserId == userId);
+                Cart cart = _dbContext.Carts.FirstOrDefault(x => x.UserId == userId);
 
                 if (cart != null)
                 {
@@ -76,7 +76,7 @@ namespace KhotsoCBookStore.API.Repositories
                     DateCreated = DateTime.Now.Date
                 };
 
-                _dbContext.Cart.Add(shoppingCart);
+                _dbContext.Carts.Add(shoppingCart);
                 _dbContext.SaveChanges();
 
                 return shoppingCart.CartId;
@@ -92,7 +92,7 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 string cartId = GetCartId(userId);
-                CartItems cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
+                CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
 
                 _dbContext.CartItems.Remove(cartItem);
                 _dbContext.SaveChanges();
@@ -108,7 +108,7 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 string cartId = GetCartId(userId);
-                CartItems cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
+                CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
 
                 cartItem.Quantity -= 1;
                 _dbContext.Entry(cartItem).State = EntityState.Modified;
@@ -145,11 +145,11 @@ namespace KhotsoCBookStore.API.Repositories
                     string tempCartId = GetCartId(tempUserId);
                     string permCartId = GetCartId(permUserId);
 
-                    List<CartItems> tempCartItems = _dbContext.CartItems.Where(x => x.CartId == tempCartId).ToList();
+                    List<CartItem> tempCartItem = _dbContext.CartItems.Where(x => x.CartId == tempCartId).ToList();
 
-                    foreach (CartItems item in tempCartItems)
+                    foreach (CartItem item in tempCartItem)
                     {
-                        CartItems cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == item.ProductId && x.CartId == permCartId);
+                        CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == item.ProductId && x.CartId == permCartId);
 
                         if (cartItem != null)
                         {
@@ -158,7 +158,7 @@ namespace KhotsoCBookStore.API.Repositories
                         }
                         else
                         {
-                            CartItems newCartItem = new CartItems
+                            CartItem newCartItem = new CartItem
                             {
                                 CartId = permCartId,
                                 ProductId = item.ProductId,
@@ -183,11 +183,11 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 string cartId = GetCartId(userId);
-                List<CartItems> cartItem = _dbContext.CartItems.Where(x => x.CartId == cartId).ToList();
+                List<CartItem> cartItem = _dbContext.CartItems.Where(x => x.CartId == cartId).ToList();
 
                 if (!string.IsNullOrEmpty(cartId))
                 {
-                    foreach (CartItems item in cartItem)
+                    foreach (CartItem item in cartItem)
                     {
                         _dbContext.CartItems.Remove(item);
                         _dbContext.SaveChanges();
@@ -203,8 +203,8 @@ namespace KhotsoCBookStore.API.Repositories
 
         void DeleteCart(string cartId)
         {
-            Cart cart = _dbContext.Cart.Find(cartId);
-            _dbContext.Cart.Remove(cart);
+            Cart cart = _dbContext.Carts.Find(cartId);
+           // _dbContext.CartItems.Remove(CartItem);
             _dbContext.SaveChanges();
         }
     }

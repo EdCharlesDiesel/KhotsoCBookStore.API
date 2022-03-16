@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class WishlistItems
+    public partial class WishListItem
     {
-        public int WishlistItemId { get; set; }
+        public int WishListItemId { get; set; }
 
-        public string WishlistId { get; set; }
+        public string WishListId { get; set; }
         
         public int ProductId { get; set; }
     }

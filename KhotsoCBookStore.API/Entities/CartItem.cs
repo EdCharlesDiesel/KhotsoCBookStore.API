@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class CartItems
+    public partial class CartItem
     {
         public int CartItemId { get; set; }
 

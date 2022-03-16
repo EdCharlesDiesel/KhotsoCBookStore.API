@@ -40,6 +40,9 @@ namespace KhotsoCBookStore.API.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
 
@@ -131,67 +134,6 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasKey("BookId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            Author = "Charles",
-                            Category = "Development",
-                            CoverFileName = "Default_image",
-                            Name = "Deep Learning with JavaScript",
-                            PurchasePrice = 300m,
-                            Text = "Deep learning has transformed the fields of computer vision, image processing, and natural language applications."
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            Author = "Kagiso",
-                            Category = "Development",
-                            CoverFileName = "Default_image",
-                            Name = "Webdevelopment-101",
-                            PurchasePrice = 300m,
-                            Text = "Learn how to make better decisions and write cleaner Ruby code. This book shows you how to avoid messy code that is hard to test and which cripples productivity."
-                        });
-                });
-
-            modelBuilder.Entity("KhotsoCBookStore.API.Entities.BookSubscription", b =>
-                {
-                    b.Property<string>("BookSubscriptionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserID");
-
-                    b.HasKey("BookSubscriptionId")
-                        .HasName("PK__BookSubscriptionId");
-
-                    b.ToTable("BookSubscription");
-                });
-
-            modelBuilder.Entity("KhotsoCBookStore.API.Entities.BookSubscriptionItems", b =>
-                {
-                    b.Property<int>("BookSubscriptionItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .IsUnicode(false)
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BookSubscriptionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookSubscriptionItemId")
-                        .HasName("PK__BookSubscriptionItemId");
-
-                    b.ToTable("BookSubscriptionItems");
                 });
 
             modelBuilder.Entity("KhotsoCBookStore.API.Entities.Cart", b =>
@@ -210,10 +152,10 @@ namespace KhotsoCBookStore.API.Migrations
 
                     b.HasKey("CartId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("KhotsoCBookStore.API.Entities.CartItems", b =>
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.CartItem", b =>
                 {
                     b.Property<int>("CartItemId")
                         .ValueGeneratedOnAdd()
@@ -233,7 +175,7 @@ namespace KhotsoCBookStore.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CartItemId")
-                        .HasName("PK__CartItem__488B0B0AA0297D1C");
+                        .HasName("PK__CartItemId");
 
                     b.ToTable("CartItems");
                 });
@@ -253,31 +195,9 @@ namespace KhotsoCBookStore.API.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.HasKey("CategoryId")
-                        .HasName("PK__Categori__19093A2B46B8DFC9");
+                        .HasName("PK__CategoryID");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            CategoryName = "Web Development"
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            CategoryName = "Programming"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            CategoryName = "Databases"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            CategoryName = "Administration"
-                        });
                 });
 
             modelBuilder.Entity("KhotsoCBookStore.API.Entities.CustomerOrderDetails", b =>
@@ -303,7 +223,7 @@ namespace KhotsoCBookStore.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailsId")
-                        .HasName("PK__Customer__9DD74DBD81D9221B");
+                        .HasName("PK__OrderId");
 
                     b.ToTable("CustomerOrderDetails");
                 });
@@ -326,12 +246,113 @@ namespace KhotsoCBookStore.API.Migrations
                         .HasColumnName("UserID");
 
                     b.HasKey("OrderId")
-                        .HasName("PK__Customer__C3905BCF96C8F1E7");
+                        .HasName("PK__CustomerID");
 
                     b.ToTable("CustomerOrders");
                 });
 
-            modelBuilder.Entity("KhotsoCBookStore.API.Entities.Wishlist", b =>
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.Employee", b =>
+                {
+                    b.Property<Guid>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfEndEmployment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfStartEmployment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EmployeeId");
+
+                    b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            EmployeeId = new Guid("21abdd7d-9bfc-41ae-b359-7999b80a8fef"),
+                            CreatedBy = "System",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1988, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfEndEmployment = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfStartEmployment = new DateTime(2022, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeNumber = "EMP-001",
+                            FirstName = "Khotso",
+                            LastName = "Mokhethi",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.ProductSubscription", b =>
+                {
+                    b.Property<string>("ProductSubscriptionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserID");
+
+                    b.HasKey("ProductSubscriptionId")
+                        .HasName("PK__ProductSubscriptionId");
+
+                    b.ToTable("ProductSubscriptions");
+                });
+
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.ProductSubscriptionItem", b =>
+                {
+                    b.Property<int>("ProductSubscriptionItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductSubscriptionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductSubscriptionItemId")
+                        .HasName("PK__BookSubscriptionItemId");
+
+                    b.ToTable("ProductSubscriptionItems");
+                });
+
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.WishList", b =>
                 {
                     b.Property<string>("WishlistId")
                         .HasMaxLength(36)
@@ -347,12 +368,12 @@ namespace KhotsoCBookStore.API.Migrations
 
                     b.HasKey("WishlistId");
 
-                    b.ToTable("Wishlist");
+                    b.ToTable("WishLists");
                 });
 
-            modelBuilder.Entity("KhotsoCBookStore.API.Entities.WishlistItems", b =>
+            modelBuilder.Entity("KhotsoCBookStore.API.Entities.WishListItem", b =>
                 {
-                    b.Property<int>("WishlistItemId")
+                    b.Property<int>("WishListItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -360,16 +381,16 @@ namespace KhotsoCBookStore.API.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WishlistId")
+                    b.Property<string>("WishListId")
                         .IsRequired()
                         .HasMaxLength(36)
                         .IsUnicode(false)
                         .HasColumnType("varchar(36)");
 
-                    b.HasKey("WishlistItemId")
+                    b.HasKey("WishListItemId")
                         .HasName("PK__WishlistItemId");
 
-                    b.ToTable("WishlistItems");
+                    b.ToTable("WishListItems");
                 });
 #pragma warning restore 612, 618
         }

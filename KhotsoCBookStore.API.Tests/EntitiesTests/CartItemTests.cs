@@ -4,12 +4,12 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class CartItemsTests : IDisposable
+    public class CartItemTests : IDisposable
     {
-        CartItems cartItems;
-        public CartItemsTests()
+        CartItem cartItems;
+        public CartItemTests()
         {
-            cartItems = new CartItems
+            cartItems = new CartItem
             {
                 CartId = "1",
                 CartItemId = 1,

@@ -1,4 +1,5 @@
-﻿using KhotsoCBookStore.API.Authentication;
+﻿using System;
+using KhotsoCBookStore.API.Authentication;
 using KhotsoCBookStore.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,18 +16,19 @@ namespace KhotsoCBookStore.API.Contexts
         {
         }
 
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<ProductSubscription>  ProductSubscription { get; set; }
+        public virtual DbSet<ProductSubscription>  ProductSubscriptions { get; set; }
         public virtual DbSet<ProductSubscriptionItem>  ProductSubscriptionItems { get; set; }
-        public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<CartItems> CartItems { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<CustomerOrderDetails> CustomerOrderDetails { get; set; }
         public virtual DbSet<CustomerOrders> CustomerOrders { get; set; }
         public virtual DbSet<UserMaster> UserMaster { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
-        public virtual DbSet<Wishlist> Wishlist { get; set; }
-        public virtual DbSet<WishlistItems> WishlistItems { get; set; }
+        public virtual DbSet<WishList> WishLists { get; set; }
+        public virtual DbSet<WishListItem> WishListItems { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,7 +67,7 @@ namespace KhotsoCBookStore.API.Contexts
                 entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
-            modelBuilder.Entity<CartItems>(entity =>
+            modelBuilder.Entity<CartItem>(entity =>
             {
                 entity.HasKey(e => e.CartItemId)
                     .HasName("PK__CartItemId");
@@ -168,7 +170,7 @@ namespace KhotsoCBookStore.API.Contexts
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Wishlist>(entity =>
+            modelBuilder.Entity<WishList>(entity =>
             {
                 entity.Property(e => e.WishlistId)
                     .HasMaxLength(36)
@@ -179,12 +181,12 @@ namespace KhotsoCBookStore.API.Contexts
                 entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
-            modelBuilder.Entity<WishlistItems>(entity =>
+            modelBuilder.Entity<WishListItem>(entity =>
             {
-                entity.HasKey(e => e.WishlistItemId)
+                entity.HasKey(e => e.WishListItemId)
                     .HasName("PK__WishlistItemId");
 
-                entity.Property(e => e.WishlistId)
+                entity.Property(e => e.WishListId)
                     .IsRequired()
                     .HasMaxLength(36)
                     .IsUnicode(false);
@@ -215,27 +217,39 @@ namespace KhotsoCBookStore.API.Contexts
                    }
                 );
 
-              modelBuilder.Entity<Book>().HasData(
-                 new Book
-                 {
-                     BookId =1,
-                     Name = "Deep Learning with JavaScript",
-                     Text = "Deep learning has transformed the fields of computer vision, image processing, and natural language applications.",
-                     Author ="Charles",
-                     CoverFileName ="Default_image",
-                     PurchasePrice = 300,
-                     Category = "Development"
-                 },
-                   new Book
-                 {
-                     BookId =2,
-                     Name = "Webdevelopment-101",
-                     Text ="Learn how to make better decisions and write cleaner Ruby code. This book shows you how to avoid messy code that is hard to test and which cripples productivity.",
-                     Author ="Kagiso",
-                     CoverFileName ="Default_image",
-                     PurchasePrice = 300,
-                     Category = "Development"
-                 }
+            //   modelBuilder.Entity<Book>().HasData(
+            //      new Book
+            //      {
+            //          BookId =1,
+            //          Name = "Deep Learning with JavaScript",
+            //          Text = "Deep learning has transformed the fields of computer vision, image processing, and natural language applications.",
+            //          Author ="Charles",
+            //          CoverFileName ="Default_image",
+            //          PurchasePrice = 300,
+            //          Category = "Development"
+            //      },
+            //        new Book
+            //      {
+            //          BookId =2,
+            //          Name = "Webdevelopment-101",
+            //          Text ="Learn how to make better decisions and write cleaner Ruby code. This book shows you how to avoid messy code that is hard to test and which cripples productivity.",
+            //          Author ="Kagiso",
+            //          CoverFileName ="Default_image",
+            //          PurchasePrice = 300,
+            //          Category = "Development"
+            //      }
+            //     );
+
+                modelBuilder.Entity<Employee>().HasData
+                (
+                    new Employee
+                    {
+                        FirstName = "Khotso",
+                        LastName = "Mokhethi",
+                        EmployeeNumber = "EMP-001",
+                        DateOfBirth = new System.DateTime(1988,08,05),
+                        DateOfStartEmployment = new  DateTime(2022,03,16)
+                    }
                 );
 
             //modelBuilder.Entity<UserMaster>().HasData(
@@ -251,32 +265,32 @@ namespace KhotsoCBookStore.API.Contexts
             //     }
             //    );
 
-            modelBuilder.Entity<Categories>().HasData(
-             new Categories
-             {
-                 CategoryId = 1,
-                 CategoryName = "Front-End Development",
-             },
-             new Categories
-             {
-                 CategoryId = 2,
-                 CategoryName = "Back-End Development",
-             },
-             new Categories
-             {
-                 CategoryId = 3,
-                 CategoryName = "Databases",
-             },
-             new Categories
-             {
-                 CategoryId = 4,
-                 CategoryName = "Data Structures and Algorithms",
-             },
-             new Categories
-             {
-                 CategoryId = 5,
-                 CategoryName = "System Analysis and Design",
-             });
+            // modelBuilder.Entity<Categories>().HasData(
+            //  new Categories
+            //  {
+            //      CategoryId = 1,
+            //      CategoryName = "Front-End Development",
+            //  },
+            //  new Categories
+            //  {
+            //      CategoryId = 2,
+            //      CategoryName = "Back-End Development",
+            //  },
+            //  new Categories
+            //  {
+            //      CategoryId = 3,
+            //      CategoryName = "Databases",
+            //  },
+            //  new Categories
+            //  {
+            //      CategoryId = 4,
+            //      CategoryName = "Data Structures and Algorithms",
+            //  },
+            //  new Categories
+            //  {
+            //      CategoryId = 5,
+            //      CategoryName = "System Analysis and Design",
+            //  });
 
             OnModelCreatingPartial(modelBuilder);
         }

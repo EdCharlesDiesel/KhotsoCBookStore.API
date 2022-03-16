@@ -1,19 +1,32 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Employee
+    public class Employee: AuditableEntity
     {
-        public int EmployeeId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid EmployeeId { get; set; } =  Guid.NewGuid();
 
-        public string Name { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string FirstName { get; set; }
 
-        public string Text { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string LastName { get; set; }
         
-        public string Author { get; set; }
+        [Required]
+        public string EmployeeNumber { get; set; }
         
-        public string Category { get; set; }
+        [Required]
+        public DateTime DateOfBirth { get; set; }
         
-        public decimal PurchasePrice { get; set; }        
+        [Required]
+        public DateTime DateOfStartEmployment { get; set; }
         
-        public string CoverFileName { get; set; }
+        public DateTime DateOfEndEmployment { get; set; }
     }
 }

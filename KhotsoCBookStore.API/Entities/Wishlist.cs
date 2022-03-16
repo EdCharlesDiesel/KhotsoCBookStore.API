@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Wishlist
+    public partial class WishList
     {
         public string WishlistId { get; set; }
 

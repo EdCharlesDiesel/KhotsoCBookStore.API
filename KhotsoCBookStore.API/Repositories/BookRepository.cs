@@ -118,7 +118,7 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 List<CartItemDto> cartItemList = new List<CartItemDto>();
-                foreach (CartItems item in _dbContext.CartItems.Where(x => x.CartId == cartID).ToList())
+                foreach (CartItem item in _dbContext.CartItems.Where(x => x.CartId == cartID).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
                     CartItemDto objCartItem = new CartItemDto
@@ -142,7 +142,7 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 List<Book> wishlist = new List<Book>();
-                foreach (WishlistItems item in _dbContext.WishlistItems.Where(x => x.WishlistId == wishlistID).ToList())
+                foreach (WishListItem item in _dbContext.WishListItems.Where(x => x.WishListId == wishlistID).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
                     wishlist.Add(book);

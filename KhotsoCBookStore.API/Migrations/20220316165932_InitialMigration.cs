@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KhotsoCBookStore.API.Migrations
 {
-    public partial class addedbookSubId : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,34 +26,6 @@ namespace KhotsoCBookStore.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookSubscriptions",
-                columns: table => new
-                {
-                    BookSubId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BookName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    CoverFileName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__BookSubId", x => x.BookSubId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cart",
-                columns: table => new
-                {
-                    CartId = table.Column<string>(type: "varchar(36)", unicode: false, maxLength: 36, nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cart", x => x.CartId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CartItems",
                 columns: table => new
                 {
@@ -65,7 +37,20 @@ namespace KhotsoCBookStore.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__CartItem__488B0B0AA0297D1C", x => x.CartItemId);
+                    table.PrimaryKey("PK__CartItemId", x => x.CartItemId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    CartId = table.Column<string>(type: "varchar(36)", unicode: false, maxLength: 36, nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.CartId);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +63,7 @@ namespace KhotsoCBookStore.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Categori__19093A2B46B8DFC9", x => x.CategoryID);
+                    table.PrimaryKey("PK__CategoryID", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,7 +79,7 @@ namespace KhotsoCBookStore.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Customer__9DD74DBD81D9221B", x => x.OrderDetailsId);
+                    table.PrimaryKey("PK__OrderId", x => x.OrderDetailsId);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,7 +93,55 @@ namespace KhotsoCBookStore.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Customer__C3905BCF96C8F1E7", x => x.OrderId);
+                    table.PrimaryKey("PK__CustomerID", x => x.OrderId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfStartEmployment = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfEndEmployment = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSubscriptionItems",
+                columns: table => new
+                {
+                    ProductSubscriptionItemId = table.Column<int>(type: "int", unicode: false, maxLength: 36, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductSubscriptionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__BookSubscriptionItemId", x => x.ProductSubscriptionItemId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSubscriptions",
+                columns: table => new
+                {
+                    ProductSubscriptionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__ProductSubscriptionId", x => x.ProductSubscriptionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,16 +150,18 @@ namespace KhotsoCBookStore.API.Migrations
                 {
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    LastName = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
+                    LastName = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    Password = table.Column<string>(type: "varchar(40)", unicode: false, maxLength: 40, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     UserTypeID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__UserMast__1788CCAC2694A2ED", x => x.UserID);
+                    table.PrimaryKey("PK__UserMasterID", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,7 +178,21 @@ namespace KhotsoCBookStore.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Wishlist",
+                name: "WishListItems",
+                columns: table => new
+                {
+                    WishListItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WishListId = table.Column<string>(type: "varchar(36)", unicode: false, maxLength: 36, nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__WishlistItemId", x => x.WishListItemId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishLists",
                 columns: table => new
                 {
                     WishlistId = table.Column<string>(type: "varchar(36)", unicode: false, maxLength: 36, nullable: false),
@@ -152,66 +201,23 @@ namespace KhotsoCBookStore.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wishlist", x => x.WishlistId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WishlistItems",
-                columns: table => new
-                {
-                    WishlistItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WishlistId = table.Column<string>(type: "varchar(36)", unicode: false, maxLength: 36, nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Wishlist__171E21A16A5148A4", x => x.WishlistItemId);
+                    table.PrimaryKey("PK_WishLists", x => x.WishlistId);
                 });
 
             migrationBuilder.InsertData(
-                table: "BookSubscriptions",
-                columns: new[] { "BookSubId", "BookName", "CoverFileName", "UserID" },
-                values: new object[,]
-                {
-                    { 1, "Webdevelopment-101", "Default_image", 1 },
-                    { 2, "Webdevelopment-102", "Default_image", 1 },
-                    { 3, "Webdevelopment-103", "Default_image", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Books",
-                columns: new[] { "BookID", "Author", "Category", "CoverFileName", "Name", "PurchasePrice", "Text" },
-                values: new object[,]
-                {
-                    { 1, "Charles", "Development", "Default_image", "Deep Learning with JavaScript", 300m, "Deep learning has transformed the fields of computer vision, image processing, and natural language applications." },
-                    { 2, "Kagiso", "Development", "Default_image", "Webdevelopment-101", 300m, "Learn how to make better decisions and write cleaner Ruby code. This book shows you how to avoid messy code that is hard to test and which cripples productivity." }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryID", "CategoryName" },
-                values: new object[,]
-                {
-                    { 1, "Web Development" },
-                    { 2, "Programming" },
-                    { 3, "Databases" },
-                    { 4, "Administration" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "UserMaster",
-                columns: new[] { "UserID", "EmailAddress", "FirstName", "LastName", "Password", "UserTypeID", "Username" },
-                values: new object[] { 1, "Mokhetkc@hotmail.com", "Khotso", "Mokhethi", "IamBatman", 1, "Batman" });
+                table: "Employees",
+                columns: new[] { "EmployeeId", "CreatedBy", "CreatedOn", "DateOfBirth", "DateOfEndEmployment", "DateOfStartEmployment", "EmployeeNumber", "FirstName", "LastName", "UpdatedBy", "UpdatedOn" },
+                values: new object[] { new Guid("21abdd7d-9bfc-41ae-b359-7999b80a8fef"), "System", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1988, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "EMP-001", "Khotso", "Mokhethi", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "UserType",
                 columns: new[] { "UserTypeID", "UserTypeName" },
-                values: new object[,]
-                {
-                    { 1, "Admin" },
-                    { 2, "User" }
-                });
+                values: new object[] { 2, "User" });
+
+            migrationBuilder.InsertData(
+                table: "UserType",
+                columns: new[] { "UserTypeID", "UserTypeName" },
+                values: new object[] { 1, "Admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -220,13 +226,10 @@ namespace KhotsoCBookStore.API.Migrations
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "BookSubscriptions");
-
-            migrationBuilder.DropTable(
-                name: "Cart");
-
-            migrationBuilder.DropTable(
                 name: "CartItems");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -238,16 +241,25 @@ namespace KhotsoCBookStore.API.Migrations
                 name: "CustomerOrders");
 
             migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "ProductSubscriptionItems");
+
+            migrationBuilder.DropTable(
+                name: "ProductSubscriptions");
+
+            migrationBuilder.DropTable(
                 name: "UserMaster");
 
             migrationBuilder.DropTable(
                 name: "UserType");
 
             migrationBuilder.DropTable(
-                name: "Wishlist");
+                name: "WishListItems");
 
             migrationBuilder.DropTable(
-                name: "WishlistItems");
+                name: "WishLists");
         }
     }
 }

@@ -69,7 +69,7 @@ namespace KhotsoCBookStore.API.Repositories
         {
             try
             {
-                ProductSubscription productSubscription = _dbContext.ProductSubscription.FirstOrDefault(x => x.UserId == userId);
+                ProductSubscription productSubscription = _dbContext.ProductSubscriptions.FirstOrDefault(x => x.UserId == userId);
 
                 if (productSubscription != null)
                 {
@@ -98,7 +98,7 @@ namespace KhotsoCBookStore.API.Repositories
                     DateCreated = DateTime.Now.Date
                 };
 
-                _dbContext.ProductSubscription.Add(productSubscription);
+                _dbContext.ProductSubscriptions.Add(productSubscription);
                 _dbContext.SaveChanges();
 
                 return productSubscription.ProductSubscriptionId;

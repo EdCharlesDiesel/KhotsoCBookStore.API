@@ -6,10 +6,10 @@ namespace KhotsoCBookStore.API.Entities
     public abstract class AuditableEntity
     {
         [Required]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = new DateTime();
 
         [Required]
-        public string CreatedBy { get; set; }
+        public string CreatedBy { get; set; } = "System";
 
         public DateTime UpdatedOn { get; set; }
 
