@@ -1,9 +1,11 @@
 ﻿using System;
 
+
 namespace KhotsoCBookStore.API.Entities
 {
-    public class CartItem
+    public class CartItem: AuditableEntity
     {
+        
         public Guid CartItemId { get; set; }
 
         public Guid CartId { get; set; }
