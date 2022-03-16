@@ -252,46 +252,6 @@ namespace KhotsoCBookStore.API.Contexts
                     }
                 );
 
-            //modelBuilder.Entity<UserMaster>().HasData(
-            //     new UserMaster
-            //     {
-            //         UserTypeId = 1,
-            //         FirstName = "Khotso",
-            //         LastName = "Mokhethi",
-            //         EmailAddress ="Mokhetkc@hotmail.com",                     
-            //         Username = "Batman",
-            //         Password = "IamBatman",
-            //         UserId = 1
-            //     }
-            //    );
-
-            // modelBuilder.Entity<Categories>().HasData(
-            //  new Categories
-            //  {
-            //      CategoryId = 1,
-            //      CategoryName = "Front-End Development",
-            //  },
-            //  new Categories
-            //  {
-            //      CategoryId = 2,
-            //      CategoryName = "Back-End Development",
-            //  },
-            //  new Categories
-            //  {
-            //      CategoryId = 3,
-            //      CategoryName = "Databases",
-            //  },
-            //  new Categories
-            //  {
-            //      CategoryId = 4,
-            //      CategoryName = "Data Structures and Algorithms",
-            //  },
-            //  new Categories
-            //  {
-            //      CategoryId = 5,
-            //      CategoryName = "System Analysis and Design",
-            //  });
-
             OnModelCreatingPartial(modelBuilder);
         }
 

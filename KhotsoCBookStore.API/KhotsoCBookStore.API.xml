@@ -58,51 +58,55 @@
             <param name="checkedOutItems"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.GetBooksAPIOptions">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.GetEmployeesAPIOptions">
             <summary>
-            List of all the actions the API supports
+            Get supported resource actions
             </summary>
-            <returns>An IActionResult of actions allowed</returns>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.GetBooks">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.GetEmployees">
             <summary>
-            Get all the books
+            Get all employees resources.
             </summary>
-            <returns>Returns books</returns>
-            <response code="200">Returns the requested books</response>
-            <response code="404">Returns no books found</response>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employees.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Get(System.Int32)">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.GetEmployee(System.Guid)">
             <summary>
-            Get the specific book with BookId
+            Get a single employee resource by employeeId.
             </summary>
-            <param name="bookId"></param>
-            <returns></returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.CategoryDetails">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.CreateEmployee(KhotsoCBookStore.API.Dtos.CreateEmployeeDto)">
             <summary>
-            Get the list of categories.
+            Create employee resource by employeeId.
             </summary>
-            <returns></returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Post">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.UpdateEmployee(System.Guid,KhotsoCBookStore.API.Dtos.EmployeeForUpdateDto)">
             <summary>
-            Add a new book.
+            Update employee resource by employeeId.
             </summary>
-            <returns></returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Put">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.PartiallyUpdateEmployee(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.EmployeeForUpdateDto})">
             <summary>
-            Update a specific book.
+            Partial update employee resource by employeeId.
             </summary>
-            <returns></returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Delete(System.Int32)">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeeController.DeleteEmployee(System.Guid)">
             <summary>
-            Delete a specific book.
+            Delete a single employee resource by employeeId.
             </summary>
-            <param name="bookId"></param>
-            <returns></returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Dtos.AuthenticateDto)">
             <summary>
