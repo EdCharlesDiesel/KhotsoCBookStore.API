@@ -6,7 +6,7 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IOrderService
     {
-        void CreateOrder(Guid userId, OrdersDto orderDetails);
-        List<OrdersDto> GetOrderList(Guid userId);
+        void CreateOrder(Guid userId, OrderDto orderDetails);
+        List<OrderDto> GetOrderList(Guid userId);
     }
 }

@@ -19,7 +19,7 @@
 
 //         public void AddBookToCart(Guid userId, Guid bookId)
 //         {
-//             string cartId = GetCartId(userId);
+//             var cartId = GetCartId(userId);
 //             int quantity = 1;
 
 //             CartItem existingCartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
@@ -51,7 +51,7 @@
 
 //                 if (cart != null)
 //                 {
-//                     return cart.CartId;
+//                     return cart.CartId.ToString();
 //                 }
 //                 else
 //                 {
@@ -71,15 +71,15 @@
 //             {
 //                 Cart shoppingCart = new Cart
 //                 {
-//                     CartId = Guid.NewGuid().ToString(),
+//                     CartId = Guid.NewGuid(),
 //                     UserId = userId,
-//                     DateCreated = DateTime.Now.Date
+//                     CreatedOn = DateTime.Now.Date
 //                 };
 
 //                 _dbContext.Carts.Add(shoppingCart);
 //                 _dbContext.SaveChanges();
 
-//                 return shoppingCart.CartId;
+//                 return shoppingCart.CartId.ToString();
 //             }
 //             catch
 //             {
@@ -108,7 +108,8 @@
 //             try
 //             {
 //                 string cartId = GetCartId(userId);
-//                 CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
+//                 CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId 
+//                 && x.CartId == cartId);
 
 //                 cartItem.Quantity -= 1;
 //                 _dbContext.Entry(cartItem).State = EntityState.Modified;

@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using KhotsoCBookStore.API.Authentication;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Customer : Person
+    public class Customer : UserMaster
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

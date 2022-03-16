@@ -9,14 +9,15 @@ namespace KhotsoCBookStore.API.Helpers
     {
         public UserMappingProfile()
         {
-            CreateMap<UserMaster, UserMaster>();
+            // CreateMap<UserMaster, UserMaster>();
 
-            CreateMap<RegisterDto, UserMaster>();
+            // CreateMap<RegisterDto, UserMaster>();
             
-            CreateMap<UpdateDto, UserMaster>();
+            // CreateMap<UpdateDto, UserMaster>();
             
-            CreateMap<Employee,EmployeeDto>();
-             CreateMap<CreateEmployeeDto,Employee>();
+            // CreateMap<Employee,EmployeeDto>();
+
+            //  CreateMap<CreateEmployeeDto,Employee>();
         }
     }
 }

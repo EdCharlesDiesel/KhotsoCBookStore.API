@@ -10,11 +10,11 @@ namespace KhotsoCBookStore.API.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid AuthorId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You should provide a first name value.")]
         [MaxLength(150)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You should provide a last name value.")]
         [MaxLength(150)]
         public string LastName { get; set; }
 

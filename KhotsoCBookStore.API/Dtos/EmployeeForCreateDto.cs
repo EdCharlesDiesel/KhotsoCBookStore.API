@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Dtos
 {
-    public class CreateEmployeeDto
+    public class EmployeeForCreateDto
     {
         [Required]
         public string FirstName { get; set; }
