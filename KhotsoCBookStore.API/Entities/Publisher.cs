@@ -1,11 +1,11 @@
-using KhotsoCBookStore.API.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Publisher: AuditableEntity
+    public class Publisher : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,6 +14,13 @@ namespace KhotsoCBookStore.API.Entities
         [Required]
         public string Name { get; set; }
 
-        public int MyProperty { get; set; }
+        [Required]
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+
+        [MaxLength(20)]
+        public int PhoneNumber { get; set; }
+
+        public ICollection<Book> MyProperty { get; set; } = new List<Book>();
     }
 }

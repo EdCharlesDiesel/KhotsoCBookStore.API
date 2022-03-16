@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
@@ -21,10 +22,13 @@ namespace KhotsoCBookStore.API.Entities
         public Guid PublisherId { get; set; }
         public Publisher Publisher { get; set; }
         
-        public string Category { get; set; }
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
         
-        public decimal PurchasePrice { get; set; }        
+        public decimal Cost { get; set; }    
+
+        public decimal RetailPrice { get; set; }     
         
         public string CoverFileName { get; set; }
+
     }
 }
