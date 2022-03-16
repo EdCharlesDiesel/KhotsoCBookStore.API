@@ -14,5 +14,6 @@ namespace KhotsoCBookStore.API.Authentication
         [Required]
         [MaxLength(150)]
         public string UserTypeName { get; set; }
+
     }
 }

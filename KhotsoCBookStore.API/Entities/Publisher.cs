@@ -21,6 +21,6 @@ namespace KhotsoCBookStore.API.Entities
         [MaxLength(20)]
         public int PhoneNumber { get; set; }
 
-        public ICollection<Book> MyProperty { get; set; } = new List<Book>();
+        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

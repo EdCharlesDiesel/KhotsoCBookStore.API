@@ -4,7 +4,7 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class EmployeeDto
     {
-         public Guid Id { get; set; }
+         public Guid EmployeeId { get; set; }
 
         public string FirstName { get; set; }
         

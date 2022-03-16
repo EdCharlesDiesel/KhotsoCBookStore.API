@@ -190,7 +190,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             _mailService.Send(
                 "Employee deleted.",
-                $"Employee named {employeeEntity.FirstName} with id {employeeEntity.Id} was deleted.");
+                $"Employee named {employeeEntity.FirstName} with id {employeeEntity.EmployeeId} was deleted.");
          
             return NoContent();
         }

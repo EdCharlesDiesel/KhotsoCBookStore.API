@@ -326,7 +326,7 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ababa362-26f4-47b2-a434-bf657dc99136"),
+                            Id = new Guid("77a48918-e1e8-4e1a-9784-a1fc2d843339"),
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1988, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -389,27 +389,27 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasData(
                         new
                         {
-                            OrderId = new Guid("b1b6c41c-ba66-439e-988e-2602fbfb43a6"),
+                            OrderId = new Guid("d0d99b73-eade-4ab2-ba6e-8aed04165a15"),
                             CartTotal = 15.44m,
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = new Guid("feb6f8d2-a51a-4ec6-8812-71a2c1819601"),
-                            OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 3, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 424, DateTimeKind.Local).AddTicks(8681),
+                            ShipDate = new DateTime(2022, 3, 16, 22, 7, 3, 101, DateTimeKind.Local).AddTicks(1661),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("00000000-0000-0000-0000-000000000000")
                         },
                         new
                         {
-                            OrderId = new Guid("8c0e5d87-e6be-4c9f-8f30-c7af35633efe"),
+                            OrderId = new Guid("80ae8a60-15f1-4271-baeb-68353e6ce6f8"),
                             CartTotal = 15.44m,
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = new Guid("300f030a-8226-40a0-95f5-52d55b4242d6"),
-                            OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 3, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 425, DateTimeKind.Local).AddTicks(70),
+                            ShipDate = new DateTime(2022, 3, 16, 22, 7, 3, 101, DateTimeKind.Local).AddTicks(2922),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("00000000-0000-0000-0000-000000000000")
                         });
