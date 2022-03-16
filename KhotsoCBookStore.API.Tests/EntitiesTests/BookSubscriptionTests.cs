@@ -4,14 +4,14 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class BookSubscriptionTests : IDisposable
+    public class ProductSubscriptionTests : IDisposable
     {
-        BookSubscription bookSubscription;
-        public BookSubscriptionTests()
+        ProductSubscription bookSubscription;
+        public ProductSubscriptionTests()
         {
-            bookSubscription = new BookSubscription
+            bookSubscription = new ProductSubscription
             {
-                BookSubscriptionId = "1",
+                ProductSubscriptionId = "1",
                 UserId = 3,
                DateCreated = new DateTime(2012, 02, 27, 17, 30, 22)
             };
@@ -27,10 +27,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            bookSubscription.BookSubscriptionId = "2";
+            bookSubscription.ProductSubscriptionId = "2";
 
             //Assert
-            Assert.Equal("2", bookSubscription.BookSubscriptionId);
+            Assert.Equal("2", bookSubscription.ProductSubscriptionId);
         }
 
         [Fact]

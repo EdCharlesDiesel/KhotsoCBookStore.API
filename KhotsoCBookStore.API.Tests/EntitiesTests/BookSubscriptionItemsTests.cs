@@ -4,44 +4,44 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class ProductSubscriptionItemsTests : IDisposable
+    public class ProductSubscriptionItemTests : IDisposable
     {
-        ProductSubscriptionItem bookSubscriptionItems;
-        public ProductSubscriptionItemsTests()
+        ProductSubscriptionItem productSubscriptionItem;
+        public ProductSubscriptionItemTests()
         {
-            bookSubscriptionItems = new ProductSubscriptionItem
+            productSubscriptionItem = new ProductSubscriptionItem
             {
-                BookSubscriptionId = "1",
-                BookSubscriptionItemId = 1,
+                ProductSubscriptionId = "1",
+                ProductSubscriptionItemId = 1,
                 ProductId = 1
             };
         }
 
         public void Dispose()
         {
-           bookSubscriptionItems  = null;
+           productSubscriptionItem  = null;
         }
 
         [Fact]
-        public void CanChangeBookItemId()
+        public void CanChangeProductItemId()
         {
             //Arrange
             //Act
-            bookSubscriptionItems.BookSubscriptionId = "2";
+            productSubscriptionItem.ProductSubscriptionId = "2";
 
             //Assert
-            Assert.Equal("2", bookSubscriptionItems.BookSubscriptionId);
+            Assert.Equal("2", productSubscriptionItem.ProductSubscriptionId);
         }
 
         [Fact]
-        public void CanChangeBookSubscriptionItems()
+        public void CanChangeProductSubscriptionItems()
         {
             //Arrange
             //Act
-            bookSubscriptionItems.BookSubscriptionItemId = 3;
+            productSubscriptionItem.ProductSubscriptionItemId = 3;
 
             //Assert
-            Assert.Equal(3, bookSubscriptionItems.BookSubscriptionItemId);
+            Assert.Equal(3, productSubscriptionItem.ProductSubscriptionItemId);
         }
 
         [Fact]
@@ -49,10 +49,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            bookSubscriptionItems.ProductId = 2;
+            productSubscriptionItem.ProductId = 2;
             
             //Assert
-            Assert.Equal(2, bookSubscriptionItems.ProductId);
+            Assert.Equal(2, productSubscriptionItem.ProductId);
         }
     }
 }

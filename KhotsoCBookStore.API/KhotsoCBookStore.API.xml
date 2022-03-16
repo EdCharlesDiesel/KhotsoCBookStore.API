@@ -50,35 +50,6 @@
             <param name="bookId"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Get(System.Int32)">
-            <summary>
-            Get the list of books subscriptions
-            </summary>
-            <param name="userId"></param>
-            <returns>List of book subscriptions</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add a new book subscription
-            </summary>
-            <param name="bookId"></param>
-            <param name="userId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Delete(System.Int32)">
-            <summary>
-            Delete a book subscription
-            </summary>
-            <param name="userId"></param>
-            <returns>0 or 1</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.GetUserBookSubscription(System.Int32)">
-            <summary>
-            Get a list of user book subscriptions
-            </summary>
-            <param name="userId"></param>
-            <returns>List of book subscription</returns>
-        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.Post(System.Int32,KhotsoCBookStore.API.Dtos.OrdersDto)">
             <summary>
             Add user checkout item(s)

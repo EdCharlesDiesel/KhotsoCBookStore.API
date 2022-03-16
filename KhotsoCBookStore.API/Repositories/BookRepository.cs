@@ -160,7 +160,7 @@ namespace KhotsoCBookStore.API.Repositories
              try
             {
                 List<Book> bookSubscription = new List<Book>();
-                foreach (BookSubscriptionItems item in _dbContext.BookSubscriptionItems.Where(x => x.BookSubscriptionId == bookSubscriptionId).ToList())
+                foreach (ProductSubscriptionItem item in _dbContext.ProductSubscriptionItems.Where(x => x.ProductSubscriptionId == bookSubscriptionId).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
                     bookSubscription.Add(book);

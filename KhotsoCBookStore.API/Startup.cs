@@ -89,7 +89,7 @@ namespace KhotsoCBookStore.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IBookService, BookRepository>();
-            services.AddTransient<IBookSubscriptionService, BookSubscriptionRepository>();
+            services.AddTransient<IProductSubscriptionService, ProductSubscriptionRepository>();
             services.AddTransient<ICartService, CartRepository>();
             services.AddTransient<IUserService, UserRepository>();
             services.AddTransient<IWishlistService, WishlistRepository>();

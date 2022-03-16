@@ -1,12 +1,9 @@
-﻿using KhotsoCBookStore.API.Entities;
-using System.Collections.Generic;
-
-namespace KhotsoCBookStore.API.Services
+﻿namespace KhotsoCBookStore.API.Services
 {
     public interface IProductSubscriptionService
     {
-        void ToggleBookSubscriptionItem(int userId, int bookId);
-        int ClearBookSubscription(int userId);
-        string GetBookSubscriptionId(int userId);      
+        void ToggleProductSubscriptionItem(int userId, int productId);
+        int ClearProductSubscription(int userId);
+        string GetProductSubscriptionId(int userId);      
     }
 }

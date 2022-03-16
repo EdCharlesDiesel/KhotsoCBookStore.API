@@ -9,50 +9,50 @@ using System.Linq;
 
 namespace KhotsoCBookStore.API.Repositories
 {
-    public class BookSubscriptionRepository : IBookSubscriptionService
+    public class ProductSubscriptionRepository : IProductSubscriptionService
     {
         readonly KhotsoCBookStoreDbContext _dbContext;
 
-        public BookSubscriptionRepository(KhotsoCBookStoreDbContext dbContext)
+        public ProductSubscriptionRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
 
-        public void ToggleBookSubscriptionItem(int userId, int bookId)
+        public void ToggleProductSubscriptionItem(int userId, int productId)
         {
-            string bookSubscriptionId = GetBookSubscriptionId(userId);
-            BookSubscriptionItems existingBookSubscriptionItem = _dbContext.BookSubscriptionItems.FirstOrDefault(x => x.ProductId == bookId && x.BookSubscriptionId == bookSubscriptionId);
+            string productSubscriptionId = GetProductSubscriptionId(userId);
+            ProductSubscriptionItem existingProductSubscriptionItem = _dbContext.ProductSubscriptionItems.FirstOrDefault(x => x.ProductId == productId && x.ProductSubscriptionId == productSubscriptionId);
 
-            if (existingBookSubscriptionItem != null)
+            if (existingProductSubscriptionItem != null)
             {
-                _dbContext.BookSubscriptionItems.Remove(existingBookSubscriptionItem);
+                _dbContext.ProductSubscriptionItems.Remove(existingProductSubscriptionItem);
                 _dbContext.SaveChanges();
             }
             else
             {
-                BookSubscriptionItems bookSubscriptionItem = new BookSubscriptionItems
+                ProductSubscriptionItem productSubscriptionItem = new ProductSubscriptionItem
                 {
-                    BookSubscriptionId = bookSubscriptionId,
-                    ProductId = bookId,
+                    ProductSubscriptionId = productSubscriptionId,
+                    ProductId = productId,
                 };
-                _dbContext.BookSubscriptionItems.Add(bookSubscriptionItem);
+                _dbContext.ProductSubscriptionItems.Add(productSubscriptionItem);
                 _dbContext.SaveChanges();
             }
         }
 
-        public int ClearBookSubscription(int userId)
+        public int ClearProductSubscription(int userId)
         {
             try
             {
-                string bookSubscriptionId = GetBookSubscriptionId(userId);
-                List<BookSubscriptionItems> bookSubscriptionItem = _dbContext.BookSubscriptionItems.Where(x => x.BookSubscriptionId == bookSubscriptionId).ToList();
+                string productSubscriptionId = GetProductSubscriptionId(userId);
+                List<ProductSubscriptionItem> productSubscriptionItem = _dbContext.ProductSubscriptionItems.Where(x => x.ProductSubscriptionId == productSubscriptionId).ToList();
 
-                if (!string.IsNullOrEmpty(bookSubscriptionId))
+                if (!string.IsNullOrEmpty(productSubscriptionId))
                 {
-                    foreach (BookSubscriptionItems item in bookSubscriptionItem)
+                    foreach (ProductSubscriptionItem item in productSubscriptionItem)
                     {
-                        _dbContext.BookSubscriptionItems.Remove(item);
+                        _dbContext.ProductSubscriptionItems.Remove(item);
                         _dbContext.SaveChanges();
                     }
                 }
@@ -65,19 +65,19 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
 
-        public string GetBookSubscriptionId(int userId)
+        public string GetProductSubscriptionId(int userId)
         {
             try
             {
-                BookSubscription bookSubscription = _dbContext.BookSubscription.FirstOrDefault(x => x.UserId == userId);
+                ProductSubscription productSubscription = _dbContext.ProductSubscription.FirstOrDefault(x => x.UserId == userId);
 
-                if (bookSubscription != null)
+                if (productSubscription != null)
                 {
-                    return bookSubscription.BookSubscriptionId;
+                    return productSubscription.ProductSubscriptionId;
                 }
                 else
                 {
-                    return CreateBookSubscription(userId);
+                    return CreateProductSubscription(userId);
                 }
 
             }
@@ -87,28 +87,26 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        string CreateBookSubscription(int userId)
+        string CreateProductSubscription(int userId)
         {
             try
             {
-                BookSubscription bookSubscription = new BookSubscription
+                ProductSubscription productSubscription = new ProductSubscription
                 {
-                    BookSubscriptionId = Guid.NewGuid().ToString(),
+                    ProductSubscriptionId = Guid.NewGuid().ToString(),
                     UserId = userId,
                     DateCreated = DateTime.Now.Date
                 };
 
-                _dbContext.BookSubscription.Add(bookSubscription);
+                _dbContext.ProductSubscription.Add(productSubscription);
                 _dbContext.SaveChanges();
 
-                return bookSubscription.BookSubscriptionId;
+                return productSubscription.ProductSubscriptionId;
             }
             catch
             {
                 throw;
             }
         }
-
-
     }
 }
