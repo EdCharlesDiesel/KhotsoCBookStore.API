@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Services
 {
-    public interface IBookSubscriptionService
+    public interface IProductSubscriptionService
     {
         void ToggleBookSubscriptionItem(int userId, int bookId);
         int ClearBookSubscription(int userId);

@@ -4,12 +4,12 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class BookSubscriptionItemsTests : IDisposable
+    public class ProductSubscriptionItemsTests : IDisposable
     {
-        BookSubscriptionItems bookSubscriptionItems;
-        public BookSubscriptionItemsTests()
+        ProductSubscriptionItem bookSubscriptionItems;
+        public ProductSubscriptionItemsTests()
         {
-            bookSubscriptionItems = new BookSubscriptionItems
+            bookSubscriptionItems = new ProductSubscriptionItem
             {
                 BookSubscriptionId = "1",
                 BookSubscriptionItemId = 1,

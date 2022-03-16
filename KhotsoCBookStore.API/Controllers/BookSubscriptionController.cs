@@ -16,13 +16,13 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class BookSubscriptionController : Controller
+    public class ProductSubscriptionController : Controller
     {
-        readonly IBookSubscriptionService _bookSubscriptionService;
+        readonly IProductSubscriptionService _bookSubscriptionService;
         readonly IBookService _bookService;
         readonly IUserService _userService;
 
-        public BookSubscriptionController(IBookSubscriptionService bookSubscriptionService, IBookService bookService, IUserService userService)
+        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionService, IBookService bookService, IUserService userService)
         {
             _bookSubscriptionService = bookSubscriptionService ?? throw new ArgumentNullException(nameof(_bookSubscriptionService));
             _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService)); 

@@ -16,8 +16,8 @@ namespace KhotsoCBookStore.API.Contexts
         }
 
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<BookSubscription>  BookSubscription { get; set; }
-        public virtual DbSet<BookSubscriptionItems>  BookSubscriptionItems { get; set; }
+        public virtual DbSet<ProductSubscription>  ProductSubscription { get; set; }
+        public virtual DbSet<ProductSubscriptionItem>  ProductSubscriptionItems { get; set; }
         public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItems> CartItems { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
@@ -68,7 +68,7 @@ namespace KhotsoCBookStore.API.Contexts
             modelBuilder.Entity<CartItems>(entity =>
             {
                 entity.HasKey(e => e.CartItemId)
-                    .HasName("PK__CartItem__488B0B0AA0297D1C");
+                    .HasName("PK__CartItemId");
 
                 entity.Property(e => e.CartId)
                     .IsRequired()
@@ -79,7 +79,7 @@ namespace KhotsoCBookStore.API.Contexts
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__Categori__19093A2B46B8DFC9");
+                    .HasName("PK__CategoryID");
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
@@ -92,7 +92,7 @@ namespace KhotsoCBookStore.API.Contexts
             modelBuilder.Entity<CustomerOrderDetails>(entity =>
             {
                 entity.HasKey(e => e.OrderDetailsId)
-                    .HasName("PK__Customer__9DD74DBD81D9221B");
+                    .HasName("PK__OrderId");
 
                 entity.Property(e => e.OrderId)
                     .IsRequired()
@@ -105,7 +105,7 @@ namespace KhotsoCBookStore.API.Contexts
             modelBuilder.Entity<CustomerOrders>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__CustomerID__C3905BCF96C8F1E7");
+                    .HasName("PK__CustomerID");
 
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(20)
@@ -116,12 +116,13 @@ namespace KhotsoCBookStore.API.Contexts
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
             });
 
-            modelBuilder.Entity<BookSubscription>(entity =>
+            modelBuilder.Entity<ProductSubscription>(entity =>
             {
-                entity.HasKey(e => e.BookSubscriptionId)
-                    .HasName("PK__BookSubscriptionId");
+                entity.HasKey(e => e.ProductSubscriptionId)
+                    .HasName("PK__ProductSubscriptionId");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
             });
@@ -189,12 +190,12 @@ namespace KhotsoCBookStore.API.Contexts
                     .IsUnicode(false);
             });
 
-             modelBuilder.Entity<BookSubscriptionItems>(entity =>
+             modelBuilder.Entity<ProductSubscriptionItem>(entity =>
             {
-                entity.HasKey(e => e.BookSubscriptionItemId)
+                entity.HasKey(e => e.ProductSubscriptionItemId)
                     .HasName("PK__BookSubscriptionItemId");
 
-                entity.Property(e => e.BookSubscriptionItemId)
+                entity.Property(e => e.ProductSubscriptionItemId)
                     .IsRequired()
                     .HasMaxLength(36)
                     .IsUnicode(false);
