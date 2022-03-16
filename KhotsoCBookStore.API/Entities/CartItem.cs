@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class CartItem
+    public class CartItem
     {
-        public int CartItemId { get; set; }
+        public Guid CartItemId { get; set; }
 
-        public string CartId { get; set; }
+        public Guid CartId { get; set; }
 
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         public int Quantity { get; set; }
     }

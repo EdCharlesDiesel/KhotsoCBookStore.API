@@ -70,7 +70,7 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public bool isUserExists(int userId)
+        public bool isUserExists(Guid userId)
         {
             string user = _context.UserMaster.FirstOrDefault(x => x.UserId == userId)?.ToString();
 
@@ -108,7 +108,7 @@ namespace KhotsoCBookStore.API.Repositories
             return _context.UserMaster;
         }
 
-        public UserMaster GetById(int id)
+        public UserMaster GetById(Guid id)
         {
             return _context.UserMaster.Find(id);
         }
@@ -175,7 +175,7 @@ namespace KhotsoCBookStore.API.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var user = _context.UserMaster.Find(id);
             if (user != null)

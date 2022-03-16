@@ -4,25 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Employee: AuditableEntity
+    public class Employee: Person
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid EmployeeId { get; set; } =  Guid.NewGuid();
-
-        [Required]
-        [MaxLength(150)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [MaxLength(150)]
-        public string LastName { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         
         [Required]
         public string EmployeeNumber { get; set; }
-        
-        [Required]
-        public DateTime DateOfBirth { get; set; }
         
         [Required]
         public DateTime DateOfStartEmployment { get; set; }

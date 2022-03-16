@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using KhotsoCBookStore.API.Authentication;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Cart
+    public class Cart: AuditableEntity
     {
-        public string CartId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid CartId { get; set; }
         
-        public int UserId { get; set; }
+        [ForeignKey("User")]
+        public Guid UserId { get; set; }
+        public UserMaster  UserMaster { get; set; }
         
-        public DateTime DateCreated { get; set; }
     }
 }

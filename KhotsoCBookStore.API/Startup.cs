@@ -89,11 +89,11 @@ namespace KhotsoCBookStore.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
              services.AddTransient<IEmployeeService, EmployeeRepository>();
-            services.AddTransient<IBookService, BookRepository>();
+            //services.AddTransient<IBookService, BookRepository>();
             services.AddTransient<IProductSubscriptionService, ProductSubscriptionRepository>();
-            services.AddTransient<ICartService, CartRepository>();
+            //services.AddTransient<ICartService, CartRepository>();
             services.AddTransient<IUserService, UserRepository>();
-            services.AddTransient<IWishlistService, WishlistRepository>();
+            services.AddTransient<IWishListService, WishListRepository>();
             services.AddTransient<IMailService, LocalMailService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

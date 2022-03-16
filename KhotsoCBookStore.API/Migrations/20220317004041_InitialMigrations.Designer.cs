@@ -4,14 +4,16 @@ using KhotsoCBookStore.API.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KhotsoCBookStore.API.Migrations
 {
     [DbContext(typeof(KhotsoCBookStoreDbContext))]
-    partial class KhotsoCBookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317004041_InitialMigrations")]
+    partial class InitialMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,7 +328,7 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ababa362-26f4-47b2-a434-bf657dc99136"),
+                            Id = new Guid("de355925-a93f-4931-b629-e4e2539e713a"),
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1988, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -389,27 +391,27 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasData(
                         new
                         {
-                            OrderId = new Guid("b1b6c41c-ba66-439e-988e-2602fbfb43a6"),
+                            OrderId = new Guid("b7369188-103b-4e3b-a481-fc609c11d6fb"),
                             CartTotal = 15.44m,
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = new Guid("feb6f8d2-a51a-4ec6-8812-71a2c1819601"),
                             OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 424, DateTimeKind.Local).AddTicks(8681),
+                            ShipDate = new DateTime(2022, 3, 17, 2, 40, 38, 700, DateTimeKind.Local).AddTicks(7243),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("00000000-0000-0000-0000-000000000000")
                         },
                         new
                         {
-                            OrderId = new Guid("8c0e5d87-e6be-4c9f-8f30-c7af35633efe"),
+                            OrderId = new Guid("f9ea5517-1653-4358-b439-f4a52757fd70"),
                             CartTotal = 15.44m,
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = new Guid("300f030a-8226-40a0-95f5-52d55b4242d6"),
                             OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 425, DateTimeKind.Local).AddTicks(70),
+                            ShipDate = new DateTime(2022, 3, 17, 2, 40, 38, 700, DateTimeKind.Local).AddTicks(8557),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("00000000-0000-0000-0000-000000000000")
                         });

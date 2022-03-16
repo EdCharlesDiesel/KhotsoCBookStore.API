@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace KhotsoCBookStore.API.Repositories
 {
-    public class WishlistRepository : IWishlistService
+    public class WishListRepository : IWishListService
     {
         readonly KhotsoCBookStoreDbContext _dbContext;
 
-        public WishlistRepository(KhotsoCBookStoreDbContext dbContext)
+        public WishListRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,14 +1,25 @@
-﻿namespace KhotsoCBookStore.API.Entities
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Book
+    public class Book: AuditableEntity
     {
-        public int BookId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid BookId { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string Title { get; set; }
 
-        public string Text { get; set; }
+        [Required]
+        public DateTime PublishingDate { get; set; }
         
-        public string Author { get; set; }
+        [ForeignKey("PublisherId")]
+        public Guid PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
         
         public string Category { get; set; }
         

@@ -4,14 +4,16 @@ using KhotsoCBookStore.API.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KhotsoCBookStore.API.Migrations
 {
     [DbContext(typeof(KhotsoCBookStoreDbContext))]
-    partial class KhotsoCBookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317002813_AddingCustomersOrdersTableData")]
+    partial class AddingCustomersOrdersTableData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,7 +328,7 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ababa362-26f4-47b2-a434-bf657dc99136"),
+                            Id = new Guid("70d8ca38-3ff2-4c82-b0de-839c6596fe5e"),
                             CreatedBy = "System",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1988, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -385,34 +387,6 @@ namespace KhotsoCBookStore.API.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderId = new Guid("b1b6c41c-ba66-439e-988e-2602fbfb43a6"),
-                            CartTotal = 15.44m,
-                            CreatedBy = "System",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CustomerId = new Guid("feb6f8d2-a51a-4ec6-8812-71a2c1819601"),
-                            OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
-                            ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 424, DateTimeKind.Local).AddTicks(8681),
-                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000")
-                        },
-                        new
-                        {
-                            OrderId = new Guid("8c0e5d87-e6be-4c9f-8f30-c7af35633efe"),
-                            CartTotal = 15.44m,
-                            CreatedBy = "System",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CustomerId = new Guid("300f030a-8226-40a0-95f5-52d55b4242d6"),
-                            OrderDate = new DateTime(2022, 3, 17, 0, 0, 0, 0, DateTimeKind.Local),
-                            ShipAddress = "Mandela Street Sandton Drive",
-                            ShipDate = new DateTime(2022, 3, 17, 2, 46, 17, 425, DateTimeKind.Local).AddTicks(70),
-                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000")
-                        });
                 });
 
             modelBuilder.Entity("KhotsoCBookStore.API.Entities.OrderItem", b =>

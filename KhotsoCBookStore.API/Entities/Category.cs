@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Categories
+    public class Category
     {
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         
         public string CategoryName { get; set; }
     }

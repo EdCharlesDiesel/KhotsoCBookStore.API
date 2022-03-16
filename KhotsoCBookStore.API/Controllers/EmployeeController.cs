@@ -7,7 +7,6 @@ using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -191,7 +190,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             _mailService.Send(
                 "Employee deleted.",
-                $"Employee named {employeeEntity.FirstName} with id {employeeEntity.EmployeeId} was deleted.");
+                $"Employee named {employeeEntity.FirstName} with id {employeeEntity.Id} was deleted.");
          
             return NoContent();
         }

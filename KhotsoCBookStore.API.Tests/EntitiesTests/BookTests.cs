@@ -11,7 +11,7 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             book = new Book
             {
-                BookId = 1,
+                BookId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
                 Name ="Data Structures And Algorithms",
                 Text ="Data Structures are really important",
                 Author = "EdCharlesDiesel",
@@ -30,11 +30,12 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public void CanChangeId()
         {
             //Arrange
+            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
             //Act
-            book.BookId = 2;
+            book.BookId = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
 
             //Assert
-            Assert.Equal(2, book.BookId);
+            Assert.Equal(expected, book.BookId);
         }
 
         [Fact]

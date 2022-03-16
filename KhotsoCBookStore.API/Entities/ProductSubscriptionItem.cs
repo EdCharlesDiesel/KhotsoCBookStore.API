@@ -1,9 +1,19 @@
-﻿namespace KhotsoCBookStore.API.Entities
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace KhotsoCBookStore.API.Entities
 {
-    public partial class ProductSubscriptionItem
+    public class ProductSubscriptionItem : AuditableEntity
     {
-        public int ProductSubscriptionItemId { get; set; }
-        public string ProductSubscriptionId { get; set; }
-        public int ProductId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ProductSubscriptionItemId { get; set; }
+        
+        [ForeignKey("ProductSubscriptionId")]
+        public Guid ProductSubscriptionId { get; set; }
+        public ProductSubscription ProductSubscription { get; set; }
+        
+        public Guid ProductId { get; set; }
     }
 }

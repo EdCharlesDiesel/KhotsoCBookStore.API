@@ -21,7 +21,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                                         Quantity = 1, 
                                         Book = new API.Entities.Book()
                                         {
-                                            BookId = 1,
+                                            BookId = Guid.NewGuid(),
                                             Author = "Charles",
                                             Category = "Databases",
                                             Name ="SQL CookBook",
@@ -36,7 +36,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                                         Quantity = 2, 
                                         Book = new API.Entities.Book()
                                         {
-                                            BookId = 2,
+                                            BookId = Guid.NewGuid(),
                                             Author = "Charles",
                                             Category = "Databases",
                                             Name ="SQL CookBook V2",

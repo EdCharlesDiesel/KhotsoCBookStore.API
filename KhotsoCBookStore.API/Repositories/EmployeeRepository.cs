@@ -26,7 +26,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<Employee> GetEmployeeAsync(Guid employeeId)
         {
-            return await _dbContext.Employees.FirstOrDefaultAsync(c => c.EmployeeId == employeeId);
+            return await _dbContext.Employees.FirstOrDefaultAsync(c => c.Id == employeeId);
         }
 
         public async Task<Employee> CreateEmployeeAsync(CreateEmployeeDto employee)
@@ -56,7 +56,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<bool> EmployeeIfExistsAsync(Guid employeeId)
         {
-            return await _dbContext.Employees.AnyAsync(c => c.EmployeeId == employeeId);
+            return await _dbContext.Employees.AnyAsync(c => c.Id == employeeId);
         }
     }
 }
