@@ -12,15 +12,16 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class EmployeeController : Controller
+    public class AuthorsController : Controller
     {
-        readonly IEmployeeService _employeeService;
+
+        readonly IAuthorService _authorService;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
-        public EmployeeController(IEmployeeService employeeService,
-            IMapper mapper,IMailService mailService)
+        public AuthorsController(IAuthorService authorService,
+            IMapper mapper, IMailService mailService)
         {
-            _employeeService = employeeService?? throw new ArgumentNullException(nameof(_employeeService));
+            _authorService = authorService ?? throw new ArgumentNullException(nameof(_authorService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
@@ -32,45 +33,45 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the list of all requests allowed on this end-point</response>
         [HttpOptions]
-        public IActionResult GetEmployeesAPIOptions()
+        public IActionResult GetAuthorsAPIOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
-        }     
+        }
 
         /// <summary>
-        /// Get all employees resources.
+        /// Get all authors resources.
         /// </summary>
         /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employees.</response>
+        /// <response code="200">Returns the requested authors.</response>
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
-        { 
-            var employees = await _employeeService.GetAllEmployeesAync();
-            return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(employees));             
+        public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
+        {
+            var authors = await _authorService.GetAllAuthorsAync();
+            return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authors));
         }
 
         /// <summary>
-        /// Get a single employee resource by employeeId.
+        /// Get a single author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpGet("{employeeId}")]
+        [HttpGet("{authorId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EmployeeDto>> GetEmployee(Guid employeeId)
-        { 
-            var employee = await _employeeService.GetEmployeeAsync(employeeId);
-            return Ok(_mapper.Map<EmployeeDto>(employee));             
+        public async Task<ActionResult<AuthorDto>> GetAuthor(Guid authorId)
+        {
+            var author =  _authorService.GetAuthorAsync(authorId);
+            return Ok(_mapper.Map<AuthorDto>(author));
         }
 
         /// <summary>
-        /// Create employee resource by employeeId.
+        /// Create author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
@@ -78,120 +79,120 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto newEmployee)
-        { 
-            await _employeeService.CreateEmployeeAsync(newEmployee);
-            await _employeeService.SaveChangesAsync();
+        public async Task<ActionResult<AuthorForCreateDto>> CreateAuthor(AuthorForCreateDto newAuthor)
+        {
+            await _authorService.CreateAuthorAsync(newAuthor);
+            await _authorService.SaveChangesAsync();
 
-            var createdEmployeeToReturn = 
-                _mapper.Map<EmployeeForCreateDto>(newEmployee);
-            
-            return CreatedAtRoute("GetEmployee",createdEmployeeToReturn);             
+            var createdAuthorToReturn =
+                _mapper.Map<AuthorForCreateDto>(newAuthor);
+
+            return CreatedAtRoute("GetAuthor", createdAuthorToReturn);
         }
 
         /// <summary>
-        /// Update employee resource by employeeId.
+        /// Update author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpPut("{employeeId}")]
+        [HttpPut("{authorId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdateEmployee(Guid employeeId,
-            EmployeeForUpdateDto employeeToUpdate)
+        public async Task<ActionResult> UpdateAuthor(Guid authorId,
+            AuthorForUpdateDto authorToUpdate)
         {
-            if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
+            if (!await _authorService.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
-            if (employeeEntity == null)
+            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+            if (authorEntity == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(employeeToUpdate, employeeEntity);
+            _mapper.Map(authorToUpdate, authorEntity);
 
-            await _employeeService.SaveChangesAsync();
+            await _authorService.SaveChangesAsync();
 
             return NoContent();
         }
-     
+
         /// <summary>
-        /// Partial update employee resource by employeeId.
+        /// Partial update author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpPatch("{employeeId}")]
+        [HttpPatch("{authorId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> PartiallyUpdateEmployee(Guid employeeId,
-            JsonPatchDocument<EmployeeForUpdateDto> patchDocument)
+        public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
+            JsonPatchDocument<AuthorForUpdateDto> patchDocument)
         {
-            if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
+            if (!await _authorService.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
-            if (employeeEntity == null)
+            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+            if (authorEntity == null)
             {
                 return NotFound();
             }
 
-            var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
+            var authorToPatch = _mapper.Map<AuthorForUpdateDto>(authorEntity);
 
-            //patchDocument.ApplyTo(employeeToPatch, ModelState);
+            //patchDocument.ApplyTo(authorToPatch, ModelState);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!TryValidateModel(employeeToPatch))
+            if (!TryValidateModel(authorToPatch))
             {
                 return BadRequest(ModelState);
             }
 
-            _mapper.Map(employeeToPatch, employeeEntity);
-            await _employeeService.SaveChangesAsync();
+            _mapper.Map(authorToPatch, authorEntity);
+            await _authorService.SaveChangesAsync();
 
             return NoContent();
         }
 
         /// <summary>
-        /// Delete a single employee resource by employeeId.
+        /// Delete a single author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpDelete("{employeeId}")]
+        [HttpDelete("{authorId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteEmployee(Guid employeeId)
+        public async Task<ActionResult> DeleteAuthor(Guid authorId)
         {
-            if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
+            if (!await _authorService.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
-            
-            if (employeeEntity == null)
+            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+
+            if (authorEntity == null)
             {
                 return NotFound();
             }
 
-            _employeeService.DeleteEmployee(employeeEntity);
-            await _employeeService.SaveChangesAsync();
+            _authorService.DeleteAuthor(authorEntity);
+            await _authorService.SaveChangesAsync();
 
-            _mailService.Send(
-                "Employee deleted.",
-                $"Employee named {employeeEntity.FirstName} with id {employeeEntity.EmployeeId} was deleted.");
-         
+            // _mailService.Send(
+            //     "Author deleted.",
+            //     $"Author named {authorEntity.} with id {authorEntity.AuthorId} was deleted.");
+
             return NoContent();
         }
     }

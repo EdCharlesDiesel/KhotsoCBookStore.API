@@ -16,5 +16,7 @@ namespace KhotsoCBookStore.API.Services
         // List<CartItemDto> GetBooksAvailableInCart(guid cartId);
         List<Book> GetBooksAvailableInWishlist(Guid wishlistId);
         List<Book> GetBooksAvailableInBookSubscription(Guid bookSubscriptionId);
+        List<Book> GetBooksAvailableInPromotion(string promotionid);
+        List<CartItemDto> GetBooksAvailableInCart(string cartid);
     }
 }

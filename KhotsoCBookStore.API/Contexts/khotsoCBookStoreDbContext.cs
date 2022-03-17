@@ -13,6 +13,7 @@ namespace KhotsoCBookStore.API.Contexts
         {
         }
 
+        public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
@@ -46,23 +47,23 @@ namespace KhotsoCBookStore.API.Contexts
                 }
             );
 
-            modelBuilder.Entity<UserMaster>().HasData
-            (
-                new UserMaster
-                {
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    Username = "EdCharles",
-                    Password = "12345"      
-                },
-                new UserMaster
-                {
-                    FirstName = "Otsile",
-                    LastName = "Mokhethi",
-                    Username = "EdCharles",
-                    Password = "12345"
-                }
-            );
+            // modelBuilder.Entity<UserMaster>().HasData
+            // (
+            //     new UserMaster
+            //     {
+            //         FirstName = "Charles",
+            //         LastName = "Mokhethi",
+            //         Username = "EdCharles",
+            //         Password = "12345"      
+            //     },
+            //     new UserMaster
+            //     {
+            //         FirstName = "Otsile",
+            //         LastName = "Mokhethi",
+            //         Username = "EdCharles",
+            //         Password = "12345"
+            //     }
+            // );
 
             modelBuilder.Entity<UserType>().HasData
             (
@@ -96,29 +97,29 @@ namespace KhotsoCBookStore.API.Contexts
                 }
             );
 
-            modelBuilder.Entity<Customer>().HasData
-            (
-                new Customer
-                {
-                    CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
-                    FirstName = "Khotso",
-                    LastName = "Mokhethi",
-                    Address = "Mandela Street Sandton Drive",
-                    City = "Sandton",
-                    Province = "Gauteng",
-                    Postal = 2007
-                },
-               new Customer
-               {
-                   CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
-                   FirstName = "Kagiso",
-                   LastName = "Mokhethi",
-                   Address = "Mandela Street Sandton Drive",
-                   City = "Sandton",
-                   Province = "Gauteng",
-                   Postal = 2007
-               }
-            );
+            // modelBuilder.Entity<Customer>().HasData
+            // (
+            //     new Customer
+            //     {
+            //         CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+            //         FirstName = "Khotso",
+            //         LastName = "Mokhethi",
+            //         Address = "Mandela Street Sandton Drive",
+            //         City = "Sandton",
+            //         Province = "Gauteng",
+            //         Postal = 2007
+            //     },
+            //    new Customer
+            //    {
+            //        CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
+            //        FirstName = "Kagiso",
+            //        LastName = "Mokhethi",
+            //        Address = "Mandela Street Sandton Drive",
+            //        City = "Sandton",
+            //        Province = "Gauteng",
+            //        Postal = 2007
+            //    }
+            // );
 
             modelBuilder.Entity<Order>().HasData
             (

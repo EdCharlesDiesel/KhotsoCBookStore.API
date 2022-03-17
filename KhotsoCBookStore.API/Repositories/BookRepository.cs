@@ -188,5 +188,15 @@ namespace KhotsoCBookStore.API.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public List<Book> GetBooksAvailableInPromotion(string promotionid)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<CartItemDto> IBookService.GetBooksAvailableInCart(string cartid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
