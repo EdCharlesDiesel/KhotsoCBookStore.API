@@ -64,9 +64,9 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuthorDto>> GetAuthor(Guid authorId)
+        public async Task<ActionResult<AuthorDto>> GetAuthorById(Guid authorId)
         {
-            var author = await _authorRepository.GetAuthorAsync(authorId);
+            var author = await _authorRepository.GetAuthorByIdAsync(authorId);
             return Ok(_mapper.Map<AuthorDto>(author));
         }
 
@@ -101,6 +101,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public async Task<ActionResult> UpdateAuthor(Guid authorId,
             AuthorForUpdateDto authorToUpdate)
         {
@@ -109,7 +110,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var authorEntity =  await _authorRepository.GetAuthorAsync(authorId);
+            var authorEntity =  await _authorRepository.GetAuthorByIdAsync(authorId);
             if (authorEntity == null)
             {
                 return NotFound();
@@ -139,7 +140,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
+            var authorEntity =  _authorRepository.GetAuthorByIdAsync(authorId);
             if (authorEntity == null)
             {
                 return NotFound();
@@ -182,7 +183,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var authorEntity = await  _authorRepository.GetAuthorAsync(authorId);
+            var authorEntity = await  _authorRepository.GetAuthorByIdAsync(authorId);
 
             if (authorEntity == null)
             {

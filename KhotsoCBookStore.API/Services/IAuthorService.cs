@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Services
     {
         Task<IEnumerable<Author>> GetAllAuthorsAync();
         
-        Task<Author> GetAuthorAsync(Guid authorId);
+        Task<Author> GetAuthorByIdAsync(Guid authorId);
 
         Task CreateAuthorAsync(Author newAuthor);
         
