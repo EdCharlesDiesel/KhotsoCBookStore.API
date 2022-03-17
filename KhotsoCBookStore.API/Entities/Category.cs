@@ -14,8 +14,8 @@ namespace KhotsoCBookStore.API.Entities
         [MaxLength(150)]
         public string CategoryName { get; set; }
 
-        [ForeignKey("BookId")]
-        public Guid BookId { get; set; }
-        public Book Book { get; set; }
+        // [ForeignKey("BookId")]
+        // public Guid BookId { get; set; }
+        // public Book Book { get; set; }
     }
 }

@@ -4,7 +4,7 @@
         <name>KhotsoCBookStore.API</name>
     </assembly>
     <members>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.GetAuthorsAPIOptions">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>
             Get supported resource actions
             </summary>
@@ -12,42 +12,42 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.GetAuthors">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthors">
             <summary>
             Get all authors resources.
             </summary>
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested authors.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.GetAuthor(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthor(System.Guid)">
             <summary>
             Get a single author resource by authorId.
             </summary>
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.CreateAuthor(KhotsoCBookStore.API.Dtos.AuthorForCreateDto)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.CreateAuthor(KhotsoCBookStore.API.Dtos.AuthorForCreateDto)">
             <summary>
-            Create author resource by authorId.
+            Create an author resource.
             </summary>
             <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <response code="200">Returns the created author.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.UpdateAuthor(System.Guid,KhotsoCBookStore.API.Dtos.AuthorForUpdateDto)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.UpdateAuthor(System.Guid,KhotsoCBookStore.API.Dtos.AuthorForUpdateDto)">
             <summary>
             Update author resource by authorId.
             </summary>
             <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <response code="200">Returns no content.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.PartiallyUpdateAuthor(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.AuthorForUpdateDto})">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.PartiallyUpdateAuthor(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.AuthorForUpdateDto})">
             <summary>
             Partial update author resource by authorId.
             </summary>
             <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <response code="200">Returns no content.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorsController.DeleteAuthor(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.DeleteAuthor(System.Guid)">
             <summary>
             Delete a single author resource by authorId.
             </summary>

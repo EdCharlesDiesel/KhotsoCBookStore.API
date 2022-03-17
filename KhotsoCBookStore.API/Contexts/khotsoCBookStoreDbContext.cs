@@ -126,7 +126,7 @@ namespace KhotsoCBookStore.API.Contexts
                 new Order
                 {
                     OrderId = Guid.NewGuid(),
-                    CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+                    //CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
                     OrderDate = DateTime.Today,
                     ShipAddress = "Mandela Street Sandton Drive",
                     CartTotal = 15.44M,
@@ -135,7 +135,7 @@ namespace KhotsoCBookStore.API.Contexts
                new Order
                {
                    OrderId = Guid.NewGuid(),
-                   CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
+                   //CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
                    OrderDate = DateTime.Today,
                    ShipAddress = "Mandela Street Sandton Drive",
                    CartTotal = 15.44M,

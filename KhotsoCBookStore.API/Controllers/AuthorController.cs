@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -12,7 +13,7 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AuthorController : Controller
+    public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorRepository;
         private readonly IMailService _mailService;
@@ -59,41 +60,43 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpGet("{authorId}")]
+        [HttpGet("{authorId}", Name = "GetAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthorDto>> GetAuthor(Guid authorId)
         {
-            var author =  _authorRepository.GetAuthorAsync(authorId);
+            var author = await _authorRepository.GetAuthorAsync(authorId);
             return Ok(_mapper.Map<AuthorDto>(author));
         }
 
         /// <summary>
-        /// Create author resource by authorId.
+        /// Create an author resource.
         /// </summary>
         /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
-        [HttpPost]
+        /// <response code="200">Returns the created author.</response>
+        [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuthorForCreateDto>> CreateAuthor(AuthorForCreateDto newAuthor)
+        public async Task<ActionResult> CreateAuthor([FromBody] AuthorForCreateDto newAuthor)
         {
-            await _authorRepository.CreateAuthorAsync(newAuthor);
+            var authorToCreate = _mapper.Map<Entities.Author>(newAuthor);
+            await _authorRepository.CreateAuthorAsync(authorToCreate);
             await _authorRepository.SaveChangesAsync();
 
-            var createdAuthorToReturn =
-                _mapper.Map<AuthorForCreateDto>(newAuthor);
+            var authorToReturn = _mapper.Map<Author>(authorToCreate);
 
-            return CreatedAtRoute("GetAuthor", createdAuthorToReturn);
+            return CreatedAtRoute("GetAuthor",
+                new { authorId = authorToReturn.AuthorId },
+                authorToReturn);
         }
 
         /// <summary>
         /// Update author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
+        /// <response code="200">Returns no content.</response>
         [HttpPut("{authorId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -106,7 +109,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
+            var authorEntity =  await _authorRepository.GetAuthorAsync(authorId);
             if (authorEntity == null)
             {
                 return NotFound();
@@ -123,7 +126,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// Partial update author resource by authorId.
         /// </summary>
         /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
+        /// <response code="200">Returns no content.</response>
         [HttpPatch("{authorId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -145,7 +148,8 @@ namespace KhotsoCBookStore.API.Controllers
             var authorToPatch = _mapper.Map<AuthorForUpdateDto>(authorEntity);
 
             //patchDocument.ApplyTo(authorToPatch, ModelState);
-
+            patchDocument.ApplyTo(authorToPatch);
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -156,7 +160,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            _mapper.Map(authorToPatch, authorEntity);
+            await _mapper.Map(authorToPatch, authorEntity);
             await _authorRepository.SaveChangesAsync();
 
             return NoContent();
@@ -178,7 +182,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
+            var authorEntity = await  _authorRepository.GetAuthorAsync(authorId);
 
             if (authorEntity == null)
             {
@@ -188,9 +192,9 @@ namespace KhotsoCBookStore.API.Controllers
             _authorRepository.DeleteAuthor(authorEntity);
             await _authorRepository.SaveChangesAsync();
 
-            // _mailService.Send(
-            //     "Author deleted.",
-            //     $"Author named {authorEntity.} with id {authorEntity.AuthorId} was deleted.");
+             _mailService.Send(
+                 "Author deleted.",
+              $"Author named {authorEntity.FirstName} with id {authorEntity.AuthorId} was deleted.");
 
             return NoContent();
         }

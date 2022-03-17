@@ -29,14 +29,12 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Authors.FirstOrDefaultAsync(c => c.AuthorId == authorId);
         }
 
-        public async Task<Author> CreateAuthorAsync(AuthorForCreateDto newAuthor)
+        public async Task CreateAuthorAsync(Author newAuthor)
         {
             if (newAuthor != null)
             {
                await _dbContext.AddAsync(newAuthor);
             }
-
-            return await _dbContext.Authors.LastOrDefaultAsync();
         }
 
         public Task<Author> UpdateAuthorAsync(Author author)
@@ -59,44 +57,10 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Authors.AnyAsync(c => c.AuthorId == authorId);
         }
 
-        // public Task<IEnumerable<AuthorDto>> GetAllAuthorsAync()
-        // {
-        //     throw new NotImplementedException();
-        // }
-
         public Task<Author> UpdateAuthorAsync(AuthorForUpdateDto authorToUpdate)
         {
             throw new NotImplementedException();
         }
 
-        // public async Task<IEnumerable<Author>> GetAllAuthorsAync()
-        // {
-        //     throw new NotImplementedException();
-        // }
-
-        Task IAuthorService.GetAuthorAsync(Guid authorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IAuthorService.CreateAuthorAsync(AuthorForCreateDto newAuthor)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IAuthorService.SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAuthor(object authorEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<AuthorDto>> IAuthorService.GetAllAuthorsAync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

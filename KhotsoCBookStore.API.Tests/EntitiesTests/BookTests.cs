@@ -7,17 +7,18 @@ namespace KhotsoCBookStore.API.Tests.Entities
     public class BookTests : IDisposable
     {
         Book book;
-        // public BookTests()
-        // {
-        //     book = new Book
-        //     {
-        //         BookId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
-        //         Title="Data Structures And Algorithms",
-        //         Cost = 33.44M,
-        //         RetailPrice = 65.25M,
-        //         CoverFileName ="Default-Image"
-        //     };
-        // }
+        public BookTests()
+        {
+            book = new Book
+            {
+                BookId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
+                Title="Data Structures And Algorithms",
+                Cost = 33.44M,
+                RetailPrice = 65.25M,
+                CoverFileName ="Default-Image",
+                PublishingDate = DateTime.Now
+            };
+        }
 
         public void Dispose()
         {
@@ -56,6 +57,18 @@ namespace KhotsoCBookStore.API.Tests.Entities
 
             //Assert
             Assert.Equal("Default image", book.CoverFileName);
+        }
+
+        [Fact]
+        public void CanChangePublishingDate()
+        {
+            //Arrange
+            var expected = new DateTime(2021,05,05);
+            //Act
+            book.PublishingDate = new DateTime(2021,05,05);
+
+            //Assert
+            Assert.Equal(expected, book.PublishingDate);
         }
     }
 }
