@@ -12,16 +12,15 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AuthorsController : Controller
+    public class AuthorController : Controller
     {
-
-        readonly IAuthorService _authorService;
+        private readonly IAuthorService _authorRepository;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
-        public AuthorsController(IAuthorService authorService,
+        public AuthorController(IAuthorService authorRepository,
             IMapper mapper, IMailService mailService)
         {
-            _authorService = authorService ?? throw new ArgumentNullException(nameof(_authorService));
+            _authorRepository = authorRepository ?? throw new ArgumentNullException(nameof(_authorRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
@@ -51,7 +50,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
         {
-            var authors = await _authorService.GetAllAuthorsAync();
+            var authors = await _authorRepository.GetAllAuthorsAync();
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authors));
         }
 
@@ -66,7 +65,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthorDto>> GetAuthor(Guid authorId)
         {
-            var author =  _authorService.GetAuthorAsync(authorId);
+            var author =  _authorRepository.GetAuthorAsync(authorId);
             return Ok(_mapper.Map<AuthorDto>(author));
         }
 
@@ -81,8 +80,8 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthorForCreateDto>> CreateAuthor(AuthorForCreateDto newAuthor)
         {
-            await _authorService.CreateAuthorAsync(newAuthor);
-            await _authorService.SaveChangesAsync();
+            await _authorRepository.CreateAuthorAsync(newAuthor);
+            await _authorRepository.SaveChangesAsync();
 
             var createdAuthorToReturn =
                 _mapper.Map<AuthorForCreateDto>(newAuthor);
@@ -102,12 +101,12 @@ namespace KhotsoCBookStore.API.Controllers
         public async Task<ActionResult> UpdateAuthor(Guid authorId,
             AuthorForUpdateDto authorToUpdate)
         {
-            if (!await _authorService.AuthorIfExistsAsync(authorId))
+            if (!await _authorRepository.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
             if (authorEntity == null)
             {
                 return NotFound();
@@ -115,7 +114,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             _mapper.Map(authorToUpdate, authorEntity);
 
-            await _authorService.SaveChangesAsync();
+            await _authorRepository.SaveChangesAsync();
 
             return NoContent();
         }
@@ -132,12 +131,12 @@ namespace KhotsoCBookStore.API.Controllers
         public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
             JsonPatchDocument<AuthorForUpdateDto> patchDocument)
         {
-            if (!await _authorService.AuthorIfExistsAsync(authorId))
+            if (!await _authorRepository.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
             if (authorEntity == null)
             {
                 return NotFound();
@@ -158,7 +157,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
 
             _mapper.Map(authorToPatch, authorEntity);
-            await _authorService.SaveChangesAsync();
+            await _authorRepository.SaveChangesAsync();
 
             return NoContent();
         }
@@ -174,20 +173,20 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteAuthor(Guid authorId)
         {
-            if (!await _authorService.AuthorIfExistsAsync(authorId))
+            if (!await _authorRepository.AuthorIfExistsAsync(authorId))
             {
                 return NotFound();
             }
 
-            var authorEntity =  _authorService.GetAuthorAsync(authorId);
+            var authorEntity =  _authorRepository.GetAuthorAsync(authorId);
 
             if (authorEntity == null)
             {
                 return NotFound();
             }
 
-            _authorService.DeleteAuthor(authorEntity);
-            await _authorService.SaveChangesAsync();
+            _authorRepository.DeleteAuthor(authorEntity);
+            await _authorRepository.SaveChangesAsync();
 
             // _mailService.Send(
             //     "Author deleted.",
