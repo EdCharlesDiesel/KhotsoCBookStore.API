@@ -20,19 +20,21 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class BookController : Controller
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly IBookService _bookRepository;
-        private readonly IMailService _mailService;
-        private readonly IConfiguration _config;
-        private readonly IMapper _mapper;
+        
+        readonly IBookService _bookRepository;
+        readonly IMailService _mailService;
+        readonly IConfiguration _config;
+        readonly IMapper _mapper;
+        readonly IWebHostEnvironment _hostingEnvironment;
         readonly string _coverImageFolderPath = string.Empty;
 
         public BookController( 
-        IMapper mapper, 
-        IMailService mailService,
-        IConfiguration config, 
-        IWebHostEnvironment hostingEnvironment,
-        IBookService bookRepository)
+            IBookService bookRepository,         
+            IMailService mailService,
+            IConfiguration config, 
+            IWebHostEnvironment hostingEnvironment,
+            IMapper mapper
+        )
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(_mailService));

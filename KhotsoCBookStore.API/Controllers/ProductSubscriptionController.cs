@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -12,12 +13,15 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class ProductSubscriptionController : Controller
     {
+        readonly IMapper _mapper;
         readonly IProductSubscriptionService _bookSubscriptionRepository;
         readonly IBookService _bookRepository;
         readonly ICustomerService _customerRepository;
 
-        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionRepository, IBookService bookService, ICustomerService customer)
+        public ProductSubscriptionController(IMapper mapper,IProductSubscriptionService bookSubscriptionRepository, IBookService bookService, ICustomerService customer)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper)); 
+
             _bookSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_bookSubscriptionRepository));
             _bookRepository = bookService ?? throw new ArgumentNullException(nameof(_bookRepository)); 
             _customerRepository = customer ?? throw new ArgumentNullException(nameof(_customerRepository));
@@ -26,52 +30,54 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get the list of books subscriptions
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns>List of book subscriptions</returns>
-
-        [HttpGet("{userId}")]
-        public async Task<List<Book>> Get(Guid userId)
+        [HttpGet("{customerId}")]
+        public async Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
         {
-            return await Task.FromResult(GetUserBookSubscription(userId)).ConfigureAwait(true);
+           // return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
+           throw new NotImplementedException();
         }
 
         /// <summary>
         /// Add a new book subscription
         /// </summary>
         /// <param name="bookId"></param>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ToggleProductSubscription/{userId}/{bookId}")]
-        public async Task<List<Book>> Post(Guid userId, Guid bookId)
+        [Route("ToggleProductSubscription/{customerId}/{bookId}")]
+        public async Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
         {
-            _bookSubscriptionRepository.ToggleProductSubscriptionItem(userId, bookId);
-            return await Task.FromResult(GetUserBookSubscription(userId)).ConfigureAwait(true);
+            //_bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
+            //return await Task.FromResult(GetUserBookSubscription(customerId)).ConfigureAwait(true);
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Delete a book subscription
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns>0 or 1</returns>
+        /// <param name="customerId"></param>
+        /// <returns>NoContent</returns>
         [Authorize]
-        [HttpDelete("{userId}")]
-        public int Delete(Guid userId)
+        [HttpDelete("{customerId}")]
+        public async  Task ClearProductSubscription(Guid customerId)
         {
-            return _bookSubscriptionRepository.ClearProductSubscription(userId);
+            //return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Get a list of user book subscriptions
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns>List of book subscription</returns>
-        private  List<Book> GetUserBookSubscription(Guid userId)
+        private  Task<IEnumerable<Book>> GetUserBookSubscription(Guid customerId)
         {
-            // bool user = _customerRepository.isUserExists(userId);
+            // bool user = _customerRepository.CheckIfCustomerExists(customerId);
             // if (user)
             // {
-            //     string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(userId);
+            //     string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
             //     var Id = new Guid(BookSubscriptionId);
             //     return _bookRepository.GetBooksAvailableInBookSubscription(Id);
             // }

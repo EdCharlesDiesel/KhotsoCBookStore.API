@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IWishListService
     {
-        void ToggleWishlistItem(Guid userId, Guid bookId);
-        int ClearWishlist(Guid userId);
-        string GetWishlistId(Guid userId);
+        Task ToggleWishListItem(Guid customerId, Guid bookId);
+        Task<int> ClearWishList(Guid customerId);
+        Task<string> GetWishListId(Guid customerId);
     }
 }

@@ -2,8 +2,8 @@
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -16,38 +16,38 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public void ToggleWishlistItem(Guid userId, Guid bookId)
+        public async Task ToggleWishListItem(Guid customerId, Guid bookId)
         {
-            string wishlistId = GetWishlistId(userId);
-            WishListItem existingWishlistItem = _dbContext.WishListItems.FirstOrDefault(x => x.ProductId == bookId && x.WishListId.ToString() == wishlistId);
+            string wishListId = await GetWishListId(customerId);
+            WishListItem existingWishlistItem = _dbContext.WishListItems.FirstOrDefault(x => x.ProductId == bookId && x.WishListId.ToString() == wishListId);
 
             if (existingWishlistItem != null)
             {
                 _dbContext.WishListItems.Remove(existingWishlistItem);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
             else
             {
-                WishListItem wishlistItem = new WishListItem
+                WishListItem wishListItem = new WishListItem
                 {
-                    WishListId = userId,
+                    WishListId = customerId,
                     ProductId = bookId,
                 };
-                _dbContext.WishListItems.Add(wishlistItem);
-                _dbContext.SaveChanges();
+                await _dbContext.WishListItems.AddAsync(wishListItem);
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public int ClearWishlist(Guid userId)
+        public async Task<int> ClearWishList(Guid customerId)
         {
             try
             {
-                string wishlistId = GetWishlistId(userId);
-                List<WishListItem> wishlistItem = _dbContext.WishListItems.Where(x => x.WishListId.ToString() == wishlistId).ToList();
+                var wishListId = await GetWishListId(customerId);
+                var wishListItem = _dbContext.WishListItems.Where(x => x.WishListId.ToString() == wishListId).ToList();
 
-                if (!string.IsNullOrEmpty(wishlistId))
+                if (!string.IsNullOrEmpty(wishListId))
                 {
-                    foreach (WishListItem item in wishlistItem)
+                    foreach (WishListItem item in wishListItem)
                     {
                         _dbContext.WishListItems.Remove(item);
                         _dbContext.SaveChanges();
@@ -55,51 +55,52 @@ namespace KhotsoCBookStore.API.Repositories
                 }
                 return 0;
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
-        public string GetWishlistId(Guid userId)
+        public async Task<string> GetWishListId(Guid customerId)
         {
             try
             {
-                WishList wishlist = _dbContext.WishLists.FirstOrDefault(x => x.CustomerId == userId);
-
-                if (wishlist != null)
+                var wishList = _dbContext.WishLists.FirstOrDefault(x => x.CustomerId == customerId);
+    
+                if (wishList != null)
                 {
-                    return wishlist.CustomerId.ToString();
+                    return wishList.CustomerId.ToString();
                 }
                 else
                 {
-                    return CreateWishlist(userId);
+                    return await CreateWishListAsync(customerId);
                 }
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
-            }
+                throw new AggregateException(ex.Message);
+            }            
         }
 
-        string CreateWishlist(Guid userId)
-        {
+        private async Task<string> CreateWishListAsync(Guid customerId)
+        {            
             try
             {
-                WishList wishList = new WishList
+                var wishList = new WishList
                 {
                     WishlistId = Guid.NewGuid(),
-                    CustomerId = userId,
-                    CreatedOn = DateTime.Now.Date
+                    CustomerId = customerId,
+                    CreatedOn = DateTime.Now.Date,
                 };
-
-                _dbContext.WishLists.Add(wishList);
-                _dbContext.SaveChanges();
-
+    
+                await _dbContext.WishLists.AddAsync(wishList);
+                await _dbContext.SaveChangesAsync();
+    
                 return wishList.CustomerId.ToString();
             }
-            catch
+            catch (System.Exception)
             {
+                
                 throw;
             }
         }

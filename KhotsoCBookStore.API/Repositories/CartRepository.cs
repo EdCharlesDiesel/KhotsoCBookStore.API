@@ -15,10 +15,10 @@ namespace KhotsoCBookStore.API.Repositories
 
         public CartRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public void AddBookToCart(Guid customerId, Guid bookId)
+        public async Task AddBookToCart(Guid customerId, Guid bookId)
         {
             var cartId = GetCartId(customerId);
             int quantity = 1;
@@ -29,8 +29,8 @@ namespace KhotsoCBookStore.API.Repositories
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity += 1;
-                _dbContext.Entry(existingCartItem).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                 _dbContext.Entry(existingCartItem).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
             }
             else
             {

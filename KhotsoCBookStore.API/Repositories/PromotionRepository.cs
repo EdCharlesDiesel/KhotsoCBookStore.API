@@ -86,7 +86,12 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Entities.PromotionDto>> IPromotionService.GetAllPromotionsAync()
+        Task<string> IPromotionService.GetPromotionId(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IPromotionService.TogglePromotionItem(Guid userId, Guid bookId)
         {
             throw new NotImplementedException();
         }

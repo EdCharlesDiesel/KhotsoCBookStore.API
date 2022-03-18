@@ -8,8 +8,8 @@ namespace KhotsoCBookStore.API.Services
     public interface IPromotionService
     {
         Task ClearPromotion(Guid userId);
-        string GetPromotionId(Guid userId);
-        void TogglePromotionItem(Guid userId, Guid bookId);
-        Task<IEnumerable<PromotionDto>> GetAllPromotionsAync();
+        Task<string> GetPromotionId(Guid userId);
+        Task TogglePromotionItem(Guid userId, Guid bookId);
+        Task<IEnumerable<Promotion>> GetAllPromotionsAync();
     }
 }
