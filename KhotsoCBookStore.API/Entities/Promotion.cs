@@ -8,7 +8,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PromoId { get; set; }
+        public Guid PromoId { get; set; }  =Guid.NewGuid();
         
         public decimal MaximumRetail { get; set; }
 

@@ -4,7 +4,7 @@ using KhotsoCBookStore.API.Dtos;
 
 namespace KhotsoCBookStore.API.Services
 {
-    internal interface IPublisherService
+    public interface IPublisherService
     {
         Task GetAllPublishersAync();
         Task GetPublisherAsync(Guid publisherId);

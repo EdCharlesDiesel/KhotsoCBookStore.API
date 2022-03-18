@@ -3,6 +3,7 @@ using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Helpers;
 using KhotsoCBookStore.API.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,30 +20,11 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public void GetCustomerUser()
+        public async Task<IEnumerable<Customer>> GetAllCustomersAync()
         {
-            // Customer user = new Customer();
-
-            //var userDetails = _dbContext.Customer.SingleOrDefault(
-            //    u => u.Username == loginCredentials.Username && u.Password == loginCredentials.Password
-            //    );
-
-            //if (userDetails != null)
-            //{
-
-            //    user = new Customer
-            //    {
-            //        Username = userDetails.Username,
-            //        UserId = userDetails.UserId,
-            //        UserTypeId = userDetails.UserTypeId
-            //    };
-            //    return user;
-            //}
-            //else
-            //{
-            //    return userDetails;
-            //}
+            return await  _dbContext.Customers.OrderBy(c=>c.LastName).ToListAsync();
         }
+
 
         ///<summary>
         ///ToDo: Work On Authrntication and Authorization.
@@ -226,12 +208,9 @@ namespace KhotsoCBookStore.API.Repositories
             return true;
         }
 
-        public Task GetAllCustomersAync()
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public Task GetCustomerAsync(Guid customerId)
+        public Task GetCustomerByIdAsync(Guid customerId)
         {
             throw new NotImplementedException();
         }
@@ -257,6 +236,48 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         public void RegisterUser(CustomerDto customer, object password)
+        {
+            throw new NotImplementedException();
+        }
+
+       
+
+        public void DeleteCustomer(CustomerDto customerEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterUser(CustomerDto customer, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCustomer(Customer customerEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetCustomerAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterUser(Customer customer, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Task<Customer> ICustomerService.GetCustomerAsync(Guid customerId)
+        // {
+        //     throw new NotImplementedException();
+        // }
+
+        Task<Customer> ICustomerService.GetCustomerByIdAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreateCustomerAsync(Customer newCustomer)
         {
             throw new NotImplementedException();
         }

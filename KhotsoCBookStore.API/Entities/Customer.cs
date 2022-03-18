@@ -10,14 +10,16 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CustomerId { get; set; }
+        public Guid CustomerId { get; set; } 
 
-        // [Required(ErrorMessage ="Please enter valid email address")]
-        // [EmailAddress]
+        [Required]
+        [EmailAddress]
         public string EmailAddress { get; set; }
         
-        //[Required(ErrorMessage ="Please enter a username")]
+        [Required]
         public string Username { get; set; }
+
+        public string Password { get; set; }
 
         public byte[] PasswordHash { get; set; }
 
@@ -31,9 +33,7 @@ namespace KhotsoCBookStore.API.Entities
 
         public int Postal { get; set; }
 
-        [ForeignKey("UserTypeId")]
-        public Guid UserTypeId { get; set; }
-        public UserType UserType { get; set; }
+        //public ICollection<UserType> UserTypes { get; set; } = new List<UserType>();
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 

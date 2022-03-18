@@ -14,13 +14,13 @@ namespace KhotsoCBookStore.API.Controllers
     {
         readonly IProductSubscriptionService _bookSubscriptionService;
         readonly IBookService _bookService;
-        readonly IUserService _userService;
+        readonly ICustomerService _customer;
 
-        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionService, IBookService bookService, IUserService userService)
+        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionService, IBookService bookService, ICustomerService customer)
         {
             _bookSubscriptionService = bookSubscriptionService ?? throw new ArgumentNullException(nameof(_bookSubscriptionService));
             _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService)); 
-            _userService = userService ?? throw new ArgumentNullException(nameof(_userService));
+            _customer = customer ?? throw new ArgumentNullException(nameof(_customer));
         }
 
         /// <summary>
@@ -68,18 +68,18 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>List of book subscription</returns>
         private  List<Book> GetUserBookSubscription(Guid userId)
         {
-            bool user = _userService.isUserExists(userId);
-            if (user)
-            {
-                string BookSubscriptionId = _bookSubscriptionService.GetProductSubscriptionId(userId);
-                var Id = new Guid(BookSubscriptionId);
-                return _bookService.GetBooksAvailableInBookSubscription(Id);
-            }
-            else
-            {
-                return new List<Book>();
-            }
-
+            // bool user = _customer.isUserExists(userId);
+            // if (user)
+            // {
+            //     string BookSubscriptionId = _bookSubscriptionService.GetProductSubscriptionId(userId);
+            //     var Id = new Guid(BookSubscriptionId);
+            //     return _bookService.GetBooksAvailableInBookSubscription(Id);
+            // }
+            // else
+            // {
+            //     return new List<Book>();
+            // }
+            throw new NotImplementedException();
         }
     }
 }

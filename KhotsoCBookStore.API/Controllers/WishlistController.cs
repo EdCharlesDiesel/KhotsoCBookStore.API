@@ -11,13 +11,13 @@ namespace KhotsoCBookStore.API.Controllers
     {
         readonly IWishListService _wishListService;
         readonly IBookService _bookService;
-        readonly IUserService _userService;
+        readonly ICustomerService _customer;
 
-        public WishListController(IWishListService wishListService, IBookService bookService, IUserService userService)
+        public WishListController(IWishListService wishListService, IBookService bookService, ICustomerService customer)
         {
             _wishListService = wishListService?? throw new ArgumentNullException(nameof(_wishListService));
             _bookService = bookService?? throw new ArgumentNullException(nameof(_bookService));
-            _userService = userService?? throw new ArgumentNullException(nameof(_userService));
+            _customer = customer?? throw new ArgumentNullException(nameof(_customer));
         }
 
         /// <summary>
@@ -60,17 +60,19 @@ namespace KhotsoCBookStore.API.Controllers
 
         List<Book> GetUserWishlist(Guid customerId)
         {
-            bool user = _userService.isUserExists(customerId);
-            if (user)
-            {
-                string Wishlistid = _wishListService.GetWishlistId(customerId);
-                var id = new Guid(Wishlistid);
-                return _bookService.GetBooksAvailableInWishlist(id);
-            }
-            else
-            {
-                return new List<Book>();
-            }
+            // bool user = _customer.isUserExists(customerId);
+            // if (user)
+            // {
+            //     string Wishlistid = _wishListService.GetWishlistId(customerId);
+            //     var id = new Guid(Wishlistid);
+            //     return _bookService.GetBooksAvailableInWishlist(id);
+            // }
+            // else
+            // {
+            //     return new List<Book>();
+            // }
+
+            throw new ArgumentNullException();
         }
     }
 }

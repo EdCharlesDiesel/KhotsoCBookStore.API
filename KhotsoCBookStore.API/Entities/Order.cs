@@ -8,15 +8,13 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid OrderId { get; set; }
-
-        public Guid UserId { get; set; }
+        public Guid OrderId { get; set; }  =Guid.NewGuid();
   
         public decimal CartTotal { get; set; }
 
-        // [ForeignKey("CustomerId")]
-        // public Guid CustomerId { get; set; }
-        // public Customer Customer { get; set; }
+        [ForeignKey("CustomerId")]
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }

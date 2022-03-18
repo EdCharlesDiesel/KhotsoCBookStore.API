@@ -1,18 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Services
 {
-    internal interface ICustomerService
+    public interface ICustomerService
     {
-        Task GetAllCustomersAync();
-        Task GetCustomerAsync(Guid customerId);
-        Task SaveChangesAsync();
-        void DeleteCustomer(object customerEntity);
+        Task<IEnumerable<Customer>> GetAllCustomersAync();
+        Task<Customer> GetCustomerByIdAsync(Guid customerId);        
+        void DeleteCustomer(Customer customerEntity);
         Task<bool> CustomerIfExistsAsync(Guid customerId);
-        Task CreateCustomerAsync(CustomerForCreateDto newCustomer);
+        Task CreateCustomerAsync(Customer newCustomer);
         bool CheckUserAvailabity(string customerName);
-        void RegisterUser(CustomerDto customer, object password);
+        void RegisterUser(Customer customer, string password);
+        Task SaveChangesAsync();
     }
 }
