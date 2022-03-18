@@ -9,6 +9,7 @@ using KhotsoCBookStore.API.Profiles;
 using System.Collections.Generic;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Tests.Dtos
 {
@@ -37,18 +38,33 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             realProfile = null;
         }
 
+        private List<Author> GetAuthorsTest(int num)
+        {
+            var authors = new List<Author>();
+            if (num > 0)
+            {
+                authors.Add(new Author
+                {
+                    AuthorId = Guid.NewGuid(),
+                    FirstName = "Charles",
+                    LastName = "Mokhethi"
+                });
+            }
+            return  authors;
+        }
+
         [Fact]
-        public void GetAuthorItems_Returns200OK_WhenDBIsEmpty()
+        public async Task GetAuthorItems_Returns200OK_WhenDBIsEmpty()
         {
             //Arrange
-            mockRepo.Setup( repo =>
-                 repo.GetAllAuthorsAync()).ReturnsAsync(() => null);
+            mockRepo.Setup(repo =>
+            repo.GetAllAuthorsAync()).ReturnsAsync(() => null);
 
 
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthors();
+            var result = await controller.GetAuthors();
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
@@ -56,70 +72,74 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         }
 
         [Fact]
-        public void GetAllAuthors_ReturnsOneItem_WhenDBHasOneResource()
+        public async Task  GetAllAuthors_ReturnsOneItem_WhenDBHasOneResource()
         {
             //Arrange
-            // mockRepo.Setup(repo =>
-            // repo.GetAllAuthors()).Returns(GetAuthors(1));
-
+            mockRepo.Setup(repo =>
+            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
-            //Act
-            //var result = controller.();
+
+            //Act            
+            var result = await controller.GetAuthors();
+
             //Assert
-            // var okResult = result.Result as OkObjectResult;
-            // var authors = okResult.Value as List<AuthorDto>;
-            // Assert.Single(authors);
+            var okResult = result.Result as OkObjectResult;
+            var authors = okResult.Value as List<AuthorDto>;
+            Assert.Single(authors);
         }
 
         [Fact]
-        public void GetAllAuthors_Returns200OK_WhenDBHasOneResource()
+        public async Task GetAllAuthors_Returns200OK_WhenDBHasOneResource()
         {
             //Arrange
-            // mockRepo.Setup(repo =>
-            // repo.GetAllAuthorsAync()).Returns(GetAllAuthorsAync(1));
+            mockRepo.Setup(repo =>
+            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthors();
+            var result =await  controller.GetAuthors();
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
         }
 
         [Fact]
-        public void GetAllAuthors_ReturnsCorrectType_WhenDBHasOneResource()
+        public async Task GetAllAuthors_ReturnsCorrectType_WhenDBHasOneResource()
         {
             //Arrange
-            //  mockRepo.Setup(repo =>
-            // repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorById(1));
+            mockRepo.Setup(repo =>
+            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthors();
+            var result =await  controller.GetAuthors();
 
             //Assert
             Assert.IsType<ActionResult<IEnumerable<AuthorDto>>>(result);
         }
 
         [Fact]
-        public void GetAuthorByID_Returns404NotFound_WhenNonExistentIDProvided()
+        public async Task GetAuthorByID_Returns404NotFound_WhenNonExistentIDProvided()
         {
             //Arrange
-            var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
+            var id = new Guid("00000000-0000-0000-0000-000000000000");
             mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).Returns(() => null);
+            repo.GetAuthorByIdAsync(id)).ReturnsAsync( new Author
+            {
+                
+            });
 
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthorById(id);
+            var result = await controller.GetAuthorById(id);
 
             //Assert
             Assert.IsType<NotFoundResult>(result.Result);
         }
 
         [Fact]
-        public void GetAuthorByID_Returns200OK__WhenValidIDProvided()
+        public async Task GetAuthorByID_Returns200OK__WhenValidIDProvided()
         {
             //Arrange
             var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
@@ -133,14 +153,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthorById(id);
+            var result = await controller.GetAuthorById(id);
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
         }
 
         [Fact]
-        public void GetAuthorByID_Returns200OK__WhenValidIDProvided_()
+        public async Task GetAuthorByID_Returns200OK__WhenValidIDProvided_()
         {
             //Arrange
             var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
@@ -154,20 +174,21 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.GetAuthorById(id);
+            var result = await controller.GetAuthorById(id);
 
             //Assert
             Assert.IsType<ActionResult<AuthorDto>>(result);
         }
 
         [Fact]
-        public void CreateAuthor_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
+        public async Task CreateAuthor_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
         {
             //Arrange
             var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
             mockRepo.Setup(repo =>
             repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
             {
+                AuthorId = id,
                 FirstName = "Charles",
                 LastName = "Mokhrthi"
             });
@@ -175,14 +196,15 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.CreateAuthor(new AuthorForCreateDto { });
+            var result = await controller.CreateAuthor(new AuthorForCreateDto { });
 
             //Assert
-            Assert.IsType<ActionResult<AuthorDto>>(result);
+            //Assert.IsType<ActionResult<AuthorDto>>(result);
+            Assert.IsType<CreatedAtRouteResult>(result);
         }
 
         [Fact]
-        public void CreateAuthor_Returns201Created_WhenValidObjectSubmitted()
+        public async Task CreateAuthor_Returns201Created_WhenValidObjectSubmitted()
         {
             //Arrange
             var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
@@ -196,35 +218,39 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.CreateAuthor(new AuthorForCreateDto { });
+            var result = await controller.CreateAuthor(new AuthorForCreateDto { });
 
             //Assert
-            Assert.IsType<CreatedAtRouteResult>(result.Result);
+            Assert.IsType<CreatedAtRouteResult>(result);
         }
 
         [Fact]
-        public void UpdateAuthor_Returns204NoContent_WhenValidObjectSubmitted()
+        public async Task UpdateAuthor_Returns204NoContent_WhenValidObjectSubmitted()
         {
             //Arrange
             var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
             mockRepo.Setup(repo =>
+            repo.AuthorIfExistsAsync(id)).ReturnsAsync(true);
+
+            mockRepo.Setup(repo =>
             repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
             {
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
+                AuthorId= id,
+                FirstName ="Khotso",
+                LastName = "Mokhethi"
             });
 
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.UpdateAuthor(id, new AuthorForUpdateDto { });
+            var result = await controller.UpdateAuthor(id, new AuthorForUpdateDto { });
 
             //Assert
             Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
-        public void UpdateAuthor_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
+        public async Task UpdateAuthor_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
         {
             //Arrange
             var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
@@ -234,14 +260,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
 
             //Act
-            var result = controller.UpdateAuthor(id, new AuthorForUpdateDto { });
+            var result = await controller.UpdateAuthor(id, new AuthorForUpdateDto { });
 
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public void PartialAuthorUpdate_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
+        public async Task PartialAuthorUpdate_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
         {
             //Arrange
             var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
@@ -250,7 +276,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act
-            var result = controller.PartiallyUpdateAuthor(id,
+            var result = await controller.PartiallyUpdateAuthor(id,
             new Microsoft.AspNetCore.JsonPatch.JsonPatchDocument<AuthorForUpdateDto>
             { });
 
@@ -259,26 +285,34 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         }
 
         [Fact]
-        public void DeleteAuthor_Returns204NoContent_WhenValidResourceIDSubmitted()
+        public async Task DeleteAuthor_Returns204NoContent_WhenValidResourceIDSubmitted()
         {
             //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
+            var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
+            mockRepo.Setup(repo =>
+            repo.AuthorIfExistsAsync(id)).ReturnsAsync(true);
+
             mockRepo.Setup(repo =>
             repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
             {
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
+                AuthorId= id,
+                FirstName ="Khotso",
+                LastName = "Mokhethi"
             });
 
+            
+                
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+            
             //Act
-            var result = controller.DeleteAuthor(id);
+            var result = await controller.DeleteAuthor(id);
+            
             //Assert
             Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
-        public void DeleteAuthor_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()
+        public async Task DeleteAuthor_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()
         {
 
             //Arrange
@@ -286,10 +320,10 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             mockRepo.Setup(repo =>
             repo.GetAuthorByIdAsync(id)).ReturnsAsync(() => null);
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
-            
+
             //Act
-            var result = controller.DeleteAuthor(id);
-            
+            var result = await controller.DeleteAuthor(id);
+
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }

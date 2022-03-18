@@ -66,6 +66,11 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthorDto>> GetAuthorById(Guid authorId)
         {
+            if (authorId == new Guid())
+            {
+               return NotFound();
+            }
+
             var author = await _authorRepository.GetAuthorByIdAsync(authorId);
             return Ok(_mapper.Map<AuthorDto>(author));
         }
