@@ -1,59 +1,48 @@
-// using System;
-// using Xunit;
-// using KhotsoCBookStore.API.Entities;
+using System;
+using Xunit;
+using KhotsoCBookStore.API.Entities;
 
-// namespace KhotsoCBookStore.API.Tests.Entities
-// {
-//     public class ProductSubscriptionTests : IDisposable
-//     {
-//         ProductSubscription bookSubscription;
-//         public ProductSubscriptionTests()
-//         {
-//             bookSubscription = new ProductSubscription
-//             {
-//                 ProductSubscriptionId = "1",
-//                 UserId = 3,
-//                DateCreated = new DateTime(2012, 02, 27, 17, 30, 22)
-//             };
-//         }
+namespace KhotsoCBookStore.API.Tests.Entities
+{
+    public class ProductSubscriptionTests : IDisposable
+    {
+        ProductSubscription bookSubscription;
+        public ProductSubscriptionTests()
+        {
+            bookSubscription = new ProductSubscription
+            {
+                ProductSubscriptionId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"),
+                CustomerId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ")              
+            };
+        }
 
-//         public void Dispose()
-//         {
-//            bookSubscription  = null;
-//         }
+        public void Dispose()
+        {
+           bookSubscription  = null;
+        }
 
-//         [Fact]
-//         public void CanChangeId()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.ProductSubscriptionId = "2";
+        [Fact]
+        public void CanChangeId()
+        {
+            //Arrange
+            //Act
+            bookSubscription.ProductSubscriptionId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
 
-//             //Assert
-//             Assert.Equal("2", bookSubscription.ProductSubscriptionId);
-//         }
+            //Assert
+            Assert.Equal(new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"), bookSubscription.ProductSubscriptionId);
+        }
 
-//         [Fact]
-//         public void CanChangeUserId()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.UserId = 3;
+        [Fact]
+        public void CanChangeCustomerId()
+        {
+            //Arrange
+            //Act
+            bookSubscription.CustomerId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");;
 
-//             //Assert
-//             Assert.Equal(3, bookSubscription.UserId);
-//         }
+            //Assert
+            Assert.Equal(new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"), bookSubscription.CustomerId);
+        }
 
-//         [Fact]
-//         public void CanChangeDateCreated()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.DateCreated = new DateTime(2012, 02, 27, 17, 30, 22);;
-//             var expected = new DateTime(2012, 02, 27, 17, 30, 22);
-//             //Assert
-//             Assert.Equal(expected, bookSubscription.DateCreated);
-//         }
-//     }
-// }
+    }
+}
     

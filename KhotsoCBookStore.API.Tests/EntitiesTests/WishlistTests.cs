@@ -1,59 +1,64 @@
-// using System;
-// using Xunit;
-// using KhotsoCBookStore.API.Entities;
+using System;
+using Xunit;
+using KhotsoCBookStore.API.Entities;
+using System.Collections.Generic;
 
-// namespace KhotsoCBookStore.API.Tests.Entities
-// {
-//     public class WishTest : IDisposable
-//     {
-//         CustomerOrders customerOrder;
-//         public WishTest()
-//         {
-//             customerOrder = new CustomerOrders
-//             {
-//                 CartTotal = 1,
-//                 UserId = 1,
-//                 DateCreated = new DateTime(2021, 12, 25)
-//             };
-//         }
+namespace KhotsoCBookStore.API.Tests.Entities
+{
+    public class WishListTest : IDisposable
+    {
+        WishList wishList;
+        public WishListTest()
+        {
+            wishList = new WishList
+            {
+             WishlistId = new Guid(),
+             CustomerId = new Guid(),
+             WishListItems = new List<WishListItem>(),
+             Customer = new Customer()
+            };
+        }
 
-//         public void Dispose()
-//         {
-//             customerOrder = null;
-//         }
+        public void Dispose()
+        {
+            wishList = null;
+        }
 
-//         [Fact]
-//         public void CanChangeCartTotal()
-//         {
-//             //Arrange
-//             //Act
-//             customerOrder.CartTotal = 2;
+        [Fact]
+        public void CanChangeWishItems()
+        {
+           //Arrange
+            var expected = new List<WishListItem>();
+            
+            //Act
+            wishList.WishListItems = new List<WishListItem>();;
 
-//             //Assert
-//             Assert.Equal(2, customerOrder.CartTotal);
-//         }
+            //Assert
+            Assert.Equal(expected, wishList.WishListItems);
+        }
 
-//         [Fact]
-//         public void CanChangeUserId()
-//         {
-//             //Arrange
-//             //Act
-//             customerOrder.UserId = 2;
+        [Fact]
+        public void CanChangeCustomerId()
+        {
+               var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+            
+            //Act
+            wishList.CustomerId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
 
-//             //Assert
-//             Assert.Equal(2, customerOrder.UserId);
-//         }
+            //Assert
+            Assert.Equal(expected, wishList.CustomerId);
+        }
 
-//         [Fact]
-//         public void CanChangeDateCreated()
-//         {
-//             //Arrange
-//             //Act
-//             customerOrder.DateCreated = new DateTime(2021, 02, 06);
-//             var expected = new DateTime(2021, 02, 06);
+        // [Fact]
+        // public void CanChangeDateCreated()
+        // {
+        //     //Arrange
+        //     //Act
+        //     customerOrder.DateCreated = new DateTime(2021, 02, 06);
+        //     var expected = new DateTime(2021, 02, 06);
 
-//             //Assert
-//             Assert.Equal(expected, customerOrder.DateCreated);
-//         }
-//     }
-// }
+        //     //Assert
+        //     Assert.Equal(expected, customerOrder.DateCreated);
+        // }
+    }
+}

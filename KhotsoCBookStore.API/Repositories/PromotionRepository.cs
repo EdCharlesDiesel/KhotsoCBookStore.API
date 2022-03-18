@@ -57,9 +57,7 @@ namespace KhotsoCBookStore.API.Repositories
         public async Task<bool> PromotionIfExistsAsync(Guid promotionId)
         {
             return await _dbContext.Promotions.AnyAsync(c => c.PromoId == promotionId);
-        }
-
-       
+        }       
 
         public Task<Promotion> UpdatePromotionAsync(Dtos.PromotionForUpdateDto promotionToUpdate)
         {

@@ -16,7 +16,8 @@ namespace KhotsoCBookStore.API.Tests.Entities
                 Cost = 33.44M,
                 RetailPrice = 65.25M,
                 CoverFileName ="Default-Image",
-                PublishingDate = DateTime.Now
+                PublishingDate = DateTime.Now,
+                PublisherId = Guid.NewGuid()
             };
         }
 
@@ -64,11 +65,25 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             var expected = new DateTime(2021,05,05);
+            
             //Act
             book.PublishingDate = new DateTime(2021,05,05);
 
             //Assert
             Assert.Equal(expected, book.PublishingDate);
+        }
+
+        [Fact]
+        public void CanChangePublisherId()
+        {
+            //Arrange
+            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            
+            //Act
+            book.PublisherId = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+
+            //Assert
+            Assert.Equal(expected, book.PublisherId);
         }
     }
 }
