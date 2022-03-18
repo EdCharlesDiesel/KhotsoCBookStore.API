@@ -6,19 +6,19 @@ namespace KhotsoCBookStore.API.Tests.Entities
 {
     public class ProductSubscriptionTests : IDisposable
     {
-        ProductSubscription bookSubscription;
+        ProductSubscription productSubscription;
         public ProductSubscriptionTests()
         {
-            bookSubscription = new ProductSubscription
+            productSubscription = new ProductSubscription
             {
-                ProductSubscriptionId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"),
-                CustomerId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ")              
+                ProductSubscriptionId = new Guid(),
+                CustomerId = new Guid()              
             };
         }
 
         public void Dispose()
         {
-           bookSubscription  = null;
+           productSubscription  = null;
         }
 
         [Fact]
@@ -26,10 +26,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            bookSubscription.ProductSubscriptionId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+            productSubscription.ProductSubscriptionId = new Guid();
 
             //Assert
-            Assert.Equal(new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"), bookSubscription.ProductSubscriptionId);
+            Assert.Equal(new Guid(), productSubscription.ProductSubscriptionId);
         }
 
         [Fact]
@@ -37,10 +37,21 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            bookSubscription.CustomerId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");;
+            productSubscription.CustomerId = new Guid();
 
             //Assert
-            Assert.Equal(new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"), bookSubscription.CustomerId);
+            Assert.Equal(new Guid(), productSubscription.CustomerId);
+        }
+
+         [Fact]
+        public void CanChangeCustomer()
+        {
+            //Arrange
+            //Act
+            productSubscription.Customer = new Customer();
+
+            //Assert
+            Assert.IsType<Customer>(productSubscription.Customer);
         }
 
     }

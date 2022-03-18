@@ -11,9 +11,9 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             wishListItem = new WishListItem
             {
-                ProductId = new Guid("D1D9BEA1-2E36-4D6A-7474-0B97419609C9"),
-                WishListId = new Guid("D1D9BEA1-2E36-9999-9D85-0B97419609C9"),
-                WishListItemId =  new Guid("D1D9BEA1-5555-4D6A-9D85-0B97419609C9"),
+                ProductId =          new Guid("D1D9BEA1-2E36-4D6A-7474-0B97419609C9"),
+                WishListId         = new Guid("D1D9BEA1-2E36-9999-9D85-0B97419609C9"),
+                WishListItemId =     new Guid("D1D9BEA1-5555-4D6A-9D85-0B97419609C9"),
             };
         }
 
@@ -27,6 +27,7 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             var expected = new Guid("D1D9BEA1-2E36-4D6A-0000-0B97419609C9");
+            
             //Act
             wishListItem.ProductId = new Guid("D1D9BEA1-2E36-4D6A-0000-0B97419609C9");
 
@@ -38,9 +39,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public void CanChangeWishListId()
         {
             //Arrange
-            var expected = new Guid("D1D9BEA1-2E36-4D6A-OOOO-0B97419609C9");
+            var expected = new Guid("D1D9BEA1-2E36-4D6A-7479-0B97419609C9");
+            
             //Act
-            wishListItem.WishListId = new Guid("D1D9BEA1-2E36-4D6A-OOOO-0B97419609C9");
+            wishListItem.WishListId = new Guid("D1D9BEA1-2E36-4D6A-7479-0B97419609C9");
 
             //Assert
             Assert.Equal(expected, wishListItem.WishListId);
@@ -50,12 +52,24 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public void CanChangeWishlistItemId()
         {
             //Arrange
-             var expected = new Guid("D1D9BEA1-2E36-DDDD-0000-0B97419609C9");
+            var expected = new Guid("D1D9BEA1-2E36-DDDD-1000-0B97419609C9");
+            
             //Act
-            wishListItem.ProductId = new Guid("D1D9BEA1-2E36-DDDD-0000-0B97419609C9");
+            wishListItem.ProductId = new Guid("D1D9BEA1-2E36-DDDD-1000-0B97419609C9");
 
             //Assert
             Assert.Equal(expected, wishListItem.ProductId);
+        }
+
+          [Fact]
+        public void CanChangeWishList()
+        {
+            //Arrange
+            var expected = new WishList();
+            
+            //Act
+            //Assert
+            Assert.IsType<WishList>(expected);
         }
     }
 }

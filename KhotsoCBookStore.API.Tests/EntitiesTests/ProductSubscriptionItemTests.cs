@@ -23,16 +23,28 @@ namespace KhotsoCBookStore.API.Tests.Entities
         }
 
         [Fact]
-        public void CanChangeProductItemId()
+        public void CanChangeProductSubscriptionItemId()
         {
-             //Arrange
-            var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+            //Arrange
+            var expected = new Guid("D5066515-7104-4F85-894C-109BFB651111");
             
             //Act
-            productSubscriptionItem.ProductSubscriptionItemId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            productSubscriptionItem.ProductSubscriptionItemId = new Guid("D5066515-7104-4F85-894C-109BFB651111");
 
             //Assert
             Assert.Equal(expected, productSubscriptionItem.ProductSubscriptionItemId);
+        }
+
+        
+        [Fact]
+        public void CanChangeProductSubscription()
+        {
+            //Arrange
+            //Act
+            productSubscriptionItem.ProductSubscription = new ProductSubscription();
+
+            //Assert
+            Assert.IsType<ProductSubscription>(productSubscriptionItem.ProductSubscription);
         }
 
         [Fact]

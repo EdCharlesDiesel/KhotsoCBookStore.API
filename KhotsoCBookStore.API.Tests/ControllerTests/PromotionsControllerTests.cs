@@ -44,16 +44,16 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
         private List<Promotion> GetPromotionsTest(int num)
         {
-            var authors = new List<Promotion>();
+            var promotions = new List<Promotion>();
             if (num > 0)
             {
-                authors.Add(new Promotion
+                promotions.Add(new Promotion
                 {
-                    ManimumRetail =33.00M,
+                    MinimumRetail =33.00M,
                     MaximumRetail=69.22M
                 });
             }
-            return  authors;
+            return  promotions;
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
             //Assert
             // var okResult = result.Result as OkObjectResult;
-            // var authors = okResult.Value as List<PromotionDto>;
+            // var promotions = okResult.Value as List<PromotionDto>;
             //Assert.Single(result);
             //Assert.IsNotType(result);
         }

@@ -21,7 +21,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<IEnumerable<Promotion>> GetAllPromotionsAync()
         {
-            return await _dbContext.Promotions.OrderBy(e=>e.ManimumRetail).ToListAsync();
+            return await _dbContext.Promotions.OrderBy(e=>e.MinimumRetail).ToListAsync();
         }
 
         public async Task<Promotion> GetPromotionAsync(Guid promotionId)

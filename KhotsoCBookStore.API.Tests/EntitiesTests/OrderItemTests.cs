@@ -29,36 +29,33 @@ namespace KhotsoCBookStore.API.Tests.Entities
         public void CanChangeOrderItemId()
         {
             //Arrange
-            var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
-            
             //Act
-            orderItems.OrderItemId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            orderItems.OrderItemId = new Guid();
 
             //Assert
-            Assert.Equal(expected, orderItems.OrderItemId);
+            Assert.Equal(new Guid(), orderItems.OrderItemId);
         }
 
         [Fact]
         public void CanChangeOrderId()
         {
-             //Arrange
-            var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+            //Arrange
             
             //Act
-            orderItems.OrderId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            orderItems.OrderId = new Guid();
 
             //Assert
-            Assert.Equal(expected, orderItems.OrderId);
+            Assert.Equal(new Guid(), orderItems.OrderId);
         }
 
         [Fact]
         public void CanChangeProductId()
         {
-             //Arrange
-            var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+            //Arrange
+            var expected = new Guid();
             
             //Act
-            orderItems.ProductId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            orderItems.ProductId = new Guid();
 
             //Assert
             Assert.Equal(expected, orderItems.ProductId);;
