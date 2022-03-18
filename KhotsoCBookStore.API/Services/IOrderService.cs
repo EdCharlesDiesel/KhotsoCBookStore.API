@@ -1,12 +1,17 @@
 ﻿using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IOrderService
     {
-        void CreateOrder(Guid userId, OrderDto orderDetails);
-        List<OrderDto> GetOrderList(Guid userId);
+        Task CreateOrderAsync(Guid customerId, Order orderItems);
+        
+        Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId);
+
+        Task<bool> SaveChangesAsync();
     }
 }

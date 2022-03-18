@@ -12,15 +12,15 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class ProductSubscriptionController : Controller
     {
-        readonly IProductSubscriptionService _bookSubscriptionService;
-        readonly IBookService _bookService;
-        readonly ICustomerService _customer;
+        readonly IProductSubscriptionService _bookSubscriptionRepository;
+        readonly IBookService _bookRepository;
+        readonly ICustomerService _customerRepository;
 
-        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionService, IBookService bookService, ICustomerService customer)
+        public ProductSubscriptionController(IProductSubscriptionService bookSubscriptionRepository, IBookService bookService, ICustomerService customer)
         {
-            _bookSubscriptionService = bookSubscriptionService ?? throw new ArgumentNullException(nameof(_bookSubscriptionService));
-            _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService)); 
-            _customer = customer ?? throw new ArgumentNullException(nameof(_customer));
+            _bookSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_bookSubscriptionRepository));
+            _bookRepository = bookService ?? throw new ArgumentNullException(nameof(_bookRepository)); 
+            _customerRepository = customer ?? throw new ArgumentNullException(nameof(_customerRepository));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("ToggleProductSubscription/{userId}/{bookId}")]
         public async Task<List<Book>> Post(Guid userId, Guid bookId)
         {
-            _bookSubscriptionService.ToggleProductSubscriptionItem(userId, bookId);
+            _bookSubscriptionRepository.ToggleProductSubscriptionItem(userId, bookId);
             return await Task.FromResult(GetUserBookSubscription(userId)).ConfigureAwait(true);
         }
 
@@ -58,7 +58,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpDelete("{userId}")]
         public int Delete(Guid userId)
         {
-            return _bookSubscriptionService.ClearProductSubscription(userId);
+            return _bookSubscriptionRepository.ClearProductSubscription(userId);
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>List of book subscription</returns>
         private  List<Book> GetUserBookSubscription(Guid userId)
         {
-            // bool user = _customer.isUserExists(userId);
+            // bool user = _customerRepository.isUserExists(userId);
             // if (user)
             // {
-            //     string BookSubscriptionId = _bookSubscriptionService.GetProductSubscriptionId(userId);
+            //     string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(userId);
             //     var Id = new Guid(BookSubscriptionId);
-            //     return _bookService.GetBooksAvailableInBookSubscription(Id);
+            //     return _bookRepository.GetBooksAvailableInBookSubscription(Id);
             // }
             // else
             // {

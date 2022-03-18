@@ -19,14 +19,14 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class CustomersController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         readonly ICustomerService _customerRepository;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
         //private readonly AppSettings _appSettings;
         readonly ICartService _cartService;
-        public CustomersController(ICustomerService customerRepository,
+        public CustomerController(ICustomerService customerRepository,
             IMapper mapper,IMailService mailService, ICartService cartService)
         {
             _customerRepository = customerRepository?? throw new ArgumentNullException(nameof(_customerRepository));
@@ -206,41 +206,6 @@ namespace KhotsoCBookStore.API.Controllers
             //     $"Customer named {customerEntity.FirstName} with id {customerEntity.CustomerId} was deleted.");
          
             return NoContent();
-        }
-
-
-        /// <summary>
-        /// Check customername availability. 
-        /// </summary>
-        /// <param name="customerName"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("validateUserName/{customerName}")]
-        public bool ValidateUserName(string customerName)
-        {
-            return _customerRepository.CheckUserAvailabity(customerName);
-        }
-
-        /// <summary>
-        /// Register a new customer.
-        /// </summary>
-        /// <param name="newCustomer"></param>
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public IActionResult Register([FromBody]CustomerForCreateDto newCustomer)
-        {
-            var customer = _mapper.Map<Customer>(newCustomer);
-            try
-            {
-                // create customer
-                _customerRepository.RegisterUser(customer, newCustomer.Password);
-                return Ok();
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
-            }
         }
     }
 }

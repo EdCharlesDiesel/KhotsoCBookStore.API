@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace KhotsoCBookStore.API.Tests.Dtos
+namespace KhotsoCBookStore.API.Tests.ControllerTests
 {
     public class BookControllerTests : IDisposable
     {
-        Mock<IBookService> mockRepo;
+        Mock<IBookService> mockBookRepo;
         Mock<IMailService> mockMail;
         BookMappingProfile realProfile;
         MapperConfiguration configuration;
@@ -30,21 +30,23 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
         public BookControllerTests()
         {
-            mockConfig = new Mock<IConfiguration>();
-            mockWeHost = new Mock<IWebHostEnvironment>();
-            mockRepo = new Mock<IBookService>();
-            mockMail = new Mock<IMailService>();
             realProfile = new BookMappingProfile();
             configuration = new MapperConfiguration(cfg => cfg.
             AddProfile(realProfile));
             mapper = new Mapper(configuration);
+            mockMail = new Mock<IMailService>();
+            mockConfig = new Mock<IConfiguration>();
+            mockWeHost = new Mock<IWebHostEnvironment>();
+            mockBookRepo = new Mock<IBookService>();
+            
+           
             coverImageFolderPath = "";
         }
         public void Dispose()
         {
             
             mockMail = null;
-            mockRepo = null;
+            mockBookRepo = null;
             mapper = null;
             configuration = null;
             realProfile = null;
@@ -73,16 +75,16 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         public async Task GetBookItems_Returns200OK_WhenDBIsEmpty()
         {
             //Arrange
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(() => null);
 
 
-            var controller = new BooksController(
+            var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -97,14 +99,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         public async Task  GetAllBooks_ReturnsOneItem_WhenDBHasOneResource()
         {
             //Arrange
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act            
@@ -120,14 +122,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         public async Task GetAllBooks_Returns200OK_WhenDBHasOneResource()
         {
             //Arrange
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -141,14 +143,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         public async Task GetAllBooks_ReturnsCorrectType_WhenDBHasOneResource()
         {
             //Arrange
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -163,22 +165,22 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("00000000-0000-0000-0000-000000000000");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync( new Book
             {
                 
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
-            var result = await controller.GetBookById(id);
+            var result = await controller.GetBook(id);
 
             //Assert
             Assert.IsType<NotFoundResult>(result.Result);
@@ -189,22 +191,22 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
-            var result = await controller.GetBookById(id);
+            var result = await controller.GetBook(id);
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
@@ -215,22 +217,22 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
-            var result = await controller.GetBookById(id);
+            var result = await controller.GetBook(id);
 
             //Assert
             Assert.IsType<ActionResult<BookDto>>(result);
@@ -241,19 +243,19 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 BookId = id,
               
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -269,18 +271,18 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -295,22 +297,22 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.BookIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 BookId= id,
               
             });
 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -325,14 +327,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
 
@@ -348,14 +350,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act
@@ -372,10 +374,10 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         {
             //Arrange
             var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.BookIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
             {
                 BookId= id,
@@ -384,12 +386,12 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
             
                 
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
             
             //Act
@@ -405,14 +407,14 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
             //Arrange
             var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
-            mockRepo.Setup(repo =>
+            mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-               var controller = new BooksController(
+               var controller = new BookController(
             mapper,
             mockMail.Object ,
             mockConfig.Object,
             mockWeHost.Object,
-            mockRepo.Object            
+            mockBookRepo.Object            
             );
 
             //Act

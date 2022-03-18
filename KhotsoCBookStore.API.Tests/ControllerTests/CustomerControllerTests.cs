@@ -14,7 +14,7 @@ using KhotsoCBookStore.API.Helpers;
 
 namespace KhotsoCBookStore.API.Tests.Dtos
 {
-    public class CustomersControllerTests : IDisposable
+    public class CustomerControllerTests : IDisposable
     {
         Mock<ICustomerService> mockRepo;
         Mock<IMailService> mockMail;
@@ -26,7 +26,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
         
 
-        public CustomersControllerTests()
+        public CustomerControllerTests()
         {
             mockRepo = new Mock<ICustomerService>();
             mockMail = new Mock<IMailService>();
@@ -69,7 +69,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             repo.GetAllCustomersAync()).ReturnsAsync(() => null);
 
 
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.GetCustomers();
@@ -85,7 +85,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             //Arrange
             mockRepo.Setup(repo =>
             repo.GetAllCustomersAync()).ReturnsAsync(GetCustomersTest(1));
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act            
             var result = await controller.GetCustomers();
@@ -102,7 +102,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             //Arrange
             mockRepo.Setup(repo =>
             repo.GetAllCustomersAync()).ReturnsAsync(GetCustomersTest(1));
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result =await  controller.GetCustomers();
@@ -117,7 +117,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             //Arrange
             mockRepo.Setup(repo =>
             repo.GetAllCustomersAync()).ReturnsAsync(GetCustomersTest(1));
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result =await  controller.GetCustomers();
@@ -137,7 +137,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 
         //     });
 
-        //     var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+        //     var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
         //     //Act
         //     var result = await controller.GetCustomer(id);
@@ -158,7 +158,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 LastName = "Mokhrthi"
             });
 
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.GetCustomer(id);
@@ -179,7 +179,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 LastName = "Mokhrthi"
             });
 
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.GetCustomer(id);
@@ -201,7 +201,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         //         LastName = "Mokhrthi"
         //     });
 
-        //     var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+        //     var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
         //     //Act
         //     var result = await controller.CreateCustomer(new CustomerForCreateDto { });
@@ -223,7 +223,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         //         LastName = "Mokhrthi"
         //     });
 
-        //     var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+        //     var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
         //     //Act
         //     var result = await controller.CreateCustomer(new CustomerForCreateDto { });
@@ -248,7 +248,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 LastName = "Mokhethi"
             });
 
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.UpdateCustomer(id, new CustomerForUpdateDto { });
@@ -264,7 +264,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
             mockRepo.Setup(repo =>
             repo.GetCustomerByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
 
             //Act
@@ -281,7 +281,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
             mockRepo.Setup(repo =>
             repo.GetCustomerByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.PartiallyUpdateCustomer(id,
@@ -310,7 +310,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
             
                 
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
             
             //Act
             var result = await controller.DeleteCustomer(id);
@@ -327,7 +327,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
             mockRepo.Setup(repo =>
             repo.GetCustomerByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new CustomersController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
+            var controller = new CustomerController(mockRepo.Object, mapper, mockMail.Object,mockCartService.Object);
 
             //Act
             var result = await controller.DeleteCustomer(id);
