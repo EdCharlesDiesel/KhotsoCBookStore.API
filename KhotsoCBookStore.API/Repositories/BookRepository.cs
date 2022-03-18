@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -18,51 +19,43 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public List<Book> GetAllBooks()
+        public async Task<IEnumerable<Book>> GetAllBooksAync()
         {
-            try
+            return await _dbContext.Books.ToListAsync();
+        }
+
+        public async Task CreateBook(Book book)
+        { 
+            if (book != null)
             {
-                return _dbContext.Books.AsNoTracking().ToList();
-            }
-            catch
-            {
-                throw;
+               await _dbContext.AddAsync(book);
             }
         }
 
-        public int AddBook(Book book)
+          public async Task<bool> SaveChangesAsync()
         {
-            try
-            {
-                _dbContext.Books.Add(book);
-                _dbContext.SaveChanges();
-
-                return 1;
-            }
-            catch
-            {
-                throw;
-            }
+            return (await _dbContext.SaveChangesAsync() >= 0);
         }
-
         public int UpdateBook(Book book)
         {
             try
             {
-                Book oldBookData = GetBookData(book.BookId);
+                // Book oldBookData = GetBookData(book.BookId);
 
-                if (oldBookData.CoverFileName != null)
-                {
-                    if (book.CoverFileName == null)
-                    {
-                        book.CoverFileName = oldBookData.CoverFileName;
-                    }
-                }
+                // if (oldBookData.CoverFileName != null)
+                // {
+                //     if (book.CoverFileName == null)
+                //     {
+                //         book.CoverFileName = oldBookData.CoverFileName;
+                //     }
+                // }
 
-                _dbContext.Entry(book).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                // _dbContext.Entry(book).State = EntityState.Modified;
+                // _dbContext.SaveChanges();
 
-                return 1;
+                // return 1;
+
+                throw new NotImplementedException();
             }
             catch
             {
@@ -70,23 +63,7 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public Book GetBookData(Guid bookId)
-        {
-            try
-            {
-                Book book = _dbContext.Books.FirstOrDefault(x => x.BookId == bookId);
-                if (book != null)
-                {
-                    _dbContext.Entry(book).State = EntityState.Detached;
-                    return book;
-                }
-                return null;
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        
 
         public string DeleteBook(Guid bookId)
         {
@@ -113,29 +90,31 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
        
-        // public List<CartItemDto> GetBooksAvailableInCart(Guid cartId)
-        // {
-        //     try
-        //     {
-        //         List<CartItemDto> cartItemList = new List<CartItemDto>();
-        //         foreach (CartItem item in _dbContext.CartItems.Where(x => x.CartId == cartId).ToList())
-        //         {
-        //             Book book = GetBookData(item.ProductId);
-        //             CartItemDto objCartItem = new CartItemDto
-        //             {
-        //                 Book = book,
-        //                 Quantity = item.Quantity
-        //             };
+        public List<CartItemDto> GetBooksAvailableInCart(Guid cartId)
+        {
+            try
+            {
+                // List<CartItemDto> cartItemList = new List<CartItemDto>();
+                // foreach (CartItem item in _dbContext.CartItems.Where(x => x.CartId == cartId).ToList())
+                // {
+                //     Book book = GetBookByIdAsync(item.ProductId);
+                //     CartItemDto objCartItem = new CartItemDto
+                //     {
+                //         Book = book,
+                //         Quantity = item.Quantity
+                //     };
 
-        //             cartItemList.Add(objCartItem);
-        //         }
-        //         return cartItemList;
-        //     }
-        //     catch
-        //     {
-        //         throw;
-        //     }
-        // }
+                //     cartItemList.Add(objCartItem);
+                // }
+                //return cartItemList;
+
+                throw new NotImplementedException();
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         public List<Book> GetBooksAvailableInWishlist(Guid wishListId)
         {
@@ -194,7 +173,52 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-        List<CartItemDto> IBookService.GetBooksAvailableInCart(string cartid)
+     
+     
+
+        Task<Book> IBookService.UpdateBook(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Book> GetBookByIdAsync(Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+  
+
+        public void DeleteBook(Book booksEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Category>> IBookService.GetCategories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<CartItemDto>> GetBooksAvailableInCartAsync(Guid cartId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Book>> IBookService.GetBooksAvailableInWishlist(Guid wishlistId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Book>> IBookService.GetBooksAvailableInBookSubscription(Guid bookSubscriptionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Book>> GetBooksAvailableInPromotion(Guid promotionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> BookIfExistsAsync(Guid booksId)
         {
             throw new NotImplementedException();
         }

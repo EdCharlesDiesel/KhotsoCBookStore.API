@@ -2,21 +2,33 @@
 using KhotsoCBookStore.API.Dtos;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IBookService
     {
-        List<Book> GetAllBooks();
-        int AddBook(Book book);
-        int UpdateBook(Book book);
-        Book GetBookData(Guid bookId);
-        string DeleteBook(Guid bookId);
-        List<Category> GetCategories();       
-        // List<CartItemDto> GetBooksAvailableInCart(guid cartId);
-        List<Book> GetBooksAvailableInWishlist(Guid wishlistId);
-        List<Book> GetBooksAvailableInBookSubscription(Guid bookSubscriptionId);
-        List<Book> GetBooksAvailableInPromotion(string promotionid);
-        List<CartItemDto> GetBooksAvailableInCart(string cartid);
+        Task<IEnumerable<Book>> GetAllBooksAync();
+        
+        Task CreateBook(Book book);
+        
+        Task<Book> UpdateBook(Book book);
+        
+        Task<Book> GetBookByIdAsync(Guid bookId);
+
+        Task<bool> SaveChangesAsync();
+        
+        void DeleteBook(Book booksEntity);
+        
+        Task<IEnumerable<Category>> GetCategories();       
+        
+        Task<IEnumerable<CartItemDto>> GetBooksAvailableInCartAsync(Guid cartId);
+        
+        Task<IEnumerable<Book>> GetBooksAvailableInWishlist(Guid wishlistId);
+        
+        Task<IEnumerable<Book>> GetBooksAvailableInBookSubscription(Guid bookSubscriptionId);
+        
+        Task<IEnumerable<Book>> GetBooksAvailableInPromotion(Guid promotionId);
+        Task<bool> BookIfExistsAsync(Guid booksId);
     }
 }

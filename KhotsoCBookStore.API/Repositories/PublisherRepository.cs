@@ -69,20 +69,11 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-        Task IPublisherService.GetAllPublishersAync()
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        Task IPublisherService.GetPublisherAsync(Guid publisherId)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        Task IPublisherService.CreatePublisherAsync(PublisherForCreateDto newPublisher)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         Task IPublisherService.SaveChangesAsync()
         {
@@ -90,6 +81,16 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         public void DeletePublisher(object publisherEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreatePublisherAsync(Publisher newPublisher)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetPublisherByIdAsync(Guid publisherId)
         {
             throw new NotImplementedException();
         }

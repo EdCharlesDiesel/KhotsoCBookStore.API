@@ -66,7 +66,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PublisherDto>> GetPublisher(Guid publisherId)
         {
-            var publisher =  _publisherService.GetPublisherAsync(publisherId);
+            var publisher =  _publisherService.GetPublisherByIdAsync(publisherId);
             return Ok(_mapper.Map<PublisherDto>(publisher));
         }
 
@@ -79,8 +79,9 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PublisherForCreateDto>> CreatePublisher(PublisherForCreateDto newPublisher)
+        public async Task<ActionResult<PublisherForCreateDto>> CreatePublisher(PublisherForCreateDto publisher)
         {
+            var newPublisher =_mapper.Map<Entities.Publisher>(publisher);
             await _publisherService.CreatePublisherAsync(newPublisher);
             await _publisherService.SaveChangesAsync();
 
@@ -107,7 +108,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var publisherEntity = _publisherService.GetPublisherAsync(publisherId);
+            var publisherEntity = _publisherService.GetPublisherByIdAsync(publisherId);
             if (publisherEntity == null)
             {
                 return NotFound();
@@ -137,7 +138,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var publisherEntity =  _publisherService.GetPublisherAsync(publisherId);
+            var publisherEntity =  _publisherService.GetPublisherByIdAsync(publisherId);
             if (publisherEntity == null)
             {
                 return NotFound();
@@ -174,20 +175,20 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeletePublisher(Guid publisherId)
         {
-            if (!await _publisherService.PublisherIfExistsAsync(publisherId))
-            {
-                return NotFound();
-            }
+            // if (!await _publisherService.PublisherIfExistsAsync(publisherId))
+            // {
+            //     return NotFound();
+            // }
 
-            var publisherEntity =  _publisherService.GetPublisherAsync(publisherId);
+            // var publisherEntity =  _publisherService.GetPublisherAsync(publisherId);
 
-            if (publisherEntity == null)
-            {
-                return NotFound();
-            }
+            // if (publisherEntity == null)
+            // {
+            //     return NotFound();
+            // }
 
-            _publisherService.DeletePublisher(publisherEntity);
-            await _publisherService.SaveChangesAsync();
+            // _publisherService.DeletePublisher(publisherEntity);
+            // await _publisherService.SaveChangesAsync();
 
             // _mailService.Send(
             //     "Publisher deleted.",

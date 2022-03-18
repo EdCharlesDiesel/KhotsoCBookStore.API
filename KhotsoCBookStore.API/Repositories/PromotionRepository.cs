@@ -29,7 +29,7 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Promotions.FirstOrDefaultAsync(c => c.PromoId == promotionId);
         }
 
-        public async Task<PromotionForCreateDto> CreatePromotionAsync(PromotionForCreateDto newPromotion)
+        public async Task<Dtos.PromotionForCreateDto> CreatePromotionAsync(Dtos.PromotionForCreateDto newPromotion)
         {
             if (newPromotion != null)
             {
@@ -59,12 +59,9 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Promotions.AnyAsync(c => c.PromoId == promotionId);
         }
 
-        Task<IEnumerable<PromotionDto>> IPromotionService.GetAllPromotionsAync()
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public Task<Promotion> UpdatePromotionAsync(PromotionForUpdateDto promotionToUpdate)
+        public Task<Promotion> UpdatePromotionAsync(Dtos.PromotionForUpdateDto promotionToUpdate)
         {
             throw new NotImplementedException();
         }
@@ -80,6 +77,16 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         public void TogglePromotionItem(Guid userId, Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IPromotionService.ClearPromotion(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Entities.PromotionDto>> IPromotionService.GetAllPromotionsAync()
         {
             throw new NotImplementedException();
         }

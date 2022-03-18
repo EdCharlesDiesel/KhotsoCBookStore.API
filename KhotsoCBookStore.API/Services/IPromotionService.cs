@@ -5,9 +5,9 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Services
 {
-    internal interface IPromotionService
+    public interface IPromotionService
     {
-        int ClearPromotion(Guid userId);
+        Task ClearPromotion(Guid userId);
         string GetPromotionId(Guid userId);
         void TogglePromotionItem(Guid userId, Guid bookId);
         Task<IEnumerable<PromotionDto>> GetAllPromotionsAync();

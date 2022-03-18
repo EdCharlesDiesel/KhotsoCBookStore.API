@@ -15,7 +15,8 @@ This version has been rebuild with new features and improved stability. Like:
     -Employees
     -BookAuthors
     -many more..
-
+-Rewrote the code base with async
+-
 Security has been updated featuring login using 3rd party SSO.
 
 ## Re-Build

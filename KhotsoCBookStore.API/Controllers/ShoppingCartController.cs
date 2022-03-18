@@ -42,8 +42,10 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{userId}")]
         public async Task<List<CartItemDto>> Get(Guid userId)
         {
-            string cartid = _cartService.GetCartId(userId);
-            return await Task.FromResult(_bookService.GetBooksAvailableInCart(cartid)).ConfigureAwait(true);
+            // string cartid = _cartService.GetCartId(userId);
+            // var id = new Guid(cartid);
+            // return await _bookService.GetBooksAvailableInCartAsync(id);
+            throw new NotImplementedException();
         }
 
         /// <summary>
