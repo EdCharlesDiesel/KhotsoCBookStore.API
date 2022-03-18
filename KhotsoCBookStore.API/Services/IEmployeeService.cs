@@ -10,7 +10,7 @@ namespace KhotsoCBookStore.API.Services
     {
         Task<IEnumerable<EmployeeDto>> GetAllEmployeesAync();
         
-        Task<Employee> GetEmployeeAsync(Guid employeeId);
+        Task<Employee> GetEmployeeByIdAsync(Guid employeeId);
         
         Task<Employee> CreateEmployeeAsync(EmployeeForCreateDto newEmployee);
         
