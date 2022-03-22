@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace KhotsoCBookStore.API.Models
+namespace KhotsoCBookStore.API.Dtos
 {
     public class OrdersDto
     {

@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using KhotsoCBookStore.API.Authentication;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,11 +28,11 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Login.
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] AuthenticateModel model)
+        public IActionResult Login([FromBody] AuthenticateDto model)
         {
             var user = _userService.Authenticate(model.Username, model.Password);
             if (user == null)

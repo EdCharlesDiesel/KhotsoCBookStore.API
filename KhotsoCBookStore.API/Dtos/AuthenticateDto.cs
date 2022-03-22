@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KhotsoCBookStore.API.Models
+namespace KhotsoCBookStore.API.Dtos
 {
-    public class AuthenticateModel
+    public class AuthenticateDto
     {
         [Required]
         public string Username { get; set; }

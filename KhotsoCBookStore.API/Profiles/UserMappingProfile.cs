@@ -1,6 +1,6 @@
 using AutoMapper;
 using KhotsoCBookStore.API.Authentication;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 
 namespace KhotsoCBookStore.API.Helpers
 {
@@ -10,9 +10,9 @@ namespace KhotsoCBookStore.API.Helpers
         {
             CreateMap<UserMaster, UserMaster>();
 
-            CreateMap<RegisterModel, UserMaster>();
+            CreateMap<RegisterDto, UserMaster>();
             
-            CreateMap<UpdateModel, UserMaster>();
+            CreateMap<UpdateDto, UserMaster>();
         }
     }
 }

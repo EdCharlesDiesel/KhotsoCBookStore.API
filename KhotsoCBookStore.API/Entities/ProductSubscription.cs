@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class BookSubscription
+    public class ProductSubscription
     {
-        public string BookSubscriptionId { get; set; }        
+        public string ProductSubscriptionId { get; set; }        
 
         public int UserId { get; set; }               
         

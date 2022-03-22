@@ -1,10 +1,11 @@
 ﻿using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -14,7 +15,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public BookRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
         public List<Book> GetAllBooks()
@@ -112,15 +113,15 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
        
-        public List<CartItemModel> GetBooksAvailableInCart(string cartID)
+        public List<CartItemDto> GetBooksAvailableInCart(string cartID)
         {
             try
             {
-                List<CartItemModel> cartItemList = new List<CartItemModel>();
+                List<CartItemDto> cartItemList = new List<CartItemDto>();
                 foreach (CartItems item in _dbContext.CartItems.Where(x => x.CartId == cartID).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
-                    CartItemModel objCartItem = new CartItemModel
+                    CartItemDto objCartItem = new CartItemDto
                     {
                         Book = book,
                         Quantity = item.Quantity
@@ -159,11 +160,12 @@ namespace KhotsoCBookStore.API.Repositories
              try
             {
                 List<Book> bookSubscription = new List<Book>();
-                foreach (BookSubscriptionItems item in _dbContext.BookSubscriptionItems.Where(x => x.BookSubscriptionId == bookSubscriptionId).ToList())
+                foreach (ProductSubscriptionItem item in _dbContext.ProductSubscriptionItems.Where(x => x.ProductSubscriptionId == bookSubscriptionId).ToList())
                 {
                     Book book = GetBookData(item.ProductId);
                     bookSubscription.Add(book);
                 }
+                
                 return bookSubscription;
             }
             catch

@@ -1,11 +1,5 @@
 ﻿using KhotsoCBookStore.API.Contexts;
-using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Models;
-using KhotsoCBookStore.API.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KhotsoCBookStore.API.Repositories
 {

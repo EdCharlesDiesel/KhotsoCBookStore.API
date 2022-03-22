@@ -1,6 +1,6 @@
 ﻿using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Models
+namespace KhotsoCBookStore.API.Dtos
 {
     public class CartItemDto
     {

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KhotsoCBookStore.API.Models
+namespace KhotsoCBookStore.API.Dtos
 {
-  public class RegisterModel
+  public class RegisterDto
   {
     [Required]
     public string FirstName { get; set; }

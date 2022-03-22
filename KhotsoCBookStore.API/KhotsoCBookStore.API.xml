@@ -10,6 +10,14 @@
             </summary>
             <returns>An IActionResult of actions allowed</returns>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooks">
+            <summary>
+            Get all the books
+            </summary>
+            <returns>Returns books</returns>
+            <response code="200">Returns the requested books</response>
+            <response code="404">Returns no books found</response>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.Get(System.Int32)">
             <summary>
             Get the specific book with BookId
@@ -42,36 +50,7 @@
             <param name="bookId"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Get(System.Int32)">
-            <summary>
-            Get the list of books subscriptions
-            </summary>
-            <param name="userId"></param>
-            <returns>List of book subscriptions</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add a new book subscription
-            </summary>
-            <param name="bookId"></param>
-            <param name="userId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.Delete(System.Int32)">
-            <summary>
-            Delete a book subscription
-            </summary>
-            <param name="userId"></param>
-            <returns>0 or 1</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookSubscriptionController.GetUserBookSubscription(System.Int32)">
-            <summary>
-            Get a list of user book subscriptions
-            </summary>
-            <param name="userId"></param>
-            <returns>List of book subscription</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.Post(System.Int32,KhotsoCBookStore.API.Models.OrdersModel)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.Post(System.Int32,KhotsoCBookStore.API.Dtos.OrdersDto)">
             <summary>
             Add user checkout item(s)
             </summary>
@@ -79,11 +58,64 @@
             <param name="checkedOutItems"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Models.AuthenticateModel)">
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.GetBooksAPIOptions">
+            <summary>
+            List of all the actions the API supports
+            </summary>
+            <returns>An IActionResult of actions allowed</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.GetBooks">
+            <summary>
+            Get all the books
+            </summary>
+            <returns>Returns books</returns>
+            <response code="200">Returns the requested books</response>
+            <response code="404">Returns no books found</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Get(System.Int32)">
+            <summary>
+            Get the specific book with BookId
+            </summary>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.CategoryDetails">
+            <summary>
+            Get the list of categories.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Post">
+            <summary>
+            Add a new book.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Put">
+            <summary>
+            Update a specific book.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.EmployeesController.Delete(System.Int32)">
+            <summary>
+            Delete a specific book.
+            </summary>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Dtos.AuthenticateDto)">
             <summary>
             Login.
             </summary>
-            <param name="login"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.OrderController.Get(System.Int32)">
+            <summary>
+            Get the all the orders for user
+            </summary>
+            <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Get(System.Int32,System.Int32)">
@@ -93,6 +125,13 @@
             <param name="oldUserId"></param>
             <param name="newUserId"></param>
             <returns>The count of items in shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Get(System.Int32)">
+            <summary>
+            Get the list of items in the shopping cart
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.Post(System.Int32,System.Int32)">
             <summary>
@@ -139,11 +178,11 @@
             <param name="userName"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.UserController.Register(KhotsoCBookStore.API.Models.RegisterModel)">
+        <member name="M:KhotsoCBookStore.API.Controllers.UserController.Register(KhotsoCBookStore.API.Dtos.RegisterDto)">
             <summary>
             Register a new user.
             </summary>
-            <param name="user modelmodel"></param>
+            <param name="model"></param>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.WishlistController.Get(System.Int32)">
             <summary>

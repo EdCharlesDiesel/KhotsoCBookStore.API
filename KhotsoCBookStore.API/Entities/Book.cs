@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace KhotsoCBookStore.API.Entities
+﻿namespace KhotsoCBookStore.API.Entities
 {
     public partial class Book
     {

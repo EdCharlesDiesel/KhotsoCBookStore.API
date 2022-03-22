@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using KhotsoCBookStore.API.Authentication;
 using KhotsoCBookStore.API.Helpers;
-using KhotsoCBookStore.API.Models;
+using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,10 +52,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Register a new user.
         /// </summary>
-        /// <param name="user model"></param>
+        /// <param name="model"></param>
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel model)
+        public IActionResult Register([FromBody]RegisterDto model)
         {
             var user = _mapper.Map<UserMaster>(model);
             try

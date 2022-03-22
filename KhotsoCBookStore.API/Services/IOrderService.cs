@@ -1,11 +1,11 @@
-﻿using KhotsoCBookStore.API.Models;
+﻿using KhotsoCBookStore.API.Dtos;
 using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IOrderService
     {
-        void CreateOrder(int userId, OrdersModel orderDetails);
-        List<OrdersModel> GetOrderList(int userId);
+        void CreateOrder(int userId, OrdersDto orderDetails);
+        List<OrdersDto> GetOrderList(int userId);
     }
 }
