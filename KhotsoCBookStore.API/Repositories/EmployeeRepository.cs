@@ -24,7 +24,7 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Employees.OrderBy(e=>e.LastName).ToListAsync();
         }
 
-        public async Task<Employee> GetEmployeeAsync(Guid employeeId)
+        public async Task<Employee> GetEmployeeByIdAsync(Guid employeeId)
         {
             return await _dbContext.Employees.FirstOrDefaultAsync(c => c.EmployeeId == employeeId);
         }

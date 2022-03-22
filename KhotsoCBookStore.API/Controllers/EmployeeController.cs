@@ -18,9 +18,9 @@ namespace KhotsoCBookStore.API.Controllers
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
         public EmployeeController(IEmployeeService employeeService,
-            IMapper mapper,IMailService mailService)
+            IMapper mapper, IMailService mailService)
         {
-            _employeeService = employeeService?? throw new ArgumentNullException(nameof(_employeeService));
+            _employeeService = employeeService ?? throw new ArgumentNullException(nameof(_employeeService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
@@ -36,7 +36,7 @@ namespace KhotsoCBookStore.API.Controllers
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
-        }     
+        }
 
         /// <summary>
         /// Get all employees resources.
@@ -49,9 +49,9 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
-        { 
+        {
             var employees = await _employeeService.GetAllEmployeesAync();
-            return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(employees));             
+            return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(employees));
         }
 
         /// <summary>
@@ -64,9 +64,13 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EmployeeDto>> GetEmployee(Guid employeeId)
-        { 
-            var employee = await _employeeService.GetEmployeeAsync(employeeId);
-            return Ok(_mapper.Map<EmployeeDto>(employee));             
+        {
+            if (employeeId == new Guid())
+            {
+                return NotFound();
+            }
+            var employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
+            return Ok(_mapper.Map<EmployeeDto>(employee));
         }
 
         /// <summary>
@@ -79,14 +83,14 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto newEmployee)
-        { 
+        {
             await _employeeService.CreateEmployeeAsync(newEmployee);
             await _employeeService.SaveChangesAsync();
 
-            var createdEmployeeToReturn = 
+            var createdEmployeeToReturn =
                 _mapper.Map<EmployeeForCreateDto>(newEmployee);
-            
-            return CreatedAtRoute("GetEmployee",createdEmployeeToReturn);             
+
+            return CreatedAtRoute("GetEmployee", createdEmployeeToReturn);
         }
 
         /// <summary>
@@ -106,7 +110,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
+            var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
             if (employeeEntity == null)
             {
                 return NotFound();
@@ -118,7 +122,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             return NoContent();
         }
-     
+
         /// <summary>
         /// Partial update employee resource by employeeId.
         /// </summary>
@@ -136,7 +140,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
+            var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
             if (employeeEntity == null)
             {
                 return NotFound();
@@ -178,8 +182,8 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var employeeEntity = await _employeeService.GetEmployeeAsync(employeeId);
-            
+            var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
+
             if (employeeEntity == null)
             {
                 return NotFound();
@@ -191,7 +195,7 @@ namespace KhotsoCBookStore.API.Controllers
             _mailService.Send(
                 "Employee deleted.",
                 $"Employee named {employeeEntity.FirstName} with id {employeeEntity.EmployeeId} was deleted.");
-         
+
             return NoContent();
         }
     }
