@@ -1,6 +1,6 @@
 using System;
 
-namespace KhotsoCBookStore.API.Entities
+namespace KhotsoCBookStore.API.Dtos
 {
     public class AuthorDto
     {

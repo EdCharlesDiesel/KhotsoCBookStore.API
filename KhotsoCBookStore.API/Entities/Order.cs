@@ -14,9 +14,9 @@ namespace KhotsoCBookStore.API.Entities
   
         public decimal CartTotal { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        // [ForeignKey("CustomerId")]
+        // public Guid CustomerId { get; set; }
+        // public Customer Customer { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }

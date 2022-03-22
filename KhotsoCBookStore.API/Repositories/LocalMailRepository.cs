@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.Configuration;
 using KhotsoCBookStore.API.Services;
 
-namespace KhotsoCBookStore.API.Repository
+namespace KhotsoCBookStore.API.Repositories
 {
 public class LocalMailRepository : IMailService
     {

@@ -1,59 +1,59 @@
-using System;
-using Xunit;
-using KhotsoCBookStore.API.Entities;
+// using System;
+// using Xunit;
+// using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Tests.Entities
-{
-    public class ProductSubscriptionItemTests : IDisposable
-    {
-        ProductSubscriptionItem productSubscriptionItem;
-        public ProductSubscriptionItemTests()
-        {
-            productSubscriptionItem = new ProductSubscriptionItem
-            {
-                ProductSubscriptionId = "1",
-                ProductSubscriptionItemId = 1,
-                ProductId = 1
-            };
-        }
+// namespace KhotsoCBookStore.API.Tests.Entities
+// {
+//     public class ProductSubscriptionItemTests : IDisposable
+//     {
+//         ProductSubscriptionItem productSubscriptionItem;
+//         public ProductSubscriptionItemTests()
+//         {
+//             productSubscriptionItem = new ProductSubscriptionItem
+//             {
+//                 ProductSubscriptionId = "1",
+//                 ProductSubscriptionItemId = 1,
+//                 ProductId = 1
+//             };
+//         }
 
-        public void Dispose()
-        {
-           productSubscriptionItem  = null;
-        }
+//         public void Dispose()
+//         {
+//            productSubscriptionItem  = null;
+//         }
 
-        [Fact]
-        public void CanChangeProductItemId()
-        {
-            //Arrange
-            //Act
-            productSubscriptionItem.ProductSubscriptionId = "2";
+//         [Fact]
+//         public void CanChangeProductItemId()
+//         {
+//             //Arrange
+//             //Act
+//             productSubscriptionItem.ProductSubscriptionId = "2";
 
-            //Assert
-            Assert.Equal("2", productSubscriptionItem.ProductSubscriptionId);
-        }
+//             //Assert
+//             Assert.Equal("2", productSubscriptionItem.ProductSubscriptionId);
+//         }
 
-        [Fact]
-        public void CanChangeProductSubscriptionItems()
-        {
-            //Arrange
-            //Act
-            productSubscriptionItem.ProductSubscriptionItemId = 3;
+//         [Fact]
+//         public void CanChangeProductSubscriptionItems()
+//         {
+//             //Arrange
+//             //Act
+//             productSubscriptionItem.ProductSubscriptionItemId = 3;
 
-            //Assert
-            Assert.Equal(3, productSubscriptionItem.ProductSubscriptionItemId);
-        }
+//             //Assert
+//             Assert.Equal(3, productSubscriptionItem.ProductSubscriptionItemId);
+//         }
 
-        [Fact]
-        public void CanChangeProductId()
-        {
-            //Arrange
-            //Act
-            productSubscriptionItem.ProductId = 2;
+//         [Fact]
+//         public void CanChangeProductId()
+//         {
+//             //Arrange
+//             //Act
+//             productSubscriptionItem.ProductId = 2;
             
-            //Assert
-            Assert.Equal(2, productSubscriptionItem.ProductId);
-        }
-    }
-}
+//             //Assert
+//             Assert.Equal(2, productSubscriptionItem.ProductId);
+//         }
+//     }
+// }
     
