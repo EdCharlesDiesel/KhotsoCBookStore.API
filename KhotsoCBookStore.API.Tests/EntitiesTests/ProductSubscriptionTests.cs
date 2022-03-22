@@ -1,59 +1,59 @@
-// using System;
-// using Xunit;
-// using KhotsoCBookStore.API.Entities;
+using System;
+using Xunit;
+using KhotsoCBookStore.API.Entities;
 
-// namespace KhotsoCBookStore.API.Tests.Entities
-// {
-//     public class ProductSubscriptionTests : IDisposable
-//     {
-//         ProductSubscription bookSubscription;
-//         public ProductSubscriptionTests()
-//         {
-//             bookSubscription = new ProductSubscription
-//             {
-//                 ProductSubscriptionId = "1",
-//                 UserId = 3,
-//                DateCreated = new DateTime(2012, 02, 27, 17, 30, 22)
-//             };
-//         }
+namespace KhotsoCBookStore.API.Tests.Entities
+{
+    public class ProductSubscriptionTests : IDisposable
+    {
+        ProductSubscription productSubscription;
+        public ProductSubscriptionTests()
+        {
+            productSubscription = new ProductSubscription
+            {
+                ProductSubscriptionId = new Guid(),
+                CustomerId = new Guid()              
+            };
+        }
 
-//         public void Dispose()
-//         {
-//            bookSubscription  = null;
-//         }
+        public void Dispose()
+        {
+           productSubscription  = null;
+        }
 
-//         [Fact]
-//         public void CanChangeId()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.ProductSubscriptionId = "2";
+        [Fact]
+        public void CanChangeId()
+        {
+            //Arrange
+            //Act
+            productSubscription.ProductSubscriptionId = new Guid();
 
-//             //Assert
-//             Assert.Equal("2", bookSubscription.ProductSubscriptionId);
-//         }
+            //Assert
+            Assert.Equal(new Guid(), productSubscription.ProductSubscriptionId);
+        }
 
-//         [Fact]
-//         public void CanChangeUserId()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.UserId = 3;
+        [Fact]
+        public void CanChangeCustomerId()
+        {
+            //Arrange
+            //Act
+            productSubscription.CustomerId = new Guid();
 
-//             //Assert
-//             Assert.Equal(3, bookSubscription.UserId);
-//         }
+            //Assert
+            Assert.Equal(new Guid(), productSubscription.CustomerId);
+        }
 
-//         [Fact]
-//         public void CanChangeDateCreated()
-//         {
-//             //Arrange
-//             //Act
-//             bookSubscription.DateCreated = new DateTime(2012, 02, 27, 17, 30, 22);;
-//             var expected = new DateTime(2012, 02, 27, 17, 30, 22);
-//             //Assert
-//             Assert.Equal(expected, bookSubscription.DateCreated);
-//         }
-//     }
-// }
+         [Fact]
+        public void CanChangeCustomer()
+        {
+            //Arrange
+            //Act
+            productSubscription.Customer = new Customer();
+
+            //Assert
+            Assert.IsType<Customer>(productSubscription.Customer);
+        }
+
+    }
+}
     

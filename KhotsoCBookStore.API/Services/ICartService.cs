@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface ICartService
     {
-        void AddBookToCart(Guid userId, Guid bookId);
-        void RemoveCartItem(Guid userId, Guid bookId);
-        void DeleteOneCartItem(Guid userId, Guid bookId);
-        int GetCartItemCount(Guid userId);
-        void MergeCart(Guid tempUserId, Guid permUserId);
-        int ClearCart(Guid userId);
-        string GetCartId(Guid userId);
+        Task AddBookToCart(Guid customerId, Guid bookId);
+        
+        Task RemoveCartItem(Guid customerId, Guid bookId);
+        
+        Task DeleteOneCartItem(Guid customerId, Guid bookId);
+        
+        Task<int> GetCartItemCount(Guid customerId);
+        
+        Task MergeCart(Guid tempCustomerId, Guid permCustomerId);
+        
+        Task<int> ClearCart(Guid customerId);
+        
+        Task<string> GetCartId(Guid customerId);
     }
 }

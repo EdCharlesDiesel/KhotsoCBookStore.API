@@ -8,7 +8,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid AuthorId { get; set; }
+        public Guid AuthorId { get; set; }  =Guid.NewGuid();
 
         [Required(ErrorMessage = "You should provide a first name value.")]
         [MaxLength(150)]

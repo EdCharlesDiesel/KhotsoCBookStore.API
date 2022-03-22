@@ -4,68 +4,91 @@ using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using AutoMapper;
+
 namespace KhotsoCBookStore.API.Controllers
 {
-    [Route("api/Wishlist")]
+    [Produces("application/json")]
+    [Route("api/[controller]")]
     public class WishListController : Controller
     {
-        readonly IWishListService _wishListService;
-        readonly IBookService _bookService;
-        readonly IUserService _userService;
+        private readonly IMailService _mailService;
+        readonly IWishListService _wishListRepository;
+        readonly IBookService _bookRepository;
+        readonly ICustomerService _customerRepository;
 
-        public WishListController(IWishListService wishListService, IBookService bookService, IUserService userService)
+        readonly IMapper _mapper;
+
+        public WishListController(IWishListService wishListService, 
+        IBookService bookService, 
+        ICustomerService customer,
+        IMailService mailService,
+        IMapper mapper)
         {
-            _wishListService = wishListService?? throw new ArgumentNullException(nameof(_wishListService));
-            _bookService = bookService?? throw new ArgumentNullException(nameof(_bookService));
-            _userService = userService?? throw new ArgumentNullException(nameof(_userService));
+            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            _wishListRepository = wishListService?? throw new ArgumentNullException(nameof(_wishListRepository));
+            _bookRepository = bookService?? throw new ArgumentNullException(nameof(_bookRepository));
+            _customerRepository = customer?? throw new ArgumentNullException(nameof(_customerRepository));
+        }
+
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetWishListsAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE");
+            return Ok();
         }
 
         /// <summary>
         /// Get the list of items in the Wishlist
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns>All the items in the Wishlist</returns>
-        [HttpGet("{userId}")]
-        public async Task<List<Book>> GetWishListById(Guid userId)
+        [HttpGet("{customerId}")]
+        public async Task<string> GetWishListsById(Guid customerId)
         {
-            return await Task.FromResult(GetUserWishlist(userId)).ConfigureAwait(true);
+            return await _wishListRepository.GetWishListId(customerId);
         }
 
         /// <summary>
         /// Toggle the items in Wishlist. If item doesn't exists, it will be added to the Wishlist else it will be removed.
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <param name="bookId"></param>
         /// <returns>All the items in the Wishlist</returns>
-       // [Authorize]
         [HttpPost]
-        [Route("ToggleWishlist/{userId}/{bookId}")]
-        public async Task<List<Book>> Post(Guid userId, Guid bookId)
+        [Route("ToggleWishList/{customerId}/{bookId}")]
+        public async Task ToggleWishList(Guid customerId, Guid bookId)
         {
-            _wishListService.ToggleWishlistItem(userId, bookId);
-            return await Task.FromResult(GetUserWishlist(userId)).ConfigureAwait(true);
+            await _wishListRepository.ToggleWishListItem(customerId, bookId);
+            //return GetUserWishList(customerId);
         }
 
         /// <summary>
         /// Clear the Wishlist
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns></returns>
-        ///[Authorize]
-        [HttpDelete("{userId}")]
-        public int Delete(Guid userId)
+        [HttpDelete("{customerId}")]
+        public Task ClearWishList(Guid customerId)
         {
-            return _wishListService.ClearWishlist(userId);
+            return _wishListRepository.ClearWishList(customerId);
+            //ToDoSendMail
         }
 
-        List<Book> GetUserWishlist(Guid customerId)
+        private async Task<IEnumerable<Book>> GetUserWishList(Guid customerId)
         {
-            bool user = _userService.isUserExists(customerId);
+            bool user = await _customerRepository.CustomerIfExistsAsync(customerId);
             if (user)
             {
-                string Wishlistid = _wishListService.GetWishlistId(customerId);
+                string Wishlistid = await _wishListRepository.GetWishListId(customerId);
                 var id = new Guid(Wishlistid);
-                return _bookService.GetBooksAvailableInWishlist(id);
+                return await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(id);
             }
             else
             {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -14,10 +15,10 @@ namespace KhotsoCBookStore.API.Repositories
 
         public CartRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public void AddBookToCart(Guid customerId, Guid bookId)
+        public async Task AddBookToCart(Guid customerId, Guid bookId)
         {
             var cartId = GetCartId(customerId);
             int quantity = 1;
@@ -28,8 +29,8 @@ namespace KhotsoCBookStore.API.Repositories
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity += 1;
-                _dbContext.Entry(existingCartItem).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                 _dbContext.Entry(existingCartItem).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
             }
             else
             {
@@ -210,6 +211,41 @@ namespace KhotsoCBookStore.API.Repositories
             Cart cart = _dbContext.Carts.Find(cartId);
            // _dbContext.CartItems.Remove(CartItem);
             _dbContext.SaveChanges();
+        }
+
+        Task ICartService.AddBookToCart(Guid customerId, Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ICartService.RemoveCartItem(Guid customerId, Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ICartService.DeleteOneCartItem(Guid customerId, Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> ICartService.GetCartItemCount(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ICartService.MergeCart(Guid tempCustomerId, Guid permCustomerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> ICartService.ClearCart(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<string> ICartService.GetCartId(Guid customerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

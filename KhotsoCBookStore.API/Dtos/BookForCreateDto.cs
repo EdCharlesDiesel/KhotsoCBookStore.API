@@ -1,6 +1,6 @@
 using System;
 
-namespace KhotsoCBookStore.API.Dto
+namespace KhotsoCBookStore.API.Dtos
 {
     public class BookForCreateDto
     {

@@ -8,14 +8,14 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CategoryId { get; set; }
+        public Guid CategoryId { get; set; }  =Guid.NewGuid();
         
         [Required]
         [MaxLength(150)]
         public string CategoryName { get; set; }
 
-        // [ForeignKey("BookId")]
-        // public Guid BookId { get; set; }
-        // public Book Book { get; set; }
+        [ForeignKey("BookId")]
+        public Guid BookId { get; set; }
+        public Book Book { get; set; }
     }
 }

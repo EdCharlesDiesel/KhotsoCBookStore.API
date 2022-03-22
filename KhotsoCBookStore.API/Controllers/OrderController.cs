@@ -12,22 +12,24 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/Order")]
     public class OrderController : Controller
     {
-        readonly IOrderService _orderService;
+        readonly IOrderService _orderRepository;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderRepository)
         {
-            _orderService = orderService ?? throw new ArgumentNullException(nameof(_orderService));
+            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(_orderRepository));
         }
 
         /// <summary>
         /// Get the all the orders for user
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns></returns>
-        [HttpGet("{userId}")]
-        public async Task<List<OrderDto>> Get(Guid userId)
+        [HttpGet("{customerId}")]
+        public  Task<IEnumerable<OrderDto>> GetOrders(Guid customerId)
         {
-            return await Task.FromResult(_orderService.GetOrderList(userId)).ConfigureAwait(true);
+
+            //return await _orderRepository.CreateOrderAsync(customerId,orderItems);
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,33 +1,73 @@
-﻿// using KhotsoCBookStore.API.Dtos;
-// using KhotsoCBookStore.API.Services;
-// using Microsoft.AspNetCore.Mvc;
-// using System;
-// namespace KhotsoCBookStore.API.Controllers
-// {
-//     // [Authorize]
-//     [Route("api/[controller]")]
-//     public class CheckOutController : Controller
-//     {
-//         readonly IOrderService _orderService;
-//         readonly ICartService _cartService;
+﻿using AutoMapper;
+using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
+using KhotsoCBookStore.API.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-//         public CheckOutController(IOrderService orderService, ICartService cartService)
-//         {
-//             _orderService = orderService ?? throw new ArgumentNullException(nameof(_orderService));
-//             _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
-//         }
+namespace KhotsoCBookStore.API.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class CheckOutController : Controller
+    {
+        private readonly IMapper _mapper;
+        readonly IOrderService _orderRepository;
+        readonly ICartService _cartRepository;
 
-//         /// <summary>
-//         /// Add user checkout item(s)
-//         /// </summary>
-//         /// <param name="userId"></param>
-//         /// <param name="checkedOutItems"></param>
-//         /// <returns></returns>
-//         [HttpPost("{userId}")]
-//         public int Post(Guid userId, [FromBody] OrdersDto checkedOutItems)
-//         {
-//             _orderService.CreateOrder(userId, checkedOutItems);
-//             return _cartService.ClearCart(userId);
-//         }
-//     }
-// }
+        public CheckOutController(IMapper mapper,IOrderService orderService, ICartService cartService)
+        {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
+            _orderRepository = orderService ?? throw new ArgumentNullException(nameof(_orderRepository));
+            _cartRepository = cartService ?? throw new ArgumentNullException(nameof(_cartRepository));
+        }
+
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetBookAPIOptions()
+        {
+            Response.Headers.Add("Allow", "POST");
+            return Ok();
+        } 
+
+        /// <summary>
+        /// Add customer checkout item(s)
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="checkedOutItems"></param>
+        /// <returns></returns>
+        [HttpPost("{CustomerId}")]
+        public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderDto checkedOutItems)
+        {
+            var item = _mapper.Map<Order>(checkedOutItems);
+            await _orderRepository.CreateOrderAsync(customerId, item);
+            await _orderRepository.SaveChangesAsync();
+
+            var authorToReturn = _mapper.Map<Author>(item);
+            await _cartRepository.ClearCart(customerId);
+
+            return CreatedAtRoute("GetAuthor",
+                new { authorId = authorToReturn.AuthorId },
+                authorToReturn);
+        }
+
+        /// <summary>
+        /// Get the count of item in the shopping cart
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>The count of items in shopping cart</returns>
+        // [HttpGet("{userId}")]
+         public int Get(Guid userId)
+         {
+            // int cartItemCount = _cartRepository.GetCartItemCount(userId);
+            // return cartItemCount;
+            throw new NotImplementedException();
+         }
+    }
+}

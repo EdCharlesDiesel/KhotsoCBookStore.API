@@ -9,9 +9,7 @@ namespace KhotsoCBookStore.API.Authentication
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
-
-     
+        public Guid UserId { get; set; } = Guid.NewGuid();
 
         [Required]
         public string Password { get; set; }
@@ -20,9 +18,9 @@ namespace KhotsoCBookStore.API.Authentication
 
         public byte[] PasswordSalt { get; set; }
         
-        [ForeignKey("UserTypeId")]
-        public Guid UserTypeId { get; set; }
+        // [ForeignKey("UserTypeId")]
+        // public Guid UserTypeId { get; set; }
         
-        public UserType UserType { get; set; }
+        // public UserType UserType { get; set; }
     }
 }

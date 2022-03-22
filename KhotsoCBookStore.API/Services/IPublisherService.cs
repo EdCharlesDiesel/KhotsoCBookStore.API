@@ -1,16 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Services
 {
-    internal interface IPublisherService
+    public interface IPublisherService
     {
-        Task GetAllPublishersAync();
-        Task GetPublisherAsync(Guid publisherId);
-        Task CreatePublisherAsync(PublisherForCreateDto newPublisher);
+        Task<IEnumerable<Publisher>> GetAllPublishersAync();
+        Task GetPublisherByIdAsync(Guid publisherId);
+        Task CreatePublisherAsync(Publisher newPublisher);
         Task SaveChangesAsync();
         Task<bool> PublisherIfExistsAsync(Guid publisherId);
-        void DeletePublisher(object publisherEntity);
+        void DeletePublisher(Publisher publisherEntity);
     }
 }

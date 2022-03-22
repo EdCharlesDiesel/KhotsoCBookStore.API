@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PublisherId { get; set; }
+        public Guid PublisherId { get; set; }  =Guid.NewGuid();
 
         [Required]
         public string Name { get; set; }

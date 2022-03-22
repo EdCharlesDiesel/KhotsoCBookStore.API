@@ -19,9 +19,9 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
 
-        public void ToggleProductSubscriptionItem(Guid userId, Guid productId)
+        public void ToggleProductSubscriptionItem(Guid customer, Guid productId)
         {
-            // var productSubscriptionId = GetProductSubscriptionId(userId);
+            // var productSubscriptionId = GetProductSubscriptionId(customer);
             // ProductSubscriptionItem existingProductSubscriptionItem =
             //  _dbContext.ProductSubscriptionItems.FirstOrDefault(x => x.ProductId == productId
             //   && x.ProductSubscriptionId == productSubscriptionId);
@@ -43,11 +43,11 @@ namespace KhotsoCBookStore.API.Repositories
             // }
         }
 
-        public int ClearProductSubscription(Guid userId)
+        public int ClearProductSubscription(Guid customer)
         {
             try
             {
-                string productSubscriptionId = GetProductSubscriptionId(userId);
+                string productSubscriptionId = GetProductSubscriptionId(customer);
                 // List<ProductSubscriptionItem> productSubscriptionItem = _dbContext.ProductSubscriptionItems
                 // .Where(x => x.ProductSubscriptionId == productSubscriptionId).ToList();
 
@@ -68,11 +68,11 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
 
-        public string GetProductSubscriptionId(Guid userId)
+        public string GetProductSubscriptionId(Guid customer)
         {
             try
             {
-                ProductSubscription productSubscription = _dbContext.ProductSubscriptions.FirstOrDefault(x => x.UserId == userId);
+                ProductSubscription productSubscription = _dbContext.ProductSubscriptions.FirstOrDefault(x => x.CustomerId == customer);
 
                 if (productSubscription != null)
                 {
@@ -80,7 +80,7 @@ namespace KhotsoCBookStore.API.Repositories
                 }
                 else
                 {
-                    return CreateProductSubscription(userId);
+                    return CreateProductSubscription(customer);
                 }
 
             }
@@ -90,14 +90,14 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        string CreateProductSubscription(Guid userId)
+        string CreateProductSubscription(Guid customer)
         {
             try
             {
                 ProductSubscription productSubscription = new ProductSubscription
                 {
                     ProductSubscriptionId = Guid.NewGuid(),
-                    UserId = userId,
+                    CustomerId = customer,
                     CreatedOn = DateTime.Now.Date
                 };
 
