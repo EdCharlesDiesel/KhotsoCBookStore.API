@@ -1,8 +1,10 @@
-namespace KhotsoCBookStore.API.Entities
+using System;
+
+namespace KhotsoCBookStore.API.Dto
 {
-    public partial class Employee
+    public class BookDto
     {
-        public int EmployeeId { get; set; }
+        public Guid BookId { get; set; }
 
         public string Name { get; set; }
 

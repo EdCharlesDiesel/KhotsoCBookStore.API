@@ -1,16 +1,10 @@
 ﻿// using System;
 // using System.Collections.Generic;
-// using System.IO;
-// using System.Net.Http.Headers;
 // using System.Threading.Tasks;
-// using KhotsoCBookStore.API.Authentication;
 // using KhotsoCBookStore.API.Entities;
 // using KhotsoCBookStore.API.Services;
 // using Microsoft.AspNetCore.Authorization;
-// using Microsoft.AspNetCore.Hosting;
 // using Microsoft.AspNetCore.Mvc;
-// using Microsoft.Extensions.Configuration;
-// using Newtonsoft.Json;
 
 // namespace KhotsoCBookStore.API.Controllers
 // {
@@ -48,10 +42,10 @@
 //         /// <param name="userId"></param>
 //         /// <returns></returns>
 //         [HttpPost]
-//         [Route("ToggleBookSubscription/{userId}/{bookId}")]
+//         [Route("ToggleProductSubscription/{userId}/{bookId}")]
 //         public async Task<List<Book>> Post(int userId, int bookId)
 //         {
-//             _bookSubscriptionService.ToggleBookSubscriptionItem(userId, bookId);
+//             _bookSubscriptionService.ToggleProductSubscriptionItem(userId, bookId);
 //             return await Task.FromResult(GetUserBookSubscription(userId)).ConfigureAwait(true);
 //         }
 
@@ -64,7 +58,7 @@
 //         [HttpDelete("{userId}")]
 //         public int Delete(int userId)
 //         {
-//             return _bookSubscriptionService.ClearBookSubscription(userId);
+//             return _bookSubscriptionService.ClearProductSubscription(userId);
 //         }
 
 //         /// <summary>
@@ -77,7 +71,7 @@
 //             bool user = _userService.isUserExists(userId);
 //             if (user)
 //             {
-//                 string BookSubscriptionId = _bookSubscriptionService.GetBookSubscriptionId(userId);
+//                 string BookSubscriptionId = _bookSubscriptionService.GetProductSubscriptionId(userId);
 //                 return _bookService.GetBooksAvailableInBookSubscription(BookSubscriptionId);
 //             }
 //             else

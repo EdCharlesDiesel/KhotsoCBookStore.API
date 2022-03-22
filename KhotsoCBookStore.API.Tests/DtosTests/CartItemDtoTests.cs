@@ -13,7 +13,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 Book = new API.Entities.Book()
                         {
-                            BookId = 1,
+                            BookId = Guid.NewGuid(),
                             Author = "Charles",
                             Category = "Databases",
                             Name ="SQL CookBook",
@@ -49,7 +49,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             //Act
             cartItemDto.Book = new API.Entities.Book()
                                     {
-                                        BookId = 2,
+                                        BookId = Guid.NewGuid(),
                                         Author = "Charles",
                                         Category = "Databases",
                                         Name ="SQL CookBook",
@@ -60,7 +60,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
             var expected = new  API.Entities.Book()
             {
-                BookId = 2,
+                BookId = Guid.NewGuid(),
                 Author = "Charles",
                 Category = "Databases",
                 Name ="SQL CookBook",

@@ -4,22 +4,22 @@ using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Tests.Entities
 {
-    public class WishlistItemsTest : IDisposable
+    public class WishListItemTest : IDisposable
     {
-        WishlistItems wishlistItems;
-        public WishlistItemsTest()
+        WishListItem wishListItem;
+        public WishListItemTest()
         {
-            wishlistItems = new WishlistItems
+            wishListItem = new WishListItem
             {
                 ProductId =1,
-                WishlistId = "1",
-                WishlistItemId =1
+                WishListId = "1",
+                WishListItemId =1
             };
         }
 
         public void Dispose()
         {
-            wishlistItems = null;
+            wishListItem = null;
         }
 
         [Fact]
@@ -27,10 +27,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            wishlistItems.ProductId = 2;
+            wishListItem.ProductId = 2;
 
             //Assert
-            Assert.Equal(2, wishlistItems.ProductId);
+            Assert.Equal(2, wishListItem.ProductId);
         }
 
         [Fact]
@@ -38,10 +38,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            wishlistItems.WishlistId = "2";
+            wishListItem.WishListId = "2";
 
             //Assert
-            Assert.Equal("2", wishlistItems.WishlistId);
+            Assert.Equal("2", wishListItem.WishListId);
         }
 
         [Fact]
@@ -49,10 +49,10 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             //Act
-            wishlistItems.WishlistItemId = 2;
+            wishListItem.WishListItemId = 2;
 
             //Assert
-            Assert.Equal(2, wishlistItems.WishlistItemId);
+            Assert.Equal(2, wishListItem.WishListItemId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using KhotsoCBookStore.API.Authentication;
+﻿using System;
+using KhotsoCBookStore.API.Authentication;
 using KhotsoCBookStore.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,277 +7,188 @@ namespace KhotsoCBookStore.API.Contexts
 {
     public partial class KhotsoCBookStoreDbContext : DbContext
     {
-        public KhotsoCBookStoreDbContext()
-        {
-        }
 
         public KhotsoCBookStoreDbContext(DbContextOptions<KhotsoCBookStoreDbContext> options)
             : base(options)
         {
         }
 
+        public virtual DbSet<Promotion> Promotions { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<ProductSubscription>  ProductSubscription { get; set; }
-        public virtual DbSet<ProductSubscriptionItem>  ProductSubscriptionItems { get; set; }
-        public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<CartItems> CartItems { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<CustomerOrderDetails> CustomerOrderDetails { get; set; }
-        public virtual DbSet<CustomerOrders> CustomerOrders { get; set; }
-        public virtual DbSet<UserMaster> UserMaster { get; set; }
-        public virtual DbSet<UserType> UserType { get; set; }
-        public virtual DbSet<Wishlist> Wishlist { get; set; }
-        public virtual DbSet<WishlistItems> WishlistItems { get; set; }
-        
+        public virtual DbSet<ProductSubscription> ProductSubscriptions { get; set; }
+        public virtual DbSet<ProductSubscriptionItem> ProductSubscriptionItems { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<CartItem> CartItems { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<WishList> WishLists { get; set; }
+        public virtual DbSet<WishListItem> WishListItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>(entity =>
-            {
-                entity.Property(e => e.BookId).HasColumnName("BookID");
+            modelBuilder.Entity<UserType>().HasData
+            (
+                new UserType
+                {
+                    UserTypeId = new Guid("2A342C4E-6B32-46E6-BA0A-509C39F044AC"),
+                    UserTypeName = "Admin"
+                },
+                new UserType
+                {
+                    UserTypeId = new Guid("EB687590-B398-400A-B14F-4EFB4D6B728E"),
+                    UserTypeName = "User"
+                }
+            );
 
-                entity.Property(e => e.Author)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+            modelBuilder.Entity<UserMaster>().HasData
+            (
+                new UserMaster
+                {
+                    FirstName = "Charles",
+                    LastName = "Mokhethi",
+                    Username = "EdCharles",
+                    Password = "12345"      
+                },
+                new UserMaster
+                {
+                    FirstName = "Otsile",
+                    LastName = "Mokhethi",
+                    Username = "EdCharles",
+                    Password = "12345"
+                }
+            );
 
-                entity.Property(e => e.Category)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+            modelBuilder.Entity<UserType>().HasData
+            (
+                new UserType
+                {
+                   UserTypeId = new Guid("0083FD68-2A81-48D1-81DE-FFC82D18D564"),
+                   UserTypeName ="Developer"     
+                },
+                new UserType
+                {
+                   UserTypeId = new Guid("74CA3B3F-14D0-4199-B633-110DED2E98BC"),
+                   UserTypeName ="Administrator"
+                },
+                new UserType
+                {
+                   UserTypeId = new Guid("602F28D4-5DE7-4D2B-8DEE-978AA53502F7"),
+                   UserTypeName ="Product Owner"
+                }
+            );
 
-                entity.Property(e => e.CoverFileName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+            modelBuilder.Entity<Employee>().HasData
+            (
+                new Employee
+                {
+                    EmployeeId = new Guid("602F28D4-5DE7-4D2B-8DEE-978AA55802F7"),
+                    FirstName = "Khotso",
+                    LastName = "Mokhethi",
+                    EmployeeNumber = "EMP-001",
+                    DateOfBirth = new System.DateTime(1988, 08, 05),
+                    DateOfStartEmployment = new DateTime(2022, 03, 16)
+                }
+            );
 
-                entity.Property(e => e.PurchasePrice).HasColumnType("decimal(10, 2)");
+            modelBuilder.Entity<Customer>().HasData
+            (
+                new Customer
+                {
+                    CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+                    FirstName = "Khotso",
+                    LastName = "Mokhethi",
+                    Address = "Mandela Street Sandton Drive",
+                    City = "Sandton",
+                    Province = "Gauteng",
+                    Postal = 2007
+                },
+               new Customer
+               {
+                   CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
+                   FirstName = "Kagiso",
+                   LastName = "Mokhethi",
+                   Address = "Mandela Street Sandton Drive",
+                   City = "Sandton",
+                   Province = "Gauteng",
+                   Postal = 2007
+               }
+            );
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
+            modelBuilder.Entity<Order>().HasData
+            (
+                new Order
+                {
+                    OrderId = Guid.NewGuid(),
+                    CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+                    OrderDate = DateTime.Today,
+                    ShipAddress = "Mandela Street Sandton Drive",
+                    CartTotal = 15.44M,
+                    ShipDate = DateTime.Now
+                },
+               new Order
+               {
+                   OrderId = Guid.NewGuid(),
+                   CustomerId = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6"),
+                   OrderDate = DateTime.Today,
+                   ShipAddress = "Mandela Street Sandton Drive",
+                   CartTotal = 15.44M,
+                   ShipDate = DateTime.Now
+               }
+            );
 
-            modelBuilder.Entity<Cart>(entity =>
-            {
-                entity.Property(e => e.CartId)
-                    .HasMaxLength(36)
-                    .IsUnicode(false);
+            modelBuilder.Entity<Author>().HasData
+            (
+                new Author
+                {
+                    AuthorId = Guid.NewGuid(),
+                    FirstName = "Neil",
+                    LastName ="Bohr"
+                },
+               new Author
+               {
+                    AuthorId = Guid.NewGuid(),
+                    FirstName = "Sir Issac",
+                    LastName ="Newton"
+               }
+            );
 
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+            modelBuilder.Entity<Category>().HasData
+            (
+                new Category
+                {
+                   CategoryId = Guid.NewGuid(),
+                   CategoryName ="Development"
+                },
+               new Category
+               {
+                      CategoryId = Guid.NewGuid(),
+                   CategoryName ="SQL"
+               }
+            );
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-            });
+             modelBuilder.Entity<Publisher>().HasData
+            (
+                new Publisher
+                {
+                   PublisherId = Guid.NewGuid(),
+                   Name="Miller",
+                   EmailAddress="Mokhetkc@hotmail.com"
+                },
+               new Publisher
+               {
+                    PublisherId = Guid.NewGuid(),
+                   Name="Anton",
+                   EmailAddress="Mokhethi@hotmail.com"
+               }
+            );
 
-            modelBuilder.Entity<CartItems>(entity =>
-            {
-                entity.HasKey(e => e.CartItemId)
-                    .HasName("PK__CartItemId");
 
-                entity.Property(e => e.CartId)
-                    .IsRequired()
-                    .HasMaxLength(36)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Categories>(entity =>
-            {
-                entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__CategoryID");
-
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-
-                entity.Property(e => e.CategoryName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<CustomerOrderDetails>(entity =>
-            {
-                entity.HasKey(e => e.OrderDetailsId)
-                    .HasName("PK__OrderId");
-
-                entity.Property(e => e.OrderId)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
-            });
-
-            modelBuilder.Entity<CustomerOrders>(entity =>
-            {
-                entity.HasKey(e => e.OrderId)
-                    .HasName("PK__CustomerID");
-
-                entity.Property(e => e.OrderId)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CartTotal).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-            });
-
-            modelBuilder.Entity<ProductSubscription>(entity =>
-            {
-                entity.HasKey(e => e.ProductSubscriptionId)
-                    .HasName("PK__ProductSubscriptionId");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-            });
-
-            modelBuilder.Entity<UserMaster>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserMasterID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.FirstName)
-                    
-                    .HasMaxLength(20)
-                    .IsUnicode(false);           
-
-                entity.Property(e => e.LastName)
-                    
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-                     entity.Property(e => e.EmailAddress);                 
-                 
-
-                entity.Property(e => e.PasswordHash);
-                entity.Property(e => e.PasswordSalt);
-                    
-
-                entity.Property(e => e.UserTypeId).HasColumnName("UserTypeID");
-
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<UserType>(entity =>
-            {
-                entity.Property(e => e.UserTypeId).HasColumnName("UserTypeID");
-
-                entity.Property(e => e.UserTypeName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Wishlist>(entity =>
-            {
-                entity.Property(e => e.WishlistId)
-                    .HasMaxLength(36)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-            });
-
-            modelBuilder.Entity<WishlistItems>(entity =>
-            {
-                entity.HasKey(e => e.WishlistItemId)
-                    .HasName("PK__WishlistItemId");
-
-                entity.Property(e => e.WishlistId)
-                    .IsRequired()
-                    .HasMaxLength(36)
-                    .IsUnicode(false);
-            });
-
-             modelBuilder.Entity<ProductSubscriptionItem>(entity =>
-            {
-                entity.HasKey(e => e.ProductSubscriptionItemId)
-                    .HasName("PK__BookSubscriptionItemId");
-
-                entity.Property(e => e.ProductSubscriptionItemId)
-                    .IsRequired()
-                    .HasMaxLength(36)
-                    .IsUnicode(false);
-            });
-            
-
-            modelBuilder.Entity<UserType>().HasData(
-                 new UserType
-                 {
-                     UserTypeId = 1,
-                     UserTypeName = "Admin"
-                 },
-                   new UserType
-                   {
-                       UserTypeId = 2,
-                       UserTypeName = "User"
-                   }
-                );
-
-              modelBuilder.Entity<Book>().HasData(
-                 new Book
-                 {
-                     BookId =1,
-                     Name = "Deep Learning with JavaScript",
-                     Text = "Deep learning has transformed the fields of computer vision, image processing, and natural language applications.",
-                     Author ="Charles",
-                     CoverFileName ="Default_image",
-                     PurchasePrice = 300,
-                     Category = "Development"
-                 },
-                   new Book
-                 {
-                     BookId =2,
-                     Name = "Webdevelopment-101",
-                     Text ="Learn how to make better decisions and write cleaner Ruby code. This book shows you how to avoid messy code that is hard to test and which cripples productivity.",
-                     Author ="Kagiso",
-                     CoverFileName ="Default_image",
-                     PurchasePrice = 300,
-                     Category = "Development"
-                 }
-                );
-
-            //modelBuilder.Entity<UserMaster>().HasData(
-            //     new UserMaster
-            //     {
-            //         UserTypeId = 1,
-            //         FirstName = "Khotso",
-            //         LastName = "Mokhethi",
-            //         EmailAddress ="Mokhetkc@hotmail.com",                     
-            //         Username = "Batman",
-            //         Password = "IamBatman",
-            //         UserId = 1
-            //     }
-            //    );
-
-            modelBuilder.Entity<Categories>().HasData(
-             new Categories
-             {
-                 CategoryId = 1,
-                 CategoryName = "Front-End Development",
-             },
-             new Categories
-             {
-                 CategoryId = 2,
-                 CategoryName = "Back-End Development",
-             },
-             new Categories
-             {
-                 CategoryId = 3,
-                 CategoryName = "Databases",
-             },
-             new Categories
-             {
-                 CategoryId = 4,
-                 CategoryName = "Data Structures and Algorithms",
-             },
-             new Categories
-             {
-                 CategoryId = 5,
-                 CategoryName = "System Analysis and Design",
-             });
 
             OnModelCreatingPartial(modelBuilder);
         }

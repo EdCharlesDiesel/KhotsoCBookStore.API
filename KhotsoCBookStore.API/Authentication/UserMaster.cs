@@ -1,26 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
+using KhotsoCBookStore.API.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Authentication
 {
-    public partial class UserMaster
+    public  class UserMaster:Person
     {
-        public int UserId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid UserId { get; set; }
 
-        public string FirstName { get; set; }
-        
-        public string LastName { get; set; }
-
+        [Required]
+        [EmailAddress]
         public string EmailAddress { get; set; }
-
+        
+        [Required]
         public string Username { get; set; }
 
+        [Required]
         public string Password { get; set; }
 
         public byte[] PasswordHash { get; set; }
 
         public byte[] PasswordSalt { get; set; }
         
-        public int UserTypeId { get; set; }
+        [ForeignKey("UserTypeId")]
+        public Guid UserTypeId { get; set; }
+        
+        public UserType UserType { get; set; }
     }
 }

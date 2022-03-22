@@ -1,15 +1,25 @@
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Dtos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IEmployeeService
     {
-        List<Employee> GetAllEmployees();
-        int AddEmployee(Employee book);
-        int UpdateEmployee(Employee book);
-        Employee GetEmployeeData(int bookId);
-        string DeleteEmployee(int bookId);
+        Task<IEnumerable<Employee>> GetAllEmployeesAync();
+        
+        Task<Employee> GetEmployeeAsync(Guid employeeId);
+        
+        Task<Employee> CreateEmployeeAsync(CreateEmployeeDto newEmployee);
+        
+        Task<Employee> UpdateEmployeeAsync(Employee employeeToUpdate);
+        
+        void DeleteEmployee(Employee employeeToDelete);
+
+        Task<bool> SaveChangesAsync();
+        
+        Task<bool> EmployeeIfExistsAsync(Guid employeeId);
     }
 }

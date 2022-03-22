@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public partial class Wishlist
+    public class WishList : AuditableEntity
     {
-        public string WishlistId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid WishlistId { get; set; }
 
-        public int UserId { get; set; }
-        
-        public DateTime DateCreated { get; set; }
+        [ForeignKey("CustomerId")]
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+        public ICollection<WishListItem> WishListItems { get; set; } = new List<WishListItem>();
     }
 }

@@ -7,49 +7,49 @@ using System.Linq;
 
 namespace KhotsoCBookStore.API.Repositories
 {
-    public class WishlistRepository : IWishlistService
+    public class WishListRepository : IWishListService
     {
         readonly KhotsoCBookStoreDbContext _dbContext;
 
-        public WishlistRepository(KhotsoCBookStoreDbContext dbContext)
+        public WishListRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public void ToggleWishlistItem(int userId, int bookId)
+        public void ToggleWishlistItem(Guid userId, Guid bookId)
         {
             string wishlistId = GetWishlistId(userId);
-            WishlistItems existingWishlistItem = _dbContext.WishlistItems.FirstOrDefault(x => x.ProductId == bookId && x.WishlistId == wishlistId);
+            WishListItem existingWishlistItem = _dbContext.WishListItems.FirstOrDefault(x => x.ProductId == bookId && x.WishListId.ToString() == wishlistId);
 
             if (existingWishlistItem != null)
             {
-                _dbContext.WishlistItems.Remove(existingWishlistItem);
+                _dbContext.WishListItems.Remove(existingWishlistItem);
                 _dbContext.SaveChanges();
             }
             else
             {
-                WishlistItems wishlistItem = new WishlistItems
+                WishListItem wishlistItem = new WishListItem
                 {
-                    WishlistId = wishlistId,
+                    WishListId = userId,
                     ProductId = bookId,
                 };
-                _dbContext.WishlistItems.Add(wishlistItem);
+                _dbContext.WishListItems.Add(wishlistItem);
                 _dbContext.SaveChanges();
             }
         }
 
-        public int ClearWishlist(int userId)
+        public int ClearWishlist(Guid userId)
         {
             try
             {
                 string wishlistId = GetWishlistId(userId);
-                List<WishlistItems> wishlistItem = _dbContext.WishlistItems.Where(x => x.WishlistId == wishlistId).ToList();
+                List<WishListItem> wishlistItem = _dbContext.WishListItems.Where(x => x.WishListId.ToString() == wishlistId).ToList();
 
                 if (!string.IsNullOrEmpty(wishlistId))
                 {
-                    foreach (WishlistItems item in wishlistItem)
+                    foreach (WishListItem item in wishlistItem)
                     {
-                        _dbContext.WishlistItems.Remove(item);
+                        _dbContext.WishListItems.Remove(item);
                         _dbContext.SaveChanges();
                     }
                 }
@@ -61,21 +61,20 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public string GetWishlistId(int userId)
+        public string GetWishlistId(Guid userId)
         {
             try
             {
-                Wishlist wishlist = _dbContext.Wishlist.FirstOrDefault(x => x.UserId == userId);
+                WishList wishlist = _dbContext.WishLists.FirstOrDefault(x => x.CustomerId == userId);
 
                 if (wishlist != null)
                 {
-                    return wishlist.WishlistId;
+                    return wishlist.CustomerId.ToString();
                 }
                 else
                 {
                     return CreateWishlist(userId);
                 }
-
             }
             catch
             {
@@ -83,21 +82,21 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        string CreateWishlist(int userId)
+        string CreateWishlist(Guid userId)
         {
             try
             {
-                Wishlist wishList = new Wishlist
+                WishList wishList = new WishList
                 {
-                    WishlistId = Guid.NewGuid().ToString(),
-                    UserId = userId,
-                    DateCreated = DateTime.Now.Date
+                    WishlistId = Guid.NewGuid(),
+                    CustomerId = userId,
+                    CreatedOn = DateTime.Now.Date
                 };
 
-                _dbContext.Wishlist.Add(wishList);
+                _dbContext.WishLists.Add(wishList);
                 _dbContext.SaveChanges();
 
-                return wishList.WishlistId;
+                return wishList.CustomerId.ToString();
             }
             catch
             {
