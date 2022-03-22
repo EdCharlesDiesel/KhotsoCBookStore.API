@@ -8,13 +8,13 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IEmployeeService
     {
-        Task<IEnumerable<Employee>> GetAllEmployeesAync();
+        Task<IEnumerable<EmployeeDto>> GetAllEmployeesAync();
         
         Task<Employee> GetEmployeeAsync(Guid employeeId);
         
-        Task<Employee> CreateEmployeeAsync(CreateEmployeeDto newEmployee);
+        Task<Employee> CreateEmployeeAsync(EmployeeForCreateDto newEmployee);
         
-        Task<Employee> UpdateEmployeeAsync(Employee employeeToUpdate);
+        Task<Employee> UpdateEmployeeAsync(EmployeeForUpdateDto employeeToUpdate);
         
         void DeleteEmployee(Employee employeeToDelete);
 

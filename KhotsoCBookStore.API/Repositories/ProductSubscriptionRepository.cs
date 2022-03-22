@@ -98,7 +98,7 @@ namespace KhotsoCBookStore.API.Repositories
                 {
                     ProductSubscriptionId = Guid.NewGuid(),
                     UserId = userId,
-                    DateCreated = DateTime.Now.Date
+                    CreatedOn = DateTime.Now.Date
                 };
 
                 _dbContext.ProductSubscriptions.Add(productSubscription);

@@ -29,11 +29,11 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Employees.FirstOrDefaultAsync(c => c.EmployeeId == employeeId);
         }
 
-        public async Task<Employee> CreateEmployeeAsync(CreateEmployeeDto employee)
+        public async Task<Employee> CreateEmployeeAsync(EmployeeForCreateDto newEmployee)
         {
-            if (employee != null)
+            if (newEmployee != null)
             {
-               await _dbContext.AddAsync(employee);
+               await _dbContext.AddAsync(newEmployee);
             }
 
             return await _dbContext.Employees.LastOrDefaultAsync();
@@ -57,6 +57,16 @@ namespace KhotsoCBookStore.API.Repositories
         public async Task<bool> EmployeeIfExistsAsync(Guid employeeId)
         {
             return await _dbContext.Employees.AnyAsync(c => c.EmployeeId == employeeId);
+        }
+
+        Task<IEnumerable<EmployeeDto>> IEmployeeService.GetAllEmployeesAync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Employee> UpdateEmployeeAsync(EmployeeForUpdateDto employeeToUpdate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

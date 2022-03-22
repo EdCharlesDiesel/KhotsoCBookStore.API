@@ -13,8 +13,8 @@ namespace KhotsoCBookStore.API.Services
         Book GetBookData(Guid bookId);
         string DeleteBook(Guid bookId);
         List<Category> GetCategories();       
-        List<CartItemDto> GetBooksAvailableInCart(string cartId);
-        List<Book> GetBooksAvailableInWishlist(string wishlistId);
-        List<Book> GetBooksAvailableInBookSubscription(string bookSubscriptionId);
+        // List<CartItemDto> GetBooksAvailableInCart(guid cartId);
+        List<Book> GetBooksAvailableInWishlist(Guid wishlistId);
+        List<Book> GetBooksAvailableInBookSubscription(Guid bookSubscriptionId);
     }
 }

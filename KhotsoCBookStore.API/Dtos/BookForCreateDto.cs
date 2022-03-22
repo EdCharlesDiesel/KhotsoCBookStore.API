@@ -2,15 +2,12 @@ using System;
 
 namespace KhotsoCBookStore.API.Dto
 {
-    public class BookDto
+    public class BookForCreateDto
     {
-        public Guid BookId { get; set; }
 
         public string Title { get; set; }
 
         public DateTime PublishingDate { get; set; }
-        
-        public Guid PublisherId { get; set; }
         
         public decimal Cost { get; set; }    
 

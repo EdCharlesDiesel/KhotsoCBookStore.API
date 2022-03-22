@@ -78,13 +78,13 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CreateEmployeeDto>> CreateEmployee(CreateEmployeeDto newEmployee)
+        public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto newEmployee)
         { 
             await _employeeService.CreateEmployeeAsync(newEmployee);
             await _employeeService.SaveChangesAsync();
 
             var createdEmployeeToReturn = 
-                _mapper.Map<CreateEmployeeDto>(newEmployee);
+                _mapper.Map<EmployeeForCreateDto>(newEmployee);
             
             return CreatedAtRoute("GetEmployee",createdEmployeeToReturn);             
         }

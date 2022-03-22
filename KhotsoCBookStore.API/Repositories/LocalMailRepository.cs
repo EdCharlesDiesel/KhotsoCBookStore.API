@@ -4,12 +4,12 @@ using KhotsoCBookStore.API.Services;
 
 namespace KhotsoCBookStore.API.Repository
 {
-public class LocalMailService : IMailService
+public class LocalMailRepository : IMailService
     {
         private readonly string _mailTo = string.Empty;
         private readonly string _mailFrom = string.Empty;
 
-        public LocalMailService(IConfiguration configuration)
+        public LocalMailRepository(IConfiguration configuration)
         {
             _mailTo = configuration["mailSettings:mailToAddress"];
             _mailFrom = configuration["mailSettings:mailFromAddress"];
@@ -19,7 +19,7 @@ public class LocalMailService : IMailService
         {
             // send mail - output to console window
             Console.WriteLine($"Mail from {_mailFrom} to {_mailTo}, " +
-                $"with {nameof(LocalMailService)}.");
+                $"with {nameof(LocalMailRepository)}.");
             Console.WriteLine($"Subject: {subject}");
             Console.WriteLine($"Message: {message}");
         }
