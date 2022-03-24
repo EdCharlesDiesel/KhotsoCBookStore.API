@@ -8,11 +8,9 @@ namespace KhotsoCBookStore.API.Dtos
     public class ProductSubscriptionForCreateDto
     {
 
-        public Guid ProductSubscriptionId { get; set; }
+        public Guid CustomerId { get; set; }
 
-        [ForeignKey("CustomerId")]
-         public Guid CustomerId { get; set; }
-        public DateTime DateOfSubscrition { get; set; }
+        public DateTime DateOfSubscription { get; set; }
 
         public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
 

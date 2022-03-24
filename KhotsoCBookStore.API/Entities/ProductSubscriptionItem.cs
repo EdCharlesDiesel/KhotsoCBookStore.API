@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
+    [Table("SubscriptionItems")]
     public class ProductSubscriptionItem : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ProductSubscriptionItemId { get; set; }  =Guid.NewGuid();
-        
-        [ForeignKey("ProductSubscriptionId")]
+        public Guid ProductSubscriptionItemId { get; set; } = Guid.NewGuid();
+
+        [ForeignKey(nameof(ProductSubscription))]
         public Guid ProductSubscriptionId { get; set; }
-        public ProductSubscription ProductSubscription { get; set; }
-        
+
+        public string NameOfSubscription { get; set; }
+
         public Guid ProductId { get; set; }
     }
 }

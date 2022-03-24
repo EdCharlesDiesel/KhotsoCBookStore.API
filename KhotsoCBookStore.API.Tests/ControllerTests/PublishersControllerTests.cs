@@ -47,7 +47,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 {
                     PublisherId = Guid.NewGuid(),
                    EmailAddress = "Mokhethi@gmail.com",
-                   Name="Mokhethi",
+                   NameAndSurname="Mokhethi",
                    PhoneNumber=01452
                 });
             }
@@ -81,7 +81,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 new Publisher{
 
-                Name = "Dude",
+                NameAndSurname = "Dude",
                 EmailAddress="Mokhethi@hotmia.com",
                 PhoneNumber = 0214,
                 PublisherId = Guid.NewGuid()
@@ -163,7 +163,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 new Publisher{
 
-                Name = "Dude",
+                NameAndSurname = "Dude",
                 EmailAddress="Mokhethi@hotmia.com",
                 PhoneNumber = 0214,
                 PublisherId = Guid.NewGuid()
@@ -188,7 +188,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 new Publisher{
 
-                Name = "Dude",
+                NameAndSurname = "Dude",
                 EmailAddress="Mokhethi@hotmia.com",
                 PhoneNumber = 0214,
                 PublisherId = Guid.NewGuid()
@@ -292,7 +292,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 new Publisher{
 
-                Name = "Dude",
+                NameAndSurname = "Dude",
                 EmailAddress="Mokhethi@hotmia.com",
                 PhoneNumber = 0214,
                 PublisherId = Guid.NewGuid()
@@ -366,7 +366,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             {
                 new Publisher{
 
-                Name = "Dude",
+                NameAndSurname = "Dude",
                 EmailAddress="Mokhethi@hotmia.com",
                 PhoneNumber = 0214,
                 PublisherId = Guid.NewGuid()

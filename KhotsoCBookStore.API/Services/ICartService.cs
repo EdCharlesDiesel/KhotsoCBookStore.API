@@ -18,5 +18,7 @@ namespace KhotsoCBookStore.API.Services
         Task<int> ClearCart(Guid customerId);
         
         Task<string> GetCartId(Guid customerId);
+        
+        Task CreateCartAsync(Guid customerId);
     }
 }

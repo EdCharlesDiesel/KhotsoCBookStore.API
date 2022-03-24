@@ -11,7 +11,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         {
             promotion = new Promotion
             {
-                PromoId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
+                PromotionId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
                 MinimumRetail =25.22M,
                 MaximumRetail =99.55M
             };

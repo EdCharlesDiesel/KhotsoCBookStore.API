@@ -1,14 +1,15 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Dtos
 {
     public class WishListDto
     {
-        
-        public Guid WishlistId { get; set; }
+        public Guid WishListId { get; set; } 
 
-     
+        public Guid CustomerId { get; set; }
+        
+        public ICollection<WishListItem> WishListItems { get; set; } = new List<WishListItem>();     
     }
 }

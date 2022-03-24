@@ -92,7 +92,7 @@ namespace KhotsoCBookStore.API.Controllers
             var productSubscription = new ProductSubscriptionForCreateDto
             {
                 CustomerId = customerId,
-                DateOfSubscrition= DateTime.Now,
+                DateOfSubscription= DateTime.Now,
             
             };
             var productSubscriptionToCreate = _mapper.Map<Entities.ProductSubscription>(productSubscription);

@@ -135,6 +135,61 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetAuthorsAPIOptions">
+            <summary>
+            Get supported resource actions
+            </summary>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetShoppingCartForCustomer(System.Guid,System.Guid)">
+            <summary>
+            Get the shopping cart for user.
+            </summary>
+            <param name="oldUserId"></param>
+            <param name="newUserId"></param>
+            <returns>The count of items in shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetItemsInCart(System.Guid)">
+            <summary>
+            Get the list of items in the shopping cart
+            </summary>
+            <param name="customerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.AddItemToCart(System.Guid,System.Guid)">
+            <summary>
+            Add a single item into the shopping cart. If the item already exists, 
+            increase the quantity by one
+            </summary>
+            <param name="customerId"></param>
+            <param name="bookId"></param>
+            <returns>Count of items in the shopping cart</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.UpdateCart(System.Guid,System.Guid)">
+            <summary>
+            Update item in shopping cart
+            </summary>
+            <param name="customerId"></param>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.RemoveItemFromCart(System.Guid,System.Guid)">
+            <summary>
+            Delete a single item from the cart. 
+            </summary>
+            <param name="customerId"></param>
+            <param name="bookId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.ClearCart(System.Guid)">
+            <summary>
+            Delete user cart.
+            </summary>
+            <param name="customerId"></param>
+            <returns></returns>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.GetBookAPIOptions">
             <summary>
             Get supported resource actions
@@ -407,61 +462,6 @@
             </summary>
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.GetAuthorsAPIOptions">
-            <summary>
-            Get supported resource actions
-            </summary>
-            <returns>API actions allowed</returns>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the list of all requests allowed on this end-point</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.GetShoppingCartForCustomer(System.Guid,System.Guid)">
-            <summary>
-            Get the shopping cart for user.
-            </summary>
-            <param name="oldUserId"></param>
-            <param name="newUserId"></param>
-            <returns>The count of items in shopping cart</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.GetItemsInCart(System.Guid)">
-            <summary>
-            Get the list of items in the shopping cart
-            </summary>
-            <param name="customerId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.AddItemToCart(System.Guid,System.Guid)">
-            <summary>
-            Add a single item into the shopping cart. If the item already exists, 
-            increase the quantity by one
-            </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns>Count of items in the shopping cart</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.UpdateCart(System.Guid,System.Guid)">
-            <summary>
-            Update item in shopping cart
-            </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.RemoveItemFromCart(System.Guid,System.Guid)">
-            <summary>
-            Delete a single item from the cart. 
-            </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.ClearCart(System.Guid)">
-            <summary>
-            Delete user cart.
-            </summary>
-            <param name="customerId"></param>
-            <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.WishListController.GetWishListsAPIOptions">
             <summary>

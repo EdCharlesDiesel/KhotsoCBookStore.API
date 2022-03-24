@@ -193,7 +193,7 @@ namespace KhotsoCBookStore.API.Controllers
 
              _mailService.Send(
                 "Publisher deleted.",
-                $"Publisher named {publisherToDelete.Name} with id {publisherToDelete.PublisherId} was deleted.");
+                $"Publisher named {publisherToDelete.NameAndSurname} with id {publisherToDelete.PublisherId} was deleted.");
 
             return NoContent();
         }

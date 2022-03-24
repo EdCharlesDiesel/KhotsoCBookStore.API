@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Entities
 {
+    [Table("WishLists")]
     public class WishList : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid WishlistId { get; set; } = Guid.NewGuid();
+        public Guid WishListId { get; set; } = Guid.NewGuid();
 
-        [ForeignKey("CustomerId")]
+        [ForeignKey(nameof(Customer))]
         public Guid CustomerId { get; set; }
-        // public Customer Customer { get; set; }
-
-        // public ICollection<WishListItem> WishListItems { get; set; } = new List<WishListItem>();
+        
+        public ICollection<WishListItem> WishListItems { get; set; } = new List<WishListItem>();
     }
 }

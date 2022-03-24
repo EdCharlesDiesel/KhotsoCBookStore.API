@@ -2,7 +2,7 @@ using System;
 
 namespace KhotsoCBookStore.API.Dtos
 {
-    public class CartItemForCreateDto
+    public class CartItemForUpdateDto
     {
         public Guid ProductId;
 

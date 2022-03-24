@@ -21,7 +21,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<IEnumerable<Publisher>> GetAllPublishersAync()
         {
-            return await _dbContext.Publishers.OrderBy(e=>e.Name).ToListAsync();
+            return await _dbContext.Publishers.OrderBy(e=>e.NameAndSurname).ToListAsync();
         }
 
         public async Task<Publisher> GetPublisherByIdAsync(Guid publisherId)

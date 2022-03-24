@@ -4,17 +4,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Entities
 {
+    [Table("Authors")]
     public class Author: AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid AuthorId { get; set; }  =Guid.NewGuid();
-
-        [Required(ErrorMessage = "You should provide a first name value.")]
+        public Guid AuthorId { get; set; }  = Guid.NewGuid();
+        
+        [Required]
         [MaxLength(150)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "You should provide a last name value.")]
+        [Required]
         [MaxLength(150)]
         public string LastName { get; set; }
 

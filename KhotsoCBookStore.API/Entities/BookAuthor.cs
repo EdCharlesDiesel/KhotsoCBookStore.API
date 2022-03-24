@@ -5,12 +5,12 @@ namespace KhotsoCBookStore.API.Entities
 {
     public class BookAuthor: AuditableEntity
     {
-        [ForeignKey("BookId")]
+        [ForeignKey(nameof(Book))]
         public Guid BookId { get; set; }
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
 
-        [ForeignKey("AuthorId")]
+        [ForeignKey(nameof(Author))]
         public Guid AuthorId { get; set; }
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

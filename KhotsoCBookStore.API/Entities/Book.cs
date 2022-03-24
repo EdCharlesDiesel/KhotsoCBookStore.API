@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Book: AuditableEntity
+    [Table("Books")]
+    public class Book : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid BookId { get; set; }  =Guid.NewGuid();
+        public Guid BookId { get; set; } = Guid.NewGuid();
 
         [Required]
         [MaxLength(150)]
@@ -17,15 +18,16 @@ namespace KhotsoCBookStore.API.Entities
 
         [Required]
         public DateTime PublishingDate { get; set; }
-        
-        [ForeignKey("PublisherId")]
+
+        [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; }
-        
-        public decimal Cost { get; set; }    
 
-        public decimal RetailPrice { get; set; }     
-        
+        [Column(TypeName = "decimal(7,4)")]
+        public decimal Cost { get; set; }
+
+        [Column(TypeName = "decimal(7,4)")]
+        public decimal RetailPrice { get; set; }
+
         public string CoverFileName { get; set; }
-
     }
 }

@@ -11,7 +11,7 @@ namespace KhotsoCBookStore.API.Dtos
         {
             ProductId = BookId;
         }
-        public Guid CartItemId { get; set; } = Guid.NewGuid();
+        public Guid CartItemId { get; set; }
 
         public Guid ProductId
         {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
+    [Table("Employees")]
     public class Employee: Person
     {
         [Key]
@@ -11,6 +12,7 @@ namespace KhotsoCBookStore.API.Entities
         public Guid EmployeeId { get; set; } = Guid.NewGuid();
         
         [Required]
+        [MaxLength(10)]
         public string EmployeeNumber { get; set; }
         
         [Required]

@@ -4,18 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Category: AuditableEntity
+    [Table("Categories")]
+    public class Category : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CategoryId { get; set; }  =Guid.NewGuid();
-        
+        public Guid CategoryId { get; set; } = Guid.NewGuid();
+
         [Required]
         [MaxLength(150)]
         public string CategoryName { get; set; }
 
-        [ForeignKey("BookId")]
+        [ForeignKey(nameof(Book))]
         public Guid BookId { get; set; }
-        public Book Book { get; set; }
+        
+        public virtual Book Book { get; set; }
     }
 }

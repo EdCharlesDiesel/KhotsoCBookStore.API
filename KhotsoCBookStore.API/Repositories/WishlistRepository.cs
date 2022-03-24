@@ -88,7 +88,7 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 var wishList = new WishList
                 {
-                    WishlistId = Guid.NewGuid(),
+                    WishListId = Guid.NewGuid(),
                     CustomerId = customerId,
                     CreatedOn = DateTime.Now.Date,
                 };

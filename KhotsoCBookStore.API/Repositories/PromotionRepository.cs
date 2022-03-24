@@ -1,6 +1,5 @@
 using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<Promotion> GetPromotionAsync(Guid promotionId)
         {
-            return await _dbContext.Promotions.FirstOrDefaultAsync(c => c.PromoId == promotionId);
+            return await _dbContext.Promotions.FirstOrDefaultAsync(c => c.PromotionId == promotionId);
         }
 
         public async Task<Dtos.PromotionForCreateDto> CreatePromotionAsync(Dtos.PromotionForCreateDto newPromotion)
@@ -56,7 +55,7 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<bool> PromotionIfExistsAsync(Guid promotionId)
         {
-            return await _dbContext.Promotions.AnyAsync(c => c.PromoId == promotionId);
+            return await _dbContext.Promotions.AnyAsync(c => c.PromotionId == promotionId);
         }       
 
         public Task<Promotion> UpdatePromotionAsync(Dtos.PromotionForUpdateDto promotionToUpdate)

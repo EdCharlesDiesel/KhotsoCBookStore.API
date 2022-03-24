@@ -1,17 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Dtos
 {
     public class ProductSubscriptionDto
     {
+        public Guid ProductSubcriptionId { get; set; }
 
-        public Guid ProductSubscriptionId { get; set; }
+        public Guid CustomerId { get; set; }
+        [Required(ErrorMessage ="Please provide subscription date")]
+        public DateTime DateOfSubscription { get; set; }
 
-        // [ForeignKey("UserId")]
-        // public Guid UserId { get; set; }
-        // public UserMaster UserMasters { get; set; }
-
-        // public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
+        public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
 
     }
 }
