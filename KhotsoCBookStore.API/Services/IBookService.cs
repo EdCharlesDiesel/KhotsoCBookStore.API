@@ -32,5 +32,6 @@ namespace KhotsoCBookStore.API.Services
         
         Task<IEnumerable<Book>> GetBooksAvailableInPromotionAsync(Guid promotionId);
         
+        Task<IEnumerable<Book>> GetBooksAvailableInBookSubscription(Guid id);
     }
 }

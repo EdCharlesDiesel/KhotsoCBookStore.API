@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 namespace KhotsoCBookStore.API.Controllers
@@ -54,12 +53,12 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpGet("{customerId}")]
-        public  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
+        public async  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
         {
-            // string cartid = _cartService.GetCartId(customerId);
-            // var id = new Guid(cartid);
-            // return await _bookService.GetBooksAvailableInCartAsync(id);
-            throw new NotImplementedException();
+            string cartid =await  _cartService.GetCartId(customerId);
+            var id = new Guid(cartid);
+            return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);
+            
         }
 
         /// <summary>

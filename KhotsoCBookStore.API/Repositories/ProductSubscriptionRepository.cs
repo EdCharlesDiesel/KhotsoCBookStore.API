@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -13,52 +15,52 @@ namespace KhotsoCBookStore.API.Repositories
     {
         readonly KhotsoCBookStoreDbContext _dbContext;
 
+
         public ProductSubscriptionRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-
-        public void ToggleProductSubscriptionItem(Guid customer, Guid productId)
+        public async Task ToggleProductSubscriptionItem(Guid customerId, Guid productId)
         {
-            // var productSubscriptionId = GetProductSubscriptionId(customer);
+            // var customer = await _dbContext.Customers.FindAsync(customerId);
+            // var productSubscriptionId = GetProductSubscriptionId(customerId);
+
             // ProductSubscriptionItem existingProductSubscriptionItem =
             //  _dbContext.ProductSubscriptionItems.FirstOrDefault(x => x.ProductId == productId
-            //   && x.ProductSubscriptionId == productSubscriptionId);
+            //   && x.ProductSubscriptionId.ToString() == productSubscriptionId);
 
             // if (existingProductSubscriptionItem != null)
             // {
             //     _dbContext.ProductSubscriptionItems.Remove(existingProductSubscriptionItem);
-            //     _dbContext.SaveChanges();
+            //     await _dbContext.SaveChangesAsync();
             // }
-            // else
-            // {
-            //     ProductSubscriptionItem productSubscriptionItem = new ProductSubscriptionItem
-            //     {
-            //         //ProductSubscriptionId = productSubscriptionId,
-            //         ProductId = productId,
-            //     };
-            //     _dbContext.ProductSubscriptionItems.Add(productSubscriptionItem);
-            //     _dbContext.SaveChanges();
-            // }
+
+            ProductSubscriptionItem productSubscriptionItem = new ProductSubscriptionItem
+            {
+                //ProductSubscriptionId = productSubscriptionId,
+                ProductId = productId,
+            };
+            await _dbContext.ProductSubscriptionItems.AddAsync(productSubscriptionItem);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public int ClearProductSubscription(Guid customer)
+        public async Task<int> ClearProductSubscription(Guid customer)
         {
             try
             {
-                string productSubscriptionId = GetProductSubscriptionId(customer);
+                // string productSubscriptionId = GetProductSubscriptionId(customer);
                 // List<ProductSubscriptionItem> productSubscriptionItem = _dbContext.ProductSubscriptionItems
-                // .Where(x => x.ProductSubscriptionId == productSubscriptionId).ToList();
+                //  .Where(x => x.ProductSubscriptionId.ToString() == productSubscriptionId).ToList();
 
-                if (!string.IsNullOrEmpty(productSubscriptionId))
-                {
-                    // foreach (ProductSubscriptionItem item in productSubscriptionItem)
-                    // {
-                    //     _dbContext.ProductSubscriptionItems.Remove(item);
-                    //     _dbContext.SaveChanges();
-                    // }
-                }
+                // if (!string.IsNullOrEmpty(productSubscriptionId))
+                // {
+                //     foreach (ProductSubscriptionItem item in productSubscriptionItem)
+                //     {
+                //         _dbContext.ProductSubscriptionItems.Remove(item);
+                //         await _dbContext.SaveChangesAsync();
+                //     }
+                // }
                 return 0;
             }
             catch
@@ -67,30 +69,7 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-
-        public string GetProductSubscriptionId(Guid customer)
-        {
-            try
-            {
-                ProductSubscription productSubscription = _dbContext.ProductSubscriptions.FirstOrDefault(x => x.CustomerId == customer);
-
-                if (productSubscription != null)
-                {
-                    return productSubscription.ProductSubscriptionId.ToString();
-                }
-                else
-                {
-                    return CreateProductSubscription(customer);
-                }
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        string CreateProductSubscription(Guid customer)
+        public async Task<String> CreateProductSubscription(Guid customer)
         {
             try
             {
@@ -98,11 +77,12 @@ namespace KhotsoCBookStore.API.Repositories
                 {
                     ProductSubscriptionId = Guid.NewGuid(),
                     CustomerId = customer,
+                    DateOfSubscrition = DateTime.Now,
                     CreatedOn = DateTime.Now.Date
                 };
 
-                _dbContext.ProductSubscriptions.Add(productSubscription);
-                _dbContext.SaveChanges();
+                await _dbContext.ProductSubscriptions.AddAsync(productSubscription);
+                await _dbContext.SaveChangesAsync();
 
                 return productSubscription.ProductSubscriptionId.ToString();
             }
@@ -110,6 +90,46 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 throw;
             }
+        }
+
+        Task<string> IProductSubscriptionService.GetProductSubscriptionId(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ClearProductSubscriptionAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Book>> GetProductSubscriptionId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreateProductSubscriptionAsync(ProductSubscription productSubscriptionToCreate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Book>> GetProductSubscription()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ActionResult<Book>> GetProductSubscriptionById(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IProductSubscriptionService.ClearProductSubscriptionAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

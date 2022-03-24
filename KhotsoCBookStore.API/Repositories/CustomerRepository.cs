@@ -272,11 +272,16 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
+        public object CheckIfCustomerExists(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         // Task<Customer> ICustomerService.GetCustomerAsync(Guid customerId)
         // {
         //     throw new NotImplementedException();
         // }
 
-      
+
     }
 }

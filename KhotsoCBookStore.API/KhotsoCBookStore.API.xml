@@ -302,14 +302,26 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetProductSubscriptions(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetProductSubscriptions">
             <summary>
-            Get the list of books subscriptions
+            Get the list of product subscriptions
             </summary>
-            <param name="customerId"></param>
             <returns>List of book subscriptions</returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.CreateSubscription(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetProductSubscriptionById(System.Guid)">
+            <summary>
+            Get the single book subscription by Id
+            </summary>
+            <returns>List of book subscriptions</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetUserBookSubscription(System.Guid)">
+            <summary>
+            Get a list of customer book subscriptions
+            </summary>
+            <param name="customerId"></param>
+            <returns>List of book subscription</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.ToggleProductSubscription(System.Guid,System.Guid)">
             <summary>
             Add a new book subscription
             </summary>
@@ -319,17 +331,10 @@
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.ClearProductSubscription(System.Guid)">
             <summary>
-            Delete a book subscription
+            Delete a product subscription
             </summary>
             <param name="customerId"></param>
             <returns>NoContent</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetUserBookSubscription(System.Guid)">
-            <summary>
-            Get a list of user book subscriptions
-            </summary>
-            <param name="customerId"></param>
-            <returns>List of book subscription</returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetPromotionAPIOptions">
             <summary>
