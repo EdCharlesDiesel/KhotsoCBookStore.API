@@ -42,9 +42,17 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-        public void DeleteAuthor(Author authorToDelete)
+        public void DeleteAuthor(Guid authorId)
         {
-            _dbContext.Authors.Remove(authorToDelete);
+            try
+            {
+                var author = _dbContext.Authors.Find(authorId);
+                _dbContext.Authors.Remove(author);
+            }
+             catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> SaveChangesAsync()

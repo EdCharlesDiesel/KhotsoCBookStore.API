@@ -9,13 +9,16 @@ namespace KhotsoCBookStore.API.Dtos
     {
         public Guid CustomerId { get; set; }
 
-        [Required(ErrorMessage="Please enter an email")]
-        [EmailAddress(ErrorMessage ="Please enter a valid email address")]
-        public string EmailAddress { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
         
-        [Required(ErrorMessage ="Please enter a username")]
         public string Username { get; set; }
         
+        public string EmailAddress { get; set; }
+
         public string Address { get; set; }
 
         public string City { get; set; }
@@ -23,11 +26,5 @@ namespace KhotsoCBookStore.API.Dtos
         public string Province { get; set; }
 
         public int Postal { get; set; }
-
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-
-        public ICollection<WishList> WishLists { get; set; } = new List<WishList>();
-
-        public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; } = new List<ProductSubscription>();
     }
 }

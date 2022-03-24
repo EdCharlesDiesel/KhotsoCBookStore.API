@@ -5,24 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Customer : Person
+    public class Customer : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid CustomerId { get; set; } 
 
         [Required]
-        public string EmailAddress { get; set; }
-        
+        [MaxLength(150)]
+        public string FirstName { get; set; }
+
         [Required]
-        public string Username { get; set; }
+        [MaxLength(150)]
+        public string LastName { get; set; }
 
-        public string Password { get; set; }
+        [Required]
+        public DateTime DateOfBirth { get; set; }
 
-        public byte[] PasswordHash { get; set; }
+        [Required]
+        public string Username { get; set; } 
 
-        public byte[] PasswordSalt { get; set; }
-        
+        [Required]
+        public string EmailAddress { get; set; }  
+             
         public string Address { get; set; }
 
         public string City { get; set; }
@@ -31,10 +36,10 @@ namespace KhotsoCBookStore.API.Entities
 
         public int Postal { get; set; }
 
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        // public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public ICollection<WishList> WishLists { get; set; } = new List<WishList>();
+        // public ICollection<WishList> WishLists { get; set; } = new List<WishList>();
 
-        public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; } = new List<ProductSubscription>();
+        // public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; } = new List<ProductSubscription>();
     }
 }

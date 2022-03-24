@@ -151,11 +151,11 @@
             <param name="checkedOutItems"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.Get(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.GetCartItemCountForCustomer(System.Guid)">
             <summary>
             Get the count of item in the shopping cart
             </summary>
-            <param name="userId"></param>
+            <param name="customerId"></param>
             <returns>The count of items in shopping cart</returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.CustomerController.GetCustomersAPIOptions">
@@ -257,19 +257,6 @@
             </summary>
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Dtos.AuthenticateDto)">
-            <summary>
-            Login.
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Logout">
-            <summary>
-            Logout
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.OrderController.GetOrders(System.Guid)">
             <summary>

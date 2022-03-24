@@ -60,10 +60,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get the count of item in the shopping cart
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="customerId"></param>
         /// <returns>The count of items in shopping cart</returns>
-        // [HttpGet("{userId}")]
-         public int Get(Guid userId)
+        [HttpGet("{customerId}")]
+         public int GetCartItemCountForCustomer(Guid customerId)
          {
             // int cartItemCount = _cartRepository.GetCartItemCount(userId);
             // return cartItemCount;

@@ -13,9 +13,9 @@ namespace KhotsoCBookStore.API.Entities
 
         [ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        // public Customer Customer { get; set; }
 
-        public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
+       // public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
 
     }
 }

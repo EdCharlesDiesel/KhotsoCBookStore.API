@@ -58,20 +58,20 @@ namespace KhotsoCBookStore.API.Tests.Dtos
         }
 
 
-        //[Fact]
-        public void GetCustomersAPIOptions_Returns200OK_WhenCalled()
-        {
-            //Arrange
-            mockCustomerRepo.Setup(repo =>
-            repo.GetAllCustomersAync()).ReturnsAsync(() => null);
-            var controller = new CustomerController(mockCustomerRepo.Object, mapper, mockMail.Object, mockCartServiceRepo.Object);
+        // [Fact]
+        // public void GetCustomersAPIOptions_Returns200OK_WhenCalled()
+        // {
+        //     //Arrange
+        //     mockCustomerRepo.Setup(repo =>
+        //     repo.GetAllCustomersAync()).ReturnsAsync(() => null);
+        //     var controller = new CustomerController(mockCustomerRepo.Object, mapper, mockMail.Object, mockCartServiceRepo.Object);
 
-            //Act
-            var result = controller.GetCustomersAPIOptions();
+        //     //Act
+        //     var result = controller.GetCustomersAPIOptions();
 
-            //Assert
-            Assert.IsType<IActionResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<IActionResult>(result);
+        // }
 
         [Fact]
         public async Task GetCustomerItems_Returns200OK_WhenDBIsEmpty()
@@ -213,7 +213,8 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             var result = await controller.CreateCustomer(new CustomerForCreateDto { });
 
             //Assert
-            Assert.IsType<CreatedAtRouteResult>(result);
+            Assert.IsType<CreatedAtRouteResult>(result.Result);
+            
         }
 
         [Fact]
@@ -222,56 +223,53 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             //Arrange
             var newCustomer = new Customer()
             {
-                CustomerId = new Guid(),
+                CustomerId = Guid.NewGuid(),
                 FirstName = "Khotso",
                 LastName = "Mokhethi",
                 DateOfBirth = DateTime.Now,
                 EmailAddress = "Mokhetkc@hotmail.com",
                 Username = "admin",
-                Password = "password",
                 Address = "1231 City Place Pretoria 0002",
                 City = "Pretoria",
                 Province = "Gauteng",
                 Postal = 1852,
-                Orders = new List<Order>(),
-                WishLists = new List<WishList>(),
-                ProductSubscriptions = new List<ProductSubscription>()
             };
 
             mockCustomerRepo.Setup(repo =>
             repo.CustomerIfExistsAsync(newCustomer.CustomerId)).ReturnsAsync(true);            
+            
             var controller = new CustomerController(mockCustomerRepo.Object, mapper, mockMail.Object, mockCartServiceRepo.Object);
 
             //Act
             var result = await controller.CreateCustomer(new CustomerForCreateDto { });
 
             //Assert
-            Assert.IsType<CreatedAtRouteResult>(result);
+            Assert.IsType<CreatedAtRouteResult>(result.Result);
         }
 
-        [Fact]
-        public async Task UpdateCustomer_Returns204NoContent_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-            mockCustomerRepo.Setup(repo =>
-            repo.CustomerIfExistsAsync(id)).ReturnsAsync(true);
+        // [Fact]
+        // public async Task UpdateCustomer_Returns204NoContent_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
+        //     mockCustomerRepo.Setup(repo =>
+        //     repo.CustomerIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockCustomerRepo.Setup(repo =>
-            repo.GetCustomerByIdAsync(id)).ReturnsAsync(new Customer
-            {
-                CustomerId = id,
-                FirstName = "Khotso",
-                LastName = "Mokhethi"
-            });
-            var controller = new CustomerController(mockCustomerRepo.Object, mapper, mockMail.Object, mockCartServiceRepo.Object);
+        //     mockCustomerRepo.Setup(repo =>
+        //     repo.GetCustomerByIdAsync(id)).ReturnsAsync(new Customer
+        //     {
+        //         CustomerId = id,
+        //         FirstName = "Khotso",
+        //         LastName = "Mokhethi"
+        //     });
+        //     var controller = new CustomerController(mockCustomerRepo.Object, mapper, mockMail.Object, mockCartServiceRepo.Object);
 
-            //Act
-            var result = await controller.UpdateCustomer(id, new CustomerForUpdateDto { });
+        //     //Act
+        //     var result = await controller.UpdateCustomer(id, new CustomerForUpdateDto { });
 
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NoContentResult>(result);
+        // }
 
         [Fact]
         public async Task UpdateCustomer_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
