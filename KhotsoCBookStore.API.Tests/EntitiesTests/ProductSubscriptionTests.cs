@@ -21,27 +21,27 @@ namespace KhotsoCBookStore.API.Tests.Entities
            productSubscription  = null;
         }
 
-        [Fact]
-        public void CanChangeId()
-        {
-            //Arrange
-            //Act
-            productSubscription.ProductSubscriptionId = new Guid();
+        // [Fact]
+        // public void CanChangeId()
+        // {
+        //     //Arrange
+        //     //Act
+        //     productSubscription.ProductSubscriptionId = new Guid();
 
-            //Assert
-            Assert.Equal(new Guid(), productSubscription.ProductSubscriptionId);
-        }
+        //     //Assert
+        //     Assert.Equal(new Guid(), productSubscription.ProductSubscriptionId);
+        // }
 
-        [Fact]
-        public void CanChangeCustomerId()
-        {
-            //Arrange
-            //Act
-            productSubscription.CustomerId = new Guid();
+        // [Fact]
+        // public void CanChangeCustomerId()
+        // {
+        //     //Arrange
+        //     //Act
+        //     productSubscription.CustomerId = new Guid();
 
-            //Assert
-            Assert.Equal(new Guid(), productSubscription.CustomerId);
-        }
+        //     //Assert
+        //     Assert.Equal(new Guid(), productSubscription.CustomerId);
+        // }
 
          //[Fact]
         // public void CanChangeCustomer()

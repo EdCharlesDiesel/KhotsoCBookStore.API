@@ -74,16 +74,16 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok(_mapper.Map<OrderDto>(Order));            
          }
 
-        // /// <summary>
-        // /// Get the count of item in the shopping cart
-        // /// </summary>
-        // /// <param name="customerId"></param>
-        // /// <returns>The count of items in shopping cart</returns>
-        // [HttpGet("{customerId}")]
-        //  public async Task<int> GetCartItemCountForCustomer(Guid customerId)
-        //  {
-        //      int cartItemCount = await _cartRepository.GetCartItemCount(customerId);
-        //      return cartItemCount;
-        //  }
+        /// <summary>
+        /// Get the count of item in the shopping cart
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>The count of items in shopping cart</returns>
+        [HttpGet]
+         public async  Task<int> GetCartItemCountForCustomer(Guid customerId)
+         {
+             int cartItemCount =  await _cartRepository.GetCartItemCount(customerId);
+             return cartItemCount;
+         }
     }
 }

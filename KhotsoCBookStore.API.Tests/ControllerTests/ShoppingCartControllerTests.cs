@@ -15,16 +15,16 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
 {
     public class ShoppingCartControllerTests : IDisposable
     {
-        Mock<IAuthorService> mockRepo;
+        Mock<ICartService> mockRepo;
         Mock<IMailService> mockMail;
-        AuthorMappingProfile realProfile;
+        CartMappingProfile realProfile;
         MapperConfiguration configuration;
         IMapper mapper;
         public ShoppingCartControllerTests()
         {
-            mockRepo = new Mock<IAuthorService>();
+            mockRepo = new Mock<ICartService>();
             mockMail = new Mock<IMailService>();
-            realProfile = new AuthorMappingProfile();
+            realProfile = new CartMappingProfile();
             configuration = new MapperConfiguration(cfg => cfg.
             AddProfile(realProfile));
             mapper = new Mapper(configuration);
@@ -38,294 +38,234 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             realProfile = null;
         }
 
-        private List<Author> GetAuthorsTest(int num)
+        private List<Cart> GetCartsTest(int num)
         {
-            var authors = new List<Author>();
+            var Carts = new List<Cart>();
             if (num > 0)
             {
-                authors.Add(new Author
+                Carts.Add(new Cart
                 {
-                    AuthorId = Guid.NewGuid(),
-                    FirstName = "Charles",
-                    LastName = "Mokhethi"
+                    CartId = Guid.NewGuid(),
+                    CartTotal =52.96M,
+                    CustomerId = Guid.NewGuid(),
                 });
             }
-            return  authors;
+            return  Carts;
         }
 
-        [Fact]
-        public async Task GetAuthorItems_Returns200OK_WhenDBIsEmpty()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllAuthorsAync()).ReturnsAsync(() => null);
+        // [Fact]
+        // public async Task GetCartItems_Returns200OK_WhenDBIsEmpty()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllCartsAync()).ReturnsAsync(() => null);
 
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetAuthors();
+        //     //Act
+        //     var result = await controller.GetCarts();
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result.Result);
 
-        }
+        // }
 
-        [Fact]
-        public async Task  GetAllAuthors_ReturnsOneItem_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        // [Fact]
+        // public async Task  GetAllCarts_ReturnsOneItem_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllCartsAync()).ReturnsAsync(GetCartsTest(1));
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act            
-            var result = await controller.GetAuthors();
+        //     //Act            
+        //     var result = await controller.GetCarts();
 
-            //Assert
-            var okResult = result.Result as OkObjectResult;
-            var authors = okResult.Value as List<AuthorDto>;
-            Assert.Single(authors);
-        }
+        //     //Assert
+        //     var okResult = result.Result as OkObjectResult;
+        //     var Carts = okResult.Value as List<CartDto>;
+        //     Assert.Single(Carts);
+        // }
 
-        [Fact]
-        public async Task GetAllAuthors_Returns200OK_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        // [Fact]
+        // public async Task GetAllCarts_Returns200OK_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllCartsAync()).ReturnsAsync(GetCartsTest(1));
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result =await  controller.GetAuthors();
+        //     //Act
+        //     var result =await  controller.GetCarts();
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
-        }
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result.Result);
+        // }
 
-        [Fact]
-        public async Task GetAllAuthors_ReturnsCorrectType_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllAuthorsAync()).ReturnsAsync(GetAuthorsTest(1));
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        // [Fact]
+        // public async Task GetAllCarts_ReturnsCorrectType_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllCartsAync()).ReturnsAsync(GetCartsTest(1));
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result =await  controller.GetAuthors();
+        //     //Act
+        //     var result =await  controller.GetCarts();
 
-            //Assert
-            Assert.IsType<ActionResult<IEnumerable<AuthorDto>>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<IEnumerable<CartDto>>>(result);
+        // }
 
-        [Fact]
-        public async Task GetAuthorByID_Returns404NotFound_WhenNonExistentIDProvided()
-        {
-            //Arrange
-            var id = new Guid("00000000-0000-0000-0000-000000000000");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync( new Author
-            {
+        // [Fact]
+        // public async Task GetCartByID_Returns404NotFound_WhenNonExistentIDProvided()
+        // {
+        //     //Arrange
+        //     var id = new Guid("00000000-0000-0000-0000-000000000000");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync( new Cart
+        //     {
                 
-            });
+        //     });
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetAuthorById(id);
+        //     //Act
+        //     var result = await controller.GetCartById(id);
 
-            //Assert
-            Assert.IsType<NotFoundResult>(result.Result);
-        }
+        //     //Assert
+        //     Assert.IsType<NotFoundResult>(result.Result);
+        // }
 
-        [Fact]
-        public async Task GetAuthorByID_Returns200OK__WhenValidIDProvided()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
-            });
+        // [Fact]
+        // public async Task GetCartByID_Returns200OK__WhenValidIDProvided()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi"
+        //     });
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetAuthorById(id);
+        //     //Act
+        //     var result = await controller.GetCartById(id);
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
-        }
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result.Result);
+        // }
 
-        [Fact]
-        public async Task GetAuthorByID_Returns200OK__WhenValidIDProvided_()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
-            });
+        // [Fact]
+        // public async Task GetCartByID_Returns200OK__WhenValidIDProvided_()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi"
+        //     });
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetAuthorById(id);
+        //     //Act
+        //     var result = await controller.GetCartById(id);
 
-            //Assert
-            Assert.IsType<ActionResult<AuthorDto>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<CartDto>>(result);
+        // }
 
-        [Fact]
-        public async Task CreateAuthor_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                AuthorId = id,
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
-            });
+        // [Fact]
+        // public async Task CreateCart_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         CartId = id,
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi"
+        //     });
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.CreateAuthor(new AuthorForCreateDto { });
+        //     //Act
+        //     var result = await controller.CreateCart(new CartForCreateDto { });
 
-            //Assert
-            //Assert.IsType<ActionResult<AuthorDto>>(result);
-            Assert.IsType<CreatedAtRouteResult>(result);
-        }
+        //     //Assert
+        //     //Assert.IsType<ActionResult<CartDto>>(result);
+        //     Assert.IsType<CreatedAtRouteResult>(result);
+        // }
 
-        [Fact]
-        public async Task CreateAuthor_Returns201Created_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                FirstName = "Charles",
-                LastName = "Mokhrthi"
-            });
+        // [Fact]
+        // public async Task CreateCart_Returns201Created_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi"
+        //     });
 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.CreateAuthor(new AuthorForCreateDto { });
+        //     //Act
+        //     var result = await controller.CreateCart(new CartForCreateDto { });
 
-            //Assert
-            Assert.IsType<CreatedAtRouteResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<CreatedAtRouteResult>(result);
+        // }
 
-        [Fact]
-        public async Task UpdateAuthor_Returns204NoContent_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-            mockRepo.Setup(repo =>
-            repo.AuthorIfExistsAsync(id)).ReturnsAsync(true);
+        // [Fact]
+        // public async Task DeleteCart_Returns204NoContent_WhenValidResourceIDSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
+        //     mockRepo.Setup(repo =>
+        //     repo.CartIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                AuthorId= id,
-                FirstName ="Khotso",
-                LastName = "Mokhethi"
-            });
-
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
-
-            //Act
-            var result = await controller.UpdateAuthor(id, new AuthorForUpdateDto { });
-
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
-
-        [Fact]
-        public async Task UpdateAuthor_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
-        {
-            //Arrange
-            var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
-
-
-            //Act
-            var result = await controller.UpdateAuthor(id, new AuthorForUpdateDto { });
-
-            //Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async Task PartialAuthorUpdate_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
-        {
-            //Arrange
-            var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
-
-            //Act
-            var result = await controller.PartiallyUpdateAuthor(id,
-            new Microsoft.AspNetCore.JsonPatch.JsonPatchDocument<AuthorForUpdateDto>
-            { });
-
-            //Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async Task DeleteAuthor_Returns204NoContent_WhenValidResourceIDSubmitted()
-        {
-            //Arrange
-            var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
-            mockRepo.Setup(repo =>
-            repo.AuthorIfExistsAsync(id)).ReturnsAsync(true);
-
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(new Author
-            {
-                AuthorId= id,
-                FirstName ="Khotso",
-                LastName = "Mokhethi"
-            });
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         CartId= id,
+        //         FirstName ="Khotso",
+        //         LastName = "Mokhethi"
+        //     });
 
             
                 
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
             
-            //Act
-            var result = await controller.DeleteAuthor(id);
+        //     //Act
+        //     var result = await controller.DeleteCart(id);
             
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NoContentResult>(result);
+        // }
 
-        [Fact]
-        public async Task DeleteAuthor_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()
-        {
+        // [Fact]
+        // public async Task DeleteCart_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()
+        // {
 
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
-            mockRepo.Setup(repo =>
-            repo.GetAuthorByIdAsync(id)).ReturnsAsync(() => null);
-            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(() => null);
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.DeleteAuthor(id);
+        //     //Act
+        //     var result = await controller.DeleteCart(id);
 
-            //Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NotFoundResult>(result);
+        // }
     }
 }

@@ -57,8 +57,7 @@ namespace KhotsoCBookStore.API.Controllers
         {
             string cartid =await  _cartService.GetCartId(customerId);
             var id = new Guid(cartid);
-            return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);
-            
+            return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
         }
 
         /// <summary>

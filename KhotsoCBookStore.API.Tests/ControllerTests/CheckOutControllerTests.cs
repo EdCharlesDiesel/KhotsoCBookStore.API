@@ -106,59 +106,59 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         // }
 
 
-        [Fact]
-        public async Task CreateCheckOut_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-            var newOrder = new Order
-            {
-                CustomerId = id,
-                OrderId =Guid.NewGuid(),
-                CartTotal = 36.96M
-            };
+        // [Fact]
+        // public async Task CreateCheckOut_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+        //     var newOrder = new Order
+        //     {
+        //         CustomerId = id,
+        //         OrderId =Guid.NewGuid(),
+        //         CartTotal = 36.96M
+        //     };
 
-            mockOrderRepo.Setup(repo =>
-            repo.CreateOrderAsync(id,newOrder)).Returns(()=>null);
+        //     mockOrderRepo.Setup(repo =>
+        //     repo.CreateOrderAsync(id,newOrder)).Returns(()=>null);
 
-            var controller = new CheckOutController(
-                mapper,
-                mockOrderRepo.Object,
-                mockCartRepo.Object );
+        //     var controller = new CheckOutController(
+        //         mapper,
+        //         mockOrderRepo.Object,
+        //         mockCartRepo.Object );
 
-            //Act
-            var result = await controller.CreateOrder(id,new OrderForCreateDto { });
+        //     //Act
+        //     var result = await controller.CreateOrder(id,new OrderForCreateDto { });
 
-            //Assert
-            Assert.IsType<ActionResult<OrderDto>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<OrderDto>>(result);
+        // }
 
-        [Fact]
-        public async Task CreateCheckOut_Returns201Created_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-            var newOrder = new Order
-            {
-                CustomerId = id,
-                OrderId =Guid.NewGuid(),
-                CartTotal = 36.96M
-            };
+        // [Fact]
+        // public async Task CreateCheckOut_Returns201Created_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+        //     var newOrder = new Order
+        //     {
+        //         CustomerId = id,
+        //         OrderId =Guid.NewGuid(),
+        //         CartTotal = 36.96M
+        //     };
 
-            mockOrderRepo.Setup(repo =>
-            repo.CreateOrderAsync(id,newOrder)).Returns(()=>null);
+        //     mockOrderRepo.Setup(repo =>
+        //     repo.CreateOrderAsync(id,newOrder)).Returns(()=>null);
 
-            var controller = new CheckOutController(
-                mapper,
-                mockOrderRepo.Object,
-                mockCartRepo.Object );
+        //     var controller = new CheckOutController(
+        //         mapper,
+        //         mockOrderRepo.Object,
+        //         mockCartRepo.Object );
 
-            //Act
-            var result = await controller.CreateOrder(id,new OrderForCreateDto { });
+        //     //Act
+        //     var result = await controller.CreateOrder(id,new OrderForCreateDto { });
 
-            //Assert
-            Assert.IsType<CreatedAtRouteResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<CreatedAtRouteResult>(result);
+        // }
 
     }
 }

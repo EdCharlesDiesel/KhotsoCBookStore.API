@@ -57,6 +57,11 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
+        public Task GetAllOrdersForCustomer(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public  async Task<Order> GetOrderForUserAsync(Guid customerId)
         {
             return  await  _dbContext.Orders.FirstOrDefaultAsync(c => c.CustomerId == customerId);

@@ -16,32 +16,7 @@ using Xunit;
 
 namespace KhotsoCBookStore.API.Tests.RepositoriesTests
 {
-     public class AuthorControllerTests : IDisposable
-    {
-        Mock<IAuthorService> mockRepo;
-        Mock<IMailService> mockMail;
-        AuthorMappingProfile realProfile;
-        MapperConfiguration configuration;
-        IMapper mapper;
-        public AuthorControllerTests()
-        {
-            mockRepo = new Mock<IAuthorService>();
-            mockMail = new Mock<IMailService>();
-            realProfile = new AuthorMappingProfile();
-            configuration = new MapperConfiguration(cfg => cfg.
-            AddProfile(realProfile));
-            mapper = new Mapper(configuration);
-        }
-        public void Dispose()
-        {
-            mockMail = null;
-            mockRepo = null;
-            mapper = null;
-            configuration = null;
-            realProfile = null;
-        }
-    }
-    public abstract class TestAuthorDb
+    public  class TestAuthorDb
     {
         Mock<IAuthorService> mockRepo;
         Mock<IMailService> mockMail;
@@ -51,8 +26,7 @@ namespace KhotsoCBookStore.API.Tests.RepositoriesTests
 
         #region Seeding
         public TestAuthorDb(DbContextOptions<KhotsoCBookStoreDbContext> contextOptions,Mock<IAuthorService> mockRepo)
-        {
-           
+        {          
 
             ContextOptions = contextOptions;
             Seed();
@@ -94,24 +68,34 @@ namespace KhotsoCBookStore.API.Tests.RepositoriesTests
 
         #endregion
 
-        // [Fact]
-        // public void Test_Create_GET_ReturnsViewResultNullModel()
-        // {
-        //     mapper = new Mapper(configuration);
+        [Fact]
+        public void Test_Create_GET_ReturnsViewResultNullModel()
+        {
+            mockRepo = new Mock<IAuthorService>();
+            mockMail = new Mock<IMailService>();
+            realProfile = new AuthorMappingProfile();
+            configuration = new MapperConfiguration(cfg => cfg.
+            AddProfile(realProfile));
+            mapper = new Mapper(configuration);
 
-        //     using (var context = new KhotsoCBookStoreDbContext(ContextOptions))
-        //     {
-        //         // Arrange
-        //         var controller = new AuthorController(context);
+            var author = new AuthorForCreateDto
+            {
+                FirstName ="Neil",
+                LastName = "Diesel"
+            };
 
-        //         // Act
-        //         var result = controller.Create();
+            using (var context = new KhotsoCBookStoreDbContext(ContextOptions))
+            {
+                // Arrange
+                var controller = new AuthorController(mockRepo.Object,mapper,mockMail.Object);
 
-        //         // Assert
-        //         var viewResult = Assert.IsType<ViewResult>(result);
-        //         Assert.Null(viewResult.ViewData.Model);
-        //     }
-        // }
+                // Act
+                var result = controller.CreateAuthor(author);
+
+                // Assert
+                Assert.IsType<OkObjectResult>(result.Result);
+            }
+        }
 
         // [Fact]
         // public async Task Test_Create_POST_InvalidModelState()
@@ -137,29 +121,29 @@ namespace KhotsoCBookStore.API.Tests.RepositoriesTests
         //     }
         // }
 
-        [Fact]
-        public async Task Test_Create_POST_ValidModelState()
-        {
-            using (var context = new KhotsoCBookStoreDbContext(ContextOptions))
-            {
-                // Arrange
-                var newAuthor = new AuthorForCreateDto()
-                {
-                    FirstName = "Nikol",
-                    LastName= "Telsa",
-                 };
+        // [Fact]
+        // public async Task Test_Create_POST_ValidModelState()
+        // {
+        //     using (var context = new KhotsoCBookStoreDbContext(ContextOptions))
+        //     {
+        //         // Arrange
+        //         var newAuthor = new AuthorForCreateDto()
+        //         {
+        //             FirstName = "Nikol",
+        //             LastName= "Telsa",
+        //          };
 
-                var controller = new AuthorController(mockRepo.Object,mapper,mockMail.Object);
+        //         var controller = new AuthorController(mockRepo.Object,mapper,mockMail.Object);
 
-                // Act
-                var result = await controller.CreateAuthor(newAuthor);
+        //         // Act
+        //         var result = await controller.CreateAuthor(newAuthor);
 
-                // Assert
-                var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-                Assert.Null(redirectToActionResult.ControllerName);
-                Assert.Equal("Read", redirectToActionResult.ActionName);
-            }
-        }
+        //         // Assert
+        //         var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+        //         Assert.Null(redirectToActionResult.ControllerName);
+        //         Assert.Equal("Read", redirectToActionResult.ActionName);
+        //     }
+        // }
 
         // [Fact]
         // public void Test_Read_GET_ReturnsViewResult_WithAListOfAuthors()

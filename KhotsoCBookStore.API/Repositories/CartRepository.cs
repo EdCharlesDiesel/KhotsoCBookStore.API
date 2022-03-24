@@ -20,11 +20,11 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task AddBookToCart(Guid customerId, Guid bookId)
         {
-            var cartId = GetCartId(customerId);
+            var cartId = await GetCartId(customerId);
             int quantity = 1;
 
-            CartItem existingCartItem = _dbContext.CartItems
-            .FirstOrDefault(x => x.ProductId == bookId && x.CartId.ToString() == cartId);
+            CartItem existingCartItem = await _dbContext.CartItems
+            .FirstOrDefaultAsync(x => x.ProductId == bookId && x.CartId.ToString() == cartId);
 
             if (existingCartItem != null)
             {
@@ -45,11 +45,11 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public string GetCartId(Guid customerId)
+        public async Task<string> GetCartId(Guid customerId)
         {
             try
             {
-                Cart cart = _dbContext.Carts.FirstOrDefault(x => x.CustomerId == customerId);
+                Cart cart = await _dbContext.Carts.FirstOrDefaultAsync(x => x.CustomerId == customerId);
 
                 if (cart != null)
                 {
@@ -57,9 +57,8 @@ namespace KhotsoCBookStore.API.Repositories
                 }
                 else
                 {
-                    return CreateCart(customerId);
+                    return await CreateCart(customerId);
                 }
-
             }
             catch
             {
@@ -67,7 +66,7 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        string CreateCart(Guid customerId)
+       public async  Task <string> CreateCart(Guid customerId)
         {
             try
             {
@@ -78,8 +77,8 @@ namespace KhotsoCBookStore.API.Repositories
                     CreatedOn = DateTime.Now.Date
                 };
 
-                _dbContext.Carts.Add(shoppingCart);
-                _dbContext.SaveChanges();
+                await _dbContext.Carts.AddAsync(shoppingCart);
+                await _dbContext.SaveChangesAsync();
 
                 return shoppingCart.CartId.ToString();
             }
@@ -89,11 +88,11 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public void RemoveCartItem(Guid customerId, Guid bookId)
+        public async Task RemoveCartItem(Guid customerId, Guid bookId)
         {
             try
             {
-                string cartId = GetCartId(customerId);
+                string cartId = await GetCartId(customerId);
                 // CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
 
                 // _dbContext.CartItems.Remove(cartItem);
@@ -105,11 +104,11 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public void DeleteOneCartItem(Guid customerId, Guid bookId)
+        public async Task DeleteOneCartItem(Guid customerId, Guid bookId)
         {
             try
             {
-                string cartId = GetCartId(customerId);
+                string cartId = await GetCartId(customerId);
                 CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId 
                 && x.CartId.ToString() == cartId);
 
@@ -123,14 +122,14 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public int GetCartItemCount(Guid customerId)
+        public async Task<int> GetCartItemCount(Guid customerId)
         {
-            string cartId = GetCartId(customerId);
+            string cartId = await  GetCartId(customerId);
 
             if (!string.IsNullOrEmpty(cartId))
             {
-                int cartItemCount = _dbContext.CartItems.Where(x => x.CartId.ToString() == cartId).Sum(x => x.Quantity);
-
+                int cartItemCount = _dbContext.CartItems.Where(x => x.CartId.ToString() == cartId)
+                .Sum(x => x.Quantity);
                 return cartItemCount;
             }
             else
@@ -139,14 +138,14 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public void MergeCart(Guid tempUserId, Guid permUserId)
+        public async Task MergeCart(Guid tempUserId, Guid permUserId)
         {
             try
             {
                 if (tempUserId != permUserId && tempUserId != null && permUserId !=null)
                 {
-                    string tempCartId = GetCartId(tempUserId);
-                    string permCartId = GetCartId(permUserId);
+                    string tempCartId = await GetCartId(tempUserId);
+                    string permCartId = await GetCartId(permUserId);
 
                     List<CartItem> tempCartItem = _dbContext.CartItems
                     .Where(x => x.CartId.ToString() == tempCartId).ToList();
@@ -183,11 +182,11 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public int ClearCart(Guid customerId)
+        public async Task<int> ClearCart(Guid customerId)
         {
             try
             {
-                string cartId = GetCartId(customerId);
+                string cartId = await GetCartId(customerId);
                 List<CartItem> cartItem = _dbContext.CartItems.Where(x => x.CartId.ToString() == cartId).ToList();
 
                 if (!string.IsNullOrEmpty(cartId))
@@ -228,15 +227,7 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-        Task<int> ICartService.GetCartItemCount(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ICartService.MergeCart(Guid tempCustomerId, Guid permCustomerId)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         Task<int> ICartService.ClearCart(Guid customerId)
         {

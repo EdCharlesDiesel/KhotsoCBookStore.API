@@ -37,17 +37,17 @@ namespace KhotsoCBookStore.API.Tests.Entities
         //     Assert.Equal(expected, wishList.WishListItems);
         // }
 
-        [Fact]
-        public void CanChangeCustomerId()
-        {
-               var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+        // [Fact]
+        // public void CanChangeCustomerId()
+        // {
+        //        var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
             
-            //Act
-            wishList.CustomerId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+        //     //Act
+        //     wishList.CustomerId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
 
-            //Assert
-            Assert.Equal(expected, wishList.CustomerId);
-        }
+        //     //Assert
+        //     Assert.Equal(expected, wishList.CustomerId);
+        // }
 
         // [Fact]
         // public void CanChangeDateCreated()

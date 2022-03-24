@@ -56,95 +56,95 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             return  authors;
         }
 
-        [Fact]
-        public async Task GetAllWishLists_ReturnsCorrectType_WhenDBHasOneResource()
-        {
-            //Arrange
-            var id = new Guid("00000000-0000-0000-0000-000000000000");
+        // [Fact]
+        // public async Task GetAllWishLists_ReturnsCorrectType_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     var id = new Guid("00000000-0000-0000-0000-000000000000");
             
           
-           var controller = new WishListController(
-                mockWishListRepo.Object,
-                mockBookRepo.Object,
-                mockCustomerRepo.Object,
-                mockMail.Object,mapper);
-            //Act
-            var result =await  controller.GetWishListsById(id);
+        //    var controller = new WishListController(
+        //         mockWishListRepo.Object,
+        //         mockBookRepo.Object,
+        //         mockCustomerRepo.Object,
+        //         mockMail.Object,mapper);
+        //     //Act
+        //     var result =await  controller.GetWishListsById(id);
 
-            //Assert
-            Assert.IsType<ActionResult<IEnumerable<WishListDto>>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<IEnumerable<WishListDto>>>(result);
+        // }
 
-        [Fact]
-        public async Task GetWishListsById_Returns404NotFound_WhenNonExistentIDProvided()
-        {
-            //Arrange
-            var id = new Guid("00000000-0000-0000-0000-000000000000");
-            // mockWishListRepo.Setup(repo =>
-            // repo.GetWishListByIdAsync(id)).ReturnsAsync( new WishList
-            // {
+        // [Fact]
+        // public async Task GetWishListsById_Returns404NotFound_WhenNonExistentIDProvided()
+        // {
+        //     //Arrange
+        //     var id = new Guid("00000000-0000-0000-0000-000000000000");
+        //     // mockWishListRepo.Setup(repo =>
+        //     // repo.GetWishListByIdAsync(id)).ReturnsAsync( new WishList
+        //     // {
                 
-            // });
+        //     // });
 
-           var controller = new WishListController(
-                mockWishListRepo.Object,
-                mockBookRepo.Object,
-                mockCustomerRepo.Object,
-                mockMail.Object,mapper);
-            //Act
-            var result = await controller.GetWishListsById(id);
+        //    var controller = new WishListController(
+        //         mockWishListRepo.Object,
+        //         mockBookRepo.Object,
+        //         mockCustomerRepo.Object,
+        //         mockMail.Object,mapper);
+        //     //Act
+        //     var result = await controller.GetWishListsById(id);
 
-            //Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NotFoundResult>(result);
+        // }
 
-        [Fact]
-        public async Task GetWishListsById_Returns200OK__WhenValidIDProvided()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
-            // mockWishListRepo.Setup(repo =>
-            // repo.GetWishListByIdAsync(id)).ReturnsAsync(new WishList
-            // {
-            //     FirstName = "Charles",
-            //     LastName = "Mokhrthi"
-            // });
+        // [Fact]
+        // public async Task GetWishListsById_Returns200OK__WhenValidIDProvided()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
+        //     // mockWishListRepo.Setup(repo =>
+        //     // repo.GetWishListByIdAsync(id)).ReturnsAsync(new WishList
+        //     // {
+        //     //     FirstName = "Charles",
+        //     //     LastName = "Mokhrthi"
+        //     // });
 
-           var controller = new WishListController(
-                mockWishListRepo.Object,
-                mockBookRepo.Object,
-                mockCustomerRepo.Object,
-                mockMail.Object,mapper);
-            //Act
-            var result = await controller.GetWishListsById(id);
+        //    var controller = new WishListController(
+        //         mockWishListRepo.Object,
+        //         mockBookRepo.Object,
+        //         mockCustomerRepo.Object,
+        //         mockMail.Object,mapper);
+        //     //Act
+        //     var result = await controller.GetWishListsById(id);
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result);
+        // }
 
-        [Fact]
-        public async Task GetWishListsById_Returns200OK__WhenValidIDProvided_()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
-            // mockWishListRepo.Setup(repo =>
-            // repo.GetWishListByIdAsync(id)).ReturnsAsync(new WishList
-            // {
-            //     FirstName = "Charles",
-            //     LastName = "Mokhrthi"
-            // });
+        // [Fact]
+        // public async Task GetWishListsById_Returns200OK__WhenValidIDProvided_()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
+        //     // mockWishListRepo.Setup(repo =>
+        //     // repo.GetWishListByIdAsync(id)).ReturnsAsync(new WishList
+        //     // {
+        //     //     FirstName = "Charles",
+        //     //     LastName = "Mokhrthi"
+        //     // });
 
-           var controller = new WishListController(
-                mockWishListRepo.Object,
-                mockBookRepo.Object,
-                mockCustomerRepo.Object,
-                mockMail.Object,mapper);
-            //Act
-            var result = await controller.GetWishListsById(id);
+        //    var controller = new WishListController(
+        //         mockWishListRepo.Object,
+        //         mockBookRepo.Object,
+        //         mockCustomerRepo.Object,
+        //         mockMail.Object,mapper);
+        //     //Act
+        //     var result = await controller.GetWishListsById(id);
 
-            //Assert
-            Assert.IsType<ActionResult<WishListDto>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<WishListDto>>(result);
+        // }
 
         // [Fact]
         // public  Task ToggleWishList_ReturnsCorrectResourceType_WhenValidObjectSubmitted()

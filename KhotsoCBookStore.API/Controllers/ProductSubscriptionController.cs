@@ -39,43 +39,45 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// Get the list of product subscriptions
-        /// </summary>
-        /// <returns>List of book subscriptions</returns>
-        [HttpGet("{customerId}",Name ="GetProductSubscription")]
-        public  async Task<IEnumerable<Book>> GetProductSubscriptions()
-        {
-            return  await _productSubscriptionRepository.GetProductSubscription();               
-        }
+        // /// <summary>
+        // /// Get the list of product subscriptions
+        // /// </summary>
+        // /// <returns>List of book subscriptions</returns>
+        // [HttpGet("{customerId}")]
+        // public   Task<IEnumerable<BookDto>> GetProductSubscriptions()
+        // {
+        //     throw new NotImplementedException();
+        //    // return  await _productSubscriptionRepository.GetProductSubscription();               
+        // }
 
-        /// <summary>
-        /// Get the single book subscription by Id
-        /// </summary>
-        /// <returns>List of book subscriptions</returns>
-        [HttpGet("{customerId}",Name ="GetProductSubscription")]
-        public  async Task<ActionResult<Book>> GetProductSubscriptionById(Guid customerId)
-        {
-            return  await _productSubscriptionRepository.GetProductSubscriptionById(customerId);               
-        }
-
-        /// <summary>
-        /// Get a list of customer book subscriptions
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns>List of book subscription</returns>
-        private  async Task<IEnumerable<Book>> GetUserBookSubscription(Guid customerId)
-        {
-            var customer = _customerRepository.CheckIfCustomerExists(customerId);
-            if (customer!= null)
-            {
-                string BookSubscriptionId = await _productSubscriptionRepository.GetProductSubscriptionId(customerId);
-                var Id = new Guid(BookSubscriptionId);
-                return await _bookRepository.GetBooksAvailableInBookSubscription(Id);
-            }
+        // /// <summary>
+        // /// Get the single book subscription by Id
+        // /// </summary>
+        // /// <returns>List of book subscriptions</returns>
+        // [HttpGet("{customerId}", Name = "GetProductSubscription")]
+        // public  Task<ActionResult<BookDto>> GetProductSubscriptionById(Guid customerId) 
+        // { 
+        //     throw new NotImplementedException();
+        //     //await _productSubscriptionRepository.GetProductSubscriptionById(customerId);
+        // }
+        // /// <summary>
+        // /// Get a list of customer book subscriptions
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <returns>List of book subscription</returns>
+        // private   Task<IEnumerable<BookDto>> GetUserBookSubscription(Guid customerId)
+        // {
+        //     throw new NotImplementedException();
+        //     // var customer = _customerRepository.CheckIfCustomerExists(customerId);
+        //     // if (customer!= null)
+        //     // {
+        //     //     string BookSubscriptionId = await _productSubscriptionRepository.GetProductSubscriptionId(customerId);
+        //     //     var Id = new Guid(BookSubscriptionId);
+        //     //     return await _bookRepository.GetBooksAvailableInBookSubscription(Id);
+        //     // }
             
-            return new List<Book>();            
-        }
+        //     // return new List<Book>();            
+        // }
 
         /// <summary>
         /// Add a new book subscription
@@ -83,7 +85,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="bookId"></param>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost()]
         [Route("ToggleProductSubscription/{customerId}/{bookId}")]
         public async Task<CreatedAtRouteResult> ToggleProductSubscription(Guid customerId, Guid bookId)
         {
@@ -101,8 +103,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             return CreatedAtRoute("GetProductSubscription",
                 new { productSubscriptionId = productSubscriptionToReturn.ProductSubscriptionId },
-                productSubscriptionToReturn);
-                    
+                productSubscriptionToReturn);                    
         }
 
         /// <summary>
@@ -110,7 +111,6 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns>NoContent</returns>
-        //[ProductSubscriptionize]
         [HttpDelete("{customerId}")]
         public  async Task<int> ClearProductSubscription(Guid customerId)
         {

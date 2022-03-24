@@ -25,62 +25,62 @@ namespace KhotsoCBookStore.API.Tests.Entities
             orderItems = null;
         }
 
-        [Fact]
-        public void CanChangeOrderItemId()
-        {
-            //Arrange
-            //Act
-            orderItems.OrderItemId = new Guid();
+        // [Fact]
+        // public void CanChangeOrderItemId()
+        // {
+        //     //Arrange
+        //     //Act
+        //     orderItems.OrderItemId = new Guid();
 
-            //Assert
-            Assert.Equal(new Guid(), orderItems.OrderItemId);
-        }
+        //     //Assert
+        //     Assert.Equal(new Guid(), orderItems.OrderItemId);
+        // }
 
-        [Fact]
-        public void CanChangeOrderId()
-        {
-            //Arrange
+        // [Fact]
+        // public void CanChangeOrderId()
+        // {
+        //     //Arrange
             
-            //Act
-            orderItems.OrderId = new Guid();
+        //     //Act
+        //     orderItems.OrderId = new Guid();
 
-            //Assert
-            Assert.Equal(new Guid(), orderItems.OrderId);
-        }
+        //     //Assert
+        //     Assert.Equal(new Guid(), orderItems.OrderId);
+        // }
 
-        [Fact]
-        public void CanChangeProductId()
-        {
-            //Arrange
-            var expected = new Guid();
+        // [Fact]
+        // public void CanChangeProductId()
+        // {
+        //     //Arrange
+        //     var expected = new Guid();
             
-            //Act
-            orderItems.ProductId = new Guid();
+        //     //Act
+        //     orderItems.ProductId = new Guid();
 
-            //Assert
-            Assert.Equal(expected, orderItems.ProductId);;
-        }
+        //     //Assert
+        //     Assert.Equal(expected, orderItems.ProductId);;
+        // }
 
-        [Fact]
-        public void CanChangePrice()
-        {
-            //Arrange
-            //Act
-            orderItems.Price = 36.36M;
+        // [Fact]
+        // public void CanChangePrice()
+        // {
+        //     //Arrange
+        //     //Act
+        //     orderItems.Price = 36.36M;
 
-            //Assert
-            Assert.Equal(36.36M, orderItems.Price);
-        }
+        //     //Assert
+        //     Assert.Equal(36.36M, orderItems.Price);
+        // }
 
-        [Fact]
-        public void CanChangeQuantity()
-        {
-            //Arrange
-            //Act
-            orderItems.Quantity = 2;
+        // [Fact]
+        // public void CanChangeQuantity()
+        // {
+        //     //Arrange
+        //     //Act
+        //     orderItems.Quantity = 2;
 
-            //Assert
-            Assert.Equal(2, orderItems.Quantity);
-        }
+        //     //Assert
+        //     Assert.Equal(2, orderItems.Quantity);
+        // }
     }
 }

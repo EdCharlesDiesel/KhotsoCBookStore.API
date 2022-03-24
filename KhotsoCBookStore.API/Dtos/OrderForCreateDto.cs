@@ -5,10 +5,7 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class OrderForCreateDto
     {
-        
         public Guid CustomerId { get; set; }
-        
-        public Guid BookId { get; set; }
 
         public DateTime OrderDate { get; set; }
         
