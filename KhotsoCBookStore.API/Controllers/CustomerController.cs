@@ -24,15 +24,13 @@ namespace KhotsoCBookStore.API.Controllers
         readonly ICustomerService _customerRepository;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
-        //private readonly AppSettings _appSettings;
         readonly ICartService _cartService;
         public CustomerController(ICustomerService customerRepository,
             IMapper mapper,IMailService mailService, ICartService cartService)
         {
-            _customerRepository = customerRepository?? throw new ArgumentNullException(nameof(_customerRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _customerRepository = customerRepository?? throw new ArgumentNullException(nameof(_customerRepository));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-            //_appSettings = appSettings.Value;
             _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
         }
 
@@ -76,6 +74,10 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CustomerDto>> GetCustomer(Guid customerId)
         { 
+            if (customerId == Guid.NewGuid())
+            {
+                return NotFound();
+            }
             var customer = await _customerRepository.GetCustomerByIdAsync(customerId);
             return Ok(_mapper.Map<CustomerDto>(customer));             
         }

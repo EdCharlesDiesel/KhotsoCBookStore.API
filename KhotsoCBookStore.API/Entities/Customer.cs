@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using KhotsoCBookStore.API.Authentication;
 
 namespace KhotsoCBookStore.API.Entities
 {
@@ -13,7 +12,6 @@ namespace KhotsoCBookStore.API.Entities
         public Guid CustomerId { get; set; } 
 
         [Required]
-        [EmailAddress]
         public string EmailAddress { get; set; }
         
         [Required]
@@ -32,8 +30,6 @@ namespace KhotsoCBookStore.API.Entities
         public string Province { get; set; }
 
         public int Postal { get; set; }
-
-        //public ICollection<UserType> UserTypes { get; set; } = new List<UserType>();
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 

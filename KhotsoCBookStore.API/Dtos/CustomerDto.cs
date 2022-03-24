@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using KhotsoCBookStore.API.Authentication;
 using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Dtos
@@ -10,8 +9,11 @@ namespace KhotsoCBookStore.API.Dtos
     {
         public Guid CustomerId { get; set; }
 
+        [Required(ErrorMessage="Please enter an email")]
+        [EmailAddress(ErrorMessage ="Please enter a valid email address")]
         public string EmailAddress { get; set; }
         
+        [Required(ErrorMessage ="Please enter a username")]
         public string Username { get; set; }
         
         public string Address { get; set; }
@@ -21,8 +23,6 @@ namespace KhotsoCBookStore.API.Dtos
         public string Province { get; set; }
 
         public int Postal { get; set; }
-
-        public UserType UserType { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 
