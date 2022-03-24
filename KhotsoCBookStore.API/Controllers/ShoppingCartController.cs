@@ -41,7 +41,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpGet("{customerId}")]
-        public async Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
+        public  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
         {
             // string cartid = _cartService.GetCartId(customerId);
             // var id = new Guid(cartid);

@@ -49,7 +49,7 @@ namespace KhotsoCBookStore.API.Repositories
         {
             try
             {
-                Cart cart = _dbContext.Carts.FirstOrDefault(x => x.UserId == customerId);
+                Cart cart = _dbContext.Carts.FirstOrDefault(x => x.CustomerId == customerId);
 
                 if (cart != null)
                 {
@@ -74,7 +74,7 @@ namespace KhotsoCBookStore.API.Repositories
                 Cart shoppingCart = new Cart
                 {
                     CartId = Guid.NewGuid(),
-                    UserId = customerId,
+                    CustomerId = customerId,
                     CreatedOn = DateTime.Now.Date
                 };
 

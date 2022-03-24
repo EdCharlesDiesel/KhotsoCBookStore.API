@@ -61,7 +61,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 mockCartRepo.Object );
 
             //Act
-            var result = await controller.CreateOrder(id,new OrderDto { });
+            var result = await controller.CreateOrder(id,new OrderForCreateDto { });
 
             //Assert
             Assert.IsType<ActionResult<OrderDto>>(result);
@@ -88,7 +88,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 mockCartRepo.Object );
 
             //Act
-            var result = await controller.CreateOrder(id,new OrderDto { });
+            var result = await controller.CreateOrder(id,new OrderForCreateDto { });
 
             //Assert
             Assert.IsType<CreatedAtRouteResult>(result);

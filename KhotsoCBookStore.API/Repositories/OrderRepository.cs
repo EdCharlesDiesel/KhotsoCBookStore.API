@@ -5,6 +5,7 @@ using KhotsoCBookStore.API.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Repositories
@@ -14,66 +15,69 @@ namespace KhotsoCBookStore.API.Repositories
         readonly KhotsoCBookStoreDbContext _dbContext;
         public OrderRepository(KhotsoCBookStoreDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
-        public async Task<OrderDto> CreateOrderAsync(Guid customerId, Order orderDetails)
+        public async Task CreateOrderAsync(Guid customerId, Order orderDetails)
         {
-            // try
-            // {
-            //     StringBuilder orderid = new StringBuilder();
-            //     orderid.Append(CreateRandomNumber(3));
-            //     orderid.Append('-');
-            //     orderid.Append(CreateRandomNumber(6));
+            try
+            {
+                // StringBuilder orderid = new StringBuilder();
+                // orderid.Append(CreateRandomNumber(3));
+                // orderid.Append('-');
+                // orderid.Append(CreateRandomNumber(6));
+                // var
 
-            //     CustomerOrders customerOrder = new CustomerOrders
-            //     {
-            //         OrderId = orderid.ToString(),
-            //         UserId = userId,
-            //         DateCreated = DateTime.Now.Date,
-            //         CartTotal = orderDetails.CartTotal
-            //     };
-            //     _dbContext.CustomerOrders.Add(customerOrder);
-            //     _dbContext.SaveChanges();
+                var customer = _dbContext.Customers.FirstOrDefault(c=>c.CustomerId==customerId);
+                var order = new Order
+                {
+                    OrderId = Guid.NewGuid(),
+                    CustomerId = customer.CustomerId,
+                    OrderDate = orderDetails.OrderDate,
+                    ShipAddress = orderDetails.ShipAddress,
+                    ShipDate = orderDetails.ShipDate,
+                    CartTotal = orderDetails.CartTotal
+                };           
 
-            //     foreach (CartItemModel order in orderDetails.OrderDetails)
-            //     {
-            //         CustomerOrderDetails productDetails = new CustomerOrderDetails
-            //         {
-            //             OrderId = orderid.ToString(),
-            //             ProductId = order.Book.BookId,
-            //             Quantity = order.Quantity,
-            //             Price = order.Book.PurchasePrice
-            //         };
-            //         _dbContext.CustomerOrderDetails.Add(productDetails);
-            //         _dbContext.SaveChanges();
-            //     }
-            // }
-            // catch
-            // {
-            //     throw;
-            // }
-            
-             return  new OrderDto();
+                await _dbContext.Orders.AddAsync(order);
+                await _dbContext.SaveChangesAsync();
+
+                foreach (var orderitem in order.OrderItems)
+                {
+                    var book = _dbContext.Books.FirstOrDefault(b=>b.BookId == orderDetails.BookId);
+                    OrderItem productDetails = new OrderItem
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = order.BookId,
+                        Quantity = order.OrderItems.Count,
+                        Price = book.RetailPrice
+                    };
+                    await _dbContext.OrderItems.AddAsync(productDetails);
+                   
+                }
+                 await _dbContext.SaveChangesAsync();
+            }
+             catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
-        public  Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId)
+        public   Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId)
         {
-            // var customerOrders = new List<Order>();
-            
 
-            // // customerOrders = _dbContext.Orders.Where(x => x.CustomerId == customerId)
-            // //     .Select(x => x.OrderId).ToList();
+            // var  customerOrders = _dbContext.Orders.Where(x => x.CustomerId == customerId)
+            //     .Select(x => x.OrderId).ToList();
 
             // foreach (var item in customerOrders)
             // {
             //     var order = new Order
             //     {
-            //         // OrderId = orderid,
-            //         // CartTotal = _dbContext.CustomerOrders.FirstOrDefault(x => x.OrderId == orderid).CartTotal,
-            //         // OrderDate = _dbContext.CustomerOrders.FirstOrDefault(x => x.OrderId == orderid).DateCreated
+            //        ///  OrderId = item..Id,
+            //         CartTotal = _dbContext.OrderItems.FirstOrDefault(x => x.OrderId == item.OrderId).CartTotal,
+            //      OrderDate = _dbContext.Orders.FirstOrDefault(x => x.OrderId == orderid).DateCreated
             //     };
 
-            //     List<CustomerOrderDetails> orderDetail = _dbContext.CustomerOrderDetails.Where(x => x.OrderId == orderid).ToList();
+            //     List<CustomerOrderDetails> orderDetail = _dbContext.OrderItems.Where(x => x.OrderId == orderid).ToList();
 
             //     order.OrderDetails = new List<CartItemModel>();
 
@@ -95,25 +99,14 @@ namespace KhotsoCBookStore.API.Repositories
             //     }
             //     userOrders.Add(order);
             // }
-            // return userOrders.OrderByDescending(x => x.OrderDate).ToList();
-
+            // return Orders.OrderByDescending(x => x.OrderDate).ToList();
             throw new NotImplementedException();
+
         }
 
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
-        }
-
-        Task IOrderService.CreateOrderAsync(Guid customerId, Order orderItems)
-        {
-            throw new NotImplementedException();
-        }
-
-        private int CreateRandomNumber(int length)
-        {
-            Random rnd = new Random();
-            return rnd.Next(Convert.ToInt32(Math.Pow(10, length - 1)), Convert.ToInt32(Math.Pow(10, length)));
         }
     }
 }

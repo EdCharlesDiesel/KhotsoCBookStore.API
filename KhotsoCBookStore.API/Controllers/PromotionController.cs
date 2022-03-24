@@ -8,7 +8,7 @@ using AutoMapper;
 
 namespace KhotsoCBookStore.API.Controllers
 {
-       [Produces("application/json")]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class PromotionsController : Controller
     {
@@ -53,7 +53,7 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("TogglePromotion/{customerId}/{bookId}")]
         public async Task<IEnumerable<Book>> CreatePromotion(Guid customerId, Guid bookId)
         {
-            _promotionService.TogglePromotionItem(customerId, bookId);
+            await _promotionService.TogglePromotionItem(customerId, bookId);
             return await Task.FromResult(GetUserPromotion(customerId)).ConfigureAwait(true);
         }
 

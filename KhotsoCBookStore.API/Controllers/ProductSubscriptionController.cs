@@ -33,7 +33,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns>List of book subscriptions</returns>
         [HttpGet("{customerId}")]
-        public async Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
+        public  Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
         {
            // return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
            throw new NotImplementedException();
@@ -47,7 +47,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductSubscription/{customerId}/{bookId}")]
-        public async Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
+        public Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
         {
             //_bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
             //return await Task.FromResult(GetUserBookSubscription(customerId)).ConfigureAwait(true);
@@ -61,7 +61,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>NoContent</returns>
         [Authorize]
         [HttpDelete("{customerId}")]
-        public async  Task ClearProductSubscription(Guid customerId)
+        public   Task ClearProductSubscription(Guid customerId)
         {
             //return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);
             throw new NotImplementedException();

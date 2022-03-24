@@ -12,7 +12,7 @@ namespace KhotsoCBookStore.API.Tests.Entities
             cart = new Cart
             {
                 CartId = new Guid("D5066515-7104-4F85-894C-109BFB651444"),
-                UserId = new Guid("6C7BDF4F-1F95-46DB-973B-D1A45FF7E36F"),
+                CustomerId = new Guid("6C7BDF4F-1F95-46DB-973B-D1A45FF7E36F"),
                 CreatedOn = new DateTime(2021,10,08),
                 CartTotal = 69.55M
             };

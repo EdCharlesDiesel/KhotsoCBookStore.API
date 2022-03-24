@@ -43,7 +43,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="checkedOutItems"></param>
         /// <returns></returns>
         [HttpPost("{CustomerId}")]
-        public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderDto checkedOutItems)
+        public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderForCreateDto checkedOutItems)
         {
             var item = _mapper.Map<Order>(checkedOutItems);
             await _orderRepository.CreateOrderAsync(customerId, item);

@@ -143,7 +143,7 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.CreateOrder(System.Guid,KhotsoCBookStore.API.Dtos.OrderDto)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.CreateOrder(System.Guid,KhotsoCBookStore.API.Dtos.OrderForCreateDto)">
             <summary>
             Add customer checkout item(s)
             </summary>
