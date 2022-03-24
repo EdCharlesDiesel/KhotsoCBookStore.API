@@ -52,7 +52,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<PublisherDto>>> GetPublishers()
         {
-            var publishers = _publisherService.GetAllPublishersAync();
+            var publishers = await _publisherService.GetAllPublishersAync();
             return Ok(_mapper.Map<IEnumerable<PublisherDto>>(publishers));
         }
 
@@ -61,13 +61,13 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpGet("{publisherId}")]
+        [HttpGet("{publisherId}", Name = "GetPublisher")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PublisherDto>> GetPublisher(Guid publisherId)
         {
-            var publisher =  _publisherService.GetPublisherByIdAsync(publisherId);
+            var publisher =  await  _publisherService.GetPublisherByIdAsync(publisherId);
             return Ok(_mapper.Map<PublisherDto>(publisher));
         }
 
@@ -76,7 +76,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpPost]
+        [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -87,7 +87,7 @@ namespace KhotsoCBookStore.API.Controllers
             await _publisherService.SaveChangesAsync();
 
             var createdPublisherToReturn =
-                _mapper.Map<PublisherForCreateDto>(newPublisher);
+                _mapper.Map<Publisher>(newPublisher);
 
             return CreatedAtRoute("GetPublisher", createdPublisherToReturn);
         }

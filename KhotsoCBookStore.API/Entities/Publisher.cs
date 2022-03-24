@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PublisherId { get; set; }  =Guid.NewGuid();
+        public Guid PublisherId { get; set; }  = Guid.NewGuid();
 
         [Required]
         public string Name { get; set; }
@@ -20,7 +20,5 @@ namespace KhotsoCBookStore.API.Entities
 
         [MaxLength(20)]
         public int PhoneNumber { get; set; }
-
-        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

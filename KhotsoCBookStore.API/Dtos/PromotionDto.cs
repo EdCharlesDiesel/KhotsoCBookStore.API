@@ -6,8 +6,6 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class PromotionDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PromoId { get; set; }
         
         public decimal MaximumRetail { get; set; }

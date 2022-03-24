@@ -38,7 +38,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             AddProfile(realProfile));
             mapper = new Mapper(configuration);
            
-            coverImageFolderPath = "";
+           ;
         }
         public void Dispose()
         {
@@ -52,21 +52,41 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
 
         private List<Book> GetBooksTest(int num)
         {
-            var authors = new List<Book>();
+            var book = new List<Book>();
             if (num > 0)
             {
-                authors.Add(new Book
+                book.Add(new Book
                 {
                     BookId = Guid.NewGuid(),
                     Title = "Algo Expext",
                     RetailPrice = 36.25M,
+                    PublisherId = new Guid(),
                     Cost =1.25M,
                     CoverFileName = "Defauly",
                     CreatedBy = "system",
-
-                });
+                }
+               // book.Add
+                // ,
+                //  new Book{
+                //     BookId = Guid.NewGuid(),
+                //     Title = "Algo Expext",
+                //     RetailPrice = 36.25M,
+                //     PublisherId = new Guid(),
+                //     Cost =1.25M,
+                //     CoverFileName = "Defauly",
+                //     CreatedBy = "system",
+                // },
+                // new Book{                    BookId = Guid.NewGuid(),
+                //     Title = "Algo Expext",
+                //     RetailPrice = 36.25M,
+                //     PublisherId = new Guid(),
+                //     Cost =1.25M,
+                //     CoverFileName = "Defauly",
+                //     CreatedBy = "system"
+                // }
+                );
             }
-            return  authors;
+            return  book;
         }
 
         [Fact]
@@ -74,15 +94,16 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         {
             //Arrange
             mockBookRepo.Setup(repo =>
-            repo.GetAllBooksAync()).ReturnsAsync(() => null);
+            repo.GetAllBooksAync())
+            .ReturnsAsync(() => null);
 
 
             var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
+                            mockBookRepo.Object,
+                            mockMail.Object ,
+                            mockConfig.Object,
+                            mockWeHost.Object,
+                            mapper
             );
 
             //Act
@@ -90,7 +111,6 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
-
         }
 
         [Fact]
@@ -112,8 +132,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
 
             //Assert
             var okResult = result.Result as OkObjectResult;
-            var authors = okResult.Value as List<BookDto>;
-            Assert.Single(authors);
+            var book = okResult.Value as List<BookDto>;
+            Assert.Single(book);
         }
 
         [Fact]
@@ -290,35 +310,35 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<CreatedAtRouteResult>(result);
         }
 
-        [Fact]
-        public async Task UpdateBook_Returns204NoContent_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-            mockBookRepo.Setup(repo =>
-            repo.BookIfExistsAsync(id)).ReturnsAsync(true);
+        // [Fact]
+        // public async Task UpdateBook_Returns204NoContent_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
+        //     mockBookRepo.Setup(repo =>
+        //     repo.BookIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockBookRepo.Setup(repo =>
-            repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
-            {
-                BookId= id,
+        //     mockBookRepo.Setup(repo =>
+        //     repo.GetBookByIdAsync(id)).ReturnsAsync(new Book
+        //     {
+        //         BookId= id,
               
-            });
+        //     });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+        //         var controller = new BookController(
+        //    mockBookRepo.Object,
+        //     mockMail.Object ,
+        //     mockConfig.Object,
+        //     mockWeHost.Object,
+        //                mapper
+        //     );
 
-            //Act
-            var result = await controller.UpdateBook(id, new BookForUpdateDto { });
+        //     //Act
+        //     var result = await controller.UpdateBook(id, new BookForUpdateDto { });
 
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NoContentResult>(result);
+        // }
 
         [Fact]
         public async Task UpdateBook_Returns404NotFound_WhenNonExistentResourceIDSubmitted()

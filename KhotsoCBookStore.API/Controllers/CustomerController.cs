@@ -99,10 +99,7 @@ namespace KhotsoCBookStore.API.Controllers
             return CreatedAtRoute("GetCustomer",
                 new { customerId = customerToReturn.CustomerId },
                 customerToReturn);
-            // var createdCustomerToReturn = 
-            //     _mapper.Map<CustomerForCreateDto>(newCustomer);
-
-            //  return CreatedAtRoute("GetCustomer",newCustomer);             
+                     
         }
 
 

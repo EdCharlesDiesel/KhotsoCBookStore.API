@@ -111,14 +111,14 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<bool> SaveChangesAsync()
         {
-            try
-            {
+            // try
+            // {
                 return (await _dbContext.SaveChangesAsync() >= 0);
-            }
-            catch (System.Exception ex)
-            {
-                throw new AggregateException(ex.Message);
-            }
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw new AggregateException(ex.Message);
+            // }
         }
 
 

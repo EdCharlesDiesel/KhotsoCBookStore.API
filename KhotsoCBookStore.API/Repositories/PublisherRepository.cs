@@ -24,20 +24,19 @@ namespace KhotsoCBookStore.API.Repositories
             return await _dbContext.Publishers.OrderBy(e=>e.Name).ToListAsync();
         }
 
-        public async Task<Publisher> GetPublisherAsync(Guid publisherId)
+        public async Task<Publisher> GetPublisherByIdAsync(Guid publisherId)
         {
             return await _dbContext.Publishers.FirstOrDefaultAsync(c => c.PublisherId == publisherId);
         }
 
-        public async Task<Publisher> CreatePublisherAsync(PublisherForCreateDto newPublisher)
+        public async Task CreatePublisherAsync(Publisher newPublisher)
         {
             if (newPublisher != null)
             {
                await _dbContext.AddAsync(newPublisher);
             }
-
-            return await _dbContext.Publishers.LastOrDefaultAsync();
         }
+
 
         public Task<Publisher> UpdatePublisherAsync(Publisher publisher)
         {
@@ -46,36 +45,28 @@ namespace KhotsoCBookStore.API.Repositories
 
         public void DeletePublisher(Publisher publisherToDelete)
         {
-            _dbContext.Publishers.Remove(publisherToDelete);
+           try
+            {
+                var book = _dbContext.Books.Find(publisherToDelete.PublisherId);
+                _dbContext.Books.Remove(book);
+            }
+             catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
-
+        
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
-        }
+        }        
 
         public async Task<bool> PublisherIfExistsAsync(Guid publisherId)
         {
             return await _dbContext.Publishers.AnyAsync(c => c.PublisherId == publisherId);
-        }
-
-        // Task<IEnumerable<PublisherDto>> GetAllPublishersAync()
-        // {
-        //     throw new NotImplementedException();
-        // }
+        }   
 
         public Task<Publisher> UpdatePublisherAsync(PublisherForUpdateDto publisherToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-       
-
-        
-
-        Task IPublisherService.SaveChangesAsync()
         {
             throw new NotImplementedException();
         }
@@ -83,16 +74,8 @@ namespace KhotsoCBookStore.API.Repositories
         public void DeletePublisher(object publisherEntity)
         {
             throw new NotImplementedException();
-        }
+        }  
 
-        public Task CreatePublisherAsync(Publisher newPublisher)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetPublisherByIdAsync(Guid publisherId)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

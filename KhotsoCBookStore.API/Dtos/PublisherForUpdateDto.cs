@@ -4,7 +4,6 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class PublisherForUpdateDto 
     {
-        public Guid PublisherId { get; set; }
 
         public string Name { get; set; }
 
