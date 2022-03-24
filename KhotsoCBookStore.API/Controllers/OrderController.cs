@@ -29,7 +29,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetOrderAPIOptions()
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE");
+            Response.Headers.Add("Allow", "GET");
             return Ok();
         }
 
@@ -41,7 +41,8 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public  Task<IEnumerable<OrderDto>> GetOrders(Guid customerId)
         {
-            return await _orderRepository.CreateOrderAsync(customerId,orderItems);            
+            //return await _orderRepository.CreateOrderAsync(customerId,orderItems);       
+             throw new NotImplementedException();     
         }
     }
 }

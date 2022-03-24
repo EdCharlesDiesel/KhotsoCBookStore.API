@@ -12,7 +12,10 @@ namespace KhotsoCBookStore.API.Entities
 
         [ForeignKey("CartId")]
         public Guid CartId { get; set; }
-        public Cart Cart { get; set; }
+        
+
+        [ForeignKey("CartId")]
+        public Guid BookId { get; set; }
 
         public Guid ProductId { get; set; }
 

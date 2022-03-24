@@ -13,5 +13,7 @@ namespace KhotsoCBookStore.API.Services
         Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId);
 
         Task<bool> SaveChangesAsync();
+        
+        Task<Order> GetOrderForUserAsync(Guid customerId);
     }
 }

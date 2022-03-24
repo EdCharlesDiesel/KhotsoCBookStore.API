@@ -4,11 +4,12 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class CartItemForCreateDto
     {
-        public Guid CartId { get; set; } 
-        private Guid productId;
-   
+        public Guid CartId { get; set; }
+        
+        public Guid ProductId;
 
-       
-        public int Quantity { get; set; } 
+        public Guid BookId { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

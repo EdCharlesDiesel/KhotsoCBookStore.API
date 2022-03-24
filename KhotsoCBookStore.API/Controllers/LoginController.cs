@@ -46,7 +46,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="userMaster"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet()]
         public async Task<IActionResult> Login([FromBody] UserMaster userMaster)
         {
             var user = await _userService.Authenticate(userMaster.Username, userMaster.Password);

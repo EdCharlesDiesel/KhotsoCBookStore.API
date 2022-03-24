@@ -37,7 +37,6 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-
         public Task<Publisher> UpdatePublisherAsync(Publisher publisher)
         {
             throw new NotImplementedException();

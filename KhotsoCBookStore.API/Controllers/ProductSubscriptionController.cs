@@ -14,15 +14,14 @@ namespace KhotsoCBookStore.API.Controllers
     public class ProductSubscriptionController : Controller
     {
         readonly IMapper _mapper;
-        readonly IProductSubscriptionService _bookSubscriptionRepository;
+        readonly IProductSubscriptionService _productSubscriptionRepository;
         readonly IBookService _bookRepository;
         readonly ICustomerService _customerRepository;
 
         public ProductSubscriptionController(IMapper mapper,IProductSubscriptionService bookSubscriptionRepository, IBookService bookService, ICustomerService customer)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper)); 
-
-            _bookSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_bookSubscriptionRepository));
+            _productSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_productSubscriptionRepository));
             _bookRepository = bookService ?? throw new ArgumentNullException(nameof(_bookRepository)); 
             _customerRepository = customer ?? throw new ArgumentNullException(nameof(_customerRepository));
         }
@@ -48,7 +47,8 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public  Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
         {
-            return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);    
+           // return   _productSubscriptionRepository.GetProductSubscriptionId(customerId); 
+           throw new NotImplementedException();   
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("ToggleProductSubscription/{customerId}/{bookId}")]
         public Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
         {
-            return await _bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
-           
+             throw new NotImplementedException();
+            // return await _productSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);           
         }
 
         /// <summary>
@@ -72,9 +72,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>NoContent</returns>
         [Authorize]
         [HttpDelete("{customerId}")]
-        public  async Task ClearProductSubscription(Guid customerId)
+        public   Task ClearProductSubscription(Guid customerId)
         {
-            return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);        
+             throw new NotImplementedException();
+           // return await _productSubscriptionRepository.ClearProductSubscriptionAsync(customerId);        
         }
 
         /// <summary>
@@ -84,18 +85,18 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>List of book subscription</returns>
         private  Task<IEnumerable<Book>> GetUserBookSubscription(Guid customerId)
         {
-            bool user = _customerRepository.CheckIfCustomerExists(customerId);
-            if (user)
-            {
-                string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
-                var Id = new Guid(BookSubscriptionId);
-                return _bookRepository.GetBooksAvailableInBookSubscription(Id);
-            }
-            else
-            {
-                return new List<Book>();
-            }
-            
+            // bool user = _customerRepository.CheckIfCustomerExists(customerId);
+            // if (user)
+            // {
+            //     string BookSubscriptionId = _productSubscriptionRepository.GetProductSubscriptionId(customerId);
+            //     var Id = new Guid(BookSubscriptionId);
+            //     return _bookRepository.GetBooksAvailableInBookSubscription(Id);
+            // }
+            // else
+            // {
+            //     return new List<Book>();
+            // }
+             throw new NotImplementedException();
         }
     }
 }

@@ -2,6 +2,7 @@
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,7 @@ namespace KhotsoCBookStore.API.Repositories
         {
             try
             {
-                // StringBuilder orderid = new StringBuilder();
-                // orderid.Append(CreateRandomNumber(3));
-                // orderid.Append('-');
-                // orderid.Append(CreateRandomNumber(6));
-                // var
-
-                var customer = _dbContext.Customers.FirstOrDefault(c=>c.CustomerId==customerId);
+                var customer = _dbContext.Customers.FirstOrDefault(c => c.CustomerId == customerId);
                 var order = new Order
                 {
                     OrderId = Guid.NewGuid(),
@@ -36,14 +31,14 @@ namespace KhotsoCBookStore.API.Repositories
                     ShipAddress = orderDetails.ShipAddress,
                     ShipDate = orderDetails.ShipDate,
                     CartTotal = orderDetails.CartTotal
-                };           
+                };
 
                 await _dbContext.Orders.AddAsync(order);
                 await _dbContext.SaveChangesAsync();
 
                 foreach (var orderitem in order.OrderItems)
                 {
-                    var book = _dbContext.Books.FirstOrDefault(b=>b.BookId == orderDetails.BookId);
+                    var book = _dbContext.Books.FirstOrDefault(b => b.BookId == orderDetails.BookId);
                     OrderItem productDetails = new OrderItem
                     {
                         OrderId = order.OrderId,
@@ -52,17 +47,22 @@ namespace KhotsoCBookStore.API.Repositories
                         Price = book.RetailPrice
                     };
                     await _dbContext.OrderItems.AddAsync(productDetails);
-                   
+
                 }
-                 await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
             }
-             catch (System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }
         }
 
-        public   Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId)
+        public  async Task<Order> GetOrderForUserAsync(Guid customerId)
+        {
+            return  await  _dbContext.Orders.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+        }    
+
+        public  Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId)
         {
 
             // var  customerOrders = _dbContext.Orders.Where(x => x.CustomerId == customerId)
