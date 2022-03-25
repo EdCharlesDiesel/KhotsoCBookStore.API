@@ -28,6 +28,19 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetProductSubscriptionAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE");
+            return Ok();
+        }
+
+        /// <summary>
         /// Get the list of books subscriptions
         /// </summary>
         /// <param name="customerId"></param>
@@ -35,8 +48,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public  Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
         {
-           // return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
-           throw new NotImplementedException();
+            return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);    
         }
 
         /// <summary>
@@ -49,9 +61,8 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("ToggleProductSubscription/{customerId}/{bookId}")]
         public Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
         {
-            //_bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
-            //return await Task.FromResult(GetUserBookSubscription(customerId)).ConfigureAwait(true);
-            throw new NotImplementedException();
+            return await _bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
+           
         }
 
         /// <summary>
@@ -61,10 +72,9 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>NoContent</returns>
         [Authorize]
         [HttpDelete("{customerId}")]
-        public   Task ClearProductSubscription(Guid customerId)
+        public  async Task ClearProductSubscription(Guid customerId)
         {
-            //return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);
-            throw new NotImplementedException();
+            return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);        
         }
 
         /// <summary>
@@ -74,18 +84,18 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>List of book subscription</returns>
         private  Task<IEnumerable<Book>> GetUserBookSubscription(Guid customerId)
         {
-            // bool user = _customerRepository.CheckIfCustomerExists(customerId);
-            // if (user)
-            // {
-            //     string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
-            //     var Id = new Guid(BookSubscriptionId);
-            //     return _bookRepository.GetBooksAvailableInBookSubscription(Id);
-            // }
-            // else
-            // {
-            //     return new List<Book>();
-            // }
-            throw new NotImplementedException();
+            bool user = _customerRepository.CheckIfCustomerExists(customerId);
+            if (user)
+            {
+                string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
+                var Id = new Guid(BookSubscriptionId);
+                return _bookRepository.GetBooksAvailableInBookSubscription(Id);
+            }
+            else
+            {
+                return new List<Book>();
+            }
+            
         }
     }
 }

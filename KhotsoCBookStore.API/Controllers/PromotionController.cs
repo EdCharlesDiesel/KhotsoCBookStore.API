@@ -31,6 +31,19 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetPromotionAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            return Ok();
+        }
+
+        /// <summary>
         /// Get the list of items in the Promotion
         /// </summary>
         /// <param name="customerId"></param>
