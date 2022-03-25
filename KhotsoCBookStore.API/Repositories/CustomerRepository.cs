@@ -1,7 +1,6 @@
 ﻿using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Helpers;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +12,7 @@ namespace KhotsoCBookStore.API.Repositories
 {
     public class CustomerRepository : ICustomerService
     {
-        readonly KhotsoCBookStoreDbContext _dbContext;
+        private readonly KhotsoCBookStoreDbContext _dbContext;
 
         public CustomerRepository(KhotsoCBookStoreDbContext dbContext)
         {
@@ -23,6 +22,37 @@ namespace KhotsoCBookStore.API.Repositories
         public async Task<IEnumerable<Customer>> GetAllCustomersAync()
         {
             return await  _dbContext.Customers.OrderBy(c=>c.LastName).ToListAsync();
+        }
+
+        public async Task<Customer> GetCustomerByIdAsync(Guid customerId)
+        {
+            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+        }
+
+        public async Task CreateCustomerAsync(Customer newCustomer)
+        {
+            if (newCustomer != null)
+            {
+               await _dbContext.AddAsync(newCustomer);
+            }
+        }
+
+        public void DeleteCustomer(Guid customerId)
+        {
+            try
+            {                
+                var customer = _dbContext.Customers.Find(customerId);
+                _dbContext.Customers.Remove(customer);               
+            }
+             catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _dbContext.SaveChangesAsync() >= 0);
         }
 
 
@@ -46,19 +76,21 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         public bool CheckUserAvailabity(string userName)
-        {
-            var username =  _dbContext.Customers
-            .FirstOrDefault(c => c.Username == userName)?.ToString();
+         {
+        //     var username =  _dbContext.Customers
+        //     .FirstOrDefault(c => c.Username == userName)?.ToString();
 
-            if (username != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //     if (username != null)
+        //     {
+        //         return true;
+        //     }
+        //     else
+        //     {
+        //         return false;
+        //     }
+
+            throw new NotImplementedException();
+         }
 
         public bool isUserExists(Guid customerId)
         {
@@ -76,104 +108,95 @@ namespace KhotsoCBookStore.API.Repositories
 
         public Customer Authenticate(string username, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                return null;
+            // if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            //     return null;
 
-            var user = _dbContext.Customers.SingleOrDefault(x => x.Username == username);
+            // var user = _dbContext.Customers.SingleOrDefault(x => x.Username == username);
 
-            // check if username exists
-            if (user == null)
-                return null;
+            // // check if username exists
+            // if (user == null)
+            //     return null;
 
-            // check if password is correct
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            // // check if password is correct
+            // if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            //     return null;
 
-            // authentication successful
-            return user;
+            // // authentication successful
+            // return user;
+
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
-        {
-            return  _dbContext.Customers;
-        }
 
-        public Customer GetById(Guid id)
-        {
-            return _dbContext.Customers.Find(id);
-        }
+      
 
         public Customer RegisterCustomer(Customer customer, string password)
         {
-            // validation
-            if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
+            // // validation
+            // if (string.IsNullOrWhiteSpace(password))
+            //     throw new AppException("Password is required");
 
-            if (_dbContext.Customers.Any(x => x.Username == customer.Username))
-                throw new AppException("Username \"" + customer.Username + "\" is already taken");
+            // if (_dbContext.Customers.Any(x => x.Username == customer.Username))
+            //     throw new AppException("Username \"" + customer.Username + "\" is already taken");
 
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            // byte[] passwordHash, passwordSalt;
+            // CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            customer.PasswordHash = passwordHash;
-            customer.PasswordSalt = passwordSalt;
+            // customer.PasswordHash = passwordHash;
+            // customer.PasswordSalt = passwordSalt;
 
-            _dbContext.Customers.Add(customer);
-            _dbContext.SaveChanges();
+            // _dbContext.Customers.Add(customer);
+            // _dbContext.SaveChanges();
 
-            return customer;
+            // return customer;
+
+             throw new NotImplementedException();
         }
 
         public void Update(Customer userParam, string password = null)
         {
-            var user = _dbContext.Customers.Find(userParam.CustomerId);
+            // var user = _dbContext.Customers.Find(userParam.CustomerId);
 
-            if (user == null)
-                throw new AppException("Customer not found");
+            // if (user == null)
+            //     throw new AppException("Customer not found");
 
-            // update username if it has changed
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
-            {
-                // throw error if the new username is already taken
-                if (_dbContext.Customers.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+            // // update username if it has changed
+            // if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
+            // {
+            //     // throw error if the new username is already taken
+            //     if (_dbContext.Customers.Any(x => x.Username == userParam.Username))
+            //         throw new AppException("Username " + userParam.Username + " is already taken");
 
-                user.Username = userParam.Username;
-            }
+            //     user.Username = userParam.Username;
+            // }
 
-            // update user properties if provided
-            if (!string.IsNullOrWhiteSpace(userParam.FirstName))
-                user.FirstName = userParam.FirstName;
+            // // update user properties if provided
+            // if (!string.IsNullOrWhiteSpace(userParam.FirstName))
+            //     user.FirstName = userParam.FirstName;
 
-            if (!string.IsNullOrWhiteSpace(userParam.LastName))
-                user.LastName = userParam.LastName;
+            // if (!string.IsNullOrWhiteSpace(userParam.LastName))
+            //     user.LastName = userParam.LastName;
 
-            if (!string.IsNullOrWhiteSpace(userParam.EmailAddress))
-                user.EmailAddress = userParam.EmailAddress;
+            // if (!string.IsNullOrWhiteSpace(userParam.EmailAddress))
+            //     user.EmailAddress = userParam.EmailAddress;
 
-            // update password if provided
-            if (!string.IsNullOrWhiteSpace(password))
-            {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            // // update password if provided
+            // if (!string.IsNullOrWhiteSpace(password))
+            // {
+            //     byte[] passwordHash, passwordSalt;
+            //     CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-            }
+            //     user.PasswordHash = passwordHash;
+            //     user.PasswordSalt = passwordSalt;
+            // }
 
-            _dbContext.Customers.Update(user);
-            _dbContext.SaveChanges();
+            // _dbContext.Customers.Update(user);
+            // _dbContext.SaveChanges();
+
+             throw new NotImplementedException();
         }
 
-        public void Delete(Guid CustomerId)
-        {
-            var user = _dbContext.Customers.Find(CustomerId);
-            if (user != null)
-            {
-                _dbContext.Customers.Remove(user);
-                _dbContext.SaveChanges();
-            }
-        }
+    
 
         // private helper methods
 
@@ -210,30 +233,18 @@ namespace KhotsoCBookStore.API.Repositories
 
        
 
-        public Task GetCustomerByIdAsync(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
+    
 
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
+     
 
-        public void DeleteCustomer(object customerEntity)
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public Task<bool> CustomerIfExistsAsync(Guid customerId)
         {
             throw new NotImplementedException();
         }
 
-        public Task CreateCustomerAsync(CustomerForCreateDto newCustomer)
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public void RegisterUser(CustomerDto customer, object password)
         {
@@ -242,20 +253,14 @@ namespace KhotsoCBookStore.API.Repositories
 
        
 
-        public void DeleteCustomer(CustomerDto customerEntity)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public void RegisterUser(CustomerDto customer, string password)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCustomer(Customer customerEntity)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task GetCustomerAsync(Guid customerId)
         {
@@ -272,14 +277,6 @@ namespace KhotsoCBookStore.API.Repositories
         //     throw new NotImplementedException();
         // }
 
-        Task<Customer> ICustomerService.GetCustomerByIdAsync(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task CreateCustomerAsync(Customer newCustomer)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

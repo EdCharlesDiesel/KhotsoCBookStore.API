@@ -12,15 +12,13 @@ namespace KhotsoCBookStore.API.Tests.Entities
             CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
             FirstName = "Khotso",
             LastName = "Mokhethi",
-            Username = "Mokhetkc",
             EmailAddress = "Mokhetkc@hotmail.com",
             Address = "Mandela Street Sandton Drive",
             City = "Sandton",
             Province = "Gauteng",
             Postal = 2007,
             CreatedBy = "system",
-            CreatedOn = DateTime.Now,
-            
+            CreatedOn = DateTime.Now            
         };
 
         public void Dispose()
@@ -29,13 +27,91 @@ namespace KhotsoCBookStore.API.Tests.Entities
         }
 
         [Fact]
+        public void CanChangePostal()
+        {
+            //Arrange
+            var expected = 18521;
+
+            //Act
+            customer.Postal = 18521;
+
+            //Assert
+            Assert.Equal(expected, customer.Postal);
+        }
+
+        [Fact]
+        public void CanChangeProvince()
+        {
+            //Arrange
+            var expected = "North West";
+
+            //Act
+            customer.Province = "North West";
+
+            //Assert
+            Assert.Equal(expected, customer.Province);
+        }
+
+        [Fact]
+        public void CanChangeCity()
+        {
+            //Arrange
+            var expected = "Sandton";
+
+            //Act
+            customer.City = "Sandton";
+
+            //Assert
+            Assert.Equal(expected, customer.City);
+        }
+
+        [Fact]
+        public void CanChangeAddress()
+        {
+            //Arrange
+            var expected = "Mandela Street Sandton Drive Gauteng";
+
+            //Act
+            customer.Address = "Mandela Street Sandton Drive Gauteng";
+
+            //Assert
+            Assert.Equal(expected, customer.Address);
+        }
+
+        [Fact]
+        public void CanChangeEmailAddress()
+        {
+            //Arrange
+            var customer = new Customer();
+            
+            //Act
+            customer.EmailAddress = "Mokhetkc1@hotmail.com";
+
+            //Assert
+            Assert.Equal("Mokhetkc1@hotmail.com", customer.EmailAddress);
+        }
+
+        [Fact]
+        public void CanChangeFirstName()
+        {
+            //Arrange
+            var customer = new Customer();
+            
+            //Act
+            customer.FirstName = "Data Structures And Algotithms";
+
+            //Assert
+            Assert.Equal("Data Structures And Algotithms", customer.FirstName);
+        }
+
+        [Fact]
         public void CanChangeId()
         {
             //Arrange
             var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            
             //Act
             var customer = new Customer();
-
             customer.CustomerId = expected;
 
             Assert.Equal(expected, customer.CustomerId);
@@ -46,23 +122,13 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             //Arrange
             var customer = new Customer();
+            
             //Act
             customer.LastName = "Data Structures And Algotithms";
 
             //Assert
             Assert.Equal("Data Structures And Algotithms", customer.LastName);
-        }
-
-        [Fact]
-        public void CanChangeUsername()
-        {
-            //Arrange
-            //Act
-            customer.Username = "User1";
-
-            //Assert
-            Assert.Equal("User1", customer.Username);
-        }
+        }       
     }
 }
     

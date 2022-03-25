@@ -5,14 +5,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using KhotsoCBookStore.API.Dtos;
-using KhotsoCBookStore.API.Helpers;
 using KhotsoCBookStore.API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Linq;
 using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Controllers
@@ -24,15 +20,13 @@ namespace KhotsoCBookStore.API.Controllers
         readonly ICustomerService _customerRepository;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
-        //private readonly AppSettings _appSettings;
         readonly ICartService _cartService;
         public CustomerController(ICustomerService customerRepository,
-            IMapper mapper,IMailService mailService, ICartService cartService)
+            IMapper mapper, IMailService mailService, ICartService cartService)
         {
-            _customerRepository = customerRepository?? throw new ArgumentNullException(nameof(_customerRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(_customerRepository));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-            //_appSettings = appSettings.Value;
             _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
         }
 
@@ -47,7 +41,7 @@ namespace KhotsoCBookStore.API.Controllers
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
-        }     
+        }
 
         /// <summary>
         /// Get all customers resources.
@@ -60,9 +54,9 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
-        { 
+        {
             var customers = await _customerRepository.GetAllCustomersAync();
-            return Ok(_mapper.Map<IEnumerable<CustomerDto>>(customers));             
+            return Ok(_mapper.Map<IEnumerable<CustomerDto>>(customers));
         }
 
         /// <summary>
@@ -70,14 +64,18 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpGet("{customerId}")]
+        [HttpGet("{customerId}", Name = "GetCustomer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CustomerDto>> GetCustomer(Guid customerId)
-        { 
+        {
+            if (customerId == new Guid())
+            {
+                return NotFound();
+            }
             var customer = await _customerRepository.GetCustomerByIdAsync(customerId);
-            return Ok(_mapper.Map<CustomerDto>(customer));             
+            return Ok(_mapper.Map<CustomerDto>(customer));
         }
 
         /// <summary>
@@ -85,20 +83,26 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the requested employes.</response>
-        [HttpPost]
+        [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CustomerForCreateDto>> CreateCustomer([FromBody] CustomerForCreateDto customer)
-        { 
+        {
             var newCustomer = _mapper.Map<Customer>(customer);
             await _customerRepository.CreateCustomerAsync(newCustomer);
             await _customerRepository.SaveChangesAsync();
 
-            var createdCustomerToReturn = 
-                _mapper.Map<CustomerForCreateDto>(newCustomer);
-            
-            return CreatedAtRoute("GetCustomer",createdCustomerToReturn);             
+
+            var customerToReturn = _mapper.Map<Customer>(newCustomer);
+
+            return CreatedAtRoute("GetCustomer",
+                new { customerId = customerToReturn.CustomerId },
+                customerToReturn);
+            // var createdCustomerToReturn = 
+            //     _mapper.Map<CustomerForCreateDto>(newCustomer);
+
+            //  return CreatedAtRoute("GetCustomer",newCustomer);             
         }
 
 
@@ -119,7 +123,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var customerEntity =  await _customerRepository.GetCustomerByIdAsync(customerId);
+            var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
             if (customerEntity == null)
             {
                 return NotFound();
@@ -131,7 +135,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             return NoContent();
         }
-     
+
         /// <summary>
         /// Partial update customer resource by customerId.
         /// </summary>
@@ -149,7 +153,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            var customerEntity =await  _customerRepository.GetCustomerByIdAsync(customerId);
+            var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
             if (customerEntity == null)
             {
                 return NotFound();
@@ -186,25 +190,21 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteCustomer(Guid customerId)
         {
-            if (!await _customerRepository.CustomerIfExistsAsync(customerId))
-            {
-                return NotFound();
-            }
 
             var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
-            
+
             if (customerEntity == null)
             {
                 return NotFound();
             }
 
-            _customerRepository.DeleteCustomer(customerEntity);
+            _customerRepository.DeleteCustomer(customerEntity.CustomerId);
             await _customerRepository.SaveChangesAsync();
 
-            // _mailService.Send(
-            //     "Customer deleted.",
-            //     $"Customer named {customerEntity.FirstName} with id {customerEntity.CustomerId} was deleted.");
-         
+            _mailService.Send(
+                "Customer deleted.",
+                $"Customer named {customerEntity.FirstName} with id {customerEntity.CustomerId} was deleted.");
+
             return NoContent();
         }
     }

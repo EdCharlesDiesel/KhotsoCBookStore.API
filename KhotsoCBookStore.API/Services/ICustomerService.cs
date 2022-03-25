@@ -9,11 +9,11 @@ namespace KhotsoCBookStore.API.Services
     {
         Task<IEnumerable<Customer>> GetAllCustomersAync();
         Task<Customer> GetCustomerByIdAsync(Guid customerId);        
-        void DeleteCustomer(Customer customerEntity);
+        void DeleteCustomer(Guid customerId);
         Task<bool> CustomerIfExistsAsync(Guid customerId);
         Task CreateCustomerAsync(Customer newCustomer);
         bool CheckUserAvailabity(string customerName);
         void RegisterUser(Customer customer, string password);
-        Task SaveChangesAsync();
+        Task<bool> SaveChangesAsync();
     }
 }

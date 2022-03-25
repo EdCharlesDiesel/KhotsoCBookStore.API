@@ -17,6 +17,7 @@ namespace KhotsoCBookStore.API.Services
 
         Task<bool> SaveChangesAsync();
         
-        void DeleteAuthor(Author authorEntity);
+        //void DeleteAuthor(Author authorEntity);
+        void DeleteAuthor(Guid authorId);
     }
 }

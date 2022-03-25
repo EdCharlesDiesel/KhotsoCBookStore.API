@@ -14,8 +14,8 @@ namespace KhotsoCBookStore.API.Tests.Entities
             {
              WishlistId = new Guid(),
              CustomerId = new Guid(),
-             WishListItems = new List<WishListItem>(),
-             Customer = new Customer()
+            //  WishListItems = new List<WishListItem>(),
+            //  Customer = new Customer()
             };
         }
 
@@ -24,18 +24,18 @@ namespace KhotsoCBookStore.API.Tests.Entities
             wishList = null;
         }
 
-        [Fact]
-        public void CanChangeWishItems()
-        {
-           //Arrange
-            var expected = new List<WishListItem>();
+        // [Fact]
+        // public void CanChangeWishItems()
+        // {
+        //    //Arrange
+        //     var expected = new List<WishListItem>();
             
-            //Act
-            wishList.WishListItems = new List<WishListItem>();;
+        //     //Act
+        //     wishList.WishListItems = new List<WishListItem>();;
 
-            //Assert
-            Assert.Equal(expected, wishList.WishListItems);
-        }
+        //     //Assert
+        //     Assert.Equal(expected, wishList.WishListItems);
+        // }
 
         [Fact]
         public void CanChangeCustomerId()

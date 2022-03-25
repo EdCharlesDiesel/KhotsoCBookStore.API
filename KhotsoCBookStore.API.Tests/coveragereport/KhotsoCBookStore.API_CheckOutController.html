@@ -25,7 +25,7 @@
 </tr>
 <tr>
 <th>File(s):</th>
-<td class="overflow-wrap"><a href="#CKhotsoProjectsKhotsoCBookStoreKhotsoCBookStoreAPIControllersCheckOutControllercs" class="navigatetohash">C:\Khotso\Projects\KhotsoCBookStore\KhotsoCBookStore.API\Controllers\CheckOutController.cs</a></td>
+<td class="overflow-wrap"><a href="#CKhotsoProjectsKhotsoCBookStoreBackEndKhotsoCBookStoreAPIControllersCheckOutControllercs" class="navigatetohash">C:\Khotso\Projects\KhotsoCBookStore.Back-End\KhotsoCBookStore.API\Controllers\CheckOutController.cs</a></td>
 </tr>
 </table>
 </div>
@@ -103,12 +103,12 @@
 <tr><td title=".ctor(AutoMapper.IMapper,KhotsoCBookStore.API.Services.IOrderService,KhotsoCBookStore.API.Services.ICartService)"><a href="#file0_line19" class="navigatetohash">.ctor(...)</a></td><td>50%</td><td>6</td><td>100%</td></tr>
 <tr><td title="GetBookAPIOptions()"><a href="#file0_line34" class="navigatetohash">GetBookAPIOptions()</a></td><td>100%</td><td>1</td><td>0%</td></tr>
 <tr><td title="CreateOrder()"><a href="#file0_line47" class="navigatetohash">CreateOrder()</a></td><td>100%</td><td>1</td><td>20%</td></tr>
-<tr><td title="Get(System.Guid)"><a href="#file0_line67" class="navigatetohash">Get(...)</a></td><td>100%</td><td>1</td><td>0%</td></tr>
+<tr><td title="GetCartItemCountForCustomer(System.Guid)"><a href="#file0_line67" class="navigatetohash">GetCartItemCountForCustomer(...)</a></td><td>100%</td><td>1</td><td>0%</td></tr>
 </tbody>
 </table>
 </div>
 <h1>File(s)</h1>
-<h2 id="CKhotsoProjectsKhotsoCBookStoreKhotsoCBookStoreAPIControllersCheckOutControllercs">C:\Khotso\Projects\KhotsoCBookStore\KhotsoCBookStore.API\Controllers\CheckOutController.cs</h2>
+<h2 id="CKhotsoProjectsKhotsoCBookStoreBackEndKhotsoCBookStoreAPIControllersCheckOutControllercs">C:\Khotso\Projects\KhotsoCBookStore.Back-End\KhotsoCBookStore.API\Controllers\CheckOutController.cs</h2>
 <div class="table-responsive">
 <table class="lineAnalysis">
 <thead><tr><th></th><th>#</th><th>Line</th><th></th><th>Line coverage</th></tr></thead>
@@ -175,10 +175,10 @@
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line60"></a><code>60</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;summary&gt;</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line61"></a><code>61</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;Get&nbsp;the&nbsp;count&nbsp;of&nbsp;item&nbsp;in&nbsp;the&nbsp;shopping&nbsp;cart</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line62"></a><code>62</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;/summary&gt;</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line63"></a><code>63</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;param&nbsp;name=&quot;userId&quot;&gt;&lt;/param&gt;</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line63"></a><code>63</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;param&nbsp;name=&quot;customerId&quot;&gt;&lt;/param&gt;</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line64"></a><code>64</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;returns&gt;The&nbsp;count&nbsp;of&nbsp;items&nbsp;in&nbsp;shopping&nbsp;cart&lt;/returns&gt;</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line65"></a><code>65</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;[HttpGet(&quot;{userId}&quot;)]</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line66"></a><code>66</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;int&nbsp;Get(Guid&nbsp;userId)</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line65"></a><code>65</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[HttpGet(&quot;{customerId}&quot;)]</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line66"></a><code>66</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;int&nbsp;GetCartItemCountForCustomer(Guid&nbsp;customerId)</code></td></tr>
 <tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line67"></a><code>67</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line68"></a><code>68</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;int&nbsp;cartItemCount&nbsp;=&nbsp;_cartRepository.GetCartItemCount(userId);</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line69"></a><code>69</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;return&nbsp;cartItemCount;</code></td></tr>
@@ -189,14 +189,14 @@
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.1.1.0<br />2022/03/18 - 21:24:39<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.1.1.0<br />2022/03/24 - 14:45:24<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>
 <a href="#file0_line19" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - .ctor(AutoMapper.IMapper,KhotsoCBookStore.API.Services.IOrderService,KhotsoCBookStore.API.Services.ICartService)"><i class="icon-cube"></i>.ctor(AutoMapper.IMapper,KhotsoCBookStore.API.Services.IOrderService,KhotsoCBookStore.API.Services.ICartService)</a><br />
 <a href="#file0_line34" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - GetBookAPIOptions()"><i class="icon-cube"></i>GetBookAPIOptions()</a><br />
 <a href="#file0_line47" class="navigatetohash percentagebar percentagebar20" title="Line coverage: 20% - CreateOrder()"><i class="icon-cube"></i>CreateOrder()</a><br />
-<a href="#file0_line67" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - Get(System.Guid)"><i class="icon-cube"></i>Get(System.Guid)</a><br />
+<a href="#file0_line67" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - GetCartItemCountForCustomer(System.Guid)"><i class="icon-cube"></i>GetCartItemCountForCustomer(System.Guid)</a><br />
 <br/></div>
 </div></div>
 <script type="text/javascript">

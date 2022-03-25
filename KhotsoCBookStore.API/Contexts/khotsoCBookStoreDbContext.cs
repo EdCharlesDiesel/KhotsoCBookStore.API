@@ -27,7 +27,8 @@ namespace KhotsoCBookStore.API.Contexts
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        //public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<UserMaster> UserMasters { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<WishListItem> WishListItems { get; set; }
 

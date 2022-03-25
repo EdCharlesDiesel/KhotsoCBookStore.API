@@ -195,7 +195,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            _authorRepository.DeleteAuthor(authorEntity);
+            _authorRepository.DeleteAuthor(authorEntity.AuthorId);
             await _authorRepository.SaveChangesAsync();
 
              _mailService.Send(

@@ -1,26 +1,26 @@
 ﻿using KhotsoCBookStore.API.Authentication;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
     public interface IUserService
     {
-        UserMaster Authenticate(string username, string password);
+        Task<UserMaster> Authenticate(string username, string password);
         
-        UserMaster RegisterUser(UserMaster user, string password);
+        Task<UserMaster> RegisterUser(UserMaster user, string password);
         
-        bool CheckUserAvailabity(string userName);
+        Task<bool> CheckUserAvailabity(string userName);
 
-        bool isUserExists(Guid userId);
+        Task<bool> CheckIfUserExists(Guid userId);
 
-        IEnumerable<UserMaster> GetAll();
+        Task<IEnumerable<UserMaster>> GetAllUsers();
 
-        UserMaster GetById(Guid userId);
+        Task<UserMaster> GetUserById(Guid userId);
 
-        void Update(UserMaster userParam, string password = null);
+        Task UpdateUser(UserMaster userParam, string password = null);
         
-        void Delete(Guid userId);
-
+        Task DeleteUser(Guid userId);
     }
 }

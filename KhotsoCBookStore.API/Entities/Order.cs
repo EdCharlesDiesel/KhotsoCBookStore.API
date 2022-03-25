@@ -8,13 +8,13 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid OrderId { get; set; }  =Guid.NewGuid();
+        public Guid OrderId { get; set; }  = Guid.NewGuid();
   
         public decimal CartTotal { get; set; }
 
         [ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        // public Customer Customer { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }
@@ -23,6 +23,6 @@ namespace KhotsoCBookStore.API.Entities
         
         public string ShipAddress { get; set; }
 
-        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+      //  public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

@@ -43,16 +43,16 @@ namespace KhotsoCBookStore.API.Tests.Entities
             Assert.Equal(new Guid(), productSubscription.CustomerId);
         }
 
-         [Fact]
-        public void CanChangeCustomer()
-        {
-            //Arrange
-            //Act
-            productSubscription.Customer = new Customer();
+         //[Fact]
+        // public void CanChangeCustomer()
+        // {
+        //     //Arrange
+        //     //Act
+        //     productSubscription.Customer = new Customer();
 
-            //Assert
-            Assert.IsType<Customer>(productSubscription.Customer);
-        }
+        //     //Assert
+        //     Assert.IsType<Customer>(productSubscription.Customer);
+        // }
 
     }
 }

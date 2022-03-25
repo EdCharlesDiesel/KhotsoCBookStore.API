@@ -8,7 +8,7 @@ namespace KhotsoCBookStore.API.Profiles
         {
             CreateMap<Entities.Customer, Dtos.CustomerDto>();
             CreateMap<Dtos.CustomerForCreateDto,Entities.Customer>();
-            CreateMap<Dtos.CustomerForUpdateDto,Entities.Customer>();
+            //CreateMap<Dtos.CustomerForUpdateDto,Entities.Customer>();
         }
     }
 }
