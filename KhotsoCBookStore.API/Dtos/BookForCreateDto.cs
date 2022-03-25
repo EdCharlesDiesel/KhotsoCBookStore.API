@@ -8,6 +8,8 @@ namespace KhotsoCBookStore.API.Dtos
         public string Title { get; set; }
 
         public DateTime PublishingDate { get; set; }
+
+        public Guid PublisherId { get; set; }
         
         public decimal Cost { get; set; }    
 

@@ -4,8 +4,7 @@ namespace KhotsoCBookStore.API.Dtos
 {
     public class PromotionForCreateDto
     {
-    
-        public Guid PromoId { get; set; }
+
         
         public decimal MaximumRetail { get; set; }
 

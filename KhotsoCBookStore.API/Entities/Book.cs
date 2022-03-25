@@ -20,9 +20,6 @@ namespace KhotsoCBookStore.API.Entities
         
         [ForeignKey("PublisherId")]
         public Guid PublisherId { get; set; }
-        public Publisher Publisher { get; set; }
-        
-        public ICollection<Category> Categories { get; set; } = new List<Category>();
         
         public decimal Cost { get; set; }    
 

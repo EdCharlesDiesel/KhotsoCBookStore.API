@@ -26,7 +26,7 @@ namespace KhotsoCBookStore.API.Controllers
         readonly IConfiguration _config;
         readonly IMapper _mapper;
         readonly IWebHostEnvironment _hostingEnvironment;
-        readonly string _coverImageFolderPath = string.Empty;
+      //  readonly string _coverImageFolderPath = string.Empty;
 
         public BookController( 
             IBookService bookRepository,         
@@ -41,11 +41,11 @@ namespace KhotsoCBookStore.API.Controllers
             _config = config ?? throw new ArgumentNullException(nameof(_config));
             _bookRepository = bookRepository?? throw new ArgumentNullException(nameof(_bookRepository));
             _hostingEnvironment = hostingEnvironment;
-            _coverImageFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Upload");
-            if (!Directory.Exists(_coverImageFolderPath))
-            {
-                Directory.CreateDirectory(_coverImageFolderPath);
-            }
+            // _coverImageFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Upload");
+            // if (!Directory.Exists(_coverImageFolderPath))
+            // {
+            //     Directory.CreateDirectory(_coverImageFolderPath);
+            // }
         }
 
         /// <summary>
@@ -109,37 +109,38 @@ namespace KhotsoCBookStore.API.Controllers
         public async Task<ActionResult> CreateBook([FromBody] BookForCreateDto newBook)
         {
             //Book book = JsonConvert.DeserializeObject<Book>(Request.Form["bookFormData"].ToString());
-            var bookToCreate = _mapper.Map<Entities.Book>(newBook);
-            if (Request.Form.Files.Count > 0)
-            {
-                var file = Request.Form.Files[0];
+           
+            // if (Request.Form.Files.Count > 0)
+            // {
+            //     var file = Request.Form.Files[0];
 
-                if (file.Length > 0)
-                {
-                    string fileName = Guid.NewGuid() + ContentDispositionHeaderValue
-                    .Parse(file.ContentDisposition).FileName.ToString().Trim();
+            //     if (file.Length > 0)
+            //     {
+            //         string fileName = Guid.NewGuid() + ContentDispositionHeaderValue
+            //         .Parse(file.ContentDisposition).FileName.ToString().Trim();
 
-                    string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                    bookToCreate.CoverFileName = fileName;
-                }
-            }
-            else
-            {
-                bookToCreate.CoverFileName = _config["DefaultCoverImageFile"];
-            }
-        
+            //         string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, fileName);
+            //         using (var stream = new FileStream(fullPath, FileMode.Create))
+            //         {
+            //             file.CopyTo(stream);
+            //         }
+            //         bookToCreate.CoverFileName = fileName;
+            //     }
+            // }
+            // else
+            // {
+            //     bookToCreate.CoverFileName = _config["DefaultCoverImageFile"];
+            // }
+             var bookToCreate = _mapper.Map<Entities.Book>(newBook);
             await _bookRepository.CreateBookAsync(bookToCreate);
             await _bookRepository.SaveChangesAsync();
 
-            var bookToReturn = _mapper.Map<Book>(bookToCreate);
+            var bookToReturn = _mapper.Map<Book>(newBook);
 
             return CreatedAtRoute("GetBook",
                 new { bookId = bookToReturn.BookId },
                 bookToReturn);
+                
         }
 
         /// <summary>
