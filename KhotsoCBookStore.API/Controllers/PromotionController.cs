@@ -12,17 +12,16 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class PromotionsController : Controller
     {
-        readonly IPromotionService _promotionService;
-        readonly IBookService _bookService;
-        readonly ICustomerService _customerRepository;
-
+        private readonly IPromotionService _promotionService;
+        private readonly IBookService _bookService;
+        private readonly ICustomerService _customerRepository;
         private IMapper _mapper;
 
         public PromotionsController(
             IPromotionService promotionService, 
-        IBookService bookService,
-         ICustomerService customerRepository,
-          IMapper mapper)
+            IBookService bookService,
+            ICustomerService customerRepository,
+            IMapper mapper)
         {
             _mapper = mapper?? throw new ArgumentNullException(nameof(mapper));
             _promotionService = promotionService?? throw new ArgumentNullException(nameof(_promotionService));
@@ -51,7 +50,12 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public async Task<List<Book>> GetCustomerPromotions(Guid customerId)
         {
-            return await Task.FromResult(GetUserPromotion(customerId)).ConfigureAwait(true);
+            return await GetUserPromotion(customerId);
+        }
+
+        private Task<List<Book>> GetUserPromotion(Guid customerId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -61,13 +65,13 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <param name="bookId"></param>
         /// <returns>All the items in the Promotion</returns>
-       // [Authorize]
+        /// [Authorize]
         [HttpPost]
         [Route("TogglePromotion/{customerId}/{bookId}")]
         public async Task<IEnumerable<Book>> CreatePromotion(Guid customerId, Guid bookId)
         {
             await _promotionService.TogglePromotionItem(customerId, bookId);
-            return await Task.FromResult(GetUserPromotion(customerId)).ConfigureAwait(true);
+            return await GetUserPromotion(customerId);
         }
 
         /// <summary>
@@ -82,19 +86,18 @@ namespace KhotsoCBookStore.API.Controllers
             return _promotionService.ClearPromotion(customerId);
         }
 
-        List<Book> GetUserPromotion(Guid customerId)
-        {
-            // bool user = _customerRepository.isUserExists(customerId);
-            // if (user)
-            // {
-            //     string Promotionid = _promotionService.GetPromotionId(customerId);
-            //     return _bookService.GetBooksAvailableInPromotion(Promotionid);
-            // }
-            // else
-            // {
-            //     return new List<Book>();
-            // }
-            throw new NotImplementedException();
-        }
+        // private async List<Book> GetUserPromotion(Guid customerId)
+        // {
+        //      bool user = await _customerRepository.CheckIfCustomerExists(customerId);
+        //     if (user)
+        //     {
+        //         string Promotionid = _promotionService.GetPromotionId(customerId);
+        //         return _bookService.GetBooksAvailableInPromotion(Promotionid);
+        //     }
+        //     else
+        //     {
+        //         return new List<Book>();
+        //     }           
+        // }
     }
 }

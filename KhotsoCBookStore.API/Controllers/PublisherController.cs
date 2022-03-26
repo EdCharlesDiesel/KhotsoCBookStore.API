@@ -191,9 +191,9 @@ namespace KhotsoCBookStore.API.Controllers
             _publisherService.DeletePublisher(publisherToDelete);
             await _publisherService.SaveChangesAsync();
 
-            // _mailService.Send(
-            //     "Publisher deleted.",
-            //     $"Publisher named {publisherEntity.} with id {publisherEntity.PublisherId} was deleted.");
+             _mailService.Send(
+                "Publisher deleted.",
+                $"Publisher named {publisherToDelete.Name} with id {publisherToDelete.PublisherId} was deleted.");
 
             return NoContent();
         }

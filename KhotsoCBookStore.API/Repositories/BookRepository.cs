@@ -216,5 +216,10 @@ namespace KhotsoCBookStore.API.Repositories
                 throw new AggregateException(ex.Message);
             }
         }
+
+        public Task<IEnumerable<Book>> GetBooksAvailableInBookSubscription(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

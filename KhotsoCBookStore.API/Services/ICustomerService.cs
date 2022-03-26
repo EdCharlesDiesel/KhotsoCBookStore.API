@@ -15,5 +15,6 @@ namespace KhotsoCBookStore.API.Services
         bool CheckUserAvailabity(string customerName);
         void RegisterUser(Customer customer, string password);
         Task<bool> SaveChangesAsync();
+        Task<bool> CheckIfCustomerExists(Guid customerId);
     }
 }

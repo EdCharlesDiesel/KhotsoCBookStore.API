@@ -15,5 +15,7 @@ namespace KhotsoCBookStore.API.Services
         Task<bool> SaveChangesAsync();
         
         Task<Order> GetOrderForUserAsync(Guid customerId);
+        
+        Task GetAllOrdersForCustomer(Guid customerId);
     }
 }
