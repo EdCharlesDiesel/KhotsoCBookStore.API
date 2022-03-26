@@ -74,10 +74,10 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 );
 
             //Act
-            var result =  controller.GetCustomerPromotions(id);
+            var result = await controller.GetCustomerPromotions(id);
 
             //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
+            Assert.IsType<OkObjectResult>(result);
 
         }
 
@@ -99,7 +99,7 @@ namespace KhotsoCBookStore.API.Tests.Dtos
                 );
 
             //Act
-            var result =  controller.GetCustomerPromotions(id);
+            var result = await controller.GetCustomerPromotions(id);
 
             //Assert
             // var okResult = result.Result as OkObjectResult;

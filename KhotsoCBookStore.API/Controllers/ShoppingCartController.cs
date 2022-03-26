@@ -21,6 +21,19 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetAuthorsAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            return Ok();
+        }
+
+        /// <summary>
         /// Get the shopping cart for user.
         /// </summary>
         /// <param name="oldUserId"></param>
@@ -41,7 +54,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpGet("{customerId}")]
-        public async Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
+        public  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
         {
             // string cartid = _cartService.GetCartId(customerId);
             // var id = new Guid(cartid);

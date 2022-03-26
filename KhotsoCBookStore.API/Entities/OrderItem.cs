@@ -12,7 +12,8 @@ namespace KhotsoCBookStore.API.Entities
 
         [ForeignKey("OrderId")]
         public Guid OrderId { get; set; }
-        public Order Order { get; set; }
+        
+        public Guid BookId { get; set; }
 
         public Guid ProductId { get; set; }
 

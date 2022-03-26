@@ -1,13 +1,26 @@
 using System;
+using System.Collections.Generic;
+using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Dtos
 {
     public class CartItemDto
     {
-        public Guid CartItemId { get; set; }  =Guid.NewGuid();
+        private Guid productId;
+        public CartItemDto()
+        {
+            ProductId = BookId;
+        }
+        public Guid CartItemId { get; set; } = Guid.NewGuid();
 
-        public Guid ProductId { get; set; }
+        public Guid ProductId
+        {
+            get { return productId; }
+            set { productId = BookId; }
+        }
 
-        public int Quantity { get; set; }
+        public Guid BookId { get; set; }
+
+        public int Quantity { get; set; } 
     }
 }

@@ -14,17 +14,29 @@ namespace KhotsoCBookStore.API.Controllers
     public class ProductSubscriptionController : Controller
     {
         readonly IMapper _mapper;
-        readonly IProductSubscriptionService _bookSubscriptionRepository;
+        readonly IProductSubscriptionService _productSubscriptionRepository;
         readonly IBookService _bookRepository;
         readonly ICustomerService _customerRepository;
 
         public ProductSubscriptionController(IMapper mapper,IProductSubscriptionService bookSubscriptionRepository, IBookService bookService, ICustomerService customer)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper)); 
-
-            _bookSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_bookSubscriptionRepository));
+            _productSubscriptionRepository = bookSubscriptionRepository ?? throw new ArgumentNullException(nameof(_productSubscriptionRepository));
             _bookRepository = bookService ?? throw new ArgumentNullException(nameof(_bookRepository)); 
             _customerRepository = customer ?? throw new ArgumentNullException(nameof(_customerRepository));
+        }
+
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetProductSubscriptionAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE");
+            return Ok();
         }
 
         /// <summary>
@@ -33,10 +45,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns>List of book subscriptions</returns>
         [HttpGet("{customerId}")]
-        public async Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
+        public  Task<IEnumerable<Book>> GetProductSubscriptions(Guid customerId)
         {
-           // return  _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
-           throw new NotImplementedException();
+           // return   _productSubscriptionRepository.GetProductSubscriptionId(customerId); 
+           throw new NotImplementedException();   
         }
 
         /// <summary>
@@ -47,11 +59,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductSubscription/{customerId}/{bookId}")]
-        public async Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
+        public Task<IEnumerable<Book>> CreateSubscription(Guid customerId, Guid bookId)
         {
-            //_bookSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);
-            //return await Task.FromResult(GetUserBookSubscription(customerId)).ConfigureAwait(true);
-            throw new NotImplementedException();
+             throw new NotImplementedException();
+            // return await _productSubscriptionRepository.ToggleProductSubscriptionItem(customerId, bookId);           
         }
 
         /// <summary>
@@ -61,10 +72,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>NoContent</returns>
         [Authorize]
         [HttpDelete("{customerId}")]
-        public async  Task ClearProductSubscription(Guid customerId)
+        public   Task ClearProductSubscription(Guid customerId)
         {
-            //return await _bookSubscriptionRepository.ClearProductSubscriptionAsync(customerId);
-            throw new NotImplementedException();
+             throw new NotImplementedException();
+           // return await _productSubscriptionRepository.ClearProductSubscriptionAsync(customerId);        
         }
 
         /// <summary>
@@ -77,7 +88,7 @@ namespace KhotsoCBookStore.API.Controllers
             // bool user = _customerRepository.CheckIfCustomerExists(customerId);
             // if (user)
             // {
-            //     string BookSubscriptionId = _bookSubscriptionRepository.GetProductSubscriptionId(customerId);
+            //     string BookSubscriptionId = _productSubscriptionRepository.GetProductSubscriptionId(customerId);
             //     var Id = new Guid(BookSubscriptionId);
             //     return _bookRepository.GetBooksAvailableInBookSubscription(Id);
             // }
@@ -85,7 +96,7 @@ namespace KhotsoCBookStore.API.Controllers
             // {
             //     return new List<Book>();
             // }
-            throw new NotImplementedException();
+             throw new NotImplementedException();
         }
     }
 }

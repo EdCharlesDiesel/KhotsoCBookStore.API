@@ -66,7 +66,6 @@ namespace KhotsoCBookStore.API.Controllers
         public async Task ToggleWishList(Guid customerId, Guid bookId)
         {
             await _wishListRepository.ToggleWishListItem(customerId, bookId);
-            //return GetUserWishList(customerId);
         }
 
         /// <summary>
@@ -78,7 +77,6 @@ namespace KhotsoCBookStore.API.Controllers
         public Task ClearWishList(Guid customerId)
         {
             return _wishListRepository.ClearWishList(customerId);
-            //ToDoSendMail
         }
 
         private async Task<IEnumerable<Book>> GetUserWishList(Guid customerId)

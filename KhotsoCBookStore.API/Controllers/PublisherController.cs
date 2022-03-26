@@ -115,7 +115,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            _mapper.Map(publisherToUpdate, publisherEntity);
+            await _mapper.Map(publisherToUpdate, publisherEntity);
 
             await _publisherService.SaveChangesAsync();
 
@@ -159,7 +159,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            _mapper.Map(publisherToPatch, publisherEntity);
+            await _mapper.Map(publisherToPatch, publisherEntity);
             await _publisherService.SaveChangesAsync();
 
             return NoContent();

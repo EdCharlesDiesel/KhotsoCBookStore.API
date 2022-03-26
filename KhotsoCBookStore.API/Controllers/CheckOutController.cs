@@ -32,7 +32,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetBookAPIOptions()
         {
-            Response.Headers.Add("Allow", "POST");
+            Response.Headers.Add("Allow", "POST,GET");
             return Ok();
         } 
 
@@ -43,31 +43,47 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="checkedOutItems"></param>
         /// <returns></returns>
         [HttpPost("{CustomerId}")]
-        public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderDto checkedOutItems)
+        public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderForCreateDto checkedOutItems)
         {
             var item = _mapper.Map<Order>(checkedOutItems);
             await _orderRepository.CreateOrderAsync(customerId, item);
             await _orderRepository.SaveChangesAsync();
 
-            var authorToReturn = _mapper.Map<Author>(item);
+            var customerToReturn = _mapper.Map<Customer>(item);
             await _cartRepository.ClearCart(customerId);
 
-            return CreatedAtRoute("GetAuthor",
-                new { authorId = authorToReturn.AuthorId },
-                authorToReturn);
+            return CreatedAtRoute("GetOrderForCustomer",
+                new { customerId = customerToReturn.CustomerId },
+                customerToReturn);
         }
 
         /// <summary>
-        /// Get the count of item in the shopping cart
+        /// Get a single order for customer
         /// </summary>
         /// <param name="customerId"></param>
-        /// <returns>The count of items in shopping cart</returns>
-        [HttpGet("{customerId}")]
-         public int GetCartItemCountForCustomer(Guid customerId)
+        /// <returns>Single Order</returns>
+        [HttpGet("{customerId}", Name ="GetOrderForCustomer")]
+         public async Task<ActionResult<OrderDto>> GetOrderForCustomer(Guid customerId)
          {
-            // int cartItemCount = _cartRepository.GetCartItemCount(userId);
-            // return cartItemCount;
-            throw new NotImplementedException();
+            if (customerId == new Guid())
+            {
+               return NotFound();
+            }
+
+            var Order = await _orderRepository.GetOrderForUserAsync(customerId);
+            return Ok(_mapper.Map<OrderDto>(Order));            
          }
+
+        // /// <summary>
+        // /// Get the count of item in the shopping cart
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <returns>The count of items in shopping cart</returns>
+        // [HttpGet("{customerId}")]
+        //  public async Task<int> GetCartItemCountForCustomer(Guid customerId)
+        //  {
+        //      int cartItemCount = await _cartRepository.GetCartItemCount(customerId);
+        //      return cartItemCount;
+        //  }
     }
 }

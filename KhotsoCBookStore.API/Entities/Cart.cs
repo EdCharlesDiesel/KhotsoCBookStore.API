@@ -11,8 +11,7 @@ namespace KhotsoCBookStore.API.Entities
         public Guid CartId { get; set; } = Guid.NewGuid();
 
         [ForeignKey("CustomerId")]
-        public Guid UserId { get; set; }
-        public Customer Customer { get; set; }
+        public Guid CustomerId { get; set; }        
 
         public decimal CartTotal { get; set; }
 
