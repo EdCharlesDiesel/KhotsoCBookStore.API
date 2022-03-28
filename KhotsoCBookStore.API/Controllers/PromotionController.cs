@@ -12,19 +12,19 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class PromotionsController : Controller
     {
-        private readonly IPromotionService _promotionService;
+        private readonly IPromotionService _promotionRepository;
         private readonly IBookService _bookService;
         private readonly ICustomerService _customerRepository;
         private IMapper _mapper;
 
         public PromotionsController(
-            IPromotionService promotionService, 
+            IPromotionService promotionRepository, 
             IBookService bookService,
             ICustomerService customerRepository,
             IMapper mapper)
         {
             _mapper = mapper?? throw new ArgumentNullException(nameof(mapper));
-            _promotionService = promotionService?? throw new ArgumentNullException(nameof(_promotionService));
+            _promotionRepository = promotionRepository?? throw new ArgumentNullException(nameof(_promotionRepository));
             _bookService = bookService?? throw new ArgumentNullException(nameof(_bookService));
             _customerRepository = customerRepository?? throw new ArgumentNullException(nameof(_customerRepository));
         }
@@ -53,10 +53,6 @@ namespace KhotsoCBookStore.API.Controllers
             return await GetUserPromotion(customerId);
         }
 
-        private Task<List<Book>> GetUserPromotion(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Toggle the items in Promotion. If item doesn't exists, 
@@ -70,7 +66,7 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("TogglePromotion/{customerId}/{bookId}")]
         public async Task<IEnumerable<Book>> CreatePromotion(Guid customerId, Guid bookId)
         {
-            await _promotionService.TogglePromotionItem(customerId, bookId);
+            await _promotionRepository.TogglePromotionItem(customerId, bookId);
             return await GetUserPromotion(customerId);
         }
 
@@ -83,21 +79,21 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpDelete("{customerId}")]
         public Task Delete(Guid customerId)
         {
-            return _promotionService.ClearPromotion(customerId);
+            return _promotionRepository.ClearPromotion(customerId);
         }
 
-        // private async List<Book> GetUserPromotion(Guid customerId)
-        // {
-        //      bool user = await _customerRepository.CheckIfCustomerExists(customerId);
-        //     if (user)
-        //     {
-        //         string Promotionid = _promotionService.GetPromotionId(customerId);
-        //         return _bookService.GetBooksAvailableInPromotion(Promotionid);
-        //     }
-        //     else
-        //     {
-        //         return new List<Book>();
-        //     }           
-        // }
+        private async List<Book> GetUserPromotion(Guid customerId)
+        {
+            var customer = await _customerRepository.CheckIfCustomerExists(customerId);
+            if (customer)
+            {
+                string Promotionid = await _promotionRepository.GetPromotionById(customerId);
+                return _bookService.GetBooksAvailableInPromotion(Promotionid);
+            }
+            else
+            {
+                return new List<Book>();
+            }           
+        }
     }
 }

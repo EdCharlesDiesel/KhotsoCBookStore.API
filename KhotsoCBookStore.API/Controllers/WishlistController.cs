@@ -12,20 +12,15 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class WishListController : Controller
     {
-        private readonly IMailService _mailService;
         readonly IWishListService _wishListRepository;
         readonly IBookService _bookRepository;
         readonly ICustomerService _customerRepository;
-
-        readonly IMapper _mapper;
-
-        public WishListController(IWishListService wishListService, 
-        IBookService bookService, 
-        ICustomerService customer,
-        IMailService mailService,
-        IMapper mapper)
+        public WishListController(IWishListService wishListService,
+                                  IBookService bookService,
+                                  ICustomerService customer,
+                                  IMailService mappermailService)
         {
-            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            
             _wishListRepository = wishListService?? throw new ArgumentNullException(nameof(_wishListRepository));
             _bookRepository = bookService?? throw new ArgumentNullException(nameof(_bookRepository));
             _customerRepository = customer?? throw new ArgumentNullException(nameof(_customerRepository));

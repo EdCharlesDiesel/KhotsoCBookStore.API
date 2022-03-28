@@ -100,31 +100,31 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IPublisherService, PublisherRepository>();
             services.AddTransient<IPromotionService, PromotionRepository>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-           .AddJwtBearer(options =>
-           {
-               options.RequireHttpsMetadata = false;
-               options.SaveToken = true;
-               options.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateIssuer = true,
-                   ValidateAudience = true,
-                   ValidateLifetime = true,
-                   ValidateIssuerSigningKey = true,
-                   ValidIssuer = Configuration["Jwt:Issuer"],
-                   ValidAudience = Configuration["Jwt:Audience"],
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-                   ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
-                };
+        //     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.RequireHttpsMetadata = false;
+        //        options.SaveToken = true;
+        //        options.TokenValidationParameters = new TokenValidationParameters
+        //        {
+        //            ValidateIssuer = true,
+        //            ValidateAudience = true,
+        //            ValidateLifetime = true,
+        //            ValidateIssuerSigningKey = true,
+        //            ValidIssuer = Configuration["Jwt:Issuer"],
+        //            ValidAudience = Configuration["Jwt:Audience"],
+        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+        //            ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
+        //         };
 
-               services.AddCors();
-           });
+        //        services.AddCors();
+        //    });
 
-            services.AddAuthorization(config =>
-            {
-                config.AddPolicy(UserRoles.Admin, Policies.AdminPolicy());
-                config.AddPolicy(UserRoles.User, Policies.UserPolicy());
-            });
+            // services.AddAuthorization(config =>
+            // {
+            //     config.AddPolicy(UserRoles.Admin, Policies.AdminPolicy());
+            //     config.AddPolicy(UserRoles.User, Policies.UserPolicy());
+            // });
 
 
             services.AddCors(options =>
@@ -148,13 +148,13 @@ namespace KhotsoCBookStore.API
                     }
                 });
 
-                setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {
-                    Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
+                // setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                // {
+                //     Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
+                //     Name = "Authorization",
+                //     In = ParameterLocation.Header,
+                //     Type = SecuritySchemeType.ApiKey
+                // });
 
                 setupAction.OperationFilter<SecurityRequirementsOperationFilter>();
 

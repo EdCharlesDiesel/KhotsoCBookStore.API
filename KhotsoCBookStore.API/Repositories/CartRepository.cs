@@ -20,28 +20,36 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task AddBookToCart(Guid customerId, Guid bookId)
         {
-            await CreateCartAsync(customerId);
-            var cartId = await GetCartId(customerId);
-            var newCartId = new Guid(cartId);
-            int quantity = 1;
-
-            CartItem existingCartItem = await _dbContext.CartItems
-            .FirstOrDefaultAsync(x => x.ProductId == bookId && x.CartId.ToString() == cartId);
-
-            if (existingCartItem != null)
+            try
             {
-                existingCartItem.Quantity += 1;
-                 _dbContext.Entry(existingCartItem).State = EntityState.Modified;
-            }
-            else
-            {
-                CartItem cartItems = new CartItem
+                await CreateCartAsync(customerId);
+                var cartId = await GetCartId(customerId);
+                var newCartId = new Guid(cartId);
+                int quantity = 1;
+    
+                CartItem existingCartItem = await _dbContext.CartItems
+                .FirstOrDefaultAsync(x => x.ProductId == bookId && x.CartId.ToString() == cartId);
+    
+                if (existingCartItem != null)
                 {
-                    CartId = newCartId,
-                    ProductId = bookId,
-                    Quantity = quantity
-                };
-                await _dbContext.CartItems.AddAsync(cartItems);                
+                    existingCartItem.Quantity += 1;
+                     _dbContext.Entry(existingCartItem).State = EntityState.Modified;
+                }
+                else
+                {
+                    CartItem cartItems = new CartItem
+                    {
+                        CartId = newCartId,
+                        ProductId = bookId,
+                        Quantity = quantity
+                    };
+                    await _dbContext.CartItems.AddAsync(cartItems); 
+                    await _dbContext.SaveChangesAsync();              
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
             }
         }
 
@@ -77,7 +85,7 @@ namespace KhotsoCBookStore.API.Repositories
                 }
                 else
                 {
-                    return cart.CartId.ToString();
+                    return String.Empty;
                 }
             }
            catch (System.Exception ex)
@@ -91,14 +99,14 @@ namespace KhotsoCBookStore.API.Repositories
             try
             {
                 string cartId = await GetCartId(customerId);
-                // CartItem cartItem = _dbContext.CartItems.FirstOrDefault(x => x.ProductId == bookId && x.CartId == cartId);
+                CartItem cartItem = _dbContext.CartItems
+                .FirstOrDefault(x => x.ProductId == bookId && x.CartId.ToString() == cartId);
 
-                // _dbContext.CartItems.Remove(cartItem);
-                _dbContext.SaveChanges();
+                _dbContext.CartItems.Remove(cartItem);                
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
@@ -112,27 +120,34 @@ namespace KhotsoCBookStore.API.Repositories
 
                 cartItem.Quantity -= 1;
                 _dbContext.Entry(cartItem).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
         public async Task<int> GetCartItemCount(Guid customerId)
         {
-            string cartId = await  GetCartId(customerId);
-
-            if (!string.IsNullOrEmpty(cartId))
+            try
             {
-                int cartItemCount = _dbContext.CartItems.Where(x => x.CartId.ToString() == cartId)
-                .Sum(x => x.Quantity);
-                return cartItemCount;
+                string cartId = await  GetCartId(customerId);
+    
+                if (!string.IsNullOrEmpty(cartId))
+                {
+                    int cartItemCount = _dbContext.CartItems.Where(x => x.CartId.ToString() == cartId)
+                    .Sum(x => x.Quantity);
+                    return cartItemCount;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                return 0;
+                throw new AggregateException(ex.Message);
             }
         }
 
@@ -144,6 +159,8 @@ namespace KhotsoCBookStore.API.Repositories
                 {
                     string tempCartId = await GetCartId(tempUserId);
                     string permCartId = await GetCartId(permUserId);
+
+                    var newPermCartId = new Guid(permCartId);
 
                     List<CartItem> tempCartItem = _dbContext.CartItems
                     .Where(x => x.CartId.ToString() == tempCartId).ToList();
@@ -162,21 +179,21 @@ namespace KhotsoCBookStore.API.Repositories
                         {
                             CartItem newCartItem = new CartItem
                             {
-                                //CartId = permCartId,
+                                CartId = newPermCartId,
                                 ProductId = item.ProductId,
                                 Quantity = item.Quantity
                             };
                             _dbContext.CartItems.Add(newCartItem);
                         }
                         _dbContext.CartItems.Remove(item);
-                        _dbContext.SaveChanges();
+                       
                     }
-                    DeleteCart(tempCartId);
+                    
                 }
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
@@ -192,48 +209,40 @@ namespace KhotsoCBookStore.API.Repositories
                     foreach (CartItem item in cartItem)
                     {
                         _dbContext.CartItems.Remove(item);
-                        _dbContext.SaveChanges();
+                        
                     }
                 }
                 return 0;
             }
-            catch
+           catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
-        }
+        }        
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+           catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }            
+        }    
 
         void DeleteCart(string cartId)
         {
-            Cart cart = _dbContext.Carts.Find(cartId);
-           // _dbContext.CartItems.Remove(CartItem);
-            _dbContext.SaveChanges();
-        }
-
-      
-
-        Task ICartService.RemoveCartItem(Guid customerId, Guid bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ICartService.DeleteOneCartItem(Guid customerId, Guid bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-     
-
-        Task<int> ICartService.ClearCart(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<string> ICartService.GetCartId(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-       
+            try
+            {
+                Cart cart = _dbContext.Carts.Find(cartId);
+                _dbContext.Carts.Remove(cart);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }          
+        }   
     }
 }

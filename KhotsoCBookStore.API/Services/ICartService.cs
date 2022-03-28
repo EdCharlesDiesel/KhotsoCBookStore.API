@@ -20,5 +20,7 @@ namespace KhotsoCBookStore.API.Services
         Task<string> GetCartId(Guid customerId);
         
         Task CreateCartAsync(Guid customerId);
+
+         Task<bool> SaveChangesAsync();
     }
 }

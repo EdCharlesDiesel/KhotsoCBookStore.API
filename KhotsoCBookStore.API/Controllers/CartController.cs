@@ -12,14 +12,14 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/ShoppingCart")]
     public class CartController : Controller
     {
-        readonly ICartService _cartService;
+        readonly ICartService _cartRepository;
         readonly IBookService _bookService;
         readonly IMapper _mapper;
 
         public CartController(ICartService cartService, IBookService bookService, IMapper mapper)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
+            _cartRepository = cartService ?? throw new ArgumentNullException(nameof(_cartRepository));
             _bookService = bookService ?? throw new ArgumentNullException(nameof(_bookService));
         }
 
@@ -47,8 +47,8 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("SetShoppingCart/{oldUserId}/{newUserId}")]
         public Task<int> GetShoppingCartForCustomer(Guid oldUserId, Guid newUserId)
         {
-            _cartService.MergeCart(oldUserId, newUserId);
-            return _cartService.GetCartItemCount(newUserId);
+            _cartRepository.MergeCart(oldUserId, newUserId);
+            return _cartRepository.GetCartItemCount(newUserId);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public async  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
         {
-            string cartid = await  _cartService.GetCartId(customerId);
+            string cartid = await  _cartRepository.GetCartId(customerId);
             var id = new Guid(cartid);
             return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
         }
@@ -75,18 +75,19 @@ namespace KhotsoCBookStore.API.Controllers
         // [Route("AddToCart/{customerId}/{bookId}")]
         // public  async Task<int> AddItemToCart(Guid customerId, Guid bookId)
         // {
-        //     await _cartService.CreateCartAsync(customerId);
-        //     await _cartService.AddBookToCart(customerId, bookId);
-        //     return await _cartService.GetCartItemCount(customerId);
+        //     await _cartRepository.CreateCartAsync(customerId);
+        //     await _cartRepository.AddBookToCart(customerId, bookId);
+        //     return await _cartRepository.GetCartItemCount(customerId);
         // }
 
         [HttpPost]
         [Route("AddToCart/{customerId}/{bookId}")]
         public  async Task AddItemToCart(Guid customerId, Guid bookId)
         {
-            await _cartService.CreateCartAsync(customerId);
-            await _cartService.AddBookToCart(customerId, bookId);
-            //return await _cartService.GetCartItemCount(customerId);
+            //await _cartRepository.CreateCartAsync(customerId);
+            await _cartRepository.AddBookToCart(customerId, bookId);
+            await _cartRepository.SaveChangesAsync();
+            //return await _cartRepository.GetCartItemCount(customerId);
         }
 
         /// <summary>
@@ -98,8 +99,8 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpPut("{customerId}/{bookId}")]
         public Task<int> UpdateCart(Guid customerId, Guid bookId)
         {
-            _cartService.DeleteOneCartItem(customerId, bookId);
-            return _cartService.GetCartItemCount(customerId);
+            _cartRepository.DeleteOneCartItem(customerId, bookId);
+            return _cartRepository.GetCartItemCount(customerId);
         }
 
         /// <summary>
@@ -111,8 +112,8 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpDelete("{customerId}/{bookId}")]
         public Task RemoveItemFromCart(Guid customerId, Guid bookId)
         {
-            _cartService.RemoveCartItem(customerId, bookId);
-            return _cartService.GetCartItemCount(customerId);
+            _cartRepository.RemoveCartItem(customerId, bookId);
+            return _cartRepository.GetCartItemCount(customerId);
         }
 
         /// <summary>
@@ -123,7 +124,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpDelete("{customerId}")]
         public Task ClearCart(Guid customerId)
         {
-            return _cartService.ClearCart(customerId);
+            return _cartRepository.ClearCart(customerId);
         }
     }
 }
