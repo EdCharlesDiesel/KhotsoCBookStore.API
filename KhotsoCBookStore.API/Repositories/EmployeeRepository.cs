@@ -19,54 +19,94 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
+        public async Task<Employee> CreateEmployeeAsync(Employee newEmployee)
+        {
+            try
+            {
+                if (newEmployee != null)
+                {
+                   await _dbContext.AddAsync(newEmployee);
+                }
+    
+                return await _dbContext.Employees.LastOrDefaultAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<Employee>> GetAllEmployeesAync()
         {
-            return await _dbContext.Employees.OrderBy(e=>e.LastName).ToListAsync();
+            try
+            {
+                return await _dbContext.Employees.OrderBy(e=>e.LastName).ToListAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<Employee> GetEmployeeByIdAsync(Guid employeeId)
         {
-            return await _dbContext.Employees.FirstOrDefaultAsync(c => c.EmployeeId == employeeId);
-        }
-
-        public async Task<Employee> CreateEmployeeAsync(EmployeeForCreateDto newEmployee)
-        {
-            if (newEmployee != null)
+           try
+           {
+                return await _dbContext.Employees.FirstOrDefaultAsync(c => c.EmployeeId == employeeId);
+           }
+           catch (System.Exception ex)
             {
-               await _dbContext.AddAsync(newEmployee);
+                throw new AggregateException(ex.Message);
             }
-
-            return await _dbContext.Employees.LastOrDefaultAsync();
         }
 
-        public Task<Employee> UpdateEmployeeAsync(Employee employee)
+        public Task UpdateEmployeeAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public void DeleteEmployee(Employee employeeToDelete)
         {
-            _dbContext.Employees.Remove(employeeToDelete);
+            
+            try
+            {
+                _dbContext.Employees.Remove(employeeToDelete);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() >= 0);
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> EmployeeIfExistsAsync(Guid employeeId)
         {
-            return await _dbContext.Employees.AnyAsync(c => c.EmployeeId == employeeId);
-        }
-
-        Task<IEnumerable<EmployeeDto>> IEmployeeService.GetAllEmployeesAync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Employee> UpdateEmployeeAsync(EmployeeForUpdateDto employeeToUpdate)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.Employees.AnyAsync(c => c.EmployeeId == employeeId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public async Task<string> GetWishListsById(Guid customerId)
         {
-            return await _wishListRepository.GetWishListId(customerId);
+            return await _wishListRepository.GetWishListIdAsync(customerId);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("ToggleWishList/{customerId}/{bookId}")]
         public async Task ToggleWishList(Guid customerId, Guid bookId)
         {
-            await _wishListRepository.ToggleWishListItem(customerId, bookId);
+            await _wishListRepository.AddBookToWishListAsync(customerId, bookId);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace KhotsoCBookStore.API.Controllers
             bool user = await _customerRepository.CustomerIfExistsAsync(customerId);
             if (user)
             {
-                string Wishlistid = await _wishListRepository.GetWishListId(customerId);
+                string Wishlistid = await _wishListRepository.GetWishListIdAsync(customerId);
                 var id = new Guid(Wishlistid);
                 return await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(id);
             }

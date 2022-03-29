@@ -59,7 +59,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public async  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
         {
-            string cartid = await  _cartRepository.GetCartId(customerId);
+            string cartid = await  _cartRepository.GetCartIdAsync(customerId);
             var id = new Guid(cartid);
             return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
         }
@@ -85,7 +85,7 @@ namespace KhotsoCBookStore.API.Controllers
         public  async Task AddItemToCart(Guid customerId, Guid bookId)
         {
             //await _cartRepository.CreateCartAsync(customerId);
-            await _cartRepository.AddBookToCart(customerId, bookId);
+            await _cartRepository.AddBookToCartAsync(customerId, bookId);
             await _cartRepository.SaveChangesAsync();
             //return await _cartRepository.GetCartItemCount(customerId);
         }
@@ -99,8 +99,9 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpPut("{customerId}/{bookId}")]
         public Task<int> UpdateCart(Guid customerId, Guid bookId)
         {
-            _cartRepository.DeleteOneCartItem(customerId, bookId);
-            return _cartRepository.GetCartItemCount(customerId);
+            // _cartRepository.DeleteCartItem(customerId, bookId);
+            // return _cartRepository.GetCartItemCount(customerId);
+            throw new NotImplementedException();
         }
 
         /// <summary>

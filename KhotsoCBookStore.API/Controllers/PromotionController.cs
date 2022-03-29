@@ -48,9 +48,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns>All the items in the Promotion</returns>
         [HttpGet("{customerId}")]
-        public async Task<List<Book>> GetCustomerPromotions(Guid customerId)
+        public  Task<IEnumerable<Promotion>> GetPromotion(Guid customerId)
         {
-            return await GetUserPromotion(customerId);
+            // return await GetUserPromotion(customerId);
+            throw new NotImplementedException();
         }
 
 
@@ -64,10 +65,11 @@ namespace KhotsoCBookStore.API.Controllers
         /// [Authorize]
         [HttpPost]
         [Route("TogglePromotion/{customerId}/{bookId}")]
-        public async Task<IEnumerable<Book>> CreatePromotion(Guid customerId, Guid bookId)
+        public  Task<IEnumerable<Book>> CreatePromotion(Guid customerId, Guid bookId)
         {
-            await _promotionRepository.TogglePromotionItem(customerId, bookId);
-            return await GetUserPromotion(customerId);
+            // await _promotionRepository.CreatePromotionAsync(customerId);
+            // return await GetUserPromotion(customerId);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -79,21 +81,22 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpDelete("{customerId}")]
         public Task Delete(Guid customerId)
         {
-            return _promotionRepository.ClearPromotion(customerId);
+            throw new NotImplementedException();
         }
 
-        private async List<Book> GetUserPromotion(Guid customerId)
+        private  List<Book> GetPromotion__(Guid customerId)
         {
-            var customer = await _customerRepository.CheckIfCustomerExists(customerId);
-            if (customer)
-            {
-                string Promotionid = await _promotionRepository.GetPromotionById(customerId);
-                return _bookService.GetBooksAvailableInPromotion(Promotionid);
-            }
-            else
-            {
-                return new List<Book>();
-            }           
+            // var customer = await _customerRepository.CheckIfCustomerExists(customerId);
+            // if (customer)
+            // {
+            //     string Promotionid = await _promotionRepository.GetPromotionById(customerId);
+            //     return _bookService.GetBooksAvailableInPromotion(Promotionid);
+            // }
+            // else
+            // {
+            //     return new List<Book>();
+            // } 
+            throw new NotImplementedException();          
         }
     }
 }

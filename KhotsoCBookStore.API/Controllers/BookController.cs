@@ -274,7 +274,7 @@ namespace KhotsoCBookStore.API.Controllers
                 }
             }
 
-            await _bookRepository.DeleteBookAsync(bookId);
+             _bookRepository.DeleteBook(bookEntity);
             await _bookRepository.SaveChangesAsync();
 
             var book = _mapper.Map<Book>(bookEntity);

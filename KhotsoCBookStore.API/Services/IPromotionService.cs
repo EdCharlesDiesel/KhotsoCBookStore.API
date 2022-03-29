@@ -7,15 +7,15 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IPromotionService
     {
-        Task<IEnumerable<Promotion>> GetAllPromotionsAync();
-        
-        Task<Promotion> GetPromotionByIdAsync(Guid PromotionId);
-
         Task CreatePromotionAsync(Promotion newPromotion);
 
-        Task<Book> UpdatePromotionAsync(Book promotionToUpdate);
+        Task<IEnumerable<Promotion>> GetAllPromotionsAync();
+        
+        Task<Promotion> GetPromotionByIdAsync(Guid PromotionId);        
 
-        void DeletePromotion(Guid PromotionId); 
+        Task UpdatePromotionAsync(Book oldPromotionToUpdate);
+
+        void DeletePromotion(Promotion promotionToDelete); 
         
         Task<bool> SaveChangesAsync();
 

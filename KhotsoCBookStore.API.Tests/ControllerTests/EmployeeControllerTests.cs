@@ -91,80 +91,80 @@ namespace KhotsoCBookStore.API.Tests.Dtos
 
         }
 
-        [Fact]
-        public async Task GetAllEmployees_ReturnsOneItem_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
-           {
-            new EmployeeDto{
-                EmployeeId = Guid.NewGuid(),
-                FirstName = "Charles",
-                LastName = "Mokhethi",
-                DateOfStartEmployment = DateTime.Now,
-                EmployeeNumber ="EMP-007"
-            }
-              });
+        // [Fact]
+        // public async Task GetAllEmployees_ReturnsOneItem_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
+        //    {
+        //     new EmployeeDto{
+        //         EmployeeId = Guid.NewGuid(),
+        //         FirstName = "Charles",
+        //         LastName = "Mokhethi",
+        //         DateOfStartEmployment = DateTime.Now,
+        //         EmployeeNumber ="EMP-007"
+        //     }
+        //       });
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act            
-            var result = await controller.GetEmployees();
+        //     //Act            
+        //     var result = await controller.GetEmployees();
 
-            //Assert
-            var okResult = result.Result as OkObjectResult;
-            var employees = okResult.Value as List<EmployeeDto>;
-            Assert.Single(employees);
-        }
+        //     //Assert
+        //     var okResult = result.Result as OkObjectResult;
+        //     var employees = okResult.Value as List<EmployeeDto>;
+        //     Assert.Single(employees);
+        // }
 
-        [Fact]
-        public async Task GetAllEmployees_Returns200OK_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
-            {
-                new EmployeeDto{
-                    EmployeeId = Guid.NewGuid(),
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    DateOfStartEmployment = DateTime.Now,
-                    EmployeeNumber ="EMP-007"
-                }});
+        // [Fact]
+        // public async Task GetAllEmployees_Returns200OK_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
+        //     {
+        //         new EmployeeDto{
+        //             EmployeeId = Guid.NewGuid(),
+        //             FirstName = "Charles",
+        //             LastName = "Mokhethi",
+        //             DateOfStartEmployment = DateTime.Now,
+        //             EmployeeNumber ="EMP-007"
+        //         }});
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetEmployees();
+        //     //Act
+        //     var result = await controller.GetEmployees();
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
-        }
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result.Result);
+        // }
 
-        [Fact]
-        public async Task GetAllEmployees_ReturnsCorrectType_WhenDBHasOneResource()
-        {
-            //Arrange
-            mockRepo.Setup(repo =>
-            repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
-            {
-                new EmployeeDto{
-                    EmployeeId = Guid.NewGuid(),
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    DateOfStartEmployment = DateTime.Now,
-                    EmployeeNumber ="EMP-007"
-            }});
+        // [Fact]
+        // public async Task GetAllEmployees_ReturnsCorrectType_WhenDBHasOneResource()
+        // {
+        //     //Arrange
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
+        //     {
+        //         new EmployeeDto{
+        //             EmployeeId = Guid.NewGuid(),
+        //             FirstName = "Charles",
+        //             LastName = "Mokhethi",
+        //             DateOfStartEmployment = DateTime.Now,
+        //             EmployeeNumber ="EMP-007"
+        //     }});
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetEmployees();
+        //     //Act
+        //     var result = await controller.GetEmployees();
 
-            //Assert
-            Assert.IsType<ActionResult<IEnumerable<EmployeeDto>>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<IEnumerable<EmployeeDto>>>(result);
+        // }
 
         [Fact]
         public async Task GetEmployeeByID_Returns404NotFound_WhenNonExistentIDProvided()
@@ -190,57 +190,57 @@ namespace KhotsoCBookStore.API.Tests.Dtos
             Assert.IsType<NotFoundResult>(result.Result);
         }
 
-        [Fact]
-        public async Task GetEmployeeByID_Returns200OK__WhenValidIDProvided()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
-            {
-                new EmployeeDto{
-                    EmployeeId = id,
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    DateOfStartEmployment = DateTime.Now,
-                    EmployeeNumber ="EMP-007",
-                    DateOfEndEmployment = DateTime.Now
-            }});
+        // [Fact]
+        // public async Task GetEmployeeByID_Returns200OK__WhenValidIDProvided()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8226-40A0-95F5-52D55B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
+        //     {
+        //         new EmployeeDto{
+        //             EmployeeId = id,
+        //             FirstName = "Charles",
+        //             LastName = "Mokhethi",
+        //             DateOfStartEmployment = DateTime.Now,
+        //             EmployeeNumber ="EMP-007",
+        //             DateOfEndEmployment = DateTime.Now
+        //     }});
 
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetEmployee(id);
+        //     //Act
+        //     var result = await controller.GetEmployee(id);
 
-            //Assert
-            Assert.IsType<OkObjectResult>(result.Result);
-        }
+        //     //Assert
+        //     Assert.IsType<OkObjectResult>(result.Result);
+        // }
 
-        [Fact]
-        public async Task GetEmployeeByID_Returns200OK__WhenValidIDProvided_()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
-            mockRepo.Setup(repo =>
-            repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
-            {
-                new EmployeeDto{
-                    EmployeeId = id,
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    DateOfStartEmployment = DateTime.Now,
-                    EmployeeNumber ="EMP-007"
-            }});
+        // [Fact]
+        // public async Task GetEmployeeByID_Returns200OK__WhenValidIDProvided_()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52D55B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetAllEmployeesAync()).ReturnsAsync(new List<EmployeeDto>
+        //     {
+        //         new EmployeeDto{
+        //             EmployeeId = id,
+        //             FirstName = "Charles",
+        //             LastName = "Mokhethi",
+        //             DateOfStartEmployment = DateTime.Now,
+        //             EmployeeNumber ="EMP-007"
+        //     }});
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.GetEmployee(id);
+        //     //Act
+        //     var result = await controller.GetEmployee(id);
 
-            //Assert
-            Assert.IsType<ActionResult<EmployeeDto>>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<ActionResult<EmployeeDto>>(result);
+        // }
 
         [Fact]
         public async Task CreateEmployee_ReturnsCorrectResourceType_WhenValidObjectSubmitted()

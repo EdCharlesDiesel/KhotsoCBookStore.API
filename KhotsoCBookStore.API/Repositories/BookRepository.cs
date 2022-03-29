@@ -1,13 +1,11 @@
 ﻿using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
-using KhotsoCBookStore.API.Helpers;
 
 namespace KhotsoCBookStore.API.Repositories
 {
@@ -18,6 +16,21 @@ namespace KhotsoCBookStore.API.Repositories
         public BookRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+        }
+
+        public async Task CreateBookAsync(Book book)
+        {
+            try
+            {
+                if (book != null)
+                {
+                    await _dbContext.AddAsync(book);
+                }    
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAync()
@@ -42,16 +55,25 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 throw new AggregateException(ex.Message);
             }
-        }
+        }       
 
-        public async Task CreateBookAsync(Book book)
+        public  Task UpdateBookAsync(Book oldBookToUpdate)
         {
             try
-            {
-                if (book != null)
-                {
-                    await _dbContext.AddAsync(book);
-                }    
+            {                    
+                // Book oldBookData = GetBookData(book.BookId);
+
+                // if (oldBookData.CoverFileName != null)
+                // {
+                //     if (book.CoverFileName == null)
+                //     {
+                //         book.CoverFileName = oldBookData.CoverFileName;
+                //     }
+                // }
+
+                // _dbContext.Entry(book).State = EntityState.Modified;
+                // _dbContext.SaveChanges();  
+                throw new NotImplementedException();              
             }
             catch (System.Exception ex)
             {
@@ -59,32 +81,12 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public Task<Book> UpdateBookAsync(Book book)
-        {
-            throw new NotImplementedException();
-            // Book oldBookData = GetBookData(book.BookId);
-
-            // if (oldBookData.CoverFileName != null)
-            // {
-            //     if (book.CoverFileName == null)
-            //     {
-            //         book.CoverFileName = oldBookData.CoverFileName;
-            //     }
-            // }
-
-            // _dbContext.Entry(book).State = EntityState.Modified;
-            // _dbContext.SaveChanges();
-
-            // return 1;
-        }
-
-        public async Task DeleteBookAsync(Guid bookId)
+        public void DeleteBook(Book bookToDelete)
         {
             try
             {
-                Book book = _dbContext.Books.Find(bookId);
-                _dbContext.Books.Remove(book);
-                await _dbContext.SaveChangesAsync();
+                _dbContext.Books.Remove(bookToDelete);
+                
             }
              catch (System.Exception ex)
             {
@@ -110,17 +112,16 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         public async Task<bool> SaveChangesAsync()
-        {
-            // try
-            // {
+        {          
+           try
+           {
                 return (await _dbContext.SaveChangesAsync() >= 0);
-            // }
-            // catch (System.Exception ex)
-            // {
-            //     throw new AggregateException(ex.Message);
-            // }
+           }
+           catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }       
         }
-
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
@@ -134,34 +135,34 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-
-        public async Task<IEnumerable<CartItemDto>> GetBooksAvailableInCartAsync(Guid cartId)
+        public  Task<IEnumerable<CartItem>> GetBooksAvailableInCartAsync(Guid cartId)
         {
             try
             {
-                List<CartItemDto> cartItemList = new List<CartItemDto>();
-                foreach (CartItem item in _dbContext.CartItems.Where(x => x.CartId == cartId).ToList())
-                {
-                    Book book = await GetBookByIdAsync(item.ProductId);
-                    CartItemDto objCartItem = new CartItemDto
-                    {
-                        CartItemId = item.CartItemId,
-                        Quantity = item.Quantity,
-                        ProductId = item.ProductId
-                    };
+                // List<CartItemDto> cartItemList = new List<CartItemDto>();
+                // foreach (CartItem item in _dbContext.CartItems.Where(x => x.CartId == cartId).ToList())
+                // {
+                //     Book book = await GetBookByIdAsync(item.ProductId);
+                //     CartItemDto objCartItem = new CartItemDto
+                //     {
+                //         CartItemId = item.CartItemId,
+                //         Quantity = item.Quantity,
+                //         ProductId = item.ProductId
+                //     };
 
-                    cartItemList.Add(objCartItem);
-                }
-                return cartItemList;
+                //     cartItemList.Add(objCartItem);
+                // }
+                // return cartItemList.ToList();
 
                 throw new NotImplementedException();
+                
             }
-          catch (System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }
         }
-
+        
         public async Task<IEnumerable<Book>> GetBooksAvailableInWishlistAsync(Guid wishListId)
         {
             try
@@ -193,7 +194,7 @@ namespace KhotsoCBookStore.API.Repositories
 
                 return bookSubscription;
             }
-         catch (System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }
@@ -215,11 +216,6 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 throw new AggregateException(ex.Message);
             }
-        }
-
-        public Task<IEnumerable<Book>> GetBooksAvailableInBookSubscription(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

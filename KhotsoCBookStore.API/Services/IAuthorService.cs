@@ -7,17 +7,19 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IAuthorService
     {
+        Task CreateAuthorAsync(Author newAuthor);
+
         Task<IEnumerable<Author>> GetAllAuthorsAync();
         
-        Task<Author> GetAuthorByIdAsync(Guid authorId);
+        Task<Author> GetAuthorByIdAsync(Guid authorId);        
 
-        Task CreateAuthorAsync(Author newAuthor);
+        Task UpdateAuthorAsync(Author oldAuthorToUpdate);
+
+        void DeleteAuthor(Author authorToDelete); 
         
-        Task<bool> AuthorIfExistsAsync(Guid authorId);
-
         Task<bool> SaveChangesAsync();
+
+        Task<bool> AuthorIfExistsAsync(Guid authorId);     
         
-        //void DeleteAuthor(Author authorEntity);
-        void DeleteAuthor(Guid authorId);
     }
 }

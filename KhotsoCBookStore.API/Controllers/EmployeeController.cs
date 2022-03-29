@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using KhotsoCBookStore.API.Dtos;
+using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -82,14 +83,13 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto newEmployee)
+        public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto employee)
         {
+            var newEmployee = _mapper.Map<Employee>(employee);
             await _employeeService.CreateEmployeeAsync(newEmployee);
             await _employeeService.SaveChangesAsync();
 
-            var createdEmployeeToReturn =
-                _mapper.Map<EmployeeForCreateDto>(newEmployee);
-
+            var createdEmployeeToReturn = _mapper.Map<EmployeeForCreateDto>(newEmployee);
             return CreatedAtRoute("GetEmployee", createdEmployeeToReturn);
         }
 

@@ -8,30 +8,29 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IBookService
     {
+        Task CreateBookAsync(Book newbook);
+
         Task<IEnumerable<Book>> GetAllBooksAync();
-        
-        Task CreateBookAsync(Book book);
         
         Task<Book> GetBookByIdAsync(Guid bookId);
         
-        Task<Book> UpdateBookAsync(Book book);
+        Task UpdateBookAsync(Book oldBookToUpdate);
         
-        Task DeleteBookAsync(Guid bookId);
-
-        Task<bool> BookIfExistsAsync(Guid booksId);
+        void DeleteBook(Book bookToDelete);
 
         Task<bool> SaveChangesAsync();
+
+        Task<bool> BookIfExistsAsync(Guid booksId);        
         
         Task<IEnumerable<Category>> GetCategories();       
         
-        Task<IEnumerable<CartItemDto>> GetBooksAvailableInCartAsync(Guid cartId);
+        Task<IEnumerable<CartItem>> GetBooksAvailableInCartAsync(Guid cartId);
         
         Task<IEnumerable<Book>> GetBooksAvailableInWishlistAsync(Guid wishlistId);
         
-        Task<IEnumerable<Book>> GetBooksAvailableInBookSubscriptionAsync(Guid bookSubscriptionId);
+        Task<IEnumerable<Book>> GetBooksAvailableInBookSubscriptionAsync(Guid productctSubscriptionId);
         
         Task<IEnumerable<Book>> GetBooksAvailableInPromotionAsync(Guid promotionId);
         
-        Task<IEnumerable<Book>> GetBooksAvailableInBookSubscription(Guid id);
     }
 }

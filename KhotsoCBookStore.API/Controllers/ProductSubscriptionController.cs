@@ -77,7 +77,7 @@ namespace KhotsoCBookStore.API.Controllers
             {
                 string BookSubscriptionId = await _productSubscriptionRepository.GetProductSubscriptionById(customerId);
                 var Id = new Guid(BookSubscriptionId);
-                var bookToReturn =  await _bookRepository.GetBooksAvailableInBookSubscription(Id);
+                var bookToReturn =  await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(Id);
 
                 //return bookToReturn
             }

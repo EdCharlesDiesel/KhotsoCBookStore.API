@@ -19,27 +19,56 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
+        public async Task CreatePublisherAsync(Publisher newPublisher)
+        {
+          try
+          {
+                if (newPublisher != null)
+                {
+                   await _dbContext.AddAsync(newPublisher);
+                }
+          }
+          catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<Publisher>> GetAllPublishersAync()
         {
-            return await _dbContext.Publishers.OrderBy(e=>e.NameAndSurname).ToListAsync();
+            try
+            {
+                return await _dbContext.Publishers.OrderBy(e=>e.NameAndSurname).ToListAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<Publisher> GetPublisherByIdAsync(Guid publisherId)
         {
-            return await _dbContext.Publishers.FirstOrDefaultAsync(c => c.PublisherId == publisherId);
-        }
-
-        public async Task CreatePublisherAsync(Publisher newPublisher)
-        {
-            if (newPublisher != null)
+            try
             {
-               await _dbContext.AddAsync(newPublisher);
+                return await _dbContext.Publishers.FirstOrDefaultAsync(c => c.PublisherId == publisherId);
             }
-        }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }       
 
-        public Task<Publisher> UpdatePublisherAsync(Publisher publisher)
+
+        public Task UpdatePublisherAsync(Book oldPublisherToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public void DeletePublisher(Publisher publisherToDelete)
@@ -54,27 +83,31 @@ namespace KhotsoCBookStore.API.Repositories
                 throw new AggregateException(ex.Message);
             }
         }
-        
+
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() >= 0);
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }        
 
         public async Task<bool> PublisherIfExistsAsync(Guid publisherId)
         {
-            return await _dbContext.Publishers.AnyAsync(c => c.PublisherId == publisherId);
-        }   
-
-        public Task<Publisher> UpdatePublisherAsync(PublisherForUpdateDto publisherToUpdate)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.Publishers.AnyAsync(c => c.PublisherId == publisherId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
-        public void DeletePublisher(object publisherEntity)
-        {
-            throw new NotImplementedException();
-        }  
-
-      
+        
     }
 }

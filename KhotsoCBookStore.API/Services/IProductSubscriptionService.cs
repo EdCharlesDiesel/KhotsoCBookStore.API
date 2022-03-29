@@ -7,16 +7,16 @@ namespace KhotsoCBookStore.API.Services
 {
     public interface IProductSubscriptionService
     {
-        Task<IEnumerable<Book>> GetAllBookSubscriptionsAsync();
-
-        Task<string> GetProductSubscriptionById(Guid customerId);
+        Task CreateProductSubscriptionItemAsync(Guid customerId, Guid productId);
 
         Task CreateProductSubscriptionAsync(Guid customerId);
+
+        Task<IEnumerable<Book>> GetAllBookSubscriptionsAsync();
+
+        Task<string> GetProductSubscriptionById(Guid customerId);       
         
         Task<int> ClearProductSubscriptionAsync(Guid customerId);
 
-        Task<bool> SaveChangesAsync();
-
-        Task CreateProductSubscriptionItemAsync(Guid customerId, Guid bookId);
+        Task<bool> SaveChangesAsync();       
     }
 }

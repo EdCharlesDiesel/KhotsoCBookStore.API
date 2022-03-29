@@ -14,10 +14,12 @@ namespace KhotsoCBookStore.API.Repositories
     public class OrderRepository : IOrderService
     {
         readonly KhotsoCBookStoreDbContext _dbContext;
+        
         public OrderRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
+
         public async Task CreateOrderAsync(Guid customerId, Order orderDetails)
         {
             try
@@ -57,15 +59,49 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
-        public Task GetAllOrdersForCustomer(Guid customerId)
+        public Task AddBookToOrderAsync(Guid customerId, Guid bookId)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
+        public Task<int> ClearOrder(Guid customerId)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }        
+
+        public Task CreateOrderAsync(Guid customerId)
         {
             throw new NotImplementedException();
         }
 
-        public  async Task<Order> GetOrderForUserAsync(Guid customerId)
+        public Task DeleteOrderItem(Guid customerId, Guid bookId)
         {
-            return  await  _dbContext.Orders.FirstOrDefaultAsync(c => c.CustomerId == customerId);
-        }    
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetOrderIdAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetOrderItemsCount(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
 
         public  Task<IEnumerable<Order>> GetOrderListAsync(Guid customerId)
         {
@@ -112,6 +148,16 @@ namespace KhotsoCBookStore.API.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
+        }
+
+        public Task UpdateOrderItems(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Order>> GetOrdersAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

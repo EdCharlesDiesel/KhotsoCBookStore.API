@@ -11,40 +11,11 @@ namespace KhotsoCBookStore.API.Repositories
 {
     public class ProductSubscriptionRepository : IProductSubscriptionService
     {
-        readonly KhotsoCBookStoreDbContext _dbContext;
-
+        private readonly KhotsoCBookStoreDbContext _dbContext;
 
         public ProductSubscriptionRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-        }
-
-        public Task<IEnumerable<Book>> GetAllBookSubscriptionsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<string> GetProductSubscriptionById(Guid customerId)
-        {
-            try
-            {
-                ProductSubscription productSubscription = new ProductSubscription
-                {
-                    ProductSubscriptionId = Guid.NewGuid(),
-                    CustomerId = customerId,
-                    DateOfSubscription = DateTime.Now,
-                    CreatedOn = DateTime.Now.Date
-                };
-
-                 await _dbContext.ProductSubscriptions.AddAsync(productSubscription);
-                 await _dbContext.SaveChangesAsync();
-
-                return productSubscription.ProductSubscriptionId.ToString();
-            }
-            catch (System.Exception ex)
-            {
-                 throw new AggregateException(ex.Message);
-            }
         }
 
         public async Task CreateProductSubscriptionItemAsync(Guid customerId,Guid bookId)
@@ -81,6 +52,41 @@ namespace KhotsoCBookStore.API.Repositories
             }
         }
 
+        public Task<IEnumerable<Book>> GetAllBookSubscriptionsAsync()
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
+        public async Task<string> GetProductSubscriptionById(Guid customerId)
+        {
+            try
+            {
+                ProductSubscription productSubscription = new ProductSubscription
+                {
+                    ProductSubscriptionId = Guid.NewGuid(),
+                    CustomerId = customerId,
+                    DateOfSubscription = DateTime.Now,
+                    CreatedOn = DateTime.Now.Date
+                };
+
+                 await _dbContext.ProductSubscriptions.AddAsync(productSubscription);
+                 await _dbContext.SaveChangesAsync();
+
+                return productSubscription.ProductSubscriptionId.ToString();
+            }
+            catch (System.Exception ex)
+            {
+                 throw new AggregateException(ex.Message);
+            }
+        }
+
          public async Task<int> ClearProductSubscriptionAsync(Guid customerId)
         {
             try
@@ -111,7 +117,7 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 return (await _dbContext.SaveChangesAsync() >= 0);
             }
-           catch (System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }            
@@ -119,7 +125,14 @@ namespace KhotsoCBookStore.API.Repositories
 
         public Task CreateProductSubscriptionAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+           try
+           {
+                throw new NotImplementedException();
+           }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
         }
     }
 }

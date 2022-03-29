@@ -1,6 +1,5 @@
 ﻿using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,37 +18,63 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
+        public async Task CreateAuthorAsync(Author newAuthor)
+        {
+            try
+            {
+                if (newAuthor != null)
+                {
+                    await _dbContext.AddAsync(newAuthor);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<Author>> GetAllAuthorsAync()
         {
-            return await _dbContext.Authors.OrderBy(e=>e.LastName).ToListAsync();
+            try
+            {
+                return await _dbContext.Authors.OrderBy(e => e.LastName).ToListAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<Author> GetAuthorByIdAsync(Guid authorId)
         {
-            return await _dbContext.Authors.FirstOrDefaultAsync(c => c.AuthorId == authorId);
-        }
-
-        public async Task CreateAuthorAsync(Author newAuthor)
-        {
-            if (newAuthor != null)
+            try
             {
-               await _dbContext.AddAsync(newAuthor);
+                return await _dbContext.Authors.FirstOrDefaultAsync(c => c.AuthorId == authorId);
             }
-        }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }        
 
-        public Task<Author> UpdateAuthorAsync(Author author)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAuthor(Guid authorId)
+        public Task UpdateAuthorAsync(Author oldAuthorToUpdate)
         {
             try
             {
-                var author = _dbContext.Authors.Find(authorId);
-                _dbContext.Authors.Remove(author);
+                throw new NotImplementedException();
             }
-             catch (System.Exception ex)
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+        public void DeleteAuthor(Author authorToDelete)
+        {
+            try
+            {                
+                _dbContext.Authors.Remove(authorToDelete);
+            }
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }
@@ -57,18 +82,26 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() >= 0);
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> AuthorIfExistsAsync(Guid authorId)
         {
-            return await _dbContext.Authors.AnyAsync(c => c.AuthorId == authorId);
+            try
+            {
+                return await _dbContext.Authors.AnyAsync(c => c.AuthorId == authorId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
-
-        public Task<Author> UpdateAuthorAsync(AuthorForUpdateDto authorToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
