@@ -46,7 +46,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// Get the list of product subscriptions
         /// </summary>
         /// <returns>List of book subscriptions</returns>
-        [HttpGet("{customerId}")]
+        [HttpGet()]
         public async Task<ActionResult<IEnumerable<Book>>> GetProductSubscriptions(Guid CustomerId)
         {
             var subscriptions = await _productSubscriptionRepository.GetAllBookSubscriptionsAsync(); 

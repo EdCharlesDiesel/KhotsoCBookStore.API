@@ -5,6 +5,7 @@ using AutoMapper;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
 using KhotsoCBookStore.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorRepository;

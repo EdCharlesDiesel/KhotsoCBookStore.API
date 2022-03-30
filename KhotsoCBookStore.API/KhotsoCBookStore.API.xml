@@ -4,6 +4,52 @@
         <name>KhotsoCBookStore.API</name>
     </assembly>
     <members>
+        <member name="F:KhotsoCBookStore.API.Controllers.AuthenticateController._userService">
+            <summary>  
+            Property Declaration  
+            </summary>  
+            <returns></returns>  
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.GetLoginAPIOptions">
+            <summary>
+            Get supported resource actions
+            </summary>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.GenerateJSONWebToken(KhotsoCBookStore.API.Controllers.LoginModel)">
+            <summary>  
+            Generate Json Web Token Method  
+            </summary>  
+            <param name="userInfo"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.AuthenticateUser(KhotsoCBookStore.API.Controllers.LoginModel)">
+            <summary>  
+            Hardcoded the User authentication  
+            </summary>  
+            <param name="login"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.Login(KhotsoCBookStore.API.Controllers.LoginModel)">
+            <summary>  
+            Login Authenticaton using JWT Token Authentication  
+            </summary>  
+            <param name="data"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.Get">
+            <summary>  
+            Authorize the Method  
+            </summary>  
+            <returns></returns>  
+        </member>
+        <member name="T:KhotsoCBookStore.API.Controllers.LoginModel">
+            <summary>  
+            Json Properties  
+            </summary>  
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>
             Get supported resource actions
@@ -206,7 +252,7 @@
             <param name="checkedOutItems"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.GetOrderForCustomer(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.GetOrder(System.Guid)">
             <summary>
             Get a single order for customer
             </summary>
@@ -320,27 +366,6 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.GetLoginAPIOptions">
-            <summary>
-            Get supported resource actions
-            </summary>
-            <returns>API actions allowed</returns>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the list of all requests allowed on this end-point</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Authentication.UserMaster)">
-            <summary>
-            Login.
-            </summary>
-            <param name="userMaster"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Logout">
-            <summary>
-            Logout
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.OrderController.GetOrderAPIOptions">
             <summary>
             Get supported resource actions
@@ -365,7 +390,26 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.ToggleProductSubscription(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetProductSubscriptions(System.Guid)">
+            <summary>
+            Get the list of product subscriptions
+            </summary>
+            <returns>List of book subscriptions</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetProductSubscriptionById(System.Guid)">
+            <summary>
+            Get the single book subscription by Id
+            </summary>
+            <returns>List of book subscriptions</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetUserBookSubscription(System.Guid)">
+            <summary>
+            Get a list of customer book subscriptions
+            </summary>
+            <param name="customerId"></param>
+            <returns>List of book subscription</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.CreateProductSubscriptionAsync(System.Guid,System.Guid)">
             <summary>
             Add a new book subscription
             </summary>
@@ -388,7 +432,7 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetCustomerPromotions(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetPromotion(System.Guid)">
             <summary>
             Get the list of items in the Promotion
             </summary>
@@ -492,11 +536,6 @@
             </summary>
             <param name="customerId"></param>
             <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Repositories.CustomerRepository.RegisterCustomer(KhotsoCBookStore.API.Dtos.CustomerForCreateDto)">
-            <summary>
-            ToDo: Work On Authrntication and Authorization.
-            </summary>
         </member>
     </members>
 </doc>
