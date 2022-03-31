@@ -13,9 +13,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             {
                 
                 UserTypeId = new Guid(),
-                UserTypeName = "Developer",
-                UserId = new Guid(),
-                UserMaster = new UserMaster()
+                UserTypeName = "Developer"              
             };
         }
 
@@ -24,16 +22,16 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
            userType  = null;
         }
 
-        [Fact]
-        public void CanChangeUserMaster()
-        {
-            //Arrange            
-            //Act
-            userType.UserMaster = new UserMaster();
+        // [Fact]
+        // public void CanChangeUserMaster()
+        // {
+        //     //Arrange            
+        //     //Act
+        //     userType.UserMaster = new UserMaster();
 
-            //Assert
-            Assert.IsType<UserMaster>(userType.UserMaster);
-        }
+        //     //Assert
+        //     Assert.IsType<UserMaster>(userType.UserMaster);
+        // }
 
         [Fact]
         public void CanChangeUserTypeName()

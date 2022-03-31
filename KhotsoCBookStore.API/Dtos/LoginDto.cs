@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Dtos
 {
-    public class LoginModel
+    public class LoginDto
     {
         [Required]
-        public string email { get; set; }
+        public string Username { get; set; }
         [Required]
-        public string password { get; set; }
+        public string Password { get; set; }
+       
     }
 }

@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PromotionId { get; set; } = Guid.NewGuid();
+        public Guid PromotionId { get; set; }
         
         [Required]
          [Column(TypeName = "decimal(7,4)")]

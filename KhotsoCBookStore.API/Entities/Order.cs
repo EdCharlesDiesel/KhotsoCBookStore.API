@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid OrderId { get; set; }  = Guid.NewGuid();  
+        public Guid OrderId { get; set; }  
         
 
         [ForeignKey(nameof(Customer))]

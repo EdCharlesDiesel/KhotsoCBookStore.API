@@ -46,8 +46,7 @@ namespace KhotsoCProductSubscriptionStore.API.Tests.ControllerTests
                 {
                     ProductSubscriptionId = Guid.NewGuid(),
                     CustomerId = new Guid(),
-                    DateOfSubscription = DateTime.Now,
-                    ProductSubscriptionItems = new List<ProductSubscriptionItem>()
+                    DateOfSubscription = DateTime.Now                    
                 });
             }
             return  productSubscriptions;

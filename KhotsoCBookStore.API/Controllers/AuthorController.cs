@@ -15,7 +15,7 @@ namespace KhotsoCBookStore.API.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize]
-    public class AuthorController : ControllerBase
+    public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorRepository;
         private readonly IMailService _mailService;

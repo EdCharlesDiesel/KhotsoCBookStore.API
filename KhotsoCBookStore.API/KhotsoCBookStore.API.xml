@@ -4,13 +4,13 @@
         <name>KhotsoCBookStore.API</name>
     </assembly>
     <members>
-        <member name="F:KhotsoCBookStore.API.Controllers.AuthenticateController._userService">
+        <member name="F:KhotsoCBookStore.API.Controllers.AccountController._config">
             <summary>  
             Property Declaration  
             </summary>  
             <returns></returns>  
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.GetLoginAPIOptions">
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.GetLoginAPIOptions">
             <summary>
             Get supported resource actions
             </summary>
@@ -18,37 +18,32 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.GenerateJSONWebToken(KhotsoCBookStore.API.Controllers.LoginModel)">
-            <summary>  
-            Generate Json Web Token Method  
-            </summary>  
-            <param name="userInfo"></param>  
-            <returns></returns>  
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Login(KhotsoCBookStore.API.Dtos.LoginDto)">
+            <summary>
+            Login
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.AuthenticateUser(KhotsoCBookStore.API.Controllers.LoginModel)">
-            <summary>  
-            Hardcoded the User authentication  
-            </summary>  
-            <param name="login"></param>  
-            <returns></returns>  
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.GetUser(System.Guid)">
+            <summary>
+            Get user.
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.Login(KhotsoCBookStore.API.Controllers.LoginModel)">
-            <summary>  
-            Login Authenticaton using JWT Token Authentication  
-            </summary>  
-            <param name="data"></param>  
-            <returns></returns>  
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.ValidateUserName(System.String)">
+            <summary>
+            Check username availability. 
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthenticateController.Get">
-            <summary>  
-            Authorize the Method  
-            </summary>  
-            <returns></returns>  
-        </member>
-        <member name="T:KhotsoCBookStore.API.Controllers.LoginModel">
-            <summary>  
-            Json Properties  
-            </summary>  
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
+            <summary>
+            Register a new user.
+            </summary>
+            <param name="model"></param>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>

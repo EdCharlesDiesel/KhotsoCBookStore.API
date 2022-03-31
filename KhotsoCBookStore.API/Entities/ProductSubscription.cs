@@ -18,7 +18,5 @@ namespace KhotsoCBookStore.API.Entities
         [Required]
         public DateTime DateOfSubscription { get; set; }
 
-        public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
-
     }
 }

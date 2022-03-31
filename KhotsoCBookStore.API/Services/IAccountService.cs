@@ -5,22 +5,24 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Services
 {
-    public interface IUserService
+    public interface IAccountService
     {
         Task<UserMaster> Authenticate(string username, string password);
         
         Task<UserMaster> RegisterUser(UserMaster user, string password);
-        
+
         Task<bool> CheckUserAvailabity(string userName);
 
         Task<bool> CheckIfUserExists(Guid userId);
 
-        Task<IEnumerable<UserMaster>> GetAllUsers();
+        IEnumerable<UserMaster> GetAllUsers();
 
-        Task<UserMaster> GetUserById(Guid userId);
+        UserMaster GetUserById(Guid userId);
 
-        Task UpdateUser(UserMaster userParam, string password = null);
+        Task Update(UserMaster userParam, string password = null);
         
-        Task DeleteUser(Guid userId);
+        void Delete(UserMaster user);
+
+        Task<bool> SaveChangesAsync();
     }
 }

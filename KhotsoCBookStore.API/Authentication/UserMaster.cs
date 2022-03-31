@@ -6,11 +6,25 @@ using System.Collections.Generic;
 
 namespace KhotsoCBookStore.API.Authentication
 {
-    public class UserMaster : Person
+    public class UserMaster 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; } = Guid.NewGuid();
+        public Guid UserId { get; set; }
+
+         [Required]
+        [MaxLength(150)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(150)]
+        public string LastName { get; set; }
+
+        //[Required]
+        public DateTime DateOfBirth { get; set; }
+
+       // [Required]
+        public string EmailAddress { get; set; }
 
         [Required]
         public string Username { get; set; }
@@ -22,6 +36,9 @@ namespace KhotsoCBookStore.API.Authentication
 
         public byte[] PasswordSalt { get; set; }
 
-        public ICollection<UserType> UserTypes { get; set; } = new List<UserType>();
+        [ForeignKey(nameof(UserType))]
+        public Guid UserTypeId { get; set; }
+
+        //public ICollection<UserType> UserTypes { get; set; } = new List<UserType>();
     }
 }

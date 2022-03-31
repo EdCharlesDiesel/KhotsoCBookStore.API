@@ -98,6 +98,7 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IMailService, LocalMailRepository>();
             services.AddTransient<IAuthorService, AuthorRepository>();
             services.AddTransient<IPublisherService, PublisherRepository>();
+            services.AddTransient<IAccountService, AccountRepository>();
             services.AddTransient<IPromotionService, PromotionRepository>();
             
             
