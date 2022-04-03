@@ -17,28 +17,6 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = context ?? throw new NotImplementedException();
         }
 
-        public UserMaster GetUserById(Guid userId)
-        {
-           
-
-            var userDetails =  _dbContext.UserMasters.FirstOrDefault(u=>u.UserId == userId);
-
-            if (userDetails != null)
-            {
-              var  user = new UserMaster
-               {
-                   Username = userDetails.Username,
-                   UserId = userDetails.UserId,
-                   UserTypeId = userDetails.UserTypeId
-               };
-               return user;
-            }
-            else
-            {
-               return userDetails;
-            }
-        }
-
         public async Task<int> RegisterUser(UserMaster userData)
         {
            try
@@ -48,61 +26,98 @@ namespace KhotsoCBookStore.API.Repositories
                _dbContext.SaveChanges();
                return 1;
            }
-           catch
+           catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+        
+        public async Task<UserMaster> GetUserById(Guid userId)
+        {
+           var userDetails = await _dbContext.UserMasters.FindAsync(userId);
+
+           try
            {
-               throw;
+                if (userDetails != null)
+                {
+                  var  user = new UserMaster
+                   {
+                       Username = userDetails.Username,
+                       UserId = userDetails.UserId,
+                       UserTypeId = userDetails.UserTypeId
+                   };
+                   return user;
+                }
+                else
+                {
+                   return userDetails;
+                }
            }
+          catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }     
+
+        public List<UserMaster> GetAllUsers()
+        {
+            return  _dbContext.UserMasters.OrderBy(u=>u.LastName).ToList();
+        }   
+
+        public bool CheckIfUserExists(Guid userId)
+        {
+            try
+            {
+                var user = _dbContext.UserMasters.FirstOrDefault(u=>u.UserId == userId);
+    
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public bool CheckUserAvailabity(string userName)
         {
-            var user =  _dbContext.UserMasters.FirstOrDefault(x => x.Username == userName)?.ToString();
-
-            if (user != null)
+            
+            try
             {
-                return true;
+                var user =  _dbContext.UserMasters.FirstOrDefault(x => x.Username == userName)?.ToString();
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                return false;
-            }
-        }
-
-        public bool isUserExists(Guid userId)
-        {
-            string user = _dbContext.UserMasters.FirstOrDefault(x => x.UserId == userId)?.ToString();
-
-            if (user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+                throw new AggregateException(ex.Message);
             }
         }
 
         public async Task<UserMaster> Authenticate(string username, string password)
         {
-             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                return null;
+        //    try
+        //    {
+        //        _dbContext.UserMasters.FirstOrDefault.
+        //    }
+        //    catch (System.Exception ex)
+        //     {
+        //         throw new AggregateException(ex.Message);
+        //     }
 
-            var user = _dbContext.UserMasters.FirstOrDefault(x => x.Username == username);
-
-            // check if username exists
-            if (user == null)
-                return null;
-
-            // check if password is correct
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
-
-            // authentication successful
-            return user;
-        }
-        public IEnumerable<UserMaster> GetAllUsers()
-        {
-            return  _dbContext.UserMasters.ToList();
+        throw new NotImplementedException();
         }
 
         public async Task<UserMaster> GetUserId(Guid userId)
@@ -131,7 +146,7 @@ namespace KhotsoCBookStore.API.Repositories
             return user;
         }
 
-        public void Update(UserMaster userParam, string password = null)
+        public void UpdateUser(UserMaster userParam, string password = null)
         {
             var user = _dbContext.UserMasters.Find(userParam.UserId);
 
@@ -183,7 +198,6 @@ namespace KhotsoCBookStore.API.Repositories
         }
 
         // private helper methods
-
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
@@ -214,7 +228,6 @@ namespace KhotsoCBookStore.API.Repositories
 
             return true;
         } 
-
         public async Task<bool> SaveChangesAsync()
         {
             try
@@ -226,23 +239,15 @@ namespace KhotsoCBookStore.API.Repositories
                 throw new AggregateException(ex.Message);
             }
         }        
-        Task<bool> IAccountService.CheckUserAvailabity(string userName)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<bool> CheckIfUserExists(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-        Task IAccountService.Update(UserMaster userParam, string password)
-        {
-            throw new NotImplementedException();
-        }
         public void Delete(UserMaster user)
         {
             throw new NotImplementedException();
         }
-        
+
+        bool IAccountService.CheckUserAvailabity(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

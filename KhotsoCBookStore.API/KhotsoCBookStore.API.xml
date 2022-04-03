@@ -18,6 +18,12 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
+            <summary>
+            Register a new user.
+            </summary>
+            <param name="model"></param>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Login(KhotsoCBookStore.API.Dtos.LoginDto)">
             <summary>
             Login
@@ -39,11 +45,19 @@
             <param name="userName"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.UpdateUser(System.Guid,KhotsoCBookStore.API.Dtos.RegisterDto)">
             <summary>
-            Register a new user.
+            Update user resource by userId.
             </summary>
-            <param name="model"></param>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns no content.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.DeleteUser(System.Guid)">
+            <summary>
+            Delete a single user resource by userId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>

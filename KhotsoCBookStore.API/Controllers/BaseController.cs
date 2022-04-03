@@ -8,8 +8,9 @@ namespace KhotsoCBookStore.API.Controllers
     [Produces("application/json")]  
     [Route("api/[controller]")]  
     [ApiController]  
-    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication
-    .JwtBearer.JwtBearerDefaults.AuthenticationScheme)]  
+    // [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication
+    // .JwtBearer.JwtBearerDefaults.AuthenticationScheme)]  
+    [Authorize]
     public class BaseController : ControllerBase  
     {  
         

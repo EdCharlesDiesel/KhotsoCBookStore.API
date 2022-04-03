@@ -36,19 +36,12 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// Get the shopping cart for user.
-        /// </summary>
-        /// <param name="oldUserId"></param>
-        /// <param name="newUserId"></param>
-        /// <returns>The count of items in shopping cart</returns>
-        // [Authorize]
-        [HttpGet]
-        [Route("SetShoppingCart/{oldUserId}/{newUserId}")]
-        public Task<int> GetShoppingCartForCustomer(Guid oldUserId, Guid newUserId)
+        [HttpPost()]
+        [Route("AddToCart/{customerId}/{bookId}")]
+        public  async Task AddItemToCart(Guid customerId, Guid bookId)
         {
-            _cartRepository.MergeCart(oldUserId, newUserId);
-            return _cartRepository.GetCartItemCount(newUserId);
+            await _cartRepository.AddBookToCartAsync(customerId, bookId);
+            await _cartRepository.SaveChangesAsync();
         }
 
         /// <summary>
@@ -63,6 +56,21 @@ namespace KhotsoCBookStore.API.Controllers
             var id = new Guid(cartid);
             return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
         }
+
+        /// <summary>
+        /// Get the shopping cart for user.
+        /// </summary>
+        /// <param name="oldUserId"></param>
+        /// <param name="newUserId"></param>
+        /// <returns>The count of items in shopping cart</returns>
+        // [Authorize]
+        [HttpGet]
+        [Route("SetShoppingCart/{oldUserId}/{newUserId}")]
+        public Task<int> GetShoppingCartForCustomer(Guid oldUserId, Guid newUserId)
+        {
+            _cartRepository.MergeCart(oldUserId, newUserId);
+            return _cartRepository.GetCartItemCount(newUserId);
+        }        
 
         /// <summary>
         /// Add a single item into the shopping cart. If the item already exists, 
@@ -80,15 +88,7 @@ namespace KhotsoCBookStore.API.Controllers
         //     return await _cartRepository.GetCartItemCount(customerId);
         // }
 
-        [HttpPost]
-        [Route("AddToCart/{customerId}/{bookId}")]
-        public  async Task AddItemToCart(Guid customerId, Guid bookId)
-        {
-            //await _cartRepository.CreateCartAsync(customerId);
-            await _cartRepository.AddBookToCartAsync(customerId, bookId);
-            await _cartRepository.SaveChangesAsync();
-            //return await _cartRepository.GetCartItemCount(customerId);
-        }
+        
 
         /// <summary>
         /// Update item in shopping cart

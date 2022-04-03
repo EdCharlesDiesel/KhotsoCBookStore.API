@@ -11,15 +11,15 @@ namespace KhotsoCBookStore.API.Services
         
         Task<UserMaster> RegisterUser(UserMaster user, string password);
 
-        Task<bool> CheckUserAvailabity(string userName);
+        Task<UserMaster> GetUserById(Guid userId);
 
-        Task<bool> CheckIfUserExists(Guid userId);
+        bool CheckUserAvailabity(string userName);
 
-        IEnumerable<UserMaster> GetAllUsers();
+        bool CheckIfUserExists(Guid userId);
 
-        UserMaster GetUserById(Guid userId);
+        List<UserMaster> GetAllUsers();        
 
-        Task Update(UserMaster userParam, string password = null);
+        void UpdateUser(UserMaster userParam, string password = null);
         
         void Delete(UserMaster user);
 

@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Tests.ControllerTests
 {
-    public class ShoppingCartControllerTests : IDisposable
+    public class CartControllerTests : IDisposable
     {
         Mock<ICartService> mockRepo;
         Mock<IMailService> mockMail;
         CartMappingProfile realProfile;
         MapperConfiguration configuration;
         IMapper mapper;
-        public ShoppingCartControllerTests()
+        public CartControllerTests()
         {
             mockRepo = new Mock<ICartService>();
             mockMail = new Mock<IMailService>();
@@ -52,6 +52,53 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             }
             return  Carts;
         }
+
+        // [Fact]
+        // public async Task AddItemToCart_CreatesCorrectResourceType_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+        //     var customerId = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+        //     var bookId = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+
+        //     mockRepo.Setup(repo =>
+        //     repo.AddBookToCartAsync(customerId,bookId)).ReturnsAsync<Cart>(new Cart
+        //     {
+        //         CartId = id,
+        //         CartTotal = 23.25M,
+        //         CustomerId = new Guid("300F030A-8566-40A0-95F5-52888B4242D6"),
+        //     });
+
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
+
+        //     //Act
+        //     var result = await controller.CreateCart(new CartForCreateDto { });
+
+        //     //Assert
+        //     //Assert.IsType<ActionResult<CartDto>>(result);
+        //     Assert.IsType<OkObjectResult>(result);
+        // }
+
+        // [Fact]
+        // public async Task CreateCart_Returns201Created_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
+        //     {
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi"
+        //     });
+
+        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
+
+        //     //Act
+        //     var result = await controller.CreateCart(new CartForCreateDto { });
+
+        //     //Assert
+        //     Assert.IsType<CreatedAtRouteResult>(result);
+        // }
 
         // [Fact]
         // public async Task GetCartItems_Returns200OK_WhenDBIsEmpty()
@@ -180,49 +227,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         //     Assert.IsType<ActionResult<CartDto>>(result);
         // }
 
-        // [Fact]
-        // public async Task CreateCart_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-        //     mockRepo.Setup(repo =>
-        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
-        //     {
-        //         CartId = id,
-        //         FirstName = "Charles",
-        //         LastName = "Mokhrthi"
-        //     });
-
-        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
-
-        //     //Act
-        //     var result = await controller.CreateCart(new CartForCreateDto { });
-
-        //     //Assert
-        //     //Assert.IsType<ActionResult<CartDto>>(result);
-        //     Assert.IsType<CreatedAtRouteResult>(result);
-        // }
-
-        // [Fact]
-        // public async Task CreateCart_Returns201Created_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
-        //     mockRepo.Setup(repo =>
-        //     repo.GetCartByIdAsync(id)).ReturnsAsync(new Cart
-        //     {
-        //         FirstName = "Charles",
-        //         LastName = "Mokhrthi"
-        //     });
-
-        //     var controller = new CartController(mockRepo.Object, mapper, mockMail.Object);
-
-        //     //Act
-        //     var result = await controller.CreateCart(new CartForCreateDto { });
-
-        //     //Assert
-        //     Assert.IsType<CreatedAtRouteResult>(result);
-        // }
+        
 
         // [Fact]
         // public async Task DeleteCart_Returns204NoContent_WhenValidResourceIDSubmitted()

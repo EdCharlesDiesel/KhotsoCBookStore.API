@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 using KhotsoCBookStore.API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,10 +14,11 @@ using AutoMapper;
 using KhotsoCBookStore.API.Helpers;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KhotsoCBookStore.API.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController :Controller
     {
 
         #region Property  
@@ -26,11 +26,12 @@ namespace KhotsoCBookStore.API.Controllers
         /// Property Declaration  
         /// </summary>  
         /// <returns></returns>  
-        readonly IConfiguration _config;
-        private IAccountService _userService;
+        private readonly IConfiguration _config;
+        private readonly IAccountService _userRepository;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
-        readonly ICartService _cartService;
+        private readonly ICartService _cartRepository;
+        private readonly IMailService _mailRepository;
         #endregion
 
         #region Contructor Injector 
@@ -38,13 +39,15 @@ namespace KhotsoCBookStore.API.Controllers
                                       IAccountService userService,
                                       ICartService cartService,
                                       IMapper mapper,
+                                      IMailService mailService,
                                       IOptions<AppSettings> appSettings)
         {
             _config = config ?? throw new ArgumentNullException(nameof(_config));
-            _userService = userService ?? throw new ArgumentNullException(nameof(_userService));;
+            _userRepository = userService ?? throw new ArgumentNullException(nameof(_userRepository));;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));;
+            _mailRepository = mailService ?? throw new ArgumentNullException(nameof(_mailRepository));
             _appSettings = appSettings.Value;
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));;
+            _cartRepository = cartService ?? throw new ArgumentNullException(nameof(_cartRepository));;
         }
         #endregion 
 
@@ -54,7 +57,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>API actions allowed</returns>
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the list of all requests allowed on this end-point</response>
-        [HttpOptions]
+        [HttpOptions()]
         public IActionResult GetLoginAPIOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE");
@@ -62,11 +65,38 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
+        /// Register a new user.
+        /// </summary>
+        /// <param name="model"></param>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult> Register([FromBody]UserMaster model)
+        {
+           // var user = _mapper.Map<UserMaster>(model);
+            try
+            {
+                // create user
+                await _userRepository.RegisterUser(model, model.Password);
+                await _userRepository.SaveChangesAsync();
+
+                 return CreatedAtRoute("GetUser",
+                new { username = model.Username },
+                model);
+                //return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Login
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost()]        
+        [HttpPost("login")]        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,7 +104,7 @@ namespace KhotsoCBookStore.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login([FromBody] LoginDto model)
         {
-            var user = await _userService.Authenticate(model.Username, model.Password);
+            var user = await _userRepository.Authenticate(model.Username, model.Password);
             if (user == null)
             {
             return BadRequest(new { message = "Username or password is incorrect" });
@@ -93,10 +123,10 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpGet(Name ="GetUser")]
+        [HttpGet("{userId}",Name ="GetUser")]
         public ActionResult GetUser(Guid userId)
         {
-            return Ok( _userService.GetUserById(userId));
+            return Ok( _userRepository.GetUserById(userId));
         }
 
         /// <summary>
@@ -106,36 +136,72 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns></returns>
         [HttpGet()]
         [Route("validateUserName/{userName}")]
-        public async Task<bool> ValidateUserName(string userName)
+        public ActionResult<bool> ValidateUserName(string userName)
         {
-            return await _userService.CheckUserAvailabity(userName);
+            return _userRepository.CheckUserAvailabity(userName);
         }
 
         /// <summary>
-        /// Register a new user.
+        /// Update user resource by userId.
         /// </summary>
-        /// <param name="model"></param>
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody]UserMaster model)
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns no content.</response>
+        [HttpPut("{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public async Task<ActionResult> UpdateUser(Guid userId, RegisterDto userToUpdate)
         {
-           // var user = _mapper.Map<UserMaster>(model);
-            try
-            {
-                // create user
-                await _userService.RegisterUser(model, model.Password);
-                await _userService.SaveChangesAsync();
+            // if ( _userRepository.GetUserById(userId))
+            // {
+            //     return NotFound();
+            // }
 
-                 return CreatedAtRoute("GetUser",
-                new { username = model.Username },
-                model);
-                //return Ok();
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
-            }
+            // var userEntity =  await _userRepository.GetUserByIdAsync(userId);
+            // if (userEntity == null)
+            // {
+            //     return NotFound();
+            // }
+
+            // _mapper.Map(userToUpdate, userEntity);
+
+            // await _userRepository.SaveChangesAsync();
+
+            return  NoContent();
+        }  
+
+        /// <summary>
+        /// Delete a single user resource by userId.
+        /// </summary>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the requested employes.</response>
+        [HttpDelete("{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> DeleteUser(Guid userId)
+        {
+            // if (!await _userRepository.GetUserById(userId))
+            // {
+            //     return NotFound();
+            // }
+
+            // var userEntity = await  _userRepository.GetUserByIdAsync(userId);
+
+            // if (userEntity == null)
+            // {
+            //     return NotFound();
+            // }
+
+            // _userRepository.DeleteUser(userEntity);
+            // await _userRepository.SaveChangesAsync();
+
+            //  _mailService.Send(
+            //      "User deleted.",
+            //   $"User named {userEntity.FirstName} with id {userEntity.UserId} was deleted.");
+
+            return NoContent();
         }
 
         private string GenerateJSONWebToken(UserMaster userInfo)
