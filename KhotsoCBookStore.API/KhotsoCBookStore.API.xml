@@ -475,40 +475,51 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.CreatePublisher(KhotsoCBookStore.API.Dtos.PublisherForCreateDto)">
+            <summary>
+            Create a publisher resource.
+            </summary>
+            <returns>Publisher resource created</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="201">Returns the created publisher.</response>        
+            <response code="400">Returns an error if the publisher is in the wrong format.</response>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.GetPublishers">
             <summary>
-            Get all publishers resources.
+            Get all publisher resources.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested publishers.</response>
+            <returns>Returns publisher</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.GetPublisher(System.Guid)">
             <summary>
             Get a single publisher resource by publisherId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.CreatePublisher(KhotsoCBookStore.API.Dtos.PublisherForCreateDto)">
-            <summary>
-            Create publisher resource by publisherId.
-            </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <returns>A single publisher</returns>
+            <response code="200">Returns requested publisher resource by id.</response>
+            <response code="404">Returns error if the requested publisher resource is not found.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.UpdatePublisher(System.Guid,KhotsoCBookStore.API.Dtos.PublisherForUpdateDto)">
             <summary>
-            Update publisher resource by publisherId.
+            Update a publisher resource by publisherId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <returns>Updated publisher resource</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.PartiallyUpdatePublisher(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.PublisherForUpdateDto})">
             <summary>
-            Partial update publisher resource by publisherId.
+            Partially update publisher resource by publisherId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
+            <returns>No content if publisher resource was updated successfully</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.DeletePublisher(System.Guid)">
             <summary>

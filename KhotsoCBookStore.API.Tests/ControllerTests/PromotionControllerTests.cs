@@ -54,26 +54,26 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             return  promotions;
         }
 
-        // [Fact]
-        // public async Task GetAllPromotions_Returns200OK_WhenDBIsEmpty()
-        // {
-        //     //Arrange
+        [Fact]
+        public async Task GetAllPromotions_Returns200OK_WhenDBIsEmpty()
+        {
+            //Arrange
 
-        //     mockPromoRepo.Setup(repo =>
-        //     repo.GetAllPromotionsAync()).ReturnsAsync(() => null);
+            mockPromoRepo.Setup(repo =>
+            repo.GetAllPromotionsAync()).ReturnsAsync(() => null);
 
-        //     var controller = new PromotionController(mockPromoRepo.Object,
-        //                                              mockBookRepo.Object,
-        //                                              mockMail.Object,
-        //                                              mapper);
+            var controller = new PromotionController(mockPromoRepo.Object,
+                                                     mockBookRepo.Object,
+                                                     mockMail.Object,
+                                                     mapper);
 
-        //     //Act
-        //     var result = await controller.GetPromotions();
+            //Act
+            var result = await controller.GetPromotions();
 
-        //     //Assert
-        //     Assert.IsType<NotFoundResult>(result.Result);
+            //Assert
+            Assert.IsType<OkObjectResult>(result.Result);
           
-        // }
+        }
 
         [Fact]
         public async Task  GetAllPromotions_ReturnsOneItem_WhenDBHasOneResource()
@@ -81,7 +81,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockPromoRepo.Setup(repo =>
             repo.GetAllPromotionsAync()).ReturnsAsync(GetPromotionsTest(1));
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -101,7 +101,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockPromoRepo.Setup(repo =>
             repo.GetAllPromotionsAync()).ReturnsAsync(GetPromotionsTest(1));
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -119,7 +119,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockPromoRepo.Setup(repo =>
             repo.GetAllPromotionsAync()).ReturnsAsync(GetPromotionsTest(1));
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -142,7 +142,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -165,7 +165,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -188,7 +188,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -212,7 +212,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
               
             });
 
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -236,7 +236,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -248,35 +248,32 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<CreatedAtRouteResult>(result);
         }
 
-        // [Fact]
-        // public async Task UpdatePromotion_Returns204NoContent_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-        //     mockPromoRepo.Setup(repo =>
-        //     repo.PromotionIfExistsAsync(id)).ReturnsAsync(true);
+        [Fact]
+        public async Task UpdatePromotion_Returns204NoContent_WhenValidObjectSubmitted()
+        {
+            //Arrange
+            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
+            mockPromoRepo.Setup(repo =>
+            repo.PromotionIfExistsAsync(id)).ReturnsAsync(true);
 
-        //     mockPromoRepo.Setup(repo =>
-        //     repo.GetPromotionByIdAsync(id)).ReturnsAsync(new Promotion
-        //     {
-        //         PromotionId= id,
+            mockPromoRepo.Setup(repo =>
+            repo.GetPromotionByIdAsync(id)).ReturnsAsync(new Promotion
+            {
+                PromotionId= id,
               
-        //     });
+            });
 
-        //         var controller = new PromotionController(
-        //    mockPromoRepo.Object,
-        //     mockMail.Object ,
-        //     mockConfig.Object,
-        //     mockWeHost.Object,
-        //                mapper
-        //     );
+            var controller = new PromotionController(mockPromoRepo.Object,
+                                                     mockBookRepo.Object,
+                                                     mockMail.Object,
+                                                     mapper);
 
-        //     //Act
-        //     var result = await controller.UpdatePromotion(id, new PromotionForUpdateDto { });
+            //Act
+            var result = await controller.UpdatePromotion(id, new PromotionForUpdateDto { });
 
-        //     //Assert
-        //     Assert.IsType<NoContentResult>(result);
-        // }
+            //Assert
+            Assert.IsType<NoContentResult>(result);
+        }
 
         [Fact]
         public async Task UpdatePromotion_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
@@ -285,7 +282,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
             mockPromoRepo.Setup(repo =>
             repo.GetPromotionByIdAsync(id)).ReturnsAsync(() => null);
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -305,7 +302,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
             mockPromoRepo.Setup(repo =>
             repo.GetPromotionByIdAsync(id)).ReturnsAsync(() => null);
-                var controller = new PromotionController(mockPromoRepo.Object,
+            var controller = new PromotionController(mockPromoRepo.Object,
                                                      mockBookRepo.Object,
                                                      mockMail.Object,
                                                      mapper);
@@ -319,32 +316,32 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<NotFoundResult>(result);
         }
 
-        // [Fact]
-        // public async Task DeletePromotion_Returns204NoContent_WhenValidResourceIDSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
-        //     mockPromoRepo.Setup(repo =>
-        //     repo.PromotionIfExistsAsync(id)).ReturnsAsync(true);
+        [Fact]
+        public async Task DeletePromotion_Returns204NoContent_WhenValidResourceIDSubmitted()
+        {
+            //Arrange
+            var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
+            mockPromoRepo.Setup(repo =>
+            repo.PromotionIfExistsAsync(id)).ReturnsAsync(true);
 
-        //     mockPromoRepo.Setup(repo =>
-        //     repo.GetPromotionByIdAsync(id)).ReturnsAsync(new Promotion
-        //     {
-        //         PromotionId= id,
+            mockPromoRepo.Setup(repo =>
+            repo.GetPromotionByIdAsync(id)).ReturnsAsync(new Promotion
+            {
+                PromotionId= id,
                
-        //     });            
+            });            
                 
-        //         var controller = new PromotionController(mockPromoRepo.Object,
-        //                                              mockBookRepo.Object,
-        //                                              mockMail.Object,
-        //                                              mapper);
+            var controller = new PromotionController(mockPromoRepo.Object,
+                                                     mockBookRepo.Object,
+                                                     mockMail.Object,
+                                                     mapper);
             
-        //     //Act
-        //     var result = await controller.DeletePromotion(id);
+            //Act
+            var result = await controller.DeletePromotion(id);
             
-        //     //Assert
-        //     Assert.IsType<NoContentResult>(result);
-        // }
+            //Assert
+            Assert.IsType<NoContentResult>(result);
+        }
 
         [Fact]
         public async Task DeletePromotion_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()

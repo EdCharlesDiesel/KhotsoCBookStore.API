@@ -1,6 +1,5 @@
 using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -106,8 +105,6 @@ namespace KhotsoCBookStore.API.Repositories
             {
                 throw new AggregateException(ex.Message);
             }
-        }
-
-        
+        }        
     }
 }

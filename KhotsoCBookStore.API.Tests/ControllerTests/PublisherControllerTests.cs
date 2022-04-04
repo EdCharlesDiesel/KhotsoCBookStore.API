@@ -45,7 +45,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             {
                 authors.Add(new Publisher
                 {
-                    PublisherId = Guid.NewGuid(),
+                   PublisherId = Guid.NewGuid(),
                    EmailAddress = "Mokhethi@gmail.com",
                    NameAndSurname="Mokhethi",
                    PhoneNumber=01452
@@ -54,23 +54,23 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             return  authors;
         }
 
-        // [Fact]
-        // public async Task GetPublisherItems_Returns200OK_WhenDBIsEmpty()
-        // {
-        //     //Arrange
-        //     mockRepo.Setup(repo =>
-        //     repo.GetAllPublishersAync()).Returns(() => null);
+        [Fact]
+        public async Task GetPublisherItems_Returns200OK_WhenDBIsEmpty()
+        {
+            //Arrange
+            mockRepo.Setup(repo =>
+            repo.GetAllPublishersAync()).Returns(() => null);
 
 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
 
-        //     //Act
-        //     var result = await controller.GetPublishers();
+            //Act
+            var result = await controller.GetPublishers();
 
-        //     //Assert
-        //     Assert.IsType<OkObjectResult>(result.Result);
+            //Assert
+            Assert.IsType<OkObjectResult>(result.Result);
 
-        // }
+        }
 
         [Fact]
         public async Task  GetAllPublishers_ReturnsOneItem_WhenDBHasOneResource()
@@ -128,30 +128,29 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<ActionResult<IEnumerable<PublisherDto>>>(result);
         }
 
-        // [Fact]
-        // public async Task GetPublisherByID_Returns404NotFound_WhenNonExistentIDProvided()
-        // {
-        //     //Arrange
-        //     var id = new Guid("00000000-0000-0000-0000-000000000000");
-        //     mockRepo.Setup(repo =>
-        //    repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
-        //     {
-        //         new Publisher{
+        [Fact]
+        public async Task GetPublisherByID_Returns404NotFound_WhenNonExistentIDProvided()
+        {
+            //Arrange
+            var id = new Guid("00000000-0000-0000-0000-000000000000");
+            mockRepo.Setup(repo =>
+           repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
+            {
+                new Publisher{
+                NameAndSurname = "Dude",
+                EmailAddress="Mokhethi@hotmia.com",
+                PhoneNumber = 0214,
+                PublisherId = Guid.NewGuid()
+            }});
 
-        //         Name = "Dude",
-        //         EmailAddress="Mokhethi@hotmia.com",
-        //         PhoneNumber = 0214,
-        //         PublisherId = Guid.NewGuid()
-        //     }});
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            //Act
+            var result = await controller.GetPublisher(id);
 
-        //     //Act
-        //     var result = await controller.GetPublisher(id);
-
-        //     //Assert
-        //     Assert.IsType<NotFoundResult>(result.Result);
-        // }
+            //Assert
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
 
         [Fact]
         public async Task GetPublisherByID_Returns200OK__WhenValidIDProvided()
@@ -203,84 +202,84 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<ActionResult<PublisherDto>>(result);
         }
 
-        // [Fact]
-        // public async Task CreatePublisher_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
-        //     mockRepo.Setup(repo =>
-        //     repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
-        //     {
-        //         new Publisher{
+        [Fact]
+        public async Task CreatePublisher_ReturnsCorrectResourceType_WhenValidObjectSubmitted()
+        {
+            //Arrange
+            var id = new Guid("300F030A-8566-40A0-95F5-52888B4242D6");
+            mockRepo.Setup(repo =>
+            repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
+            {
+                new Publisher{
 
-        //         Name = "Dude",
-        //         EmailAddress="Mokhethi@hotmia.com",
-        //         PhoneNumber = 0214,
-        //         PublisherId = Guid.NewGuid()
-        //     }});
+                NameAndSurname = "Dude",
+                EmailAddress="Mokhethi@hotmia.com",
+                PhoneNumber = 0214,
+                PublisherId = Guid.NewGuid()
+            }});
 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
 
-        //     //Act
-        //     var result = await controller.CreatePublisher(new PublisherForCreateDto { });
+            //Act
+            var result = await controller.CreatePublisher(new PublisherForCreateDto { });
 
-        //     //Assert
-        //     //Assert.IsType<ActionResult<PublisherDto>>(result);
-        //     Assert.IsType<CreatedAtRouteResult>(result);
-        // }
+            //Assert
+            //Assert.IsType<ActionResult<PublisherDto>>(result);
+            Assert.IsType<CreatedAtRouteResult>(result);
+        }
 
-        // [Fact]
-        // public async Task CreatePublisher_Returns201Created_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
-        //     mockRepo.Setup(repo =>
-        //    repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
-        //     {
-        //         new Publisher{
+        [Fact]
+        public async Task CreatePublisher_Returns201Created_WhenValidObjectSubmitted()
+        {
+            //Arrange
+            var id = new Guid("300F030A-8566-0025-95F5-52888B4242D6");
+            mockRepo.Setup(repo =>
+           repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
+            {
+                new Publisher{
 
-        //         Name = "Dude",
-        //         EmailAddress="Mokhethi@hotmia.com",
-        //         PhoneNumber = 0214,
-        //         PublisherId = Guid.NewGuid()
-        //     }});
+                NameAndSurname = "Dude",
+                EmailAddress="Mokhethi@hotmia.com",
+                PhoneNumber = 0214,
+                PublisherId = Guid.NewGuid()
+            }});
 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
 
-        //     //Act
-        //     var result = await controller.CreatePublisher(new PublisherForCreateDto { });
+            //Act
+            var result = await controller.CreatePublisher(new PublisherForCreateDto { });
 
-        //     //Assert
-        //     Assert.IsType<CreatedAtRouteResult>(result);
-        // }
+            //Assert
+            Assert.IsType<CreatedAtRouteResult>(result);
+        }
 
-        // [Fact]
-        // public async Task UpdatePublisher_Returns204NoContent_WhenValidObjectSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-        //     mockRepo.Setup(repo =>
-        //     repo.PublisherIfExistsAsync(id)).ReturnsAsync(true);
+        [Fact]
+        public async Task UpdatePublisher_Returns204NoContent_WhenValidObjectSubmitted()
+        {
+            //Arrange
+            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
+            mockRepo.Setup(repo =>
+            repo.PublisherIfExistsAsync(id)).ReturnsAsync(true);
 
-        //     mockRepo.Setup(repo =>
-        //    repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
-        //     {
-        //         new Publisher{
+            mockRepo.Setup(repo =>
+           repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
+            {
+                new Publisher{
 
-        //         Name = "Dude",
-        //         EmailAddress="Mokhethi@hotmia.com",
-        //         PhoneNumber = 0214,
-        //         PublisherId = Guid.NewGuid()
-        //     }});
+                NameAndSurname = "Dude",
+                EmailAddress="Mokhethi@hotmia.com",
+                PhoneNumber = 0214,
+                PublisherId = Guid.NewGuid()
+            }});
 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
 
-        //     //Act
-        //     var result = await controller.UpdatePublisher(id, new PublisherForUpdateDto { });
+            //Act
+            var result = await controller.UpdatePublisher(id, new PublisherForUpdateDto { });
 
-        //     //Assert
-        //     Assert.IsType<NoContentResult>(result);
-        // }
+            //Assert
+            Assert.IsType<NoContentResult>(result);
+        }
 
         [Fact]
         public async Task UpdatePublisher_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
@@ -325,35 +324,33 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<NotFoundResult>(result);
         }
 
-        // [Fact]
-        // public async Task DeletePublisher_Returns204NoContent_WhenValidResourceIDSubmitted()
-        // {
-        //     //Arrange
-        //     var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
-        //     mockRepo.Setup(repo =>
-        //     repo.PublisherIfExistsAsync(id)).ReturnsAsync(true);
+        [Fact]
+        public async Task DeletePublisher_Returns204NoContent_WhenValidResourceIDSubmitted()
+        {
+            //Arrange
+            var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
+            mockRepo.Setup(repo =>
+            repo.PublisherIfExistsAsync(id)).ReturnsAsync(true);
 
-        //     mockRepo.Setup(repo =>
-        //     repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
-        //     {
-        //         new Publisher{
+            mockRepo.Setup(repo =>
+            repo.GetAllPublishersAync()).ReturnsAsync( new List< Publisher>
+            {
+                new Publisher{
 
-        //         Name = "Dude",
-        //         EmailAddress="Mokhethi@hotmia.com",
-        //         PhoneNumber = 0214,
-        //         PublisherId = Guid.NewGuid()
-        //     }});
-
-            
+                NameAndSurname = "Dude",
+                EmailAddress="Mokhethi@hotmia.com",
+                PhoneNumber = 0214,
+                PublisherId = Guid.NewGuid()
+            }});            
                 
-        //     var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
+            var controller = new PublisherController(mockRepo.Object, mapper, mockMail.Object);
             
-        //     //Act
-        //     var result = await controller.DeletePublisher(id);
+            //Act
+            var result = await controller.DeletePublisher(id);
             
-        //     //Assert
-        //     Assert.IsType<NoContentResult>(result);
-        // }
+            //Assert
+            Assert.IsType<NoContentResult>(result);
+        }
 
         [Fact]
         public async Task DeletePublisher_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()

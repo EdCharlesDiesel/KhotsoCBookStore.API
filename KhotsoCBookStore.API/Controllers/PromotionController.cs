@@ -218,9 +218,9 @@ namespace KhotsoCBookStore.API.Controllers
 
             var promotion = _mapper.Map<Promotion>(promotionEntity);
 
-            _mailService.Send(
-            "Promotion deleted.",
-            $"Promotion with id {promotion.PromotionId} was deleted.");
+            // _mailService.Send(
+            // "Promotion deleted.",
+            // $"Promotion with id {promotion.PromotionId} was deleted.");
 
             return NoContent();
         }    
