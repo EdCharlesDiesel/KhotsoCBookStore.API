@@ -400,7 +400,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetPromotionAPIOptions">
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.GetPromotionAPIOptions">
             <summary>
             Get supported resource actions
             </summary>
@@ -408,32 +408,60 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetPromotion(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.CreatePromotion(KhotsoCBookStore.API.Dtos.PromotionForCreateDto)">
             <summary>
-            Get the list of items in the Promotion
+            Create a promotion resource.
             </summary>
-            <param name="customerId"></param>
-            <returns>All the items in the Promotion</returns>
+            <returns>Promotion resource created</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="201">Returns the created promotion.</response>        
+            <response code="400">Returns an error if the promotion is in the wrong format.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.CreatePromotion(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.GetPromotions">
             <summary>
-            Toggle the items in Promotion. If item doesn't exists, 
-            it will be added to the Promotion else it will be removed.
+            Get all promotion resources.
             </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns>All the items in the Promotion</returns>
-            [Authorize]
+            <returns>Returns promotion</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.Delete(System.Guid)">
-             <summary>
-             Clear the Promotion
-             </summary>
-             <param name="customerId"></param>
-             <returns></returns>
-            [Authorize]
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.GetPromotion(System.Guid)">
+            <summary>
+            Get a single promotion resource by promotionId.
+            </summary>
+            <returns>A single promotion</returns>
+            <response code="200">Returns requested promotion resource by id.</response>
+            <response code="404">Returns error if the requested promotion resource is not found.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetBooksAvailableInPromotion">
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.UpdatePromotion(System.Guid,KhotsoCBookStore.API.Dtos.PromotionForUpdateDto)">
+            <summary>
+            Update a promotion resource by promotionId.
+            </summary>
+            <returns>Updated promotion resource</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.PartiallyUpdatePromotion(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.PromotionForUpdateDto})">
+            <summary>
+            Partially update promotion resource by promotionId.
+            </summary>
+            <returns>No content if promotion resource was updated successfully</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.DeletePromotion(System.Guid)">
+            <summary>
+            Delete a single promotion resource by promotionId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionController.GetBooksAvailableInPromotion">
             <summary>
             Get the list of orders.
             </summary>

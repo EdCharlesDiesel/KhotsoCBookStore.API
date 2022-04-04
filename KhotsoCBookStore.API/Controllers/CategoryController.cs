@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
@@ -11,8 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
-using Newtonsoft.Json;
-using Microsoft.Net.Http.Headers;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -25,27 +22,14 @@ namespace KhotsoCBookStore.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        
-        //private readonly string _coverImageFolderPath = string.Empty;
 
-        public CategoryController( 
-            ICategoryService categoryRepository,         
-            IMailService mailService,
-            IConfiguration config, 
-            IWebHostEnvironment hostingEnvironment,
-            IMapper mapper)
+        public CategoryController(ICategoryService categoryRepository,
+                                  IMailService mailService,
+                                  IMapper mapper)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(_mailService));
-            _config = config ?? throw new ArgumentNullException(nameof(_config));
             _categoryRepository = categoryRepository?? throw new ArgumentNullException(nameof(_categoryRepository));
-            _hostingEnvironment = hostingEnvironment;
-            //!Will Sort this when I build the front end
-            // _coverImageFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "Upload");
-            // if (!Directory.Exists(_coverImageFolderPath))
-            // {
-            //     Directory.CreateDirectory(_coverImageFolderPath);
-            // }
         }
 
         /// <summary>
@@ -61,7 +45,7 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok();
         } 
 
-         /// <summary>
+        /// <summary>
         /// Create a category resource.
         /// </summary>
         /// <returns>Category resource created</returns>

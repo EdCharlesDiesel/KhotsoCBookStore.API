@@ -75,8 +75,6 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
 
             var controller = new CategoryController(mockCategoryRepo.Object,
                                                 mockMail.Object,
-                                                mockConfig.Object,
-                                                mockWeHost.Object,
                                                 mapper);
 
             //Act
@@ -93,10 +91,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             mockCategoryRepo.Setup(repo =>
             repo.GetAllCategoriesAync()).ReturnsAsync(GetCategorysTest(1));
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act            
             var result = await controller.GetCategorys();
@@ -114,10 +110,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             mockCategoryRepo.Setup(repo =>
             repo.GetAllCategoriesAync()).ReturnsAsync(GetCategorysTest(1));
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result =await  controller.GetCategorys();
@@ -133,10 +127,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             mockCategoryRepo.Setup(repo =>
             repo.GetAllCategoriesAync()).ReturnsAsync(GetCategorysTest(1));
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result =await  controller.GetCategorys();
@@ -157,10 +149,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });
 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.GetCategory(id);
@@ -181,10 +171,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });
 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.GetCategory(id);
@@ -205,10 +193,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });
 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.GetCategory(id);
@@ -230,10 +216,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });
 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.CreateCategory(new CategoryForCreateDto { });
@@ -255,10 +239,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });
 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.CreateCategory(new CategoryForCreateDto { });
@@ -305,10 +287,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             mockCategoryRepo.Setup(repo =>
             repo.GetCategoryByIdAsync(id)).ReturnsAsync(() => null);
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
 
             //Act
@@ -326,10 +306,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             mockCategoryRepo.Setup(repo =>
             repo.GetCategoryByIdAsync(id)).ReturnsAsync(() => null);
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.PartiallyUpdateCategory(id,
@@ -356,10 +334,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             });            
                 
                 var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
             
             //Act
             var result = await controller.DeleteCategory(id);
@@ -378,10 +354,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             repo.GetCategoryByIdAsync(id)).ReturnsAsync(() => null);
             
             var controller = new CategoryController(mockCategoryRepo.Object,
-                                                    mockMail.Object,
-                                                    mockConfig.Object,
-                                                    mockWeHost.Object,
-                                                    mapper);
+                                                mockMail.Object,
+                                                mapper);
 
             //Act
             var result = await controller.DeleteCategory(id);

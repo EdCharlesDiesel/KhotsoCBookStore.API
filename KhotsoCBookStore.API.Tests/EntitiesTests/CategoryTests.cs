@@ -11,9 +11,9 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         {
             categories = new Category
             {
-                CategoryId = new Guid("D5066515-7104-4F85-894C-109BFB65QQQQ"),
+                CategoryId = new Guid(),
                 CategoryName ="Front-End Development",
-                BookId = new Guid("D5066515-7104-4F85-AAAC-109BFB651444")
+                BookId = new Guid()
             };
         }
 
@@ -22,40 +22,40 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
            categories  = null;
         }
 
-        // [Fact]
-        // public void CanChangeCategoryId()
-        // {
-        //     //Arrange
-        //     var expected  = new Guid("D5066515-7104-4F85-894C-109BFB65XXXX");
-        //     //Act
-        //     categories.CategoryId = new Guid("D5066515-7104-4F85-894C-109BFB65XXXX");
+        [Fact]
+        public void CanChangeCategoryId()
+        {
+            //Arrange
+            var expected  = new Guid();
+            //Act
+            categories.CategoryId = new Guid();
             
-        //     //Assert
-        //     Assert.Equal(expected, categories.CategoryId);
-        // }
+            //Assert
+            Assert.Equal(expected, categories.CategoryId);
+        }
 
-        // [Fact]
-        // public void CanChangeCategoryName()
-        // {
-        //     //Arrange
-        //     //Act
-        //     categories.CategoryName="Back-End Development";
+        [Fact]
+        public void CanChangeCategoryName()
+        {
+            //Arrange
+            //Act
+            categories.CategoryName="Back-End Development";
 
-        //     //Assert
-        //     Assert.Equal("Back-End Development", categories.CategoryName);
-        // }
+            //Assert
+            Assert.Equal("Back-End Development", categories.CategoryName);
+        }
 
-        // [Fact]
-        // public void CanChangeBookId()
-        // {
-        //     //Arrange
-        //     var expected  = new Guid("D5066515-7104-YYYY-894C-109BFB65XXXX");
-        //     //Act
-        //     categories.CategoryId = new Guid("D5066515-7104-YYYY-894C-109BFB65XXXX");
+        [Fact]
+        public void CanChangeBookId()
+        {
+            //Arrange
+            var expected  = new Guid();
+            //Act
+            categories.CategoryId = new Guid();
             
-        //     //Assert
-        //     Assert.Equal(expected, categories.CategoryId);
-        // }
+            //Assert
+            Assert.Equal(expected, categories.CategoryId);
+        }
     }
 }
     

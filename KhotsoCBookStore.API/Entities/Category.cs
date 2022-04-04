@@ -17,7 +17,5 @@ namespace KhotsoCBookStore.API.Entities
 
         [ForeignKey(nameof(Book))]
         public Guid BookId { get; set; }
-        
-        public virtual Book Book { get; set; }
     }
 }
