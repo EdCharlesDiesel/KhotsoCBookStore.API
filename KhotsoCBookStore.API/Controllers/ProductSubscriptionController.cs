@@ -64,26 +64,26 @@ namespace KhotsoCBookStore.API.Controllers
             return  subscriptionId.ToString();
         }
 
-        /// <summary>
-        /// Get a list of customer book subscriptions
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns>List of book subscription</returns>
-        private  async Task<IEnumerable<BookDto>> GetUserBookSubscription(Guid customerId)
-        {
+        // /// <summary>
+        // /// Get a list of customer book subscriptions
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <returns>List of book subscription</returns>
+        // private  async Task<IEnumerable<BookDto>> GetUserBookSubscription(Guid customerId)
+        // {
             
-            var customer = _customerRepository.CheckIfCustomerExists(customerId);
-            if (customer!= null)
-            {
-                string BookSubscriptionId = await _productSubscriptionRepository.GetProductSubscriptionById(customerId);
-                var Id = new Guid(BookSubscriptionId);
-                var bookToReturn =  await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(Id);
+        //     var customer = _customerRepository.CheckIfCustomerExists(customerId);
+        //     if (customer!= null)
+        //     {
+        //         string BookSubscriptionId = await _productSubscriptionRepository.GetProductSubscriptionById(customerId);
+        //         var Id = new Guid(BookSubscriptionId);
+        //         var bookToReturn =  await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(Id);
 
-                //return bookToReturn
-            }
+        //         //return bookToReturn
+        //     }
             
-            return new List<BookDto>();            
-        }
+        //     return new List<BookDto>();            
+        // }
 
         /// <summary>
         /// Add a new book subscription
@@ -121,6 +121,20 @@ namespace KhotsoCBookStore.API.Controllers
         public  async Task<int> ClearProductSubscription(Guid customerId)
         {
             return await _productSubscriptionRepository.ClearProductSubscriptionAsync(customerId);        
-        }      
+        }     
+
+         /// <summary>
+        /// Get the list of orders.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet()]
+        [Route("GetBooksInBookSubscription")]
+        public Task<IEnumerable<BookDto>> GetBooksInBookSubscription()
+        {
+            // // var categories = _mapper.Map<Category>(CategoryDto);
+             //return await _bookRepository.GetBooksAvailableInBookSubscriptionAsync()
+
+            throw new NotImplementedException();
+        } 
     }
 }

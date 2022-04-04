@@ -100,6 +100,7 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IPublisherService, PublisherRepository>();
             services.AddTransient<IAccountService, AccountRepository>();
             services.AddTransient<IPromotionService, PromotionRepository>();
+            services.AddTransient<ICategoryService, CategoryRepository>();
             
             
             services.AddAuthentication(option =>  

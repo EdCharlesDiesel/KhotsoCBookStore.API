@@ -36,96 +36,112 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok();
         }
 
-        [HttpPost()]
-        [Route("AddToCart/{customerId}/{bookId}")]
-        public  async Task AddItemToCart(Guid customerId, Guid bookId)
-        {
-            await _cartRepository.AddBookToCartAsync(customerId, bookId);
-            await _cartRepository.SaveChangesAsync();
-        }
-
-        /// <summary>
-        /// Get the list of items in the shopping cart
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        [HttpGet("{customerId}")]
-        public async  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
-        {
-            string cartid = await  _cartRepository.GetCartIdAsync(customerId);
-            var id = new Guid(cartid);
-            return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
-        }
-
-        /// <summary>
-        /// Get the shopping cart for user.
-        /// </summary>
-        /// <param name="oldUserId"></param>
-        /// <param name="newUserId"></param>
-        /// <returns>The count of items in shopping cart</returns>
-        // [Authorize]
-        [HttpGet]
-        [Route("SetShoppingCart/{oldUserId}/{newUserId}")]
-        public Task<int> GetShoppingCartForCustomer(Guid oldUserId, Guid newUserId)
-        {
-            _cartRepository.MergeCart(oldUserId, newUserId);
-            return _cartRepository.GetCartItemCount(newUserId);
-        }        
-
-        /// <summary>
-        /// Add a single item into the shopping cart. If the item already exists, 
-        /// increase the quantity by one
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="bookId"></param>
-        /// <returns>Count of items in the shopping cart</returns>
-        // [HttpPost]
+        // /// <summary>
+        // /// Add a single item into the shopping cart. If the item already exists, 
+        // /// increase the quantity by one
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <param name="bookId"></param>
+        // /// <returns>Count of items in the shopping cart</returns>
+        // [HttpPost()]
         // [Route("AddToCart/{customerId}/{bookId}")]
-        // public  async Task<int> AddItemToCart(Guid customerId, Guid bookId)
+        // public  async Task AddItemToCart(Guid customerId, Guid bookId)
         // {
-        //     await _cartRepository.CreateCartAsync(customerId);
-        //     await _cartRepository.AddBookToCart(customerId, bookId);
-        //     return await _cartRepository.GetCartItemCount(customerId);
+        //     await _cartRepository.AddBookToCartAsync(customerId, bookId);
+        //     await _cartRepository.SaveChangesAsync();
         // }
+
+        // /// <summary>
+        // /// Get the list of items in the shopping cart
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <returns></returns>
+        // [HttpGet("{customerId}")]
+        // public async  Task<List<CartItemDto>> GetItemsInCart(Guid customerId)
+        // {
+        //     string cartid = await  _cartRepository.GetCartIdAsync(customerId);
+        //     var id = new Guid(cartid);
+        //     return (List<CartItemDto>)await _bookService.GetBooksAvailableInCartAsync(id);            
+        // }
+
+        // /// <summary>
+        // /// Get the shopping cart for user.
+        // /// </summary>
+        // /// <param name="oldUserId"></param>
+        // /// <param name="newUserId"></param>
+        // /// <returns>The count of items in shopping cart</returns>
+        // // [Authorize]
+        // [HttpGet]
+        // [Route("SetShoppingCart/{oldUserId}/{newUserId}")]
+        // public Task<int> GetShoppingCartForCustomer(Guid oldUserId, Guid newUserId)
+        // {
+        //     _cartRepository.MergeCart(oldUserId, newUserId);
+        //     return _cartRepository.GetCartItemCount(newUserId);
+        // }        
+
+       
+        // // [HttpPost]
+        // // [Route("AddToCart/{customerId}/{bookId}")]
+        // // public  async Task<int> AddItemToCart(Guid customerId, Guid bookId)
+        // // {
+        // //     await _cartRepository.CreateCartAsync(customerId);
+        // //     await _cartRepository.AddBookToCart(customerId, bookId);
+        // //     return await _cartRepository.GetCartItemCount(customerId);
+        // // }
 
         
 
+        // /// <summary>
+        // /// Update item in shopping cart
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <param name="bookId"></param>
+        // /// <returns></returns>
+        // [HttpPut("{customerId}/{bookId}")]
+        // public Task<int> UpdateCart(Guid customerId, Guid bookId)
+        // {
+        //     // _cartRepository.DeleteCartItem(customerId, bookId);
+        //     // return _cartRepository.GetCartItemCount(customerId);
+        //     throw new NotImplementedException();
+        // }
+
+        // /// <summary>
+        // /// Delete a single item from the cart. 
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <param name="bookId"></param>
+        // /// <returns></returns>
+        // [HttpDelete("{customerId}/{bookId}")]
+        // public Task RemoveItemFromCart(Guid customerId, Guid bookId)
+        // {
+        //     _cartRepository.RemoveCartItem(customerId, bookId);
+        //     return _cartRepository.GetCartItemCount(customerId);
+        // }
+
+        // /// <summary>
+        // /// Delete user cart.
+        // /// </summary>
+        // /// <param name="customerId"></param>
+        // /// <returns></returns>
+        // [HttpDelete("{customerId}")]
+        // public Task ClearCart(Guid customerId)
+        // {
+        //     return _cartRepository.ClearCart(customerId);
+        // }
+
         /// <summary>
-        /// Update item in shopping cart
+        /// Get the list of orders.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="bookId"></param>
         /// <returns></returns>
-        [HttpPut("{customerId}/{bookId}")]
-        public Task<int> UpdateCart(Guid customerId, Guid bookId)
+        [HttpGet]
+        [Route("GetOrdersForUser")]
+        public Task<IEnumerable<BookDto>> GetBooksAvailableInCart()
         {
-            // _cartRepository.DeleteCartItem(customerId, bookId);
-            // return _cartRepository.GetCartItemCount(customerId);
+            // // var categories = _mapper.Map<Category>(CategoryDto);
+            // return await _bookRepository.GetBooksAvailableInCartAsync()
+
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Delete a single item from the cart. 
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="bookId"></param>
-        /// <returns></returns>
-        [HttpDelete("{customerId}/{bookId}")]
-        public Task RemoveItemFromCart(Guid customerId, Guid bookId)
-        {
-            _cartRepository.RemoveCartItem(customerId, bookId);
-            return _cartRepository.GetCartItemCount(customerId);
-        }
-
-        /// <summary>
-        /// Delete user cart.
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        [HttpDelete("{customerId}")]
-        public Task ClearCart(Guid customerId)
-        {
-            return _cartRepository.ClearCart(customerId);
-        }
     }
 }

@@ -14,8 +14,8 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
-    public class AuthorController : Controller
+    //[Authorize]
+    public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorRepository;
         private readonly IMailService _mailService;
@@ -39,6 +39,35 @@ namespace KhotsoCBookStore.API.Controllers
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
+        }
+
+        /// <summary>
+        /// Create an author resource.
+        /// </summary>
+        /// <returns>Author resource created</returns>
+        /// <response code="200">Returns Ok for successfull request without errors.</response>
+        /// <response code="201">Returns the created author.</response>
+        /// <response code="400">Returns an error if the author is in the wrong format.</response>
+        [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> CreateAuthor([FromBody] AuthorForCreateDto newAuthor)
+        {
+            if (ModelState.IsValid)
+            {
+            var authorToCreate = _mapper.Map<Entities.Author>(newAuthor);
+            await _authorRepository.CreateAuthorAsync(authorToCreate);
+            await _authorRepository.SaveChangesAsync();
+
+            var authorToReturn = _mapper.Map<Author>(authorToCreate);
+
+            return CreatedAtRoute("GetAuthor",
+                new { authorId = authorToReturn.AuthorId },
+                authorToReturn);
+            }
+            else
+                return BadRequest(ModelState);           
         }
 
         /// <summary>
@@ -77,27 +106,7 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok(_mapper.Map<AuthorDto>(author));
         }
 
-        /// <summary>
-        /// Create an author resource.
-        /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the created author.</response>
-        [HttpPost()]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateAuthor([FromBody] AuthorForCreateDto newAuthor)
-        {
-            var authorToCreate = _mapper.Map<Entities.Author>(newAuthor);
-            await _authorRepository.CreateAuthorAsync(authorToCreate);
-            await _authorRepository.SaveChangesAsync();
-
-            var authorToReturn = _mapper.Map<Author>(authorToCreate);
-
-            return CreatedAtRoute("GetAuthor",
-                new { authorId = authorToReturn.AuthorId },
-                authorToReturn);
-        }
+        
 
         /// <summary>
         /// Update author resource by authorId.

@@ -50,6 +50,8 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             realProfile = null;
         }
 
+        
+
         private List<Book> GetBooksTest(int num)
         {
             var book = new List<Book>();
@@ -90,7 +92,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         }
 
         [Fact]
-        public async Task GetBookItems_Returns200OK_WhenDBIsEmpty()
+        public async Task GetAllBooks_Returns200OK_WhenDBIsEmpty()
         {
             //Arrange
             mockBookRepo.Setup(repo =>
@@ -98,20 +100,18 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             .ReturnsAsync(() => null);
 
 
-            var controller = new BookController(
-                            mockBookRepo.Object,
-                            mockMail.Object ,
-                            mockConfig.Object,
-                            mockWeHost.Object,
-                            mapper
-            );
+            var controller = new BookController(mockBookRepo.Object,
+                                                mockMail.Object,
+                                                mockConfig.Object,
+                                                mockWeHost.Object,
+                                                mapper);
 
             //Act
             var result = await controller.GetBooks();
 
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
-        }
+        }        
 
         [Fact]
         public async Task  GetAllBooks_ReturnsOneItem_WhenDBHasOneResource()
@@ -119,13 +119,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act            
             var result = await controller.GetBooks();
@@ -142,13 +140,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result =await  controller.GetBooks();
@@ -163,13 +159,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             //Arrange
             mockBookRepo.Setup(repo =>
             repo.GetAllBooksAync()).ReturnsAsync(GetBooksTest(1));
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result =await  controller.GetBooks();
@@ -189,13 +183,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.GetBook(id);
@@ -215,13 +207,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.GetBook(id);
@@ -241,13 +231,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.GetBook(id);
@@ -268,13 +256,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
               
             });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.CreateBook(new BookForCreateDto { });
@@ -295,13 +281,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 
             });
 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.CreateBook(new BookForCreateDto { });
@@ -347,13 +331,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("687F030A-8566-0025-95F5-52888B4278D6");
             mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
 
             //Act
@@ -370,13 +352,11 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("687F030A-8566-0025-36F5-52888B427847");
             mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.PartiallyUpdateBook(id,
@@ -400,17 +380,13 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             {
                 BookId= id,
                
-            });
-
-            
+            });            
                 
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+                var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
             
             //Act
             var result = await controller.DeleteBook(id);
@@ -427,13 +403,12 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
             mockBookRepo.Setup(repo =>
             repo.GetBookByIdAsync(id)).ReturnsAsync(() => null);
-                var controller = new BookController(
-           mockBookRepo.Object,
-            mockMail.Object ,
-            mockConfig.Object,
-            mockWeHost.Object,
-                       mapper
-            );
+            
+            var controller = new BookController(mockBookRepo.Object,
+                                                    mockMail.Object,
+                                                    mockConfig.Object,
+                                                    mockWeHost.Object,
+                                                    mapper);
 
             //Act
             var result = await controller.DeleteBook(id);

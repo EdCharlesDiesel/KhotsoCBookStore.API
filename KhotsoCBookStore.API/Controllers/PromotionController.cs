@@ -5,6 +5,7 @@ using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using AutoMapper;
+using KhotsoCBookStore.API.Dtos;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -97,6 +98,20 @@ namespace KhotsoCBookStore.API.Controllers
             //     return new List<Book>();
             // } 
             throw new NotImplementedException();          
+        }
+
+         /// <summary>
+        /// Get the list of orders.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetBooksAvailableInPromotion")]
+        public Task<IEnumerable<BookDto>> GetBooksAvailableInPromotion()
+        {
+            // // var categories = _mapper.Map<Category>(CategoryDto);
+             //return await _bookRepository.GetBooksAvailableInPromotionAsync
+
+            throw new NotImplementedException();
         }
     }
 }

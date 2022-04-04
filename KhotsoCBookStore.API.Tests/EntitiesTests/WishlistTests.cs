@@ -3,7 +3,7 @@ using Xunit;
 using KhotsoCBookStore.API.Entities;
 using System.Collections.Generic;
 
-namespace KhotsoCBookStore.API.Tests.Entities
+namespace KhotsoCBookStore.API.Tests.EntitiesTests
 {
     public class WishListTest : IDisposable
     {

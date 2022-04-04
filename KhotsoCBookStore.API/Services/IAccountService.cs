@@ -8,20 +8,20 @@ namespace KhotsoCBookStore.API.Services
     public interface IAccountService
     {
         Task<UserMaster> Authenticate(string username, string password);
-        
+
         Task<UserMaster> RegisterUser(UserMaster user, string password);
 
-        Task<UserMaster> GetUserById(Guid userId);
+        UserMaster GetUserBy(Guid userId);
 
-        bool CheckUserAvailabity(string userName);
+        Task<IEnumerable<UserMaster>> GetAllUsersAsync();
 
-        bool CheckIfUserExists(Guid userId);
+        Task<bool> CheckUserAvailabityAsync(string userName);
 
-        List<UserMaster> GetAllUsers();        
+        Task<bool> CheckIfUserExistsAsync(Guid userId);
 
-        void UpdateUser(UserMaster userParam, string password = null);
+        Task UpdateUserAsync(UserMaster userParam, string password = null);
         
-        void Delete(UserMaster user);
+        void DeleteUser(UserMaster userToDelete);
 
         Task<bool> SaveChangesAsync();
     }

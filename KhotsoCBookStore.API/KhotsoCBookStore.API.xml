@@ -4,13 +4,13 @@
         <name>KhotsoCBookStore.API</name>
     </assembly>
     <members>
-        <member name="F:KhotsoCBookStore.API.Controllers.AccountController._config">
+        <member name="F:KhotsoCBookStore.API.Controllers.AccountsController._config">
             <summary>  
             Property Declaration  
             </summary>  
             <returns></returns>  
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.GetLoginAPIOptions">
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountsController.GetLoginAPIOptions">
             <summary>
             Get supported resource actions
             </summary>
@@ -18,46 +18,11 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
+        <member name="M:KhotsoCBookStore.API.Controllers.AccountsController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
             <summary>
             Register a new user.
             </summary>
             <param name="model"></param>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.Login(KhotsoCBookStore.API.Dtos.LoginDto)">
-            <summary>
-            Login
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.GetUser(System.Guid)">
-            <summary>
-            Get user.
-            </summary>
-            <param name="userId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.ValidateUserName(System.String)">
-            <summary>
-            Check username availability. 
-            </summary>
-            <param name="userName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.UpdateUser(System.Guid,KhotsoCBookStore.API.Dtos.RegisterDto)">
-            <summary>
-            Update user resource by userId.
-            </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns no content.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountController.DeleteUser(System.Guid)">
-            <summary>
-            Delete a single user resource by userId.
-            </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>
@@ -66,6 +31,15 @@
             <returns>API actions allowed</returns>
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.CreateAuthor(KhotsoCBookStore.API.Dtos.AuthorForCreateDto)">
+            <summary>
+            Create an author resource.
+            </summary>
+            <returns>Author resource created</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="201">Returns the created author.</response>
+            <response code="400">Returns an error if the author is in the wrong format.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthors">
             <summary>
@@ -80,13 +54,6 @@
             </summary>
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.CreateAuthor(KhotsoCBookStore.API.Dtos.AuthorForCreateDto)">
-            <summary>
-            Create an author resource.
-            </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the created author.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.UpdateAuthor(System.Guid,KhotsoCBookStore.API.Dtos.AuthorForUpdateDto)">
             <summary>
@@ -117,78 +84,59 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.BookController.CreateBook(KhotsoCBookStore.API.Dtos.BookForCreateDto)">
+            <summary>
+            Create a book resource.
+            </summary>
+            <returns>Book resource created</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="201">Returns the created book.</response>        
+            <response code="400">Returns an error if the book is in the wrong format.</response>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooks">
             <summary>
-            Get all the book
+            Get all book resources.
             </summary>
             <returns>Returns book</returns>
-            <response code="200">Returns the requested book</response>
-            <response code="404">Returns no book found</response>
+            <response code="200">Returns Ok for successfull request without errors.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBook(System.Guid)">
             <summary>
             Get a single book resource by bookId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.CreateBook(KhotsoCBookStore.API.Dtos.BookForCreateDto)">
-            <summary>
-            Create an book resource.
-            </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the created book.</response>
+            <returns>A single book</returns>
+            <response code="200">Returns requested book resource by id.</response>
+            <response code="404">Returns error if the requested book resource is not found.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.UpdateBook(System.Guid,KhotsoCBookStore.API.Dtos.BookForUpdateDto)">
             <summary>
-            Update book resource by bookId.
+            Update a book resource by bookId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns no content.</response>
+            <returns>Updated book resource</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.PartiallyUpdateBook(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.BookForUpdateDto})">
             <summary>
-            Partial update book resource by bookId.
+            Partially update book resource by bookId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns no content.</response>
+            <returns>No content if book resource was updated successfully</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.BookController.DeleteBook(System.Guid)">
             <summary>
             Delete a single book resource by bookId.
             </summary>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the requested employes.</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.CategoryDetails">
-            <summary>
-            Get the list of categories.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooksAvailableInCart">
-            <summary>
-            Get the list of orders.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooksInBookSubscription">
-            <summary>
-            Get the list of orders.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooksAvailableInPromotion">
-            <summary>
-            Get the list of orders.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.BookController.GetBooksAvailableInWishList">
-            <summary>
-            Get the list of orders.
-            </summary>
-            <returns></returns>
+            <returns>No content</returns>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetAuthorsAPIOptions">
             <summary>
@@ -198,52 +146,72 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetShoppingCartForCustomer(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetBooksAvailableInCart">
             <summary>
-            Get the shopping cart for user.
+            Get the list of orders.
             </summary>
-            <param name="oldUserId"></param>
-            <param name="newUserId"></param>
-            <returns>The count of items in shopping cart</returns>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.GetItemsInCart(System.Guid)">
-            <summary>
-            Get the list of items in the shopping cart
-            </summary>
-            <param name="customerId"></param>
             <returns></returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.AddItemToCart(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.GetCategoryAPIOptions">
             <summary>
-            Add a single item into the shopping cart. If the item already exists, 
-            increase the quantity by one
+            Get supported resource actions
             </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns>Count of items in the shopping cart</returns>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.UpdateCart(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.CreateCategory(KhotsoCBookStore.API.Dtos.CategoryForCreateDto)">
             <summary>
-            Update item in shopping cart
+            Create a category resource.
             </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns></returns>
+            <returns>Category resource created</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="201">Returns the created category.</response>        
+            <response code="400">Returns an error if the category is in the wrong format.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.RemoveItemFromCart(System.Guid,System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.GetCategorys">
             <summary>
-            Delete a single item from the cart. 
+            Get all category resources.
             </summary>
-            <param name="customerId"></param>
-            <param name="bookId"></param>
-            <returns></returns>
+            <returns>Returns category</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.CartController.ClearCart(System.Guid)">
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.GetCategory(System.Guid)">
             <summary>
-            Delete user cart.
+            Get a single category resource by categoryId.
             </summary>
-            <param name="customerId"></param>
-            <returns></returns>
+            <returns>A single category</returns>
+            <response code="200">Returns requested category resource by id.</response>
+            <response code="404">Returns error if the requested category resource is not found.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.UpdateCategory(System.Guid,KhotsoCBookStore.API.Dtos.CategoryForUpdateDto)">
+            <summary>
+            Update a category resource by categoryId.
+            </summary>
+            <returns>Updated category resource</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.PartiallyUpdateCategory(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.CategoryForUpdateDto})">
+            <summary>
+            Partially update category resource by categoryId.
+            </summary>
+            <returns>No content if category resource was updated successfully</returns>
+            <response code="200">Returns Ok for successfull request without errors.</response>
+            <response code="204">Returns successfull if resource was updated successfully.</response>
+            <response code="404">Returns not found if the requested resource is not found.</response>
+            <response code="400">Returns bad request if the resource is not supported.</response>
+            <response code="405">Returns method not allowed.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.CategoryController.DeleteCategory(System.Guid)">
+            <summary>
+            Delete a single category resource by categoryId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.CheckOutController.GetBookAPIOptions">
             <summary>
@@ -411,13 +379,6 @@
             </summary>
             <returns>List of book subscriptions</returns>
         </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetUserBookSubscription(System.Guid)">
-            <summary>
-            Get a list of customer book subscriptions
-            </summary>
-            <param name="customerId"></param>
-            <returns>List of book subscription</returns>
-        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.CreateProductSubscriptionAsync(System.Guid,System.Guid)">
             <summary>
             Add a new book subscription
@@ -432,6 +393,12 @@
             </summary>
             <param name="customerId"></param>
             <returns>NoContent</returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.ProductSubscriptionController.GetBooksInBookSubscription">
+            <summary>
+            Get the list of orders.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetPromotionAPIOptions">
             <summary>
@@ -465,6 +432,12 @@
              <param name="customerId"></param>
              <returns></returns>
             [Authorize]
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.PromotionsController.GetBooksAvailableInPromotion">
+            <summary>
+            Get the list of orders.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:KhotsoCBookStore.API.Controllers.PublisherController.GetPublishersAPIOptions">
             <summary>
@@ -544,6 +517,12 @@
             Clear the Wishlist
             </summary>
             <param name="customerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.WishListController.GetBooksAvailableInWishList">
+            <summary>
+            Get the list of orders.
+            </summary>
             <returns></returns>
         </member>
     </members>
