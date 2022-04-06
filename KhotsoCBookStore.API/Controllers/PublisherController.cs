@@ -16,13 +16,13 @@ namespace KhotsoCBookStore.API.Controllers
     public class PublisherController : Controller
     {
 
-        readonly IPublisherService _publisherService;
+        readonly IPublisherService _publisherRepository;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
         public PublisherController(IPublisherService publisherService,
             IMapper mapper, IMailService mailService)
         {
-            _publisherService = publisherService ?? throw new ArgumentNullException(nameof(_publisherService));
+            _publisherRepository = publisherService ?? throw new ArgumentNullException(nameof(_publisherRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
@@ -41,105 +41,127 @@ namespace KhotsoCBookStore.API.Controllers
         }
 
         /// <summary>
-        /// Get all publishers resources.
+        /// Create a publisher resource.
         /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested publishers.</response>
+        /// <returns>Publisher resource created</returns>
+        /// <response code="200">Returns Ok for successfull request without errors.</response>
+        /// <response code="201">Returns the created publisher.</response>        
+        /// <response code="400">Returns an error if the publisher is in the wrong format.</response>
+        [HttpPost(), DisableRequestSizeLimit]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> CreatePublisher([FromBody] PublisherForCreateDto newPublisher)
+        {
+            if (ModelState.IsValid)
+            {
+                var publisherToCreate = _mapper.Map<Entities.Publisher>(newPublisher);
+                await _publisherRepository.CreatePublisherAsync(publisherToCreate);
+                await _publisherRepository.SaveChangesAsync();
+
+                var publisherToReturn = _mapper.Map<Publisher>(publisherToCreate);
+
+                return CreatedAtRoute("GetPublisher",
+                    new { publisherId = publisherToReturn.PublisherId },
+                    publisherToReturn);
+            }
+            else
+                return BadRequest(ModelState);                
+        }    
+
+        /// <summary>
+        /// Get all publisher resources.
+        /// </summary>
+        /// <returns>Returns publisher</returns>
+        /// <response code="200">Returns Ok for successfull request without errors.</response>
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<PublisherDto>>> GetPublishers()
-        {
-            var publishers = await _publisherService.GetAllPublishersAync();
-            return Ok(_mapper.Map<IEnumerable<PublisherDto>>(publishers));
+        { 
+            var publishers = await _publisherRepository.GetAllPublishersAync();
+            return Ok(_mapper.Map<IEnumerable<PublisherDto>>(publishers));          
         }
 
         /// <summary>
         /// Get a single publisher resource by publisherId.
         /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
+        /// <returns>A single publisher</returns>
+        /// <response code="200">Returns requested publisher resource by id.</response>
+        /// <response code="404">Returns error if the requested publisher resource is not found.</response>
         [HttpGet("{publisherId}", Name = "GetPublisher")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PublisherDto>> GetPublisher(Guid publisherId)
         {
-            var publisher =  await  _publisherService.GetPublisherByIdAsync(publisherId);
+            if (publisherId == new Guid())
+            {
+               return NotFound();
+            }          
+
+            var publisher = await _publisherRepository.GetPublisherByIdAsync(publisherId);
             return Ok(_mapper.Map<PublisherDto>(publisher));
-        }
+        }       
 
         /// <summary>
-        /// Create publisher resource by publisherId.
+        /// Update a publisher resource by publisherId.
         /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
-        [HttpPost()]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PublisherForCreateDto>> CreatePublisher(PublisherForCreateDto publisher)
-        {
-            var newPublisher =_mapper.Map<Entities.Publisher>(publisher);
-            await _publisherService.CreatePublisherAsync(newPublisher);
-            await _publisherService.SaveChangesAsync();
-
-            var createdPublisherToReturn =
-                _mapper.Map<Publisher>(newPublisher);
-
-            return CreatedAtRoute("GetPublisher", createdPublisherToReturn);
-        }
-
-        /// <summary>
-        /// Update publisher resource by publisherId.
-        /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
+        /// <returns>Updated publisher resource</returns>
+        /// <response code="200">Returns Ok for successfull request without errors.</response>
+        /// <response code="204">Returns successfull if resource was updated successfully.</response>
+        /// <response code="404">Returns not found if the requested resource is not found.</response>
+        /// <response code="400">Returns bad request if the resource is not supported.</response>
+        /// <response code="405">Returns method not allowed.</response>
         [HttpPut("{publisherId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdatePublisher(Guid publisherId,
-            PublisherForUpdateDto publisherToUpdate)
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public async Task<ActionResult> UpdatePublisher(Guid publisherId,[FromBody] PublisherForUpdateDto publisherToUpdate)
         {
-            if (!await _publisherService.PublisherIfExistsAsync(publisherId))
+            if (!await _publisherRepository.PublisherIfExistsAsync(publisherId))
             {
                 return NotFound();
             }
 
-            var publisherEntity = _publisherService.GetPublisherByIdAsync(publisherId);
+            var publisherEntity =  await _publisherRepository.GetPublisherByIdAsync(publisherId);
             if (publisherEntity == null)
             {
                 return NotFound();
             }
 
-            await _mapper.Map(publisherToUpdate, publisherEntity);
+            _mapper.Map(publisherToUpdate, publisherEntity);
 
-            await _publisherService.SaveChangesAsync();
+            await _publisherRepository.SaveChangesAsync();
 
             return NoContent();
         }
 
         /// <summary>
-        /// Partial update publisher resource by publisherId.
+        /// Partially update publisher resource by publisherId.
         /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
+        /// <returns>No content if publisher resource was updated successfully</returns>
+        /// <response code="200">Returns Ok for successfull request without errors.</response>
+        /// <response code="204">Returns successfull if resource was updated successfully.</response>
+        /// <response code="404">Returns not found if the requested resource is not found.</response>
+        /// <response code="400">Returns bad request if the resource is not supported.</response>
+        /// <response code="405">Returns method not allowed.</response>
         [HttpPatch("{publisherId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public async Task<ActionResult> PartiallyUpdatePublisher(Guid publisherId,
             JsonPatchDocument<PublisherForUpdateDto> patchDocument)
         {
-            if (!await _publisherService.PublisherIfExistsAsync(publisherId))
+            if (!await _publisherRepository.PublisherIfExistsAsync(publisherId))
             {
                 return NotFound();
             }
 
-            var publisherEntity =  _publisherService.GetPublisherByIdAsync(publisherId);
+            var publisherEntity =  _publisherRepository.GetPublisherByIdAsync(publisherId);
             if (publisherEntity == null)
             {
                 return NotFound();
@@ -148,7 +170,8 @@ namespace KhotsoCBookStore.API.Controllers
             var publisherToPatch = _mapper.Map<PublisherForUpdateDto>(publisherEntity);
 
             //patchDocument.ApplyTo(publisherToPatch, ModelState);
-
+            patchDocument.ApplyTo(publisherToPatch);
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -160,7 +183,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
 
             await _mapper.Map(publisherToPatch, publisherEntity);
-            await _publisherService.SaveChangesAsync();
+            await _publisherRepository.SaveChangesAsync();
 
             return NoContent();
         }
@@ -176,26 +199,27 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeletePublisher(Guid publisherId)
         {
-            if (!await _publisherService.PublisherIfExistsAsync(publisherId))
+            if (!await _publisherRepository.PublisherIfExistsAsync(publisherId))
             {
                 return NotFound();
             }
 
-            var publisherEntity =  _publisherService.GetPublisherByIdAsync(publisherId);
-
+            var publisherEntity = await  _publisherRepository.GetPublisherByIdAsync(publisherId);
             if (publisherEntity == null)
             {
                 return NotFound();
             }
-            var publisherToDelete =  _mapper.Map<Publisher>(publisherEntity);
-            _publisherService.DeletePublisher(publisherToDelete);
-            await _publisherService.SaveChangesAsync();
 
-             _mailService.Send(
-                "Publisher deleted.",
-                $"Publisher named {publisherToDelete.Name} with id {publisherToDelete.PublisherId} was deleted.");
+             _publisherRepository.DeletePublisher(publisherEntity);
+            await _publisherRepository.SaveChangesAsync();
+
+            var publisher = _mapper.Map<Publisher>(publisherEntity);
+
+            _mailService.Send(
+            "Publisher deleted.",
+            $"Publisher named {publisher.NameAndSurname} with id {publisher.PublisherId} was deleted.");
 
             return NoContent();
-        }
+        }        
     }
 }

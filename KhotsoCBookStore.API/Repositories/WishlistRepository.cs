@@ -16,65 +16,70 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public async Task ToggleWishListItem(Guid customerId, Guid bookId)
-        {
-            string wishListId = await GetWishListId(customerId);
-            WishListItem existingWishlistItem = _dbContext.WishListItems.FirstOrDefault(x => x.ProductId == bookId && x.WishListId.ToString() == wishListId);
-
-            if (existingWishlistItem != null)
-            {
-                _dbContext.WishListItems.Remove(existingWishlistItem);
-                await _dbContext.SaveChangesAsync();
-            }
-            else
-            {
-                WishListItem wishListItem = new WishListItem
-                {
-                    WishListId = customerId,
-                    ProductId = bookId,
-                };
-                await _dbContext.WishListItems.AddAsync(wishListItem);
-                await _dbContext.SaveChangesAsync();
-            }
-        }
-
-        public async Task<int> ClearWishList(Guid customerId)
-        {
+        public async Task CreateWishListAsync(Guid customerId)
+        {            
             try
             {
-                var wishListId = await GetWishListId(customerId);
-                var wishListItem = _dbContext.WishListItems.Where(x => x.WishListId.ToString() == wishListId).ToList();
-
-                if (!string.IsNullOrEmpty(wishListId))
+                var wishList = new WishList
                 {
-                    foreach (WishListItem item in wishListItem)
-                    {
-                        _dbContext.WishListItems.Remove(item);
-                        _dbContext.SaveChanges();
-                    }
-                }
-                return 0;
+                    WishListId = Guid.NewGuid(),
+                    CustomerId = customerId,
+                    CreatedOn = DateTime.Now.Date,
+                };
+    
+                await _dbContext.WishLists.AddAsync(wishList);
+                await _dbContext.SaveChangesAsync();
             }
             catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
-            }
+            } 
         }
 
-        public async Task<string> GetWishListId(Guid customerId)
+        public async Task AddBookToWishListAsync(Guid customerId, Guid bookId)
         {
             try
             {
-                var wishList = _dbContext.WishLists.FirstOrDefault(x => x.CustomerId == customerId);
+                string wishListId = await GetWishListIdAsync(customerId);
+                WishListItem existingWishlistItem = _dbContext.WishListItems.FirstOrDefault(x => x.ProductId == bookId && x.WishListId.ToString() == wishListId);
     
-                if (wishList != null)
+                if (existingWishlistItem != null)
                 {
-                    return wishList.CustomerId.ToString();
+                    _dbContext.WishListItems.Remove(existingWishlistItem);
+                    await _dbContext.SaveChangesAsync();
                 }
                 else
                 {
-                    return await CreateWishListAsync(customerId);
+                    WishListItem wishListItem = new WishListItem
+                    {
+                        WishListId = customerId,
+                        ProductId = bookId,
+                    };
+                    await _dbContext.WishListItems.AddAsync(wishListItem);
+                    await _dbContext.SaveChangesAsync();
                 }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
+        }
+
+         public  Task<string> GetWishListIdAsync(Guid customerId)
+        {
+            try
+            {
+                // var wishList = _dbContext.WishLists.FirstOrDefault(x => x.CustomerId == customerId);
+    
+                // if (wishList != null)
+                // {
+                //     return wishList.CustomerId.ToString();
+                // }
+                // else
+                // {
+                //     return await CreateWishListAsync(customerId);
+                // }
+                throw new NotImplementedException();
             }
             catch (System.Exception ex)
             {
@@ -82,27 +87,64 @@ namespace KhotsoCBookStore.API.Repositories
             }            
         }
 
-        private async Task<string> CreateWishListAsync(Guid customerId)
-        {            
+        public Task UpdateWishListItems(Guid customerId)
+        {
             try
             {
-                var wishList = new WishList
-                {
-                    WishlistId = Guid.NewGuid(),
-                    CustomerId = customerId,
-                    CreatedOn = DateTime.Now.Date,
-                };
-    
-                await _dbContext.WishLists.AddAsync(wishList);
-                await _dbContext.SaveChangesAsync();
-    
-                return wishList.CustomerId.ToString();
+                throw new NotImplementedException();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                
-                throw;
+                throw new AggregateException(ex.Message);
+            } 
+        }       
+
+        public Task DeleteOneWishListItem(Guid customerId, Guid bookId)
+        {
+            try
+            {
+                throw new NotImplementedException();
             }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
+        }
+
+        public Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
+        }
+
+        public Task<int> GetWishListItemsCount(Guid customerId)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
+        }
+
+        public Task<int> ClearWishList(Guid customerId)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
         }
     }
 }

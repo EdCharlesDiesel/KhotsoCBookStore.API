@@ -3,7 +3,7 @@ using Xunit;
 using KhotsoCBookStore.API.Entities;
 using System.Collections.Generic;
 
-namespace KhotsoCBookStore.API.Tests.Entities
+namespace KhotsoCBookStore.API.Tests.EntitiesTests
 {
     public class WishListTest : IDisposable
     {
@@ -12,7 +12,7 @@ namespace KhotsoCBookStore.API.Tests.Entities
         {
             wishList = new WishList
             {
-             WishlistId = new Guid(),
+             WishListId = new Guid(),
              CustomerId = new Guid(),
             //  WishListItems = new List<WishListItem>(),
             //  Customer = new Customer()

@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Tests.Entities
+namespace KhotsoCBookStore.API.Tests.EntitiesTests
 {
     public class WishListItemTest : IDisposable
     {

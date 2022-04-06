@@ -1,13 +1,15 @@
 using System;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Dtos
 {
     public class PromotionForUpdateDto
     {
         
-        public decimal MaximumRetail { get; set; }
-
-        public decimal ManimumRetail { get; set; }
+        [Required(ErrorMessage ="Please provide minimum retail price")]
+        public decimal MinimumRetail { get; set; }
+        
+        [Required(ErrorMessage ="Please provide maximum retail price")]
+        public decimal MaximumRetail { get; set; }   
     }
 }

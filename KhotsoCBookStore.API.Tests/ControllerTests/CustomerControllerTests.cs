@@ -11,7 +11,7 @@ using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Entities;
 using System.Threading.Tasks;
 
-namespace KhotsoCBookStore.API.Tests.Dtos
+namespace KhotsoCBookStore.API.Tests.ControllerTests
 {
     public class CustomerControllerTests : IDisposable
     {

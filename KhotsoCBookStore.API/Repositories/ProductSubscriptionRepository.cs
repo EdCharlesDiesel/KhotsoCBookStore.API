@@ -1,135 +1,138 @@
 ﻿using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace KhotsoCBookStore.API.Repositories
 {
     public class ProductSubscriptionRepository : IProductSubscriptionService
     {
-        readonly KhotsoCBookStoreDbContext _dbContext;
-
+        private readonly KhotsoCBookStoreDbContext _dbContext;
 
         public ProductSubscriptionRepository(KhotsoCBookStoreDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
-        public async Task ToggleProductSubscriptionItem(Guid customerId, Guid productId)
-        {
-            // var customer = await _dbContext.Customers.FindAsync(customerId);
-            // var productSubscriptionId = GetProductSubscriptionId(customerId);
-
-            // ProductSubscriptionItem existingProductSubscriptionItem =
-            //  _dbContext.ProductSubscriptionItems.FirstOrDefault(x => x.ProductId == productId
-            //   && x.ProductSubscriptionId.ToString() == productSubscriptionId);
-
-            // if (existingProductSubscriptionItem != null)
-            // {
-            //     _dbContext.ProductSubscriptionItems.Remove(existingProductSubscriptionItem);
-            //     await _dbContext.SaveChangesAsync();
-            // }
-
-            ProductSubscriptionItem productSubscriptionItem = new ProductSubscriptionItem
-            {
-                //ProductSubscriptionId = productSubscriptionId,
-                ProductId = productId,
-            };
-            await _dbContext.ProductSubscriptionItems.AddAsync(productSubscriptionItem);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<int> ClearProductSubscription(Guid customer)
+        public async Task CreateProductSubscriptionItemAsync(Guid customerId,Guid bookId)
         {
             try
             {
-                // string productSubscriptionId = GetProductSubscriptionId(customer);
-                // List<ProductSubscriptionItem> productSubscriptionItem = _dbContext.ProductSubscriptionItems
-                //  .Where(x => x.ProductSubscriptionId.ToString() == productSubscriptionId).ToList();
+                var book = await _dbContext.Books.FirstOrDefaultAsync(b=>b.BookId == bookId);
+                var customer = await _dbContext.Customers.FindAsync(customerId);
+                var productSubscriptionId = await GetProductSubscriptionById(customerId);
+                var newProductSubscriptionId = new Guid(productSubscriptionId);
 
-                // if (!string.IsNullOrEmpty(productSubscriptionId))
-                // {
-                //     foreach (ProductSubscriptionItem item in productSubscriptionItem)
-                //     {
-                //         _dbContext.ProductSubscriptionItems.Remove(item);
-                //         await _dbContext.SaveChangesAsync();
-                //     }
-                // }
-                return 0;
+                var existingProductSubscriptionItem =
+                 _dbContext.ProductSubscriptionItems.FirstOrDefault(x => x.ProductId == bookId
+                  && x.ProductSubscriptionId.ToString() == productSubscriptionId);
+
+                if (existingProductSubscriptionItem != null)
+                {
+                    _dbContext.ProductSubscriptionItems.Remove(existingProductSubscriptionItem);
+                    await _dbContext.SaveChangesAsync();
+                }
+
+                ProductSubscriptionItem productSubscriptionItem = new ProductSubscriptionItem
+                {
+                    ProductSubscriptionId = newProductSubscriptionId,
+                    ProductId = bookId,
+                    NameOfSubscription = book.Title
+                };
+                await _dbContext.ProductSubscriptionItems.AddAsync(productSubscriptionItem);
+                await _dbContext.SaveChangesAsync();
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
-        public async Task<String> CreateProductSubscription(Guid customer)
+        public Task<IEnumerable<Book>> GetAllBookSubscriptionsAsync()
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
+        public async Task<string> GetProductSubscriptionById(Guid customerId)
         {
             try
             {
                 ProductSubscription productSubscription = new ProductSubscription
                 {
                     ProductSubscriptionId = Guid.NewGuid(),
-                    CustomerId = customer,
-                    DateOfSubscrition = DateTime.Now,
+                    CustomerId = customerId,
+                    DateOfSubscription = DateTime.Now,
                     CreatedOn = DateTime.Now.Date
                 };
 
-                await _dbContext.ProductSubscriptions.AddAsync(productSubscription);
-                await _dbContext.SaveChangesAsync();
+                 await _dbContext.ProductSubscriptions.AddAsync(productSubscription);
+                 await _dbContext.SaveChangesAsync();
 
                 return productSubscription.ProductSubscriptionId.ToString();
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                 throw new AggregateException(ex.Message);
             }
         }
 
-        Task<string> IProductSubscriptionService.GetProductSubscriptionId(Guid userId)
+         public async Task<int> ClearProductSubscriptionAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var productSubscriptionId = await GetProductSubscriptionById(customerId);
+                List<ProductSubscriptionItem> productSubscriptionItem = _dbContext.ProductSubscriptionItems
+                 .Where(x => x.ProductSubscriptionId.ToString() == productSubscriptionId).ToList();
+
+                if (!string.IsNullOrEmpty(productSubscriptionId))
+                {
+                    foreach (ProductSubscriptionItem item in productSubscriptionItem)
+                    {
+                        _dbContext.ProductSubscriptionItems.Remove(item);
+                        await _dbContext.SaveChangesAsync();
+                    }
+                }
+                return 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
-        public Task ClearProductSubscriptionAsync(Guid customerId)
+       public async Task<bool> SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }            
+        }  
 
-        public Task<IEnumerable<Book>> GetProductSubscriptionId()
+        public Task CreateProductSubscriptionAsync(Guid customerId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task CreateProductSubscriptionAsync(ProductSubscription productSubscriptionToCreate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Book>> GetProductSubscription()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ActionResult<Book>> GetProductSubscriptionById(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<int> IProductSubscriptionService.ClearProductSubscriptionAsync(Guid customerId)
-        {
-            throw new NotImplementedException();
+           try
+           {
+                throw new NotImplementedException();
+           }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            } 
         }
     }
 }

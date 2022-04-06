@@ -9,14 +9,10 @@ namespace KhotsoCBookStore.API.Authentication
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserTypeId { get; set; } = Guid.NewGuid();
+        public Guid UserTypeId { get; set; }
 
         [Required]
         [MaxLength(150)]
         public string UserTypeName { get; set; }
-
-        [ForeignKey("UserId")]
-        public UserMaster UserMaster { get; set; }
-        public Guid UserId { get; set; }
     }
 }

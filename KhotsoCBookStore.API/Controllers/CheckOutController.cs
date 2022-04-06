@@ -46,7 +46,7 @@ namespace KhotsoCBookStore.API.Controllers
         public async Task<ActionResult> CreateOrder(Guid customerId, [FromBody] OrderForCreateDto checkedOutItems)
         {
             var item = _mapper.Map<Order>(checkedOutItems);
-            await _orderRepository.CreateOrderAsync(customerId, item);
+            await _orderRepository.CreateOrderAsync(customerId);
             await _orderRepository.SaveChangesAsync();
 
             var customerToReturn = _mapper.Map<Customer>(item);
@@ -63,14 +63,14 @@ namespace KhotsoCBookStore.API.Controllers
         /// <param name="customerId"></param>
         /// <returns>Single Order</returns>
         [HttpGet("{customerId}", Name ="GetOrderForCustomer")]
-         public async Task<ActionResult<OrderDto>> GetOrderForCustomer(Guid customerId)
+         public async Task<ActionResult<OrderDto>> GetOrder(Guid customerId)
          {
             if (customerId == new Guid())
             {
                return NotFound();
             }
 
-            var Order = await _orderRepository.GetOrderForUserAsync(customerId);
+            var Order = await _orderRepository.GetOrderIdAsync(customerId);
             return Ok(_mapper.Map<OrderDto>(Order));            
          }
 

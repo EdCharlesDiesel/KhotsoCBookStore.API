@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/KhotsoCBookStore.API.csproj",
+                "${workspaceFolder}/KhotsoCBookStore.API/KhotsoCBookStore.API.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/KhotsoCBookStore.API.csproj"
+                "${workspaceFolder}/KhotsoCBookStore.API/KhotsoCBookStore.API.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

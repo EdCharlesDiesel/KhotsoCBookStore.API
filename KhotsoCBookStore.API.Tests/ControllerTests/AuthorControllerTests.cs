@@ -54,7 +54,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         }
 
         [Fact]
-        public async Task GetAuthorItems_Returns200OK_WhenDBIsEmpty()
+        public async Task GetAllAuthors_Returns200OK_WhenDBIsEmpty()
         {
             //Arrange
             mockRepo.Setup(repo =>
@@ -298,9 +298,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                 AuthorId= id,
                 FirstName ="Khotso",
                 LastName = "Mokhethi"
-            });
-
-            
+            });            
                 
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
             
@@ -319,6 +317,28 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
             mockRepo.Setup(repo =>
             repo.GetAuthorByIdAsync(id)).ReturnsAsync(() => null);
+            var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
+
+            //Act
+            var result = await controller.DeleteAuthor(id);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task DeleteAuthor_Returns404NotFound_WhenValidResourceIDSubmitted()
+        {
+             //Arrange
+            var authorDoesNotExits = new Author
+            {
+            
+            };
+            var id = new Guid("300F030A-8566-0025-95F5-52397B4278D6");
+            mockRepo.Setup(repo =>
+            repo.DeleteAuthor(authorDoesNotExits)).ToString();
+            
+
             var controller = new AuthorController(mockRepo.Object, mapper, mockMail.Object);
 
             //Act

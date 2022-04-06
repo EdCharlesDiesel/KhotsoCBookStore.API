@@ -49,7 +49,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             {
                 authors.Add(new WishList
                 {
-                   WishlistId = Guid.NewGuid(),
+                   WishListId = Guid.NewGuid(),
                    //WishListItems = new List<WishListItem>()
                 });
             }

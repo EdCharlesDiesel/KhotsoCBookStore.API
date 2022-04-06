@@ -1,6 +1,5 @@
 using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,79 +18,90 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
+        public async Task CreatePromotionAsync(Promotion newPromotion)
+        {
+            try
+            {
+                if (newPromotion != null)
+                {
+                   await _dbContext.AddAsync(newPromotion);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<Promotion>> GetAllPromotionsAync()
         {
-            return await _dbContext.Promotions.OrderBy(e=>e.MinimumRetail).ToListAsync();
-        }
-
-        public async Task<Promotion> GetPromotionAsync(Guid promotionId)
-        {
-            return await _dbContext.Promotions.FirstOrDefaultAsync(c => c.PromoId == promotionId);
-        }
-
-        public async Task<Dtos.PromotionForCreateDto> CreatePromotionAsync(Dtos.PromotionForCreateDto newPromotion)
-        {
-            if (newPromotion != null)
+            try
             {
-               await _dbContext.AddAsync(newPromotion);
+                return await _dbContext.Promotions.OrderBy(e=>e.MinimumRetail).ToListAsync();
             }
-
-            return  null;
-        }
-
-        public Task<Promotion> UpdatePromotionAsync(Promotion promotion)
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }      
+        
+        public async Task<Promotion> GetPromotionByIdAsync(Guid promotionId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.Promotions.FirstOrDefaultAsync(c => c.PromotionId == promotionId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
+        public Task UpdatePromotionAsync(Book oldPromotionToUpdate)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
         public void DeletePromotion(Promotion promotionToDelete)
         {
-            _dbContext.Promotions.Remove(promotionToDelete);
+            try
+            {
+                _dbContext.Promotions.Remove(promotionToDelete);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() >= 0);
+            try
+            {
+                return (await _dbContext.SaveChangesAsync() >= 0);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<bool> PromotionIfExistsAsync(Guid promotionId)
         {
-            return await _dbContext.Promotions.AnyAsync(c => c.PromoId == promotionId);
-        }       
-
-        public Task<Promotion> UpdatePromotionAsync(Dtos.PromotionForUpdateDto promotionToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int ClearPromotion(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetPromotionId(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TogglePromotionItem(Guid userId, Guid bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IPromotionService.ClearPromotion(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<string> IPromotionService.GetPromotionId(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IPromotionService.TogglePromotionItem(Guid userId, Guid bookId)
-        {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                return await _dbContext.Promotions.AnyAsync(c => c.PromotionId == promotionId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }        
     }
 }

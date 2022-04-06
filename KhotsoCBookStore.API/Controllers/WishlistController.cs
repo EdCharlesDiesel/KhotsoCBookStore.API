@@ -5,6 +5,7 @@ using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using AutoMapper;
+using KhotsoCBookStore.API.Dtos;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -12,20 +13,15 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class WishListController : Controller
     {
-        private readonly IMailService _mailService;
         readonly IWishListService _wishListRepository;
         readonly IBookService _bookRepository;
         readonly ICustomerService _customerRepository;
-
-        readonly IMapper _mapper;
-
-        public WishListController(IWishListService wishListService, 
-        IBookService bookService, 
-        ICustomerService customer,
-        IMailService mailService,
-        IMapper mapper)
+        public WishListController(IWishListService wishListService,
+                                  IBookService bookService,
+                                  ICustomerService customer,
+                                  IMailService mappermailService)
         {
-            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            
             _wishListRepository = wishListService?? throw new ArgumentNullException(nameof(_wishListRepository));
             _bookRepository = bookService?? throw new ArgumentNullException(nameof(_bookRepository));
             _customerRepository = customer?? throw new ArgumentNullException(nameof(_customerRepository));
@@ -52,7 +48,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpGet("{customerId}")]
         public async Task<string> GetWishListsById(Guid customerId)
         {
-            return await _wishListRepository.GetWishListId(customerId);
+            return await _wishListRepository.GetWishListIdAsync(customerId);
         }
 
         /// <summary>
@@ -65,7 +61,7 @@ namespace KhotsoCBookStore.API.Controllers
         [Route("ToggleWishList/{customerId}/{bookId}")]
         public async Task ToggleWishList(Guid customerId, Guid bookId)
         {
-            await _wishListRepository.ToggleWishListItem(customerId, bookId);
+            await _wishListRepository.AddBookToWishListAsync(customerId, bookId);
         }
 
         /// <summary>
@@ -79,19 +75,33 @@ namespace KhotsoCBookStore.API.Controllers
             return _wishListRepository.ClearWishList(customerId);
         }
 
-        private async Task<IEnumerable<Book>> GetUserWishList(Guid customerId)
+        // private async Task<IEnumerable<Book>> GetUserWishList(Guid customerId)
+        // {
+        //     bool user = await _customerRepository.CustomerIfExistsAsync(customerId);
+        //     if (user)
+        //     {
+        //         string Wishlistid = await _wishListRepository.GetWishListIdAsync(customerId);
+        //         var id = new Guid(Wishlistid);
+        //         return await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(id);
+        //     }
+        //     else
+        //     {
+        //         return new List<Book>();
+        //     }
+        // }
+
+        /// <summary>
+        /// Get the list of orders.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetBooksAvailableInWishList")]
+        public Task<IEnumerable<BookDto>> GetBooksAvailableInWishList()
         {
-            bool user = await _customerRepository.CustomerIfExistsAsync(customerId);
-            if (user)
-            {
-                string Wishlistid = await _wishListRepository.GetWishListId(customerId);
-                var id = new Guid(Wishlistid);
-                return await _bookRepository.GetBooksAvailableInBookSubscriptionAsync(id);
-            }
-            else
-            {
-                return new List<Book>();
-            }
+            // // var categories = _mapper.Map<Category>(CategoryDto);
+             //return await _bookRepository.GetBooksAvailableInWishlistAsync()
+
+            throw new NotImplementedException();
         }
     }
 }

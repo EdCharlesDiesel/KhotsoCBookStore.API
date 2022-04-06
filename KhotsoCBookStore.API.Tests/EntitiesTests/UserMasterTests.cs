@@ -17,8 +17,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
                 PasswordHash = new byte[]{},
                 PasswordSalt = new byte[]{},
                 DateOfBirth = DateTime.Now,
-                Username ="admin",
-                UserTypes = new List<UserType>()
+                Username ="admin"
             };
         }
 
@@ -27,18 +26,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
            userMaster  = null;
         }
 
-        [Fact]
-        public void CanChangeUserTypes()
-        {
-            //Arrange
-            var expected = new List<UserType>();
-            
-            //Act
-            userMaster.UserTypes = new List<UserType>();
-
-            //Assert
-            Assert.Equal(expected, userMaster.UserTypes);
-        }
+       
 
         [Fact]
         public void CanChangeUsername()

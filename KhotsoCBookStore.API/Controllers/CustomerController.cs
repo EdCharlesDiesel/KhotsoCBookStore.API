@@ -98,10 +98,8 @@ namespace KhotsoCBookStore.API.Controllers
 
             return CreatedAtRoute("GetCustomer",
                 new { customerId = customerToReturn.CustomerId },
-                customerToReturn);
-                     
+                customerToReturn);                     
         }
-
 
         /// <summary>
         /// Update customer resource by customerId.
@@ -195,7 +193,7 @@ namespace KhotsoCBookStore.API.Controllers
                 return NotFound();
             }
 
-            _customerRepository.DeleteCustomer(customerEntity.CustomerId);
+            _customerRepository.DeleteCustomer(customerEntity);
             await _customerRepository.SaveChangesAsync();
 
             _mailService.Send(

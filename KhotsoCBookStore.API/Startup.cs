@@ -98,10 +98,17 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IMailService, LocalMailRepository>();
             services.AddTransient<IAuthorService, AuthorRepository>();
             services.AddTransient<IPublisherService, PublisherRepository>();
+            services.AddTransient<IAccountService, AccountRepository>();
             services.AddTransient<IPromotionService, PromotionRepository>();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-           .AddJwtBearer(options =>
+            services.AddTransient<ICategoryService, CategoryRepository>();
+            
+            
+            services.AddAuthentication(option =>  
+            {  
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+  
+            }).AddJwtBearer(options =>
            {
                options.RequireHttpsMetadata = false;
                options.SaveToken = true;
@@ -120,11 +127,11 @@ namespace KhotsoCBookStore.API
                services.AddCors();
            });
 
-            services.AddAuthorization(config =>
-            {
-                config.AddPolicy(UserRoles.Admin, Policies.AdminPolicy());
-                config.AddPolicy(UserRoles.User, Policies.UserPolicy());
-            });
+            // services.AddAuthorization(config =>
+            // {
+            //     config.AddPolicy(UserRoles.Admin, Policies.AdminPolicy());
+            //     config.AddPolicy(UserRoles.User, Policies.UserPolicy());
+            // });
 
 
             services.AddCors(options =>

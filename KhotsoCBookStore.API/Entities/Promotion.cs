@@ -4,14 +4,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KhotsoCBookStore.API.Entities
 {
-    public class Promotion: AuditableEntity
+    [Table("Promotions")]
+    public class Promotion : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PromoId { get; set; }  =Guid.NewGuid();
+        public Guid PromotionId { get; set; }
         
+        [Required]
+         [Column(TypeName = "decimal(7,4)")]
         public decimal MinimumRetail { get; set; }
 
+        [Required]
+         [Column(TypeName = "decimal(7,4)")]
         public decimal MaximumRetail { get; set; }
     }
 }

@@ -5,14 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KhotsoCBookStore.API.Entities
 {
+    [Table("Publishers")]
     public class Publisher : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PublisherId { get; set; }  = Guid.NewGuid();
+        public Guid PublisherId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string NameAndSurname { get; set; }
 
         [Required]
         [EmailAddress]

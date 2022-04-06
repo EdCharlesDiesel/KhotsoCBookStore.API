@@ -19,32 +19,64 @@ namespace KhotsoCBookStore.API.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
+        public async Task CreateCustomerAsync(Customer newCustomer)
+        {
+            try
+            {
+                if (newCustomer != null)
+                {
+                    await _dbContext.AddAsync(newCustomer);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<Customer>> GetAllCustomersAync()
         {
-            return await  _dbContext.Customers.OrderBy(c=>c.LastName).ToListAsync();
+            try
+            {
+                return await _dbContext.Customers.OrderBy(c => c.LastName).ToListAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
         }
 
         public async Task<Customer> GetCustomerByIdAsync(Guid customerId)
         {
-            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
-        }
-
-        public async Task CreateCustomerAsync(Customer newCustomer)
-        {
-            if (newCustomer != null)
+            try
             {
-               await _dbContext.AddAsync(newCustomer);
+                return await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
             }
         }
 
-        public void DeleteCustomer(Guid customerId)
+        public Task UpdateCustomerAsync(Customer oldCustomerToUpdate)
         {
             try
-            {                
-                var customer = _dbContext.Customers.Find(customerId);
-                _dbContext.Customers.Remove(customer);               
+            {
+                throw new NotImplementedException();
             }
-             catch (System.Exception ex)
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }
+
+        public void DeleteCustomer(Customer customerToDelete)
+        {
+            try
+            {
+                _dbContext.Customers.Remove(customerToDelete);
+            }
+            catch (System.Exception ex)
             {
                 throw new AggregateException(ex.Message);
             }
@@ -52,45 +84,40 @@ namespace KhotsoCBookStore.API.Repositories
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() >= 0);
-        }
-
-
-        ///<summary>
-        ///ToDo: Work On Authrntication and Authorization.
-        ///</summary>
-        public int RegisterCustomer(CustomerForCreateDto newCustomer)
-        {
             try
             {
-
-                // userData.UserTypeId = 2;
-                // _dbContext.Customer.Add(userData);
-                // _dbContext.SaveChanges();
-                return 1;
+                return (await _dbContext.SaveChangesAsync() >= 0);
             }
-            catch
+            catch (System.Exception ex)
             {
-                throw;
+                throw new AggregateException(ex.Message);
             }
         }
 
         public bool CheckUserAvailabity(string userName)
-         {
-        //     var username =  _dbContext.Customers
-        //     .FirstOrDefault(c => c.Username == userName)?.ToString();
+        {
+            try
+            {
+                //     var username =  _dbContext.Customers
+                //     .FirstOrDefault(c => c.Username == userName)?.ToString();
 
-        //     if (username != null)
-        //     {
-        //         return true;
-        //     }
-        //     else
-        //     {
-        //         return false;
-        //     }
+                //     if (username != null)
+                //     {
+                //         return true;
+                //     }
+                //     else
+                //     {
+                //         return false;
+                //     }
 
-            throw new NotImplementedException();
-         }
+                throw new NotImplementedException();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
 
         public bool isUserExists(Guid customerId)
         {
@@ -127,9 +154,6 @@ namespace KhotsoCBookStore.API.Repositories
             throw new NotImplementedException();
         }
 
-
-      
-
         public Customer RegisterCustomer(Customer customer, string password)
         {
             // // validation
@@ -150,10 +174,10 @@ namespace KhotsoCBookStore.API.Repositories
 
             // return customer;
 
-             throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Update(Customer userParam, string password = null)
+        public void UpdateAccount(Customer userParam, string password = null)
         {
             // var user = _dbContext.Customers.Find(userParam.CustomerId);
 
@@ -193,22 +217,49 @@ namespace KhotsoCBookStore.API.Repositories
             // _dbContext.Customers.Update(user);
             // _dbContext.SaveChanges();
 
-             throw new NotImplementedException();
-        }
-
-    
-
-        // private helper methods
-
-        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            try
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }              
+
+        public Task<bool> CustomerIfExistsAsync(Guid customerId)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }     
+
+        public Task<bool> CheckIfCustomerExists(Guid customerId)
+        {
+             try
+             {
+                throw new NotImplementedException();
+             }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
+            }
+        }     
+
+        public Task<bool> CheckUsernameAvailabity(string customerName)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (System.Exception ex)
+            {
+                throw new AggregateException(ex.Message);
             }
         }
 
@@ -231,62 +282,16 @@ namespace KhotsoCBookStore.API.Repositories
             return true;
         }
 
-       
-
-    
-
-     
-
-   
-
-        public Task<bool> CustomerIfExistsAsync(Guid customerId)
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            throw new NotImplementedException();
+            if (password == null) throw new ArgumentNullException("password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
         }
-
-    
-
-        public void RegisterUser(CustomerDto customer, object password)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-     
-
-        public void RegisterUser(CustomerDto customer, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public Task GetCustomerAsync(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RegisterUser(Customer customer, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object CheckIfCustomerExists(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<bool> ICustomerService.CheckIfCustomerExists(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        // Task<Customer> ICustomerService.GetCustomerAsync(Guid customerId)
-        // {
-        //     throw new NotImplementedException();
-        // }
-
-
     }
 }
