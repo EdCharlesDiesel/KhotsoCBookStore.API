@@ -12,13 +12,8 @@ namespace KhotsoCBookStore.API.Tests
         {
             appSettings = new AppSettings
             {
-             Secret = "victoria's secret"
+                Secret = "victoria's secret"
             };
-        }
-
-        public void Dispose()
-        {
-           appSettings  = null;
         }
 
         [Fact]

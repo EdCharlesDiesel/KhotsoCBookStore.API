@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -37,6 +39,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetAuthorsAPIOptions()
         {
+            
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
         }
@@ -104,9 +107,7 @@ namespace KhotsoCBookStore.API.Controllers
 
             var author = await _authorRepository.GetAuthorByIdAsync(authorId);
             return Ok(_mapper.Map<AuthorDto>(author));
-        }
-
-        
+        }        
 
         /// <summary>
         /// Update author resource by authorId.

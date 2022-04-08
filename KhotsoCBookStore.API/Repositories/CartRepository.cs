@@ -177,40 +177,40 @@ namespace KhotsoCBookStore.API.Repositories
         {
             try
             {
-                if (tempUserId != permUserId && tempUserId != null && permUserId !=null)
+                if (tempUserId == permUserId || tempUserId == new Guid() || permUserId == new Guid())
                 {
-                    string tempCartId = await GetCartIdAsync(tempUserId);
-                    string permCartId = await GetCartIdAsync(permUserId);
+                    return;
+                }
+                string tempCartId = await GetCartIdAsync(tempUserId);
+                string permCartId = await GetCartIdAsync(permUserId);
 
-                    var newPermCartId = new Guid(permCartId);
+                var newPermCartId = new Guid(permCartId);
 
-                    List<CartItem> tempCartItem = _dbContext.CartItems
-                    .Where(x => x.CartId.ToString() == tempCartId).ToList();
+                List<CartItem> tempCartItem = _dbContext.CartItems
+                .Where(x => x.CartId.ToString() == tempCartId).ToList();
 
-                    foreach (CartItem item in tempCartItem)
+                foreach (CartItem item in tempCartItem)
+                {
+                    CartItem cartItem = _dbContext.CartItems
+                    .FirstOrDefault(x => x.ProductId == item.ProductId && x.CartId.ToString() == permCartId);
+
+                    if (cartItem != null)
                     {
-                        CartItem cartItem = _dbContext.CartItems
-                        .FirstOrDefault(x => x.ProductId == item.ProductId && x.CartId.ToString() == permCartId);
-
-                        if (cartItem != null)
-                        {
-                            cartItem.Quantity += item.Quantity;
-                            _dbContext.Entry(cartItem).State = EntityState.Modified;
-                        }
-                        else
-                        {
-                            CartItem newCartItem = new CartItem
-                            {
-                                CartId = newPermCartId,
-                                ProductId = item.ProductId,
-                                Quantity = item.Quantity
-                            };
-                            _dbContext.CartItems.Add(newCartItem);
-                        }
-                        _dbContext.CartItems.Remove(item);
-                       
+                        cartItem.Quantity += item.Quantity;
+                        _dbContext.Entry(cartItem).State = EntityState.Modified;
                     }
-                    
+                    else
+                    {
+                        CartItem newCartItem = new CartItem
+                        {
+                            CartId = newPermCartId,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity
+                        };
+                        _dbContext.CartItems.Add(newCartItem);
+                    }
+                    _dbContext.CartItems.Remove(item);
+
                 }
             }
             catch (System.Exception ex)

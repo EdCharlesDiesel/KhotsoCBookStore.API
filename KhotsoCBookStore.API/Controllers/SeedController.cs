@@ -18,10 +18,8 @@ namespace WorldBooks.Controllers
     //[Authorize]
     public class SeedController : ControllerBase
     {
-
         private readonly KhotsoCBookStoreDbContext _dbContext;
         private readonly IWebHostEnvironment _env;
-
         public SeedController(KhotsoCBookStoreDbContext dbContext, IWebHostEnvironment env)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
@@ -34,9 +32,7 @@ namespace WorldBooks.Controllers
             if (!_env.IsDevelopment())
                 throw new SecurityException("Not allowed");
 
-            var path = Path.Combine(
-            _env.ContentRootPath,
-            "Data/Source/KhotsoCBookStoreSeedData.xlsx");
+            var path = Path.Combine(_env.ContentRootPath,"Data/Source/KhotsoCBookStoreSeedData.xlsx");
 
             using var stream = System.IO.File.OpenRead(path);
             using var excelPackage = new ExcelPackage(stream);
@@ -49,7 +45,7 @@ namespace WorldBooks.Controllers
             
             // initialize the record counters
             var numberOfAuthorsAdded = 0;
-            var numberOfBooksAdded = 0;
+            //var numberOfBooksAdded = 0;
             
             // create a lookup dictionary
             // containing all the authors already existing
@@ -104,47 +100,47 @@ namespace WorldBooks.Controllers
             // AuthorId: x.AuthorId));
             
             // iterates through all rows, skipping the first one
-            for (int nRow = 2; nRow <= nEndRow; nRow++)
-            {
-                var row = worksheet.Cells[
-                nRow, 1, nRow, worksheet.Dimension.End.Column];
-                var name = row[nRow, 1].GetValue<string>();
-                var nameAscii = row[nRow, 2].GetValue<string>();
-                var lat = row[nRow, 3].GetValue<decimal>();
-                var lon = row[nRow, 4].GetValue<decimal>();
-                var authorName = row[nRow, 5].GetValue<string>();
+            // for (int nRow = 2; nRow <= nEndRow; nRow++)
+            // {
+            //     var row = worksheet.Cells[
+            //     nRow, 1, nRow, worksheet.Dimension.End.Column];
+            //     var name = row[nRow, 1].GetValue<string>();
+            //     var nameAscii = row[nRow, 2].GetValue<string>();
+            //     var lat = row[nRow, 3].GetValue<decimal>();
+            //     var lon = row[nRow, 4].GetValue<decimal>();
+            //     var authorName = row[nRow, 5].GetValue<string>();
                 
-                // retrieve author Id by authorName
-                var authorId = authorsbyName[authorName].Id;
+            //     // retrieve author Id by authorName
+            //     var authorId = authorsbyName[authorName].AuthorId;
                 
-                // skip this book if it already exists in the database
-                // if (books.ContainsKey((
-                // Name: name,
-                // Lat: lat,
-                // Lon: lon,
-                // AuthorId: authorId)))
-                //     continue;
+            //     // skip this book if it already exists in the database
+            //     // if (books.ContainsKey((
+            //     // Name: name,
+            //     // Lat: lat,
+            //     // Lon: lon,
+            //     // AuthorId: authorId)))
+            //     //     continue;
                 
-                // create the Book entity and fill it with xlsx data
-                // var book = new Book
-                // {
-                //     Name = name,
-                //     Name_ASCII = nameAscii,
-                //     Lat = lat,
-                //     Lon = lon,
-                //     AuthorId = authorId
-                // };
+            //     // create the Book entity and fill it with xlsx data
+            //     // var book = new Book
+            //     // {
+            //     //     Name = name,
+            //     //     Name_ASCII = nameAscii,
+            //     //     Lat = lat,
+            //     //     Lon = lon,
+            //     //     AuthorId = authorId
+            //     // };
                 
-                // add the new book to the DB dbContext
-                //_dbContext.Books.Add(book);
+            //     // add the new book to the DB dbContext
+            //     //_dbContext.Books.Add(book);
                 
-                // increment the counter
-                numberOfBooksAdded++;
-            }
+            //     // increment the counter
+            //     numberOfBooksAdded++;
+            // }
             
-            // save all the books into the Database
-            if (numberOfBooksAdded > 0)
-                await _dbContext.SaveChangesAsync();
+            // // save all the books into the Database
+            // if (numberOfBooksAdded > 0)
+            //     await _dbContext.SaveChangesAsync();
 
             return new JsonResult(new
             {

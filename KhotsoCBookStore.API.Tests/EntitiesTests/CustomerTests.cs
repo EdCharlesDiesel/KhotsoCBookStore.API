@@ -9,7 +9,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         Customer customer;
         public CustomerTests() => customer = new Customer
         {
-            CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+            CustomerId = new Guid(),
             FirstName = "Khotso",
             LastName = "Mokhethi",
             EmailAddress = "Mokhetkc@hotmail.com",
@@ -108,12 +108,12 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         public void CanChangeId()
         {
             //Arrange
-            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            var expected = new Guid();
             
             //Act
-            var customer = new Customer();
-            customer.CustomerId = expected;
+            customer.CustomerId = new Guid();
 
+            //Assert
             Assert.Equal(expected, customer.CustomerId);
         }
 

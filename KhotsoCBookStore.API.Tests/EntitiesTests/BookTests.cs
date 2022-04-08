@@ -77,10 +77,10 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         public void CanChangePublisherId()
         {
             //Arrange
-            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            var expected = new Guid();
             
             //Act
-            book.PublisherId = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            book.PublisherId = new Guid();
 
             //Assert
             Assert.Equal(expected, book.PublisherId);

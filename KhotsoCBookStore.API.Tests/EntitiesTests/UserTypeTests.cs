@@ -22,17 +22,6 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
            userType  = null;
         }
 
-        // [Fact]
-        // public void CanChangeUserMaster()
-        // {
-        //     //Arrange            
-        //     //Act
-        //     userType.UserMaster = new UserMaster();
-
-        //     //Assert
-        //     Assert.IsType<UserMaster>(userType.UserMaster);
-        // }
-
         [Fact]
         public void CanChangeUserTypeName()
         {
