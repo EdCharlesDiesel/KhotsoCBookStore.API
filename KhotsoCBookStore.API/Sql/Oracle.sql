@@ -110,12 +110,27 @@ INTERSECT
 SELECT ename,job,sal from EmployeeMinView
 
 --PROMBLEM 3.4
-SELECT [BusinessEntityID] FROM [HumanResources].JobCandidate
+SELECT [BusinessEntityID] FROM [HumanResources].JobCandidate;
 MINUS
-SELECT [BusinessEntityID] FROM [HumanResources].Employee
+SELECT [BusinessEntityID] FROM [HumanResources].Employee;
 
 --PROMBLEM 3.5	 
 SELECT J.*
 FROM [HumanResources].JobCandidate J left outer join [HumanResources].Employee e
 ON (J.BusinessEntityID = e.BusinessEntityID)
-WHERE J.BusinessEntityID IS NULL
+WHERE J.BusinessEntityID IS NULL;
+
+--PROMBLEM 3.6
+SELECT e.[LoginID], p.[Rate],
+ (SELECT ev.NationalIDNumber FROM EmployeeMinView ev
+ WHERE ev.[BusinessEntityID]=e.BusinessEntityID) AS [ID_Number]
+ FROM [HumanResources].[Employee] e,  [HumanResources].[EmployeePayHistory] p
+ WHERE e.[BusinessEntityID]=p.[BusinessEntityID]
+ ORDER BY [Rate]
+
+SELECT e.[LoginID], p.[Rate],ev.[NationalIDNumber]
+ FROM [HumanResources].[Employee] e JOIN   [HumanResources].[EmployeePayHistory] p
+ ON ( e.[BusinessEntityID]=p.[BusinessEntityID])
+ LEFT JOIN EmployeeMinView ev
+ ON (ev.[BusinessEntityID]=e.BusinessEntityID)
+ ORDER BY [Rate];

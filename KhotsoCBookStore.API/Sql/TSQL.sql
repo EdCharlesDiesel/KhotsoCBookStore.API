@@ -125,3 +125,19 @@ SELECT J.*
 FROM [HumanResources].JobCandidate J left outer join [HumanResources].Employee e
 ON (J.BusinessEntityID = e.BusinessEntityID)
 WHERE J.BusinessEntityID IS NULL
+
+--PROMBLEM 3.6
+SELECT e.[LoginID], p.[Rate],
+ (SELECT ev.NationalIDNumber FROM EmployeeMinView ev
+ WHERE ev.[BusinessEntityID]=e.BusinessEntityID) AS [ID_Number]
+ FROM [HumanResources].[Employee] e,  [HumanResources].[EmployeePayHistory] p
+ WHERE e.[BusinessEntityID]=p.[BusinessEntityID]
+ ORDER BY [Rate]
+
+SELECT e.[LoginID], p.[Rate],ev.[NationalIDNumber]
+FROM [HumanResources].[Employee] e JOIN   [HumanResources].[EmployeePayHistory] p
+ON ( e.[BusinessEntityID]=p.[BusinessEntityID])
+LEFT JOIN EmployeeMinView ev
+ON (ev.[BusinessEntityID]=e.BusinessEntityID)
+
+--PROMBLEM 3.7
