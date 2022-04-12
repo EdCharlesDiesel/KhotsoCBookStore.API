@@ -19,9 +19,7 @@ namespace KhotsoCBookStore.API.Controllers
     {        
         private readonly ICategoryService _categoryRepository;
         private readonly IMailService _mailService;
-        private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _hostingEnvironment;
 
         public CategoryController(ICategoryService categoryRepository,
                                   IMailService mailService,

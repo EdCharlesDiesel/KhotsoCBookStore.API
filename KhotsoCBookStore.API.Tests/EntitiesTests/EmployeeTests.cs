@@ -11,7 +11,7 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         {
             employee = new Employee
             {
-                EmployeeId = new Guid("F6F0FB84-3ABB-45AE-BFCD-C30014A40AF3"),
+                EmployeeId = new Guid(),
                 FirstName = "Micheal",
                 LastName = "Bay",
                 UpdatedBy ="Test",
@@ -81,9 +81,9 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         public void CanChangeId()
         {
             //Arrange
-            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            var expected = new Guid();
             //Act
-            employee.EmployeeId = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+            employee.EmployeeId = new Guid();
 
             //Assert
             Assert.Equal(expected, employee.EmployeeId);

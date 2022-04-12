@@ -25,6 +25,7 @@ namespace KhotsoCBookStore.API.Controllers
             IMailService mailService,
             IMapper mapper)
         {
+            _mailService = mailService?? throw new ArgumentNullException(nameof(_mailService));
             _mapper = mapper?? throw new ArgumentNullException(nameof(mapper));
             _promotionRepository = promotionRepository?? throw new ArgumentNullException(nameof(_promotionRepository));
             _bookService = bookService?? throw new ArgumentNullException(nameof(_bookService));
@@ -218,9 +219,9 @@ namespace KhotsoCBookStore.API.Controllers
 
             var promotion = _mapper.Map<Promotion>(promotionEntity);
 
-            // _mailService.Send(
-            // "Promotion deleted.",
-            // $"Promotion with id {promotion.PromotionId} was deleted.");
+            _mailService.Send(
+            "Promotion deleted.",
+            $"Promotion with id {promotion.PromotionId} was deleted.");
 
             return NoContent();
         }    

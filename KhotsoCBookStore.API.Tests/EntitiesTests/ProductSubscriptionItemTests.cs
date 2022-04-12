@@ -11,9 +11,9 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
         {
             productSubscriptionItem = new ProductSubscriptionItem
             {
-                ProductSubscriptionId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"),
-                ProductSubscriptionItemId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"),
-                ProductId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ")
+                ProductSubscriptionId = new Guid(),
+                ProductSubscriptionItemId = new Guid(),
+                ProductId = new Guid()
             };
         }
 
@@ -22,56 +22,44 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
            productSubscriptionItem  = null;
         }
 
-        // [Fact]
-        // public void CanChangeProductSubscriptionItemId()
-        // {
-        //     //Arrange
-        //     var expected = new Guid("D5066515-7104-4F85-894C-109BFB651111");
+        [Fact]
+        public void CanChangeProductSubscriptionItemId()
+        {
+            //Arrange
+            var expected = new Guid();
             
-        //     //Act
-        //     productSubscriptionItem.ProductSubscriptionItemId = new Guid("D5066515-7104-4F85-894C-109BFB651111");
+            //Act
+            productSubscriptionItem.ProductSubscriptionItemId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(expected, productSubscriptionItem.ProductSubscriptionItemId);
-        // }
+            //Assert
+            Assert.Equal(expected, productSubscriptionItem.ProductSubscriptionItemId);
+        }
 
-        
-        // [Fact]
-        // public void CanChangeProductSubscription()
-        // {
-        //     //Arrange
-        //     //Act
-        //     productSubscriptionItem.ProductSubscription = new ProductSubscription();
-
-        //     //Assert
-        //     Assert.IsType<ProductSubscription>(productSubscriptionItem.ProductSubscription);
-        // }
-
-        // [Fact]
-        // public void CanChangeProductSubscriptionItems()
-        // {
-        //         //Arrange
-        //     var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+        [Fact]
+        public void CanChangeProductSubscriptionItems()
+        {
+                //Arrange
+            var expected = new Guid();
             
-        //     //Act
-        //     productSubscriptionItem.ProductSubscriptionId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            //Act
+            productSubscriptionItem.ProductSubscriptionId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(expected, productSubscriptionItem.ProductSubscriptionId);
-        // }
+            //Assert
+            Assert.Equal(expected, productSubscriptionItem.ProductSubscriptionId);
+        }
 
-        // [Fact]
-        // public void CanChangeProductId()
-        // {
-        //      //Arrange
-        //     var expected = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ");
+        [Fact]
+        public void CanChangeProductId()
+        {
+             //Arrange
+            var expected = new Guid();
             
-        //     //Act
-        //     productSubscriptionItem.ProductId = new Guid("D5066515-7104-4F85-ZORO-109BFB65QQQQ");
+            //Act
+            productSubscriptionItem.ProductId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(expected, productSubscriptionItem.ProductId);
-        // }
+            //Assert
+            Assert.Equal(expected, productSubscriptionItem.ProductId);
+        }
     }
 }
     

@@ -12,9 +12,9 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             orderItems = new OrderItem
             {
 
-                OrderItemId = new Guid("D5066515-7104-4F85-HHHH-109BFB65QQQQ"),
-                OrderId = new Guid("D5066515-RRRR-4F85-894C-109BFB65QQQQ"),
-                ProductId = new Guid("D5066515-PPPP-4F85-894C-109BFB65QQQQ"),
+                OrderItemId = new Guid(),
+                OrderId = new Guid(),
+                ProductId = new Guid(),
                 Price = 33.33M,
                 Quantity = 1
             };
@@ -25,62 +25,69 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             orderItems = null;
         }
 
-        // [Fact]
-        // public void CanChangeOrderItemId()
-        // {
-        //     //Arrange
-        //     //Act
-        //     orderItems.OrderItemId = new Guid();
-
-        //     //Assert
-        //     Assert.Equal(new Guid(), orderItems.OrderItemId);
-        // }
-
-        // [Fact]
-        // public void CanChangeOrderId()
-        // {
-        //     //Arrange
+        [Fact]
+        public void CanChangeOrderItemId()
+        {
+            //Arrange
+            var expected = new Guid();
             
-        //     //Act
-        //     orderItems.OrderId = new Guid();
+            //Act
+            orderItems.OrderItemId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(new Guid(), orderItems.OrderId);
-        // }
+            //Assert
+            Assert.Equal(expected, orderItems.OrderItemId);
+        }
 
-        // [Fact]
-        // public void CanChangeProductId()
-        // {
-        //     //Arrange
-        //     var expected = new Guid();
+        [Fact]
+        public void CanChangeOrderId()
+        {
+            //Arrange
+            var expected = new Guid();
             
-        //     //Act
-        //     orderItems.ProductId = new Guid();
+            //Act
+            orderItems.OrderId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(expected, orderItems.ProductId);;
-        // }
+            //Assert
+            Assert.Equal(expected, orderItems.OrderId);
+        }
 
-        // [Fact]
-        // public void CanChangePrice()
-        // {
-        //     //Arrange
-        //     //Act
-        //     orderItems.Price = 36.36M;
+        [Fact]
+        public void CanChangeProductId()
+        {
+            //Arrange
+            var expected = new Guid();
+            
+            //Act
+            orderItems.ProductId = new Guid();
 
-        //     //Assert
-        //     Assert.Equal(36.36M, orderItems.Price);
-        // }
+            //Assert
+            Assert.Equal(expected, orderItems.ProductId);;
+        }
 
-        // [Fact]
-        // public void CanChangeQuantity()
-        // {
-        //     //Arrange
-        //     //Act
-        //     orderItems.Quantity = 2;
+        [Fact]
+        public void CanChangePrice()
+        {
+            //Arrange
+            var expected = 36.36M;
 
-        //     //Assert
-        //     Assert.Equal(2, orderItems.Quantity);
-        // }
+            //Act
+            orderItems.Price = 36.36M;
+
+            //Assert
+            Assert.Equal(expected, orderItems.Price);
+        }
+
+        [Fact]
+        public void CanChangeQuantity()
+        {
+            //Arrange
+            var expected = 2;
+            
+            //Act
+            orderItems.Quantity = 2;
+
+            //Assert
+            Assert.Equal(expected, orderItems.Quantity);
+        }
     }
 }
