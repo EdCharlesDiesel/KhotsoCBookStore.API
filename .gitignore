@@ -36,3 +36,4 @@ msbuild.wrn
 *.exe
 *.o
 *.so
+KhotsoCBookStore.API/appsettings.json

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ProCodeGuide.Samples.IdentityServer4.IdentityConfiguration
+namespace StarPeace.IdentityServer4.IdentityConfiguration
 {
     public class Users
     {

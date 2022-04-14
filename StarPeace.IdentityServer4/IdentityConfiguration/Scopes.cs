@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProCodeGuide.Samples.IdentityServer4.IdentityConfiguration
+namespace StarPeace.IdentityServer4.IdentityConfiguration
 {
     public class Scopes
     {
@@ -12,8 +12,8 @@ namespace ProCodeGuide.Samples.IdentityServer4.IdentityConfiguration
         {
             return new[]
             {
-                new ApiScope("weatherApi.read", "Read Access to Weather API"),
-                new ApiScope("weatherApi.write", "Write Access to Weather API"),
+                new ApiScope("khotsoCBookStoreApi.read", "Read Access to KhotsoCBookStore API"),
+                new ApiScope("khotsoCBookStoreApi.write", "Write Access to KhotsoCBookStore API"),
             };
         }
     }

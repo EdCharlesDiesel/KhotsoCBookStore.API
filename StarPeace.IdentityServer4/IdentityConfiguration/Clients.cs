@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProCodeGuide.Samples.IdentityServer4.IdentityConfiguration
+namespace StarPeace.IdentityServer4.IdentityConfiguration
 {
     public class Clients
     {
@@ -15,27 +15,27 @@ namespace ProCodeGuide.Samples.IdentityServer4.IdentityConfiguration
             {
                 new Client
                 {
-                    ClientId = "weatherApi",
-                    ClientName = "ASP.NET Core Weather Api",
+                    ClientId = "khotsoCBookStoreApi",
+                    ClientName = "KhotsoCBoookStore Web API",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = new List<Secret> {new Secret("ProCodeGuide".Sha256())},
-                    AllowedScopes = new List<string> {"weatherApi.read"}
+                    AllowedScopes = new List<string> {"khotsoCBookStoreApi.read"}
                 },
                 new Client
                 {
-                    ClientId = "oidcMVCApp",
-                    ClientName = "Sample ASP.NET Core MVC Web App",
+                    ClientId = "khotsoCBookStoreApi",
+                    ClientName = "KhotsoCBoookStore Web API",
                     ClientSecrets = new List<Secret> {new Secret("ProCodeGuide".Sha256())},
     
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = new List<string> {"https://localhost:44346/signin-oidc"},
+                    RedirectUris = new List<string> {"https://localhost:8001/signin-oidc"},
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "role",
-                        "weatherApi.read"
+                        "khotsoCBookStoreApi.read"
                     },
 
                     RequirePkce = true,
