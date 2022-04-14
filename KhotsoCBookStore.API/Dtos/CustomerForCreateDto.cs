@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using KhotsoCBookStore.API.Authentication;
+
 using KhotsoCBookStore.API.Entities;
 
 namespace KhotsoCBookStore.API.Dtos

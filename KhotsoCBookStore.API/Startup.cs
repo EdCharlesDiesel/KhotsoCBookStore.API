@@ -1,5 +1,4 @@
-﻿using KhotsoCBookStore.API.Authentication;
-using KhotsoCBookStore.API.Authorization;
+﻿
 using KhotsoCBookStore.API.Contexts;
 using KhotsoCBookStore.API.Repositories;
 using KhotsoCBookStore.API.Services;
@@ -16,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,11 +24,14 @@ using System.Text;
 namespace KhotsoCBookStore.API
 {
     public class Startup
-    {
+    {       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            baseAccountsUrl = "https://localhost:8000";
         }
+
+        private string baseAccountsUrl;
 
         public IConfiguration Configuration { get; }
 
@@ -88,7 +91,7 @@ namespace KhotsoCBookStore.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IIdentityServer4Service, IdentityServer4Repository>();
+            // services.AddSingleton<IIdentityServer4Service, IdentityServer4Repository>();
             services.AddTransient<ICustomerService, CustomerRepository>();
             services.AddTransient<IEmployeeService, EmployeeRepository>();
             services.AddTransient<IBookService, BookRepository>();
@@ -99,7 +102,6 @@ namespace KhotsoCBookStore.API
             services.AddTransient<IMailService, LocalMailRepository>();
             services.AddTransient<IAuthorService, AuthorRepository>();
             services.AddTransient<IPublisherService, PublisherRepository>();
-            services.AddTransient<IAccountService, AccountRepository>();
             services.AddTransient<IPromotionService, PromotionRepository>();
             services.AddTransient<ICategoryService, CategoryRepository>();
             
@@ -111,22 +113,34 @@ namespace KhotsoCBookStore.API
   
             }).AddJwtBearer(options =>
            {
-               options.RequireHttpsMetadata = false;
-               options.SaveToken = true;
-               options.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateIssuer = true,
-                   ValidateAudience = true,
-                   ValidateLifetime = true,
-                   ValidateIssuerSigningKey = true,
-                   ValidIssuer = Configuration["Jwt:Issuer"],
-                   ValidAudience = Configuration["Jwt:Audience"],
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-                   ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
-                };
+            //    options.RequireHttpsMetadata = false;
+            //    options.SaveToken = true;
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = Configuration["Jwt:Issuer"],
+            //        ValidAudience = Configuration["Jwt:Audience"],
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+            //        ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
+            //     };
+
+                options.Authority = "http://localhost:8000";
+                options.Audience = "khotsoCBookStoreApi";
+                options.RequireHttpsMetadata = false;
 
                services.AddCors();
            });
+
+          
+
+            services.AddAuthorization(options =>
+             {
+             options.AddPolicy("khotsoCBookStoreApi", policy => policy.RequireClaim("scope", "khotsoCBookStoreApi.read"));
+            // options.AddPolicy("Consumer", policy => policy.RequireClaim(ClaimTypes.Role, "consumer"));
+             });
 
             // services.AddAuthorization(config =>
             // {
@@ -156,12 +170,37 @@ namespace KhotsoCBookStore.API
                     }
                 });
 
-                setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                // setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                // {
+                //     Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
+                //     Name = "Authorization",
+                //     In = ParameterLocation.Header,
+                //     Type = SecuritySchemeType.ApiKey
+                // });
+
+                // setupAction.AddSecurityDefinition("AccountsOpenID", new OpenApiSecurityScheme
+                // {
+                //     Type = SecuritySchemeType.OpenIdConnect,
+                //     OpenIdConnectUrl = new Uri($"{baseAccountsUrl}/.well-known/openid-configuration")
+                
+                // });
+
+                  setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:8000/connect/authorize"),
+                            TokenUrl = new Uri("https://localhost:8000/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                {"khotsoCBookStoreApi",  "KhotsoCBookStore Api - full access"}
+                            }
+                        }
+                    },
+                    OpenIdConnectUrl =  new Uri($"{baseAccountsUrl}/.well-known/openid-configuration")
                 });
 
                 setupAction.OperationFilter<SecurityRequirementsOperationFilter>();
@@ -192,7 +231,8 @@ namespace KhotsoCBookStore.API
 
             app.UseSwaggerUI(setupAction =>
             {
-                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json", "KhotsoCBookStore API V2.1.1");
+                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json",
+                 "KhotsoCBookStore API V2.1.1");
 
                 setupAction.RoutePrefix = "";
 
