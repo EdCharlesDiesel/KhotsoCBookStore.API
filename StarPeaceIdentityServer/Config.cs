@@ -15,13 +15,13 @@ namespace StarPeace.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new[]
             {
-                new ApiScope("api1", "Full access to API #1") // "full access" scope
+                new ApiScope("khotsoCBookStoreApi", "Full access to API #1") // "full access" scope
             };
 
         public static IEnumerable<ApiResource> ApiResources =>
             new[]
             {
-                new ApiResource("api1", "API #1") {Scopes = {"api1"}}
+                new ApiResource("khotsoCBookStoreApi", "API #1") {Scopes = {"khotsoCBookStoreApi"}}
             };
 
         public static IEnumerable<Client> Clients =>
@@ -41,16 +41,6 @@ namespace StarPeace.IdentityServer
                     AllowedCorsOrigins = {"https://localhost:5000"},
                     AllowedScopes = {"khotsoCBookStoreApi"}
 
-                    //   RequireConsent = false,
-                    // ClientId = "angular_spa",
-                    // ClientName = "Angular SPA",
-                    // AllowedGrantTypes = GrantTypes.Implicit,
-                    // AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    // RedirectUris = {"http://localhost:4200/auth-callback"},
-                    // PostLogoutRedirectUris = {"http://localhost:4200/"},
-                    // AllowedCorsOrigins = {"http://localhost:4200"},
-                    // AllowAccessTokensViaBrowser = true,
-                    // AccessTokenLifetime = 3600
                 }
             };
     }

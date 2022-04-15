@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using KhotsoCBookStore.API.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +9,14 @@ namespace StarPeace.IdentityServer.Authentication
 {
     public class UserMaster : IdentityUser
     {
+        
+        public INotifier Notifier { get; set; }
+
+        public UserMaster(INotifier notifier)
+        {
+            this.Notifier = notifier;
+        }
+        private string emailaddr;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
@@ -47,13 +55,16 @@ namespace StarPeace.IdentityServer.Authentication
         [Required]
         public string Password { get; set; }
 
-        // public byte[] PasswordHash { get; set; }
 
-        // public byte[] PasswordSalt { get; set; }
 
-        // [ForeignKey(nameof(UserType))]
-        // public Guid UserTypeId { get; set; }
+        public void ChangePassword(string username,string oldpwd,string newpwd)
+        {
+            //EmailNotifier notifier = new EmailNotifier();
 
-        //public ICollection<UserType> UserTypes { get; set; } = new List<UserType>();
+            //change password here
+
+            //Notify the user
+            Notifier.Notify("Password was changed on " + DateTime.Now);
+        }
     }
 }

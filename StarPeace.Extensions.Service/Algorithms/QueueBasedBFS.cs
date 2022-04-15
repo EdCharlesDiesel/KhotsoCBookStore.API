@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StarPeaceAlgorithms
+namespace StarPeace.Extensions.Service.Algorithms
 {
     /// <summary>
     /// Breadth first search (BFS), based on a queue, to traverse a directed graph.

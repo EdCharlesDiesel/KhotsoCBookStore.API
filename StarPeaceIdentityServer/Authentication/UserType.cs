@@ -1,5 +1,4 @@
 ﻿using System;
-using KhotsoCBookStore.API.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 

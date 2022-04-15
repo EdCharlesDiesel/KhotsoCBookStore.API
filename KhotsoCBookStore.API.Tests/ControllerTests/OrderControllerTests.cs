@@ -50,7 +50,7 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
                     CartTotal =22.55M,
                     CustomerId = Guid.NewGuid(),
                     OrderDate= DateTime.Now,
-                    ShipAddress= "Zone 88",
+                    ShippingAddress= null,
                     ShipDate = DateTime.Now,
                     OrderItems = new  List<OrderItem>()
                 });

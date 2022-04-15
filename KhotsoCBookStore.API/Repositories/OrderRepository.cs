@@ -30,7 +30,7 @@ namespace KhotsoCBookStore.API.Repositories
                     OrderId = Guid.NewGuid(),
                     CustomerId = customer.CustomerId,
                     OrderDate = orderDetails.OrderDate,
-                    ShipAddress = orderDetails.ShipAddress,
+                    ShippingAddress = orderDetails.ShippingAddress,
                     ShipDate = orderDetails.ShipDate,
                     CartTotal = orderDetails.CartTotal
                 };

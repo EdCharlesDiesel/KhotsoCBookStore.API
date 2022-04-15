@@ -63,16 +63,16 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             Assert.Equal(expected, order.CartTotal);
         }
 
-        [Fact]
-        public void CanChangeShipAddress()
-        {
-            //Arrange
-            //Act
-            order.ShipAddress = "sdfsdf";
+        // [Fact]
+        // public void CanChangeShipAddress()
+        // {
+        //     //Arrange
+        //     //Act
+        //     order.ShipAddress = "sdfsdf";
 
-            //Assert
-            Assert.Equal("sdfsdf", order.ShipAddress);
-        }
+        //     //Assert
+        //     Assert.Equal("sdfsdf", order.ShipAddress);
+        // }
 
         [Fact]
         public void CanChangeShipDate()

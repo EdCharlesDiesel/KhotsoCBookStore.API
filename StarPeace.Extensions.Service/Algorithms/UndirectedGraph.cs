@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StarPeaceAlgorithms
+namespace StarPeace.Extensions.Service.Algorithms
 {
     /// <summary>
     /// A recursive traversal in depth in an undirected graph.

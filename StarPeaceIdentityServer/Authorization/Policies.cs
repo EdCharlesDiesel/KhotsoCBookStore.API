@@ -1,5 +1,4 @@
-﻿using KhotsoCBookStore.API.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace StarPeace.IdentityServer.Authorization
 {

@@ -1,4 +1,4 @@
-﻿namespace StarPeace.IdentityServer.Authentication
+﻿namespace StarPeace.IdentityServer.Authorization
 {
     public static class UserRoles
     {
