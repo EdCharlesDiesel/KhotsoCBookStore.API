@@ -7,20 +7,20 @@ namespace StarPeace.Extensions.Service.Algorithms
     /// <summary>
     /// A recursive traversal in depth in an undirected graph.
     /// </summary>
-    public class  UndirectedGraph
+    public class  UndirectedGraphUndirected
     {
-        static void UndirectedGraphMain()
+        static void UndirectedGraphUndirectedMain()
         {
-            Graph g = new Graph(ReadGraph());
+            GraphUndirected g = new GraphUndirected(ReadGraphUndirected());
 
-            bool[] visited = new bool[Graph.MaxNode];
+            bool[] visited = new bool[GraphUndirected.MaxNode];
             g.TraverseDFSRecursive(0, visited);
 
             PrintResult(g.DFSPath);
             Console.ReadLine();
         }
 
-        static List<int>[] ReadGraph()
+        static List<int>[] ReadGraphUndirected()
         {
             // Read number of nodes N
             Console.WriteLine("Please enter graph limit");
@@ -66,13 +66,13 @@ namespace StarPeace.Extensions.Service.Algorithms
             Console.WriteLine(builder);
         }
     }
-    public class Graph
+    public class GraphUndirected
     {
         internal const int MaxNode = 1024;
         private List<int>[] childNodes;
         private List<int> dfsPath;
 
-        public Graph(List<int>[] childNodes)
+        public GraphUndirected(List<int>[] childNodes)
         {
             this.childNodes = childNodes;
             this.dfsPath = new List<int>();
@@ -101,7 +101,7 @@ namespace StarPeace.Extensions.Service.Algorithms
     
 
 
-        private List<int>[] childNodes;
+        private List<int>[] childNodes_;
         private bool[] visited;
 
         private List<int> currentPath;
@@ -111,7 +111,7 @@ namespace StarPeace.Extensions.Service.Algorithms
         {
             get
             {
-                return this.childNodes.Length;
+                return this.childNodes_.Length;
             }
         }
 
@@ -119,14 +119,14 @@ namespace StarPeace.Extensions.Service.Algorithms
         {
             get
             {
-                return this.childNodes;
+                return this.childNodes_;
             }
         }
 
-        public Graph(List<int>[] nodes)
+        public GraphUndirected(List<int>[] nodes)
         {
-            this.childNodes = nodes;
-            this.visited = new bool[childNodes.GetLength(0)];
+            this.childNodes_ = nodes;
+            this.visited = new bool[childNodes_.GetLength(0)];
             this.currentPath = new List<int>();
             this.foundCycles = new List<List<int>>();
 
@@ -159,7 +159,7 @@ namespace StarPeace.Extensions.Service.Algorithms
 
         public bool PrintAllCycles()
         {
-            for (int node = 0; node < childNodes.GetLength(0); node++)
+            for (int node = 0; node < childNodes_.GetLength(0); node++)
             {
                 currentPath.Add(node);
                 if (FindAllCycles(node))

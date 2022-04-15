@@ -8,25 +8,25 @@ GO
 
 USE master
 GO
-if exists (select * from sysdatabases where name='Northwind')
-		drop database Northwind
+if exists (select * from sysdatabases where name='StarPeaceExtentionsDb')
+		drop database StarPeaceExtentionsDb
 go
 
 DECLARE @device_directory NVARCHAR(520)
 SELECT @device_directory = SUBSTRING(filename, 1, CHARINDEX(N'master.mdf', LOWER(filename)) - 1)
 FROM master.dbo.sysaltfiles WHERE dbid = 1 AND fileid = 1
 
-EXECUTE (N'CREATE DATABASE Northwind
-  ON PRIMARY (NAME = N''Northwind'', FILENAME = N''' + @device_directory + N'northwnd.mdf'')
-  LOG ON (NAME = N''Northwind_log'',  FILENAME = N''' + @device_directory + N'northwnd.ldf'')')
+EXECUTE (N'CREATE DATABASE StarPeaceExtentionsDb
+  ON PRIMARY (NAME = N''StarPeaceExtentionsDb'', FILENAME = N''' + @device_directory + N'StarPeaceExtentionsDb.mdf'')
+  LOG ON (NAME = N''StarPeaceExtentionsDb_log'',  FILENAME = N''' + @device_directory + N'StarPeaceExtentionsDb.ldf'')')
 go
 
 if CAST(SERVERPROPERTY('ProductMajorVersion') AS INT)<12 
 BEGIN
-  exec sp_dboption 'Northwind','trunc. log on chkpt.','true'
-  exec sp_dboption 'Northwind','select into/bulkcopy','true'
+  exec sp_dboption 'StarPeaceExtentionsDb','trunc. log on chkpt.','true'
+  exec sp_dboption 'StarPeaceExtentionsDb','select into/bulkcopy','true'
 END
-ELSE ALTER DATABASE [Northwind] SET RECOVERY SIMPLE WITH NO_WAIT
+ELSE ALTER DATABASE [StarPeaceExtentionsDb] SET RECOVERY SIMPLE WITH NO_WAIT
 GO
 
 set quoted_identifier on
@@ -37,7 +37,7 @@ GO
 */
 SET DATEFORMAT mdy
 GO
-use "Northwind"
+use "StarPeaceExtentionsDb"
 go
 if exists (select * from sysobjects where id = object_id('dbo.Employee Sales by Country') and sysstat & 0xf = 4)
 	drop procedure "dbo"."Employee Sales by Country"
@@ -9105,7 +9105,7 @@ ORDER BY ProductName
 GO
 
 
-/* The follwing adds tables to the Northwind database */
+/* The follwing adds tables to the StarPeaceExtentionsDb database */
 
 
 CREATE TABLE [dbo].[CustomerCustomerDemo] 
@@ -9254,7 +9254,7 @@ GO
 
 
 
---  The following adds constraints to the Northwind database
+--  The following adds constraints to the StarPeaceExtentionsDb database
 
 ALTER TABLE CustomerCustomerDemo
 	ADD CONSTRAINT [PK_CustomerCustomerDemo] PRIMARY KEY  NONCLUSTERED 

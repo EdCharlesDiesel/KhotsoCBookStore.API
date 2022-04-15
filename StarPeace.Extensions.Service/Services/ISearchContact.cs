@@ -1,4 +1,4 @@
-namespace StarPeace.Extensions
+namespace StarPeace.Extensions.Service.Services
 {
     public interface ISearchContact
     {
