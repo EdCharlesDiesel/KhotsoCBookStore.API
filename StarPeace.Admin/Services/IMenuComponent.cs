@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Xml;
 
 
-namespace StarPeace.Extensions.Service.Services
+namespace StarPeace.Admin.Services
 {
     public interface IMenuComponent
     {

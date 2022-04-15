@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StarPeace.Admin.Entities;
 
-namespace StarPeace.Extensions.Service.Services
+namespace StarPeace.Admin.Services
 {
     public interface IBookSeriesBuilder
     {

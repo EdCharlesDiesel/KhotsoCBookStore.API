@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using KhotsoCBookStore.API.Entities;
+using StarPeace.Admin.Entities;
 using Microsoft.EntityFrameworkCore;
+using StarPeace.Admin.Services;
 
-namespace StarPeace.Extensions.Service.Algorithms.Contexts
+
+namespace StarPeace.Admin.Contexts
 {
-    public partial class StarPeaceExtensionsDbContext : DbContext
+    public partial class StarPeaceAdminDbContext : DbContext
     {
 
-        public StarPeaceExtensionsDbContext(DbContextOptions<StarPeaceExtensionsDbContext> options)
+        public StarPeaceAdminDbContext(DbContextOptions<StarPeaceAdminDbContext> options)
             : base(options)
         {
         }

@@ -1,8 +1,8 @@
 ﻿using System;
-using StarPeace.Extensions;
+using StarPeace.Admin;
 using Xunit;
 
-namespace StarPeace.Extensions.Tests
+namespace StarPeace.Admin.Tests
 {
     
     public class ProgramTest

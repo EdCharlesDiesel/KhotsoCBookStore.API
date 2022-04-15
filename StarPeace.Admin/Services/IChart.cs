@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace StarPeace.Extensions.Service.Services
+namespace StarPeace.Admin.Services
 {
     public interface IChart
     {

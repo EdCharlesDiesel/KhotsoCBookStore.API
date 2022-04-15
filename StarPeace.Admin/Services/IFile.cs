@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 
-namespace  StarPeace.Extensions.Service.Services
+namespace  StarPeace.Admin.Services
 {
     public interface IUploadedFile
     {

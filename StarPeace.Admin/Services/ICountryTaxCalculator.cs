@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarPeace.Extensions.Service.Services
+namespace StarPeace.Admin.Services
 {
     public interface ICountryTaxCalculator
     {

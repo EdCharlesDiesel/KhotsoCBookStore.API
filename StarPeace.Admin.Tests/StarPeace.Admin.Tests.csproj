@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StarPeace.Extensions\StarPeace.Extensions.csproj" />
+    <ProjectReference Include="..\StarPeace.Admin\StarPeace.Admin.csproj" />
   </ItemGroup>
 
 </Project>

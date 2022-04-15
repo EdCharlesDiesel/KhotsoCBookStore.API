@@ -4,13 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Helpers
 {
-    public interface IErrorLogger
-    {
-        void Log(string msg);
-    }
 
     public class TextFileErrorLogger : IErrorLogger
     {

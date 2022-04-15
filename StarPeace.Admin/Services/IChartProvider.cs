@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace StarPeace.Extensions.Service.Services
+namespace StarPeace.Admin.Services
 {
     public interface IChartProvider
     {

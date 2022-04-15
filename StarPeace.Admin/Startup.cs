@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
-namespace StarPeace.Extensions.Service
+namespace StarPeace.Admin
 {
     public class Startup
     {  
