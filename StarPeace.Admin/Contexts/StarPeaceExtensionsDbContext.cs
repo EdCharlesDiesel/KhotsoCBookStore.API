@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using KhotsoCBookStore.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace StarPeace.Extensions.Service.Algorithms.Contexts
+namespace StarPeace.Admin.Contexts
 {
     public partial class StarPeaceExtensionsDbContext : DbContext
     {

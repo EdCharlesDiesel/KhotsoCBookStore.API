@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StarPeace.Extensions.Service.Helpers
+namespace StarPeace.Admin.Helpers
 {
     public class BookSeriesAssembler
     {
