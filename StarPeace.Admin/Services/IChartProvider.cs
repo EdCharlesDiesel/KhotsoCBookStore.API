@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Services
 {
@@ -14,21 +15,21 @@ namespace StarPeace.Admin.Services
     }
 
 
-    public class ChartProviderFree:IChartProvider
-    {
-        public IChart GetChart()
-        {
-            IChart chart = new BarChart();
-            return chart;
-        }
-    }
+    // public class ChartProviderFree:IChartProvider
+    // {
+    //     public IChart GetChart()
+    //     {
+    //         IChart chart = new BarChart();
+    //         return chart;
+    //     }
+    // }
 
-    public class ChartProviderPaid : IChartProvider
-    {
-        public IChart GetChart()
-        {
-            IChart chart = new PieChart();
-            return chart;
-        }
-    }
+    // public class ChartProviderPaid : IChartProvider
+    // {
+    //     public IChart GetChart()
+    //     {
+    //         IChart chart = new PieChart();
+    //         return chart;
+    //     }
+    // }
 }

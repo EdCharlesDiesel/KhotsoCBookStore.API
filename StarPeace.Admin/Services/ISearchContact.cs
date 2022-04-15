@@ -9,11 +9,11 @@ namespace StarPeace.Admin.Services
 {
     public interface ISearchContact
     {
-        public static List<Customer> SearchByCountry(string country);
+        List<Customer> SearchByCountry(string country);
 
-        public static List<Customer> SearchByCompanyName(string company);
+        List<Customer> SearchByCompanyName(string company);
 
-        public static List<Customer> SearchByContactName(string contact);
+        List<Customer> SearchByContactName(string contact);
 
     }
 }

@@ -6,32 +6,50 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StarPeace.Admin.Models;
+using StarPeace.Admin.Helpers;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(IncomeDetails obj)
         {
-            return View();
+            ICountryTaxCalculator t = null;
+            switch (obj.Country)
+            {
+                case "USA":
+                    t = new TaxCalculatorForUS();
+                    break;
+                case "UK":
+                    t = new TaxCalculatorForUK();
+                    break;
+                case "IN":
+                    t = new TaxCalculatorForIN();
+                    break;
+            }
+            t.TotalIncome = obj.TotalIncome;
+            t.TotalDeduction = obj.TotalDeduction;
+            TaxCalculator cal = new TaxCalculator();
+            ViewBag.TotalTax = cal.Calculate(t);
+            return View("Index", obj);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+
+
+        //[HttpPost]
+        //public IActionResult IndexWrong(IncomeDetails obj)
+        //{
+        //    decimal taxableIncome = obj.TotalIncome - obj.TotalDeductions;
+        //    TaxCalculator t = new TaxCalculator();
+        //    ViewBag.TotalTax = t.CalculateWrong(taxableIncome, obj.Country);
+        //    return View("Index", obj);
+        //}
     }
 }

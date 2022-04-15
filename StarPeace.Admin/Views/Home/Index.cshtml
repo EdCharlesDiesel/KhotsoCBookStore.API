@@ -1,8 +1,41 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model StarPeace.Admin.Models.IncomeDetails
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Tax Calculator</h1>
+    <form asp-controller="Home" asp-action="Calculate" method="post">
+        <table cellpadding="5">
+            <tr>
+                <td><label asp-for="TotalIncome">Total Income :</label></td>
+                <td><input type="number" asp-for="TotalIncome" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="TotalDeduction">Total Deduction :</label></td>
+                <td><input type="number" asp-for="TotalDeduction" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Country">Country :</label></td>
+                <td>
+                    <select asp-for="Country">
+                        <option value="USA">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="IN">India</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Calculate Tax" /></td>
+            </tr>
+            <tr>
+                <td><strong>Total Tax : @ViewBag.TotalTax</strong></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

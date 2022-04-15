@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Helpers
 {

@@ -15,7 +15,7 @@ namespace StarPeace.Admin.Helpers
         public SelfHelpBookSeriesBuilder()
         {
             bookSeries = new BookSeries();
-            bookSeries.Parts = new List<BookSeriesPart>();
+            bookSeries.BookSeriesBooks = new List<BookSeriesBook>();
         }
 
         public void AddHardCover()

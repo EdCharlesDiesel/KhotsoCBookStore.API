@@ -11,10 +11,10 @@ namespace StarPeace.Admin.Helpers
     {
        private BookSeries bookSeries;
 
-        public ProgrammingBookSeriesBuilder()
+        public CareerBookSeriesBuilder()
         {
             bookSeries = new BookSeries();
-            bookSeries.Parts = new List<BookSeriesPart>();
+            bookSeries.BookSeriesBooks = new List<BookSeriesBook>();
         }
 
         public void AddHardCover()

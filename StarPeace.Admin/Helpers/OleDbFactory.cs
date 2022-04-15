@@ -10,21 +10,21 @@ using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Helpers
 {
-    public class OleDbFactory : IDatabaseFactory
-    {
-        public DbConnection GetConnection()
-        {
-            return new OleDbConnection();
-        }
+    // public class OleDbFactory : IDatabaseFactory
+    // {
+    //     public DbConnection GetConnection()
+    //     {
+    //         return new OleDbConnection();
+    //     }
 
-        public DbCommand GetCommand()
-        {
-            return new OleDbCommand();
-        }
+    //     public DbCommand GetCommand()
+    //     {
+    //         return new OleDbCommand();
+    //     }
 
-        public DbParameter GetParameter()
-        {
-            return new OleDbParameter();
-        }
-    }
+    //     public DbParameter GetParameter()
+    //     {
+    //         return new OleDbParameter();
+    //     }
+    // }
 }
