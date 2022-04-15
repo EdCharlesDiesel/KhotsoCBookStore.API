@@ -15,6 +15,7 @@ namespace StarPeace.Extensions.Service.Algorithms.Contexts
 
         public DbSet<WebsiteMetadata> WebsiteMetadata { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<BookSeriesBook> BookSeriesBooks { get; set; }
      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

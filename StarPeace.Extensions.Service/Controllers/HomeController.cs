@@ -9,7 +9,114 @@ namespace StarPeace.Extensions.Service.Controllers
 {
     public class HomeController : Controller
     {
-        //Prototype
+        //Builder
+        public IActionResult Build(string usagetype)
+        {
+            IBookSeriesBuilder builder = null;
+            switch(usagetype)
+            {
+                case "programming":
+                    builder = new ProgrammingBookSeriesBuilder();
+                    break;
+                case "selfHelp":
+                    builder = new SelfHelpBookSeriesBuilder();
+                    break;
+                case "Career":
+                    builder = new CareerBookSeriesBuilder();
+                    break;
+            }
+            BookSeriesAssembler assembler = new BookSeriesAssembler(builder);
+            BookSeries bookSeries = assembler.AssembleBookSeries();
+            return Ok(bookSeries);
+        }
+        
+        // Abstract Factory
+        [HttpPost]
+        public IActionResult ExecuteQuery(string factorytype,string query)
+        {
+            IDatabaseFactory factory = null;
+            if (factorytype == "sqlclient")
+            {
+                factory = new SqlClientFactory();
+            }
+            else
+            {
+                factory = new OleDbFactory();
+            }
+            DatabaseHelper helper = new DatabaseHelper(factory);
+            query = query.ToLower();
+            if(query.StartsWith("select"))
+            {
+                DbDataReader reader = helper.ExecuteSelect(query);
+                return Ok( reader);
+            }
+            else
+            {
+                int i = helper.ExecuteAction(query);
+                return Ok( i);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ExecuteQueryConfig(string query)
+        {
+            IDatabaseFactory factory = null;
+
+            string factorytype = AppSettings.Factory;
+
+
+            if (factorytype == "sqlclient")
+            {
+                factory = new SqlClientFactory();
+            }
+            else
+            {
+                factory = new OleDbFactory();
+            }
+
+            DatabaseHelper helper = new DatabaseHelper(factory);
+
+            query = query.ToLower();
+
+            if (query.StartsWith("select"))
+            {
+                DbDataReader reader = helper.ExecuteSelect(query);
+                return Ok( reader);
+            }
+            else
+            {
+                int i = helper.ExecuteAction(query);
+                return Ok(i);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ExecuteQueryReflection(string query)
+        {
+            IDatabaseFactory factory = null;
+
+            string factorytype = AppSettings.FactoryType;
+
+            ObjectHandle o = Activator.CreateInstance(Assembly.GetExecutingAssembly().FullName, factorytype);
+            factory = (IDatabaseFactory)o.Unwrap();
+
+            DatabaseHelper helper = new DatabaseHelper(factory);
+
+            query = query.ToLower();
+
+            if (query.StartsWith("select"))
+            {
+                DbDataReader reader = helper.ExecuteSelect(query);
+                return Ok(reader);
+            }
+            else
+            {
+                int i = helper.ExecuteAction(query);
+                return Ok(i);
+            }
+        }
+        
+        // Prototype
         [HttpPost]
         public IActionResult Upload(IList<IFormFile> files)
         {
@@ -41,9 +148,10 @@ namespace StarPeace.Extensions.Service.Controllers
                 //send primaryObj to main system
                 //send backupObj to backup system
             }
-            ViewBag.Message = files.Count +  " file(s) uploaded successfully!";
-            return View("Index");
+            OkBag.Message = files.Count +  " file(s) uploaded successfully!";
+            return Ok("Index");
         }
+        
         // Singleton
         public IActionResult Index()
         {
@@ -116,55 +224,5 @@ namespace StarPeace.Extensions.Service.Controllers
             return File(data, "image/png");
         }
 
-        public IActionResult GetCustomers()
-        {
-            using (CustomerRepository repository = new CustomerRepository())
-            {
-                List<Customer> customers = repository.SelectAll();
-                Customers = from c in customers
-                            select new SelectListItem()
-                            {
-                                Text = c.CustomerID,
-                                Value = c.CustomerID
-                            };
-                return Ok();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult SelectByID(string customerid)
-        {
-            using (CustomerRepository repository = new CustomerRepository())
-            {
-                Customer data = repository.SelectByID(customerid);
-                List<Customer> customers = repository.SelectAll();
-                Customers = from c in customers
-                            select new SelectListItem()
-                            {
-                                Text = c.CustomerID,
-                                Value = c.CustomerID
-                            };
-                return Ok(data);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Update(Customer obj)
-        {
-            using (CustomerRepository repository = new CustomerRepository())
-            {
-                repository.Update(obj);
-                repository.Save();
-                List<Customer> customers = repository.SelectAll();
-                Customers = from c in customers
-                            select new SelectListItem()
-                            {
-                                Text = c.CustomerID,
-                                Value = c.CustomerID
-                            };
-                Message = "Customer modified successfully!";
-                return OK(obj);
-            }
-        }
     }
 }
