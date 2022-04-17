@@ -9,10 +9,10 @@ namespace StarPeace.Extensions.Service.Algorithms
     /// </summary>
     public class  QueueBasedBFS
     {
-   public   static void QueueBasedBFSMain()
+        public   static void QueueBasedBFSMain()
         {
         
-            Graph g = new Graph(ReadGraph());
+            GraphQueueBasedBFS g = new GraphQueueBasedBFS(ReadGraphQueueBasedBFS());
 
             g.TraverseBFS(0);
 
@@ -20,7 +20,7 @@ namespace StarPeace.Extensions.Service.Algorithms
             Console.ReadLine();
         }
 
-        static List<int>[] ReadGraph()
+        static List<int>[] ReadGraphQueueBasedBFS()
         {
             // Read number of nodes N
             Console.WriteLine("Please enter number of nodes");
@@ -66,13 +66,13 @@ namespace StarPeace.Extensions.Service.Algorithms
             Console.WriteLine(builder);
         }
     }
-   public class Graph
+    public class GraphQueueBasedBFS
     {
         internal const int MaxNode = 1024;
         private List<int>[] childNodes;
         private List<int> bfsPath;
 
-        public Graph(List<int>[] childNodes)
+        public GraphQueueBasedBFS(List<int>[] childNodes)
         {
             this.childNodes = childNodes;
             this.bfsPath = new List<int>();
