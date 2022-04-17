@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-StarPeace.Admin-1F6FD6B9-C21B-49E7-B7DC-26E4FD10CEEB</UserSecretsId>
+  </PropertyGroup>
+
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.7" />
+  </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\KhotsoCBookStore.API\KhotsoCBookStore.API.csproj" />
+  </ItemGroup>
+
+</Project>

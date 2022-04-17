@@ -1,0 +1,30 @@
+﻿<menuBar>
+  <menu newWindow="false">
+    <text>Categories</text>
+    <url>/categories</url>
+    <children>
+      <menu>
+        <text>Programming</text>
+        <url>/programming</url>
+      </menu>
+      <menu>
+        <text>Networking</text>
+        <url>/networking</url>
+      </menu>
+    </children>
+  </menu>
+  <menu newWindow="true">
+    <text>Subscribe</text>
+    <url>/followus</url>
+    <children>
+      <menu>
+        <text>Monthly Newsletter</text>
+        <url>/newsletter</url>
+      </menu>
+      <menu>
+        <text>Social Networks</text>
+        <url>/social</url>
+      </menu>
+    </children>
+  </menu>
+</menuBar>
