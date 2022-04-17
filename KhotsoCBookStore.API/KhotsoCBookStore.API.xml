@@ -4,26 +4,6 @@
         <name>KhotsoCBookStore.API</name>
     </assembly>
     <members>
-        <member name="F:KhotsoCBookStore.API.Controllers.AccountsController._config">
-            <summary>  
-            Property Declaration  
-            </summary>  
-            <returns></returns>  
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountsController.GetLoginAPIOptions">
-            <summary>
-            Get supported resource actions
-            </summary>
-            <returns>API actions allowed</returns>
-            <returns>An IActionResult</returns>
-            <response code="200">Returns the list of all requests allowed on this end-point</response>
-        </member>
-        <member name="M:KhotsoCBookStore.API.Controllers.AccountsController.Register(KhotsoCBookStore.API.Authentication.UserMaster)">
-            <summary>
-            Register a new user.
-            </summary>
-            <param name="model"></param>
-        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
             <summary>
             Get supported resource actions

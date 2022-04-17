@@ -22,12 +22,13 @@ namespace KhotsoCBookStore.API.Entities
         public DateTime OrderDate { get; set; }
         
         public DateTime ShipDate { get; set; }
-        
-        [MaxLength(500)]
-        public string ShipAddress { get; set; }
+        public int Quantity { get; set; }
 
         [Column(TypeName = "decimal(7,4)")]
         public decimal CartTotal { get; set; }
+
+        public CardInfo CardInfo { get; set; }
+        public Address ShippingAddress { get; set; }
 
        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
