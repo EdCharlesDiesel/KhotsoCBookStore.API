@@ -1,0 +1,15 @@
+﻿@model StarPeace.Admin.Entities.Campaign
+
+<html>
+<head>
+    <title>Approval</title>
+</head>
+<body>
+    <h1>@Model.Title</h1>
+    <div>@Model.Description</div>
+    <h2>To approve the campaign click on the following button.</h2>
+    <form asp-action="Approve" asp-controller="Home" method="post">
+        <input type="submit" value="Approve Campaign" />
+    </form>
+</body>
+</html>

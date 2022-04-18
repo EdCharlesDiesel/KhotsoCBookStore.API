@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace StarPeace.IdentityServer.Authorization
+namespace StarPeaceIdentityServer.Authorization
 {
     public static class Policies
     {

@@ -1,0 +1,16 @@
+﻿@model StarPeace.Admin.Entities.Campaign
+
+
+<html>
+<head>
+    <title>Run Campaign</title>
+</head>
+<body>
+    <h1>@Model.Title</h1>
+    <div>@Model.Description</div>
+    <h2>To run the campaign click on the following button.</h2>
+    <form asp-action="Run" asp-controller="Home" method="post">
+        <input type="submit" value="Run Campaign" />
+    </form>
+</body>
+</html>

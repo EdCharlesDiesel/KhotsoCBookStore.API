@@ -12,8 +12,8 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             employee = new Employee
             {
                 EmployeeId = new Guid(),
-                FirstName = "Micheal",
-                LastName = "Bay",
+                // FirstName = "Micheal",
+                // LastName = "Bay",
                 UpdatedBy ="Test",
                 UpdatedOn =DateTime.Now,
                 DateOfEndEmployment = DateTime.Now,
@@ -89,27 +89,27 @@ namespace KhotsoCBookStore.API.Tests.EntitiesTests
             Assert.Equal(expected, employee.EmployeeId);
         }
 
-        [Fact]
-        public void CanChangeFirstName()
-        {
-            //Arrange
-            //Act
-            employee.FirstName = "Transformers Age of Darkness";
+        // [Fact]
+        // public void CanChangeFirstName()
+        // {
+        //     //Arrange
+        //     //Act
+        //     employee.FirstName = "Transformers Age of Darkness";
 
-            //Assert
-            Assert.Equal("Transformers Age of Darkness", employee.FirstName);
-        }
+        //     //Assert
+        //     Assert.Equal("Transformers Age of Darkness", employee.FirstName);
+        // }
 
-        [Fact]
-        public void CanChangeLastName()
-        {
-            //Arrange
-            //Act
-            employee.LastName = "MKBay";
+        // [Fact]
+        // public void CanChangeLastName()
+        // {
+        //     //Arrange
+        //     //Act
+        //     employee.LastName = "MKBay";
 
-            //Assert
-            Assert.Equal("MKBay", employee.LastName);
-        }
+        //     //Assert
+        //     Assert.Equal("MKBay", employee.LastName);
+        // }
 
         
         [Fact]

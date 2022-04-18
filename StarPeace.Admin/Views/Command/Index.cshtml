@@ -1,0 +1,24 @@
+﻿<html>
+<head>
+    <title>Place Requests for an Employee</title>
+</head>
+<body>
+    <h1>Place Requests for an Employee</h1>
+    <form asp-action="ProcessEmployee" asp-controller="Home" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td><label for="employeeid">Employee ID :</label></td>
+                <td><input type="text" name="employeeid" value="@Model" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit Requests" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h4>@ViewBag.Message</h4>
+
+</body>
+</html>

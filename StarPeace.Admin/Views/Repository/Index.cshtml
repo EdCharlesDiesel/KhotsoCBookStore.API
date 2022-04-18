@@ -1,0 +1,30 @@
+﻿@model StarPeace.Admin.Entities.Customer
+
+<h1>Modify Existing Customer</h1>
+<form asp-action="Update" asp-controller="Home">
+    <table border="1" cellpadding="10">
+        <tr>
+            <td><label asp-for="CustomerID">Customer ID :</label></td>
+            <td>
+                <select asp-for="CustomerID" asp-items="@ViewBag.Customers"></select>
+                <input type="submit" value="Show" formaction="/home/selectbyid" />
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="CompanyName">Company Name :</label></td>
+            <td><input asp-for="CompanyName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="ContactName">Contact Name :</label></td>
+            <td><input asp-for="ContactName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Country">Country :</label></td>
+            <td><input asp-for="Country" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Update"/></td>
+        </tr>
+    </table>
+    @ViewBag.Message
+</form>

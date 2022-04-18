@@ -1,0 +1,16 @@
+﻿@model StarPeace.Admin.Entities.Campaign
+
+
+<html>
+<head>
+    <title>Order Material</title>
+</head>
+<body>
+    <h1>@Model.Title</h1>
+    <div>@Model.Description</div>
+    <h2>To prepare the campaign material click on the following button.</h2>
+    <form asp-action="Prepare" asp-controller="Home" method="post">
+        <input type="submit" value="Prepare Campaign material" />
+    </form>
+</body>
+</html>

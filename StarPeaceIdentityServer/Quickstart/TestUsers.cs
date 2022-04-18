@@ -1,4 +1,4 @@
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -13,7 +13,7 @@ namespace IdentityServerHost.Quickstart.UI
 {
     public class TestUsers
     {
-        public static List<UserMaster> Users
+        public static List<TestUser> Users
         {
             get
             {
@@ -25,7 +25,7 @@ namespace IdentityServerHost.Quickstart.UI
                     country = "Germany"
                 };
                 
-                return new List<UserMaster>
+                return new List<TestUser>
                 {
                     new TestUser
                     {

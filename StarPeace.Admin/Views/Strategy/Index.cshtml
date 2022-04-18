@@ -1,0 +1,35 @@
+﻿@model List<string>
+
+<html>
+<head>
+    <title>Compress and download a file</title>
+</head>
+<body>
+    <h1>Compress and Download a File</h1>
+    <form asp-action="CompressFile" asp-controller="Home" method="post">
+        <table border="1" cellpadding="10">
+            @foreach (var file in Model)
+            {
+                <tr>
+                    <td><input type="radio" name="selectedfile" value="@file" /></td>
+                    <td>@file</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2">Compression Type :
+                    <select name="compressiontype">
+                        <option>Deflate</option>
+                        <option>GZip</option>
+                        <option>Zip</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Compress and Download" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿@model List<StarPeace.Admin.Entities.Notification>
+
+
+<html>
+<head>
+    <title>List of Notifications</title>
+</head>
+<body>
+    <h1>List of Notifications</h1>
+    @foreach(var item in Model)
+    {
+        <h2>@item.Description</h2>
+    }
+</body>
+</html>
