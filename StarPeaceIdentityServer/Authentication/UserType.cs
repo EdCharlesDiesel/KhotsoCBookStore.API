@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace StarPeace.IdentityServer.Authentication
+namespace StarPeaceIdentityServer.Authentication
 {
-    public class UserType : AuditableEntity
+    public class UserType 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

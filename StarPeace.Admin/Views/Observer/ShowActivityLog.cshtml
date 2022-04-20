@@ -1,0 +1,15 @@
+﻿@model List<StarPeace.Admin.Entities.Activity>
+
+
+<html>
+<head>
+    <title>Activity Log</title>
+</head>
+<body>
+    <h1>Activity Log</h1>
+    @foreach(var item in Model)
+    {
+        <h2>@item.Description</h2>
+    }
+</body>
+</html>

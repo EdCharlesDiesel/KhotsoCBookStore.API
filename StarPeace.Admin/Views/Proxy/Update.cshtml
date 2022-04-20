@@ -1,0 +1,36 @@
+﻿@model StarPeace.Admin.Entities.Customer
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Modify a Customer</h1>
+    <form asp-controller="Home" asp-action="Update">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td><label asp-for="CustomerID">CustomerID :</label></td>
+                <td><input asp-for="CustomerID" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="CompanyName">Company Name :</label></td>
+                <td><input asp-for="CompanyName" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="ContactName">Contact Name :</label></td>
+                <td><input asp-for="ContactName" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Country">Country :</label></td>
+                <td><input asp-for="Country" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Update" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div asp-validation-summary="ValidationSummary.All"></div>
+</body>
+</html>

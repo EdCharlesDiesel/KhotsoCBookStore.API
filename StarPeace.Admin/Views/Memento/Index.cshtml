@@ -1,0 +1,28 @@
+﻿@model List<StarPeace.Admin.Entities.Question>
+
+<html>
+<head>
+    <title>Questions</title>
+</head>
+<body>
+    <h1>Answer the Following Questions</h1>
+    <form asp-action="ProcessForm" asp-controller="Home" method="post">
+        @for(int i=0;i<Model.Count;i++)
+        {
+            <input type="hidden" name="question[@i]" value="@Model[i].QuestionId" />
+            <div>@Model[i].QuestionText</div>
+            <textarea name="answer[@i]">
+            @if(ViewBag.Answers!=null)
+            {
+                @ViewBag.Answers[i]
+            }
+            </textarea>
+        }
+        <br /><br />
+        <input type="submit" name="submit" value="Submit" />
+        <input type="submit" name="save" value="Save Snapshot" />
+        <input type="submit" name="restore" value="Restore Snapshot" />
+    </form>
+    <h4>@ViewBag.Message</h4>
+</body>
+</html>

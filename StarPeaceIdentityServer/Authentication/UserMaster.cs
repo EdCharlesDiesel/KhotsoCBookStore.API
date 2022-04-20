@@ -1,21 +1,20 @@
 using System;
-using KhotsoCBookStore.API.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace StarPeace.IdentityServer.Authentication
+namespace StarPeaceIdentityServer.Authentication
 {
     public class UserMaster : IdentityUser
     {
         
-        public INotifier Notifier { get; set; }
+        // public INotifier Notifier { get; set; }
 
-        public UserMaster(INotifier notifier)
-        {
-            this.Notifier = notifier;
-        }
+        // public UserMaster(INotifier notifier)
+        // {
+        //     this.Notifier = notifier;
+        // }
         private string emailaddr;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -57,14 +56,14 @@ namespace StarPeace.IdentityServer.Authentication
 
 
 
-        public void ChangePassword(string username,string oldpwd,string newpwd)
-        {
-            //EmailNotifier notifier = new EmailNotifier();
+        // public void ChangePassword(string username,string oldpwd,string newpwd)
+        // {
+        //     //EmailNotifier notifier = new EmailNotifier();
 
-            //change password here
+        //     //change password here
 
-            //Notify the user
-            Notifier.Notify("Password was changed on " + DateTime.Now);
-        }
+        //     //Notify the user
+        //     Notifier.Notify("Password was changed on " + DateTime.Now);
+        // }
     }
 }

@@ -1,0 +1,25 @@
+﻿@model List<StarPeace.Admin.Entities.Customer>
+
+<html>
+<head>
+    <title>List of Customers</title>
+</head>
+<body>
+    <h1>List of Customers</h1>
+    @TempData["Message"]
+    <br />
+    <a asp-controller="Home" asp-action="Insert">Add New Customer</a>
+    <br /><br />
+    <table border="1" cellpadding="10">
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.CustomerID</td>
+                <td>@item.CompanyName</td>
+                <td><a asp-controller="Home" asp-action="Update" asp-route-id="@item.CustomerID">Edit</a></td>
+                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@item.CustomerID">Delete</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

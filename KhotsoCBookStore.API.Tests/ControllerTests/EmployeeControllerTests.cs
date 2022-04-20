@@ -38,23 +38,23 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             realProfile = null;
         }
 
-        private List<Employee> GetEmployeesTest(int num)
-        {
-            var employees = new List<Employee>();
-            if (num > 0)
-            {
-                employees.Add(new Employee
-                {
-                    EmployeeId = Guid.NewGuid(),
-                    FirstName = "Charles",
-                    LastName = "Mokhethi",
-                    DateOfStartEmployment = DateTime.Now,
-                    EmployeeNumber = "EMP-007",
-                    DateOfBirth = DateTime.Today
-                });
-            }
-            return employees;
-        }
+        // private List<Employee> GetEmployeesTest(int num)
+        // {
+        //     var employees = new List<Employee>();
+        //     if (num > 0)
+        //     {
+        //         employees.Add(new Employee
+        //         {
+        //             EmployeeId = Guid.NewGuid(),
+        //             FirstName = "Charles",
+        //             LastName = "Mokhethi",
+        //             DateOfStartEmployment = DateTime.Now,
+        //             EmployeeNumber = "EMP-007",
+        //             DateOfBirth = DateTime.Today
+        //         });
+        //     }
+        //     return employees;
+        // }
 
         //[Fact]
         // public void GetEmployeesAPIOptions_All_ActionsAvailable()
@@ -290,31 +290,31 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
         //     Assert.IsType<ActionResult<EmployeeForCreateDto>>(resCreateEmployee_ReturnsCorrectResourceType_WhenValidObjectSubmittedult);
         // }
 
-        [Fact]
-        public async Task UpdateEmployee_Returns204NoContent_WhenValidObjectSubmitted()
-        {
-            //Arrange
-            var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
-            mockRepo.Setup(repo =>
-            repo.EmployeeIfExistsAsync(id)).ReturnsAsync(true);
+        // [Fact]
+        // public async Task UpdateEmployee_Returns204NoContent_WhenValidObjectSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("300F030A-8566-0025-95F5-52888B4278D6");
+        //     mockRepo.Setup(repo =>
+        //     repo.EmployeeIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockRepo.Setup(repo =>
-            repo.GetEmployeeByIdAsync(id)).ReturnsAsync(new Employee
-            {
-                EmployeeId = id,
-                FirstName = "Charles",
-                LastName = "Mokhrthi",
-                EmployeeNumber = "EMP:885"
-            });
+        //     mockRepo.Setup(repo =>
+        //     repo.GetEmployeeByIdAsync(id)).ReturnsAsync(new Employee
+        //     {
+        //         EmployeeId = id,
+        //         FirstName = "Charles",
+        //         LastName = "Mokhrthi",
+        //         EmployeeNumber = "EMP:885"
+        //     });
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.UpdateEmployee(id, new EmployeeForUpdateDto { });
+        //     //Act
+        //     var result = await controller.UpdateEmployee(id, new EmployeeForUpdateDto { });
 
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NoContentResult>(result);
+        // }
 
         [Fact]
         public async Task UpdateEmployee_Returns404NotFound_WhenNonExistentResourceIDSubmitted()
@@ -351,32 +351,32 @@ namespace KhotsoCBookStore.API.Tests.ControllerTests
             Assert.IsType<NotFoundResult>(result);
         }
 
-        [Fact]
-        public async Task DeleteEmployee_Returns204NoContent_WhenValidResourceIDSubmitted()
-        {
-            //Arrange
-            var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
-            mockRepo.Setup(repo =>
-            repo.EmployeeIfExistsAsync(id)).ReturnsAsync(true);
+        // [Fact]
+        // public async Task DeleteEmployee_Returns204NoContent_WhenValidResourceIDSubmitted()
+        // {
+        //     //Arrange
+        //     var id = new Guid("78f4c5ec-68cb-41bb-4111-08da07eaa3cd");
+        //     mockRepo.Setup(repo =>
+        //     repo.EmployeeIfExistsAsync(id)).ReturnsAsync(true);
 
-            mockRepo.Setup(repo =>
+        //     mockRepo.Setup(repo =>
 
-           repo.GetEmployeeByIdAsync(id)).ReturnsAsync(new Employee
-           {
-               EmployeeId = id,
-               FirstName = "Charles",
-               LastName = "Mokhrthi",
-               EmployeeNumber = "EMP:885"
-           });
+        //    repo.GetEmployeeByIdAsync(id)).ReturnsAsync(new Employee
+        //    {
+        //        EmployeeId = id,
+        //        FirstName = "Charles",
+        //        LastName = "Mokhrthi",
+        //        EmployeeNumber = "EMP:885"
+        //    });
 
-            var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
+        //     var controller = new EmployeeController(mockRepo.Object, mapper, mockMail.Object);
 
-            //Act
-            var result = await controller.DeleteEmployee(id);
+        //     //Act
+        //     var result = await controller.DeleteEmployee(id);
 
-            //Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+        //     //Assert
+        //     Assert.IsType<NoContentResult>(result);
+        // }
 
         [Fact]
         public async Task DeleteEmployee_Returns_404NotFound_WhenNonExistentResourceIDSubmitted()

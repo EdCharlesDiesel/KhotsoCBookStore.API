@@ -1,0 +1,16 @@
+﻿<html>
+<head>
+    <title>Switchboard Cost Calculator</title>
+</head>
+<body>
+    <h1>Calculate Switchboard Cost</h1>
+    <form asp-action="Calculate" asp-controller="Home" method="post">
+        Select Packing and Shipping Type : 
+        <select name="visitortype">
+            <option>Normal</option>
+            <option>Special</option>
+        </select>
+        <input type="submit" value="Calculate" />
+    </form>
+</body>
+</html>

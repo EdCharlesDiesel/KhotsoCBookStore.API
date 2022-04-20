@@ -1,0 +1,27 @@
+﻿@model StarPeace.Admin.Entities.Campaign
+
+<html>
+<head>
+    <title>Create a Campaign</title>
+</head>
+<body>
+    <h1>Create a New Campaign</h1>
+    <form asp-action="Create" asp-controller="Home" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td><label asp-for="Title">Title :</label></td>
+                <td><input type="text" asp-for="Title" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Description">Description :</label></td>
+                <td><textarea asp-for="Description"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" name="submit" value="Create Campaign" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

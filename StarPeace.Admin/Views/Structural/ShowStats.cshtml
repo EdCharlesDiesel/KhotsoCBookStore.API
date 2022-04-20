@@ -1,0 +1,28 @@
+﻿@model StarPeace.Admin.Entities.WebsiteStats
+
+<html>
+<head>
+    <title>Website Stats</title>
+</head>
+<body>
+    <h1>Usage Stats for @Model.Host</h1>
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>No. of Page Views : </td>
+            <td>@Model.PageViews</td>
+        </tr>
+        <tr>
+            <td>No. of Site Visits : </td>
+            <td>@Model.SiteVisits</td>
+        </tr>
+        <tr>
+            <td>Total Bandwidth : </td>
+            <td>@Model.Bandwidth KB</td>
+        </tr>
+        <tr>
+            <td>Top Search Keywords : </td>
+            <td>@Model.TopKeywords</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿@model StarPeace.Admin.Entities.Employee
+
+<h2>Employee ID :</h2>
+<form asp-action="GetDetails" asp-controller="Home">
+    <input type="text" name="employeeid" />
+    <input type="submit" value="Show" />
+    <br />
+    <br />
+    @if (Model != null)
+    {
+    <h4>Orders placed by @Model.FirstName @Model.LastName (@Model.Title)</h4>
+    <div>
+        <table border="1" cellpadding="10">
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>#@item.OrderID</td>
+                    <td>@item.OrderDate</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    }
+</form>

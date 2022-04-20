@@ -247,9 +247,10 @@ namespace KhotsoCBookStore.API
             // Enable CORS
             app.UseCors("AllowAllOriginsHeadersAndMethods");
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
-            app.UseAuthentication();
+            // app.UseAuthentication();
+            app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {

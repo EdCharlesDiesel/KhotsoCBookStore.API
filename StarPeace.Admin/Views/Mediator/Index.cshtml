@@ -1,0 +1,106 @@
+﻿<html>
+<head>
+    <title>Chat Room</title>
+
+    <script src="~/scripts/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var handle;
+
+            $("#login").click(function () {
+                var options = {};
+                options.url = "/home/login";
+                options.type = "POST";
+                options.data = JSON.stringify({ Name : $("#from").val() });
+                options.contentType = "application/json";
+                options.success = function () {
+                    alert("Logged in!");
+                    handle = setTimeout(GetHistory, 3000);
+                };
+                options.error = function () {
+                    alert("Error!");
+                };
+                $.ajax(options);
+            });
+
+            $("#logout").click(function () {
+                var options = {};
+                options.url = "/home/logout";
+                options.type = "POST";
+                options.data = JSON.stringify({ Name: $("#from").val() });
+                options.contentType = "application/json";
+                options.success = function () {
+                    alert("Logged out!");
+                    clearTimeout(handle);
+                };
+                options.error = function () {
+                    alert("Error!");
+                };
+                $.ajax(options);
+            });
+           
+            $("#send").click(function () {
+                var msg = {};
+                msg.From = $("#from").val();
+                msg.To = $("#to").val();
+                msg.Message = $("#message").val();
+
+                var options = {};
+                options.url = "/home/send";
+                options.type = "POST";
+                options.data = JSON.stringify(msg);
+                options.contentType = "application/json";
+                options.success = function (flag) {
+                    if (flag) {
+                        alert("Message sent!");
+                    } else {
+                        alert(msg.To + " is offline!");
+                    }
+                };
+                options.error = function () {
+                    alert("Error!");
+                };
+                $.ajax(options);
+                });
+            });
+
+        function GetHistory() {
+            var options = {};
+            options.url = "home/gethistory";
+            options.type = "POST";
+            options.data = JSON.stringify({ Name: $("#from").val() });
+            options.dataType = "json";
+            options.contentType = "application/json";
+            options.success = function (data) {
+                var history = "";
+                for (var i = 0; i < data.length; i++)
+                {
+                    history += data[i].From + ">>" + data[i].Message + "\r\n";
+                }
+                $("#history").val(history);
+                setTimeout(GetHistory, 3000);
+            };
+            $.ajax(options)
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Chat with Members</h1>
+    <form>
+        <div>From :</div>
+        <input type="text" id="from" />
+        <input type="button" id="login" value="Login" />
+        <input type="button" id="logout" value="Logout" />
+        <div>To :</div>
+        <input type="text" id="to" />
+        <div>Message :</div>
+        <input type="text" id="message" />
+        <input type="button" id="send" value="Send" />
+        <div>Chat History :</div>
+        <textarea id="history"></textarea>
+    </form>
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿<html>
+    <head>
+        <title>Buy or Sell Stocks</title>
+        <script src="~/scripts/jquery-2.1.1.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $("#buysell").click(function () {
+                    var obj = {};
+                    obj.UserName = $("#username").val();
+                    obj.Symbol = $("#symbol").val();
+                    obj.Quantity = $("#quantity").val();
+                    obj.UnitPrice = $("#unitprice").val();
+                    obj.TimeStamp = new Date().toISOString();
+
+                    var options = {};
+                    if ($("#operation").val() == "Buy") {
+                        options.url = "/TradingService/buy";
+                    }
+                    else {
+                        options.url = "/TradingService/sell";
+                    }
+                    options.type = "POST";
+                    options.data = obj;
+                    options.dataType = "json";
+                    options.success = function (flag) {
+                        alert(flag);
+                    }
+                    options.error = function (jqXHR, error, status) {
+                        alert(status);
+                    }
+                    $.ajax(options);
+                });
+
+                $("#getlog").click(function () {
+                    var options = {};
+                    if ($("#tradingloguser").val() == "") {
+                        options.url = "/TradingService/GetAllTradingLog";
+                    }
+                    else {
+                        options.url = "/TradingService/GetTradingLogForUser";
+                        var obj = {};
+                        obj.user = $("#tradingloguser").val();
+                        options.data = obj;
+                    }
+                    options.type = "POST";
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        var html = "<table border='1' cellpadding='10'>";
+                        for (var i = 0; i < data.length; i++) {
+                            html += "<tr><td>" + data[i].UserName + "</td>";
+                            html += "<td>" + data[i].Symbol + "</td>";
+                            html += "<td>" + data[i].Quantity + "</td>";
+                            html += "<td>" + data[i].UnitPrice + "</td>";
+                            html += "<td>" + data[i].TimeStamp + "</td>";
+                            html += "<td>" + data[i].Operation + "</td></tr>";
+                        }
+                        html += "</table>";
+                        $("#tradinglog").html(html);
+                    }
+                    options.error = function (jqXHR, error, status) {
+                        alert(status);
+                    }
+                    $.ajax(options);
+                });
+
+
+            });
+
+        </script>
+
+
+    </head>
+    <body>
+        <h1>Buy or Sell Stocks</h1>
+        <form>
+            <table>
+                <tr>
+                    <td>User Name : </td>
+                    <td><input id="username" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Symbol : </td>
+                    <td><input id="symbol" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Quantity : </td>
+                    <td><input id="quantity" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Unit Price : </td>
+                    <td><input id="unitprice" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Buy or Sell :</td>
+                    <td>
+                        <select id="operation">
+                            <option>Buy</option>
+                            <option>Sell</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" id="buysell" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form>
+            <div>Get Trading Log For :</div>
+            <input type="text" id="tradingloguser" />
+            <input type="button" id="getlog" value="Get Log" />
+        </form>
+        <div id="tradinglog"></div>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model StarPeace.Admin.Entities.ForumPost
+
+<html>
+<head>
+    <title>Post a Question</title>
+</head>
+<body>
+    <h1>Post a New Question</h1>
+    <form asp-action="AddPost" asp-controller="Home" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td><label asp-for="UserName">User Name :</label></td>
+                <td><input type="text" asp-for="UserName" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Title">Title :</label></td>
+                <td><input type="text" asp-for="Title" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Description">Description :</label></td>
+                <td><textarea asp-for="Description"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" name="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h4>@ViewBag.Message</h4>
+    <br />
+    <a asp-action="ShowNotifications" target="_blank">Show Notifications</a>
+    <br /><br />
+    <a asp-action="ShowActivityLog" target="_blank">Show Activity Log</a>
+</body>
+</html>

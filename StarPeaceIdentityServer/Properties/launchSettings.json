@@ -1,23 +1,28 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59127",
-      "sslPort": 44300
+      "applicationUrl": "http://localhost:29254",
+      "sslPort": 44343
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-   
-    "StarPeaceIdentityServer": {
-      "commandName": "Project",
+    "IIS Express": {
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
+      }
+    },
+    "StarPeaceIdentityServer": {
+      "commandName": "Project",
       "dotnetRunMessages": "true",
-      "applicationUrl": "https://localhost:8000;http://localhost:8001"
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7001;http://localhost:7000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

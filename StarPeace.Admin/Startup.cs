@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using StarPeace.Admin.Contexts;
 
 namespace StarPeace.Admin
 {
@@ -23,25 +25,27 @@ namespace StarPeace.Admin
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "cookie";
-                options.DefaultChallengeScheme = "oidc";
-            })
-            .AddCookie("cookie")
-            .AddOpenIdConnect("oidc", options =>
-            {
-                options.Authority = "https://localhost:8001";
-                options.ClientId = "starPeaceAdmin";
-                options.ClientSecret = "ProCodeGuide";
+            var connectionString = Configuration["ConnectionStrings:StarPeaceAdminHubConnectionString"];
+            services.AddDbContext<StarPeaceAdminDbContext>(o => o.UseSqlServer(connectionString));
+            // services.AddAuthentication(options =>
+            // {
+            //     options.DefaultScheme = "cookie";
+            //     options.DefaultChallengeScheme = "oidc";
+            // })
+            // .AddCookie("cookie")
+            // .AddOpenIdConnect("oidc", options =>
+            // {
+            //     options.Authority = "https://localhost:7001";
+            //     options.ClientId = "starPeaceAdmin";
+            //     options.ClientSecret = "starPeaceAdminSecretKey";
 
-                options.ResponseType = "code";
-                options.UsePkce = true;
-                options.ResponseMode = "query";
+            //     options.ResponseType = "code";
+            //     options.UsePkce = true;
+            //     options.ResponseMode = "query";
 
-                options.Scope.Add("weatherApi.read");
-                options.SaveTokens = true;
-            });
+            //     options.Scope.Add("khotsoCBookStoreApi.read");
+            //     options.SaveTokens = true;
+            // });
 
             services.AddControllersWithViews();
         }
@@ -63,8 +67,9 @@ namespace StarPeace.Admin
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            // app.UseAuthentication();
+            // app.UseAuthorization();
+            //app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {
