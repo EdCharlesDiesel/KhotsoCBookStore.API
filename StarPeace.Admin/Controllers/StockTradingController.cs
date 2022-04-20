@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StarPeace.Admin.Helpers;
 using StarPeace.Admin.Entities;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Controllers
 {
 
-    public class TradingServiceController : Controller,ITradingService
+    public class TradingServiceController : Controller, ITradingService
     {
         public bool Buy(BuySellDetails obj)
         {

@@ -9,7 +9,7 @@ namespace StarPeace.Admin.Helpers
 {
     public class CreateState : ICampaignState
     {
-            readonly StarPeaceAdminDbContext _dbContext;
+        readonly StarPeaceAdminDbContext _dbContext;
         public CreateState(StarPeaceAdminDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));

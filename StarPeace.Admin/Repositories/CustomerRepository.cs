@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StarPeace.Admin.Entities;
 using StarPeace.Admin.Contexts;
+using StarPeace.Admin.Services;
 
 
 namespace StarPeace.Admin.Repositories
@@ -16,11 +17,6 @@ namespace StarPeace.Admin.Repositories
     public class CustomerRepository:ICustomerRepository,IDisposable
     {
         private StarPeaceAdminDbContext db;
-
-        public CustomerRepository()
-        {
-            this.db = new StarPeaceAdminDbContext();
-        }
 
         public CustomerRepository(StarPeaceAdminDbContext db)
         {

@@ -10,15 +10,16 @@ using System.IO;
 using Microsoft.Extensions.Caching.Memory;
 using StarPeace.Admin.Services;
 using StarPeace.Admin.Contexts;
+using StarPeace.Admin.Entities;
 
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class StateController : Controller
     {
         private IMemoryCache cache;
 
-        public HomeController(IMemoryCache cache)
+        public StateController(IMemoryCache cache)
         {
             this.cache = cache;
         }

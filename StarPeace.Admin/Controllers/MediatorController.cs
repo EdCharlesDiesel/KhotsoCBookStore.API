@@ -11,10 +11,11 @@ using Newtonsoft.Json;
 using StarPeace.Admin.Helpers;
 using StarPeace.Admin.Helpers.Core;
 using StarPeace.Admin.Services;
+using StarPeace.Admin.Entities;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class MediatorController : Controller
     {
         public IActionResult Index()
         {
@@ -38,7 +39,7 @@ namespace StarPeace.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Send([FromBody]ChatMessage msg)
+        public IActionResult Send([FromBody] ChatMessage msg)
         {
             ChatRoom room = new ChatRoom();
             IParticipant sender = room.GetParticipant(msg.From);

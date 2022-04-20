@@ -10,12 +10,12 @@ using StarPeace.Admin.Helpers;
 using StarPeace.Admin.Contexts;
 using StarPeace.Admin.Entities;
 
-namespace TemplateMethod.Controllers
+namespace  StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class TemplateMethodController : Controller
     {
         readonly StarPeaceAdminDbContext _dbContext;
-        public HomeController(StarPeaceAdminDbContext dbContext)
+        public TemplateMethodController(StarPeaceAdminDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }

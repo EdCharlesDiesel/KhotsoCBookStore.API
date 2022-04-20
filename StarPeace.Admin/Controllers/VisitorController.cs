@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using System.IO;
+using StarPeace.Admin.Entities;
+using StarPeace.Admin.Helpers;
+using StarPeace.Admin.Services;
 
 
-namespace Visitor.Controllers
+namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class VisitorController : Controller
     {
         public IActionResult Index()
         {

@@ -11,7 +11,8 @@ namespace StarPeace.Admin.Helpers
 {
     public class OrderHistory : IEnumerable<Order>
     {
-        public SqlDataReader Cursor { get; set; }
+        // !Need to fix this
+       // public SqlDataReader Cursor { get; set; }
 
         public OrderHistory(bool openImmediately)
         {
@@ -29,7 +30,8 @@ namespace StarPeace.Admin.Helpers
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select OrderID,CustomerID,OrderDate,ShippedDate from orders where shippeddate is not null order by orderdate";
             cnn.Open();
-            this.Cursor = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            // ! Need to fix this.
+         //   this.Cursor = cmd.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public IEnumerator<Order> GetEnumerator()

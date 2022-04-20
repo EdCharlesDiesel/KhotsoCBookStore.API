@@ -16,7 +16,7 @@ namespace StarPeace.Admin.Contexts
         {
         }
 
-        //public DbSet<WebsiteMetadata> WebsiteMetadata { get; set; }
+        public DbSet<WebsiteMetadata> WebsiteStats { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<BookSeriesBook> BookSeriesBooks { get; set; }        
         public DbSet<Book> Books { get; set; }
