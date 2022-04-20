@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using LazyLoad.Core;
 using StarPeace.Admin.Helpers;
 
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class LazyLoadController : Controller
     {
         public IActionResult Index()
         {

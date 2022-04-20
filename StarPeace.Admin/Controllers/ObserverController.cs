@@ -13,12 +13,12 @@ using StarPeace.Admin.Entities;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class ObserverController : Controller
     {
         IMemoryCache cache;
         readonly StarPeaceAdminDbContext _dbContext;
 
-        public HomeController(IMemoryCache cache,StarPeaceAdminDbContext dbContext)
+        public ObserverController(IMemoryCache cache,StarPeaceAdminDbContext dbContext)
         {
             this.cache = cache;
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));

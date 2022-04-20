@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Helpers
 {
-    public class Busbars:ISwitchboardItem
+    public class Busbars: ISwitchboardItem
     {
         public double Cost { get; set; }
 

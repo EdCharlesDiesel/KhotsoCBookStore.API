@@ -12,16 +12,17 @@ using StarPeace.Admin.Helpers;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class IteratorController : Controller
     {
         public IActionResult Index()
         {
-            OrderHistory history = new OrderHistory(true);
-            List<Order> orders = new List<Order>();
-            foreach(Order o in history)
-            {
-                orders.Add(o);
-            }
+            // ! Error System.Data.SqlClient namespace should fix this
+            // OrderHistory history = new OrderHistory(true);
+            // List<Order> orders = new List<Order>();
+            // foreach(Order o in history)
+            // {
+            //     orders.Add(o);
+            // }
             //orders.Clear();
             //foreach (Order o in history)
             //{

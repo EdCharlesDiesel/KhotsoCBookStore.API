@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class ServiceLayerController : Controller
     {
         public IActionResult Index()
         {

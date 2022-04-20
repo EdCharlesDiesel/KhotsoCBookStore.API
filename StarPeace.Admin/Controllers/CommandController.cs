@@ -11,7 +11,7 @@ using StarPeace.Admin.Services;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class CommandController : Controller
     {
         public IActionResult Index()
         {

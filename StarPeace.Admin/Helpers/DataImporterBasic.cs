@@ -8,27 +8,31 @@ using StarPeace.Admin.Contexts;
 
 namespace StarPeace.Admin.Helpers
 {
-    // public class DataImporterBasic : IDataImporter
-    // {
-    //     public IErrorLogger ErrorLogger { get; set; }
+    public class DataImporterBasic : IDataImporter
+    {
+        public IErrorLogger ErrorLogger { get; set; }
+        readonly StarPeaceAdminDbContext _dbContext;
+        public DataImporterBasic(StarPeaceAdminDbContext dbContext)
+        {
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+        }
 
-    //     public void Import(List<Customer> data)
-    //     {
-    //         using (StarPeaceAdminDbContext db = new StarPeaceAdminDbContext())
-    //         {
-    //             try
-    //             {
-    //                 foreach (var item in data)
-    //                 {
-    //                     db.Customers.Add(item);
-    //                 }
-    //                 db.SaveChanges();
-    //             }
-    //             catch(Exception ex)
-    //             {
-    //                 ErrorLogger.Log(ex.Message);
-    //             }
-    //         }
-    //     }
-    // }
+        public void Import(List<Customer> data)
+        {
+
+            try
+            {
+                foreach (var item in data)
+                {
+                    _dbContext.Customers.Add(item);
+                }
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.Log(ex.Message);
+            }
+
+        }
+    }
 }

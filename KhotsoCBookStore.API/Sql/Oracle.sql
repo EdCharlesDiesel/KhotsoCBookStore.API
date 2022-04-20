@@ -38,7 +38,7 @@ SELECT COALESCE([OrganizationLevel],0) AS [OrganizationLevel]
 
  --PROMBLEM 1.13
 SELECT LoginID,JobTitle 
-FROM  [HumanResources].Employee WHERE [OrganizationLevel] =3
+FROM  [HumanResources].Employee WHERE [OrganizationLevel] = 3
 AND ([JobTitle] LIKE '%WC60')
 
 --PROMBLEM 2.3
@@ -81,33 +81,29 @@ UNION ALL
 SELECT [ModifiedDate],[BusinessEntityID] FROM [HumanResources].[EmployeeDepartmentHistory]
 
 --PROMBLEM 3.2
-SELECT e.[LoginID], e.[JobTitle],j.[Resume]
-FROM [HumanResources].[Employee] e, [HumanResources].[JobCandidate] j
-WHERE e.OrganizationLevel = 3
-
-SELECT e.[LoginID], e.[JobTitle],j.[Resume]
-FROM [HumanResources].[Employee] e INNER JOIN [HumanResources].[JobCandidate] j
-ON e.BusinessEntityID = j.BusinessEntityID
-WHERE e.OrganizationLevel = 3
+SELECT [LoginID],[JobTitle],[Resume]
+FROM [HumanResources].[Employee]
+WHERE ([LoginID],[JobTitle],[Resume]) IN (
+SELECT [LoginID],[JobTitle],[Resume] FROM [HumanResources].[Employee]
+INTERSECT
+SELECT [LoginID],[JobTitle],[Resume] from V
+ );
 
 --PROMBLEM 3.3
 CREATE VIEW EmployeeMinView
 AS
 SELECT [BusinessEntityID],
-[NationalIDNumber],
-[OrganizationLevel],
-[JobTitle],
-[BirthDate],
-[HireDate]
+[NationalIDNumber],[OrganizationLevel],
+[JobTitle],[BirthDate],[HireDate]
 FROM [HumanResources].Employee
 
 
-SELECT [NationalIDNumber],[OrganizationLevel],
-FROM [HumanResources].Employee
-WHERE (ename,job,sal) IN (
-SELECT ename,job,sal FROM [HumanResources].[JobCandidate]
+SELECT [NationalIDNumber],[OrganizationLevel]
+FROM [HumanResources].[Employee]
+WHERE ([NationalIDNumber],[OrganizationLevel]) IN (
+SELECT [NationalIDNumber],[OrganizationLevel] FROM [HumanResources].[JobCandidate]
 INTERSECT
-SELECT ename,job,sal from EmployeeMinView
+SELECT [NationalIDNumber],[OrganizationLevel] from EmployeeMinView
 
 --PROMBLEM 3.4
 SELECT [BusinessEntityID] FROM [HumanResources].JobCandidate;

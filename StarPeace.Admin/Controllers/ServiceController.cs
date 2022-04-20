@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using StarPeace.Admin.Services;
 using StarPeace.Admin.Contexts;
 using StarPeace.Admin.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace StarPeace.Admin.Controllers
 {
@@ -27,9 +28,7 @@ namespace StarPeace.Admin.Controllers
         [HttpGet("{customerid}")]
         public Customer Get(string customerid)
         {
-
-            return _dbContext.Customers.Where(m => m.CustomerID == customerid).SingleOrDefault();
-            
+            return _dbContext.Customers.Where(m => m.CustomerID == customerid).SingleOrDefault();            
         }
 
         [HttpPost]

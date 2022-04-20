@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StarPeace.Admin.Helpers;
 
-namespace ServiceLayer.Core
+namespace StarPeace.Admin.Services
 {
     public interface ITradingService
     {

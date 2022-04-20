@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarPeace.Admin.Helpers
 {
-    public class Enclosure:ISwitchboardItem
+    public class Enclosure: ISwitchboardItem
     {
         public double Cost { get; set; }
 

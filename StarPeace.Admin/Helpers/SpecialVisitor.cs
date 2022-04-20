@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarPeace.Admin.Helpers
 {
-    public class SpecialVisitor:ISwitchboardVisitor
+    public class SpecialVisitor: ISwitchboardVisitor
     {
         public double Visit(Enclosure item)
         {

@@ -13,7 +13,7 @@ using StarPeace.Admin.Contexts;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class StrategyController : Controller
     {
 
         public IActionResult Index()

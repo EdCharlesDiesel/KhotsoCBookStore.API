@@ -28,10 +28,10 @@ namespace KhotsoCBookStore.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            baseAccountsUrl = "https://localhost:8000";
+           // baseAccountsUrl = "https://localhost:8000";
         }
 
-        private string baseAccountsUrl;
+      //  private string baseAccountsUrl;
 
         public IConfiguration Configuration { get; }
 
@@ -127,20 +127,20 @@ namespace KhotsoCBookStore.API
             //        ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
             //     };
 
-                options.Authority = "http://localhost:8000";
-                options.Audience = "khotsoCBookStoreApi";
-                options.RequireHttpsMetadata = false;
+                // options.Authority = "http://localhost:8000";
+                // options.Audience = "khotsoCBookStoreApi";
+                // options.RequireHttpsMetadata = false;
 
                services.AddCors();
            });
 
           
 
-            services.AddAuthorization(options =>
-             {
-             options.AddPolicy("khotsoCBookStoreApi", policy => policy.RequireClaim("scope", "khotsoCBookStoreApi.read"));
-            // options.AddPolicy("Consumer", policy => policy.RequireClaim(ClaimTypes.Role, "consumer"));
-             });
+            // services.AddAuthorization(options =>
+            //  {
+            //  options.AddPolicy("khotsoCBookStoreApi", policy => policy.RequireClaim("scope", "khotsoCBookStoreApi.read"));
+            // // options.AddPolicy("Consumer", policy => policy.RequireClaim(ClaimTypes.Role, "consumer"));
+            //  });
 
             // services.AddAuthorization(config =>
             // {
@@ -185,23 +185,23 @@ namespace KhotsoCBookStore.API
                 
                 // });
 
-                  setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        AuthorizationCode = new OpenApiOAuthFlow
-                        {
-                            AuthorizationUrl = new Uri("https://localhost:8000/connect/authorize"),
-                            TokenUrl = new Uri("https://localhost:8000/connect/token"),
-                            Scopes = new Dictionary<string, string>
-                            {
-                                {"khotsoCBookStoreApi",  "KhotsoCBookStore Api - full access"}
-                            }
-                        }
-                    },
-                    OpenIdConnectUrl =  new Uri($"{baseAccountsUrl}/.well-known/openid-configuration")
-                });
+                //   setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                // {
+                //     Type = SecuritySchemeType.OAuth2,
+                //     Flows = new OpenApiOAuthFlows
+                //     {
+                //         AuthorizationCode = new OpenApiOAuthFlow
+                //         {
+                //             AuthorizationUrl = new Uri("https://localhost:8000/connect/authorize"),
+                //             TokenUrl = new Uri("https://localhost:8000/connect/token"),
+                //             Scopes = new Dictionary<string, string>
+                //             {
+                //                 {"khotsoCBookStoreApi",  "KhotsoCBookStore Api - full access"}
+                //             }
+                //         }
+                //     },
+                //     OpenIdConnectUrl =  new Uri($"{baseAccountsUrl}/.well-known/openid-configuration")
+                // });
 
                 setupAction.OperationFilter<SecurityRequirementsOperationFilter>();
 
@@ -250,7 +250,7 @@ namespace KhotsoCBookStore.API
             // app.UseAuthorization();
 
             // app.UseAuthentication();
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {

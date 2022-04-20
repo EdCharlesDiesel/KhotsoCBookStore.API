@@ -12,10 +12,10 @@ using StarPeace.Admin.Contexts;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class MementoController : Controller
     {
         readonly StarPeaceAdminDbContext _dbContext;
-        public HomeController(StarPeaceAdminDbContext dbContext)
+        public MementoController(StarPeaceAdminDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }

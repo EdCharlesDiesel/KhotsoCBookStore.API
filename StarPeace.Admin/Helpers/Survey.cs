@@ -51,10 +51,5 @@ namespace StarPeace.Admin.Helpers
             _dbContext.SaveChanges();
             }
         }
-    }
-
     
-
-   
-
 }

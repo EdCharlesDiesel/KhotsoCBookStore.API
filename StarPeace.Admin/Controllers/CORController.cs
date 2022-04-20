@@ -10,7 +10,7 @@ using StarPeace.Admin.Helpers;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class CORController : Controller
     {
         public IActionResult Index()
         {

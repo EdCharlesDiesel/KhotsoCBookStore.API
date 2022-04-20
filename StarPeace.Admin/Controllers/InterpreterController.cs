@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using System.IO;
-using Interpreter.Core;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using StarPeace.Admin.Contexts;
@@ -14,11 +13,11 @@ using StarPeace.Admin.Helpers;
 
 namespace StarPeace.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class InterpreterController : Controller
     {
         IHostingEnvironment env;
 
-        public HomeController(IHostingEnvironment env)
+        public InterpreterController(IHostingEnvironment env)
         {
             this.env = env;
         }
