@@ -11,8 +11,9 @@ namespace StarPeaceAdminHubDB
     public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
     {
         public DbSet<Book> Books { get; set; }
-         public  DbSet<Publisher> Publishers { get; set; }
-        // public  DbSet<Promotion> Promotions { get; set; }
+        public  DbSet<Publisher> Publishers { get; set; }
+        public  DbSet<Category> Categories { get; set; }
+        public  DbSet<BookSeriesExtras> BookSeriesExtras { get; set; }
         // public  DbSet<Author> Authors { get; set; }
         // public  DbSet<Customer> Customers { get; set; }
         // public  DbSet<Employee> Employees { get; set; }
@@ -20,7 +21,7 @@ namespace StarPeaceAdminHubDB
         // public  DbSet<ProductSubscriptionItem> ProductSubscriptionItems { get; set; }
         // public  DbSet<Cart> Carts { get; set; }
         // public  DbSet<CartItem> CartItems { get; set; }
-        public  DbSet<Category> Categories { get; set; }
+        
         // public  DbSet<OrderItem> OrderItems { get; set; }
         // public  DbSet<Order> Orders { get; set; }
         // public  DbSet<UserMaster> UserMasters { get; set; }
@@ -48,23 +49,23 @@ namespace StarPeaceAdminHubDB
             //    .HasForeignKey(m => m.BookId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Book>()
-                .HasIndex(m => m.Country);
+            // builder.Entity<Book>()
+            //     .HasIndex(m => m.Country);
 
-             builder.Entity<Book>()
-                .HasIndex(m => m);
+            //  builder.Entity<Book>()
+            //     .HasIndex(m => m);
 
 
 
-            builder.Entity<Book>()
-                .HasIndex(m => m.Title);
+            // builder.Entity<Book>()
+            //     .HasIndex(m => m.Title);
 
-            builder.Entity<Category>()
-                .HasIndex(m => m.Name);
+            // builder.Entity<Category>()
+            //     .HasIndex(m => m.Name);
 
-            builder.Entity<Category>()
-                .HasIndex(nameof(Category.StartValidityDate), 
-                nameof(Category.EndValidityDate));
+            // builder.Entity<Category>()
+            //     .HasIndex(nameof(Category.StartValidityDate), 
+            //     nameof(Category.EndValidityDate));
 
             
         }

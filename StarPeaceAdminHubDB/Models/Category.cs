@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Categories")]
     public class Category: AuditableEntity
     {
         [Key]
@@ -12,9 +13,10 @@ namespace StarPeaceAdminHubDB.Models
         
         [Required]
         [MaxLength(150)]
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; }        
+        
+        public Book Book { get; set; }
 
         public Guid BookId { get; set; }
-        public Book Book { get; set; }
     }
 }

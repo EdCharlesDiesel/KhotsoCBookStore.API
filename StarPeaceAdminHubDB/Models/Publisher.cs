@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Publisher")]
     public class Publisher : AuditableEntity
     {
         [Key]
@@ -12,7 +13,7 @@ namespace StarPeaceAdminHubDB.Models
         public Guid PublisherId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string PublisherName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -20,5 +21,7 @@ namespace StarPeaceAdminHubDB.Models
 
         [MaxLength(20)]
         public int PhoneNumber { get; set; }
+
+        public ICollection<Book> Books { get; set; }
     }
 }

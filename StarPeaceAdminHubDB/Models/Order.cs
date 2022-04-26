@@ -4,18 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Orders")]
     public class Order: AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid OrderId { get; set; }  = Guid.NewGuid();  
-        
-
-        [ForeignKey("CustomerId")]
-        public Guid CustomerId { get; set; }
-
-        [ForeignKey("BookId")]
-        public Guid BookId { get; set; }
+        public Guid OrderId { get; set; } 
 
         [Required]
         public DateTime OrderDate { get; set; }
@@ -26,6 +20,6 @@ namespace StarPeaceAdminHubDB.Models
 
         public decimal CartTotal { get; set; }
 
-       public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+       public ICollection<OrderItem> OrderItems { get; set; } 
     }
 }

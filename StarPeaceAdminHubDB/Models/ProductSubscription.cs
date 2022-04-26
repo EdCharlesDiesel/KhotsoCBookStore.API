@@ -5,17 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("ProductSubscriptions")]
     public class ProductSubscription : AuditableEntity
     {   
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ProductSubscriptionId { get; set; }  =Guid.NewGuid();
+        public Guid ProductSubscriptionId { get; set; }
 
-        [ForeignKey("CustomerId")]
+        public string SubscriptionName { get; set; }
+        
         public Guid CustomerId { get; set; }
-        // public Customer Customer { get; set; }
 
-       // public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
+        public Customer Customer { get; set; }
+
+        public ICollection<ProductSubscriptionItem> ProductSubscriptionItems { get; set; } = new List<ProductSubscriptionItem>();
 
     }
 }

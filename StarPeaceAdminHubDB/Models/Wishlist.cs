@@ -5,16 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("WishList")]
     public class WishList : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid WishlistId { get; set; } = Guid.NewGuid();
+        public Guid WishlistId { get; set; }
 
-        [ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }
-        // public Customer Customer { get; set; }
+        
+        public Customer Customer { get; set; }
 
-        // public ICollection<WishListItem> WishListItems { get; set; } = new List<WishListItem>();
+        public ICollection<WishListItem> WishListItems { get; set; }
     }
 }

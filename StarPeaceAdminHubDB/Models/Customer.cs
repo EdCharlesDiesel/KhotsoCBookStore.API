@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Customers")]
     public class Customer : AuditableEntity
     {
         [Key]
@@ -36,10 +37,10 @@ namespace StarPeaceAdminHubDB.Models
 
         public int Postal { get; set; }
 
-        // public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public ICollection<Order> Orders { get; set; }
 
-        // public ICollection<WishList> WishLists { get; set; } = new List<WishList>();
+        public ICollection<WishList> WishLists { get; set; }
 
-        // public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; } = new List<ProductSubscription>();
+        public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; }
     }
 }

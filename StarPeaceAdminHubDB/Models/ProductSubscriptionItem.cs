@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("ProductSubscriptionItem")]
     public class ProductSubscriptionItem : AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ProductSubscriptionItemId { get; set; }  =Guid.NewGuid();
         
-        [ForeignKey("ProductSubscriptionId")]
         public Guid ProductSubscriptionId { get; set; }
         public ProductSubscription ProductSubscription { get; set; }
         
