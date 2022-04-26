@@ -9,16 +9,35 @@ using StarPeaceAdminHubDB.Models;
 
 namespace StarPeaceAdminHubDomain.ConcreteBuilder
 {
-    public class CareerBookSeriesBuilder:IBookSeriesBuilder
+    public class CareerBookSeriesBuilder:  IBookSeriesBuilder
     {
+        
         private BookSeries BookSeries;
 
         public CareerBookSeriesBuilder()
         {
             BookSeries = new BookSeries();
-       BookSeries.BookSeriesExtras = new List<BookSeriesExtras>();
+            BookSeries.BookSeriesExtras = new List<BookSeriesExtras>();
         }
 
+        public bool Loaded { get; private set; }
+        public void Get()
+        {
+            // if (Id == Guid.Empty)
+            // {
+            //     Id = Guid.NewGuid();
+            //     FileName = "picture.jpg";
+            //     Tags = new string[] { "incredible picture", "must seeing!" };
+            // }
+            throw new NotImplementedException();
+        }
+
+        public void Load()
+        {
+            //PictureData = "[DATA FROM PICTURE]";
+            Loaded = true;
+            //Console.WriteLine("Now the picture is loaded!");
+        }
         public void AddVideoSeries()
         {
             // using (AppDbContext db = new AppDbContext())
