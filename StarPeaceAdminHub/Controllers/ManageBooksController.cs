@@ -44,10 +44,10 @@ namespace StarPeaceAdminHub.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> Edit(
-            Guid id,
+            int id,
             [FromServices] ICategoryRepository repo)
         {
-            if (id == Guid.Empty) return RedirectToAction(
+            if (id == 0) return RedirectToAction(
                 nameof(ManageBooksController.Index));
             var aggregate = await repo.Get(id);
             if (aggregate == null) return RedirectToAction(
@@ -72,10 +72,10 @@ namespace StarPeaceAdminHub.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Delete(
-            Guid id,
+            int id,
             [FromServices] ICommandHandler<DeleteCategoryCommand> command)
         {
-            if (id != Guid.Empty)
+            if (id>0)
             {
                 await command.HandleAsync(new DeleteCategoryCommand(id));
                 

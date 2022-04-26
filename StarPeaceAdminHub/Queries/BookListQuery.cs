@@ -19,7 +19,7 @@ namespace StarPeaceAdminHub.Queries
         {
             return (await ctx.Books.Select(m => new
             {
-                Text = m.CategoryName,
+                Text = m.Title,
                 Value = m.Id
             })
             .OrderBy(m => m.Text)

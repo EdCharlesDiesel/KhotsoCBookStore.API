@@ -55,7 +55,7 @@ namespace StarPeaceAdminHubDB.Extensions
                     CoverFileName = "Default Cover",
                     Cost = 750.00M,
                     RetailPrice = 1250.99M,
-                    PublishingDate = DateTime(2016,01,01),
+                    PublishingDate = new DateTime(2016,01,01),
                     Categorys = new List<Category>()
                         {
                             new Category
@@ -66,6 +66,34 @@ namespace StarPeaceAdminHubDB.Extensions
                             new Category
                             {
                                 CategoryName = "Asp.Net",
+                                EntityVersion=1
+                            }
+                        }
+                };
+
+                var SecondBook = new Book
+                {
+                    Title = "Software Architecture with C# 9 and .NET 5",
+                    ISBN = "XXX-00000-000-2nd",
+                    CoverFileName = "Default Cover",
+                    Cost = 1200.00M,
+                    RetailPrice = 2250.99M,
+                    PublishingDate = new DateTime(2016,01,01),
+                    Categorys = new List<Category>()
+                        {
+                            new Category
+                            {
+                                CategoryName = "Design Patterns",
+                                EntityVersion = 1
+                            },
+                            new Category
+                            {
+                                CategoryName = "Asp.Net",
+                                EntityVersion=1
+                            },
+                            new Category
+                            {
+                                CategoryName = "Architecture",
                                 EntityVersion=1
                             }
                         }

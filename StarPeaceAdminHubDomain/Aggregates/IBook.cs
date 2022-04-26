@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public interface IBook: IEntity<Guid>
+    public interface IBook: IEntity<int>
     {
         
         void FullUpdate(IBook o);

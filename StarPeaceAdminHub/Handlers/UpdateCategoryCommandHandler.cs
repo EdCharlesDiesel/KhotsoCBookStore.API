@@ -25,7 +25,7 @@ namespace StarPeaceAdminHub.Handlers
             {
                 try
                 {
-                    model = await repo.Get(command.Updates.CategoryId);
+                    model = await repo.Get(command.Updates.Id);
                     if (model == null) return;
                     model.FullUpdate(command.Updates);
                     await mediator.TriggerEvents(model.DomainEvents);

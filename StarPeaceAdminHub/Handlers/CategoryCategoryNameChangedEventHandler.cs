@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Handlers
 {
-    public class CategoryCategoryNameChangedEventHandler :
-        IEventHandler<CategoryCategoryNameChangedEvent>
+    public class CategoryCategoryNameChangedEventHandler : IEventHandler<CategoryCategoryNameChangedEvent>
     {
         ICategoryEventRepository repo;
         public CategoryCategoryNameChangedEventHandler(ICategoryEventRepository repo)

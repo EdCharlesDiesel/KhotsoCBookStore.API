@@ -9,7 +9,7 @@ namespace StarPeaceAdminHubDB.Models
     public class CategoryEvent: Entity<long>, ICategoryEvent
     {
         public CategoryEventType Type { get; set; }
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         //public decimal NewPrice { get; set; }
         public string CategoryName { get; set; } 
         

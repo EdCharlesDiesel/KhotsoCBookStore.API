@@ -21,12 +21,12 @@ namespace StarPeaceAdminHubDB.Repositories
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<ICategory> Get(Guid id)
+        public async Task<ICategory> Get(int id)
         {
             return await context.Categorys.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();
         }
-        public async Task<ICategory> Delete(Guid id)
+        public async Task<ICategory> Delete(int id)
         {
             var model = await Get(id);
             if (model == null) return null;

@@ -8,10 +8,10 @@ namespace StarPeaceAdminHub.Models.Categorys
 {
     public class CategoryInfosViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string CategoryName { get; set; }
 
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
         public override string ToString()
         {
             return string.Format("{0}. bookId, CategoryName: {3}",

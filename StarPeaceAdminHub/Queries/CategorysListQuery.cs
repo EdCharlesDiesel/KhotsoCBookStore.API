@@ -23,7 +23,7 @@ namespace StarPeaceAdminHub.Queries
                 CategoryName = m.CategoryName,
                 BookId = m.BookId
             })
-                .OrderByDescending(m=> m.EndValidityDate)
+                .OrderByDescending(m=> m.CategoryName)
                 .ToListAsync();
         }
     }

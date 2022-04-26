@@ -9,8 +9,8 @@ namespace StarPeaceAdminHubDomain.IRepositories
 {
     public interface ICategoryRepository: IRepository<ICategory>
     {
-        Task<ICategory> Get(Guid id);
+        Task<ICategory> Get(int id);
         ICategory New();
-        Task<ICategory> Delete(Guid id);
+        Task<ICategory> Delete(int id);
     }
 }

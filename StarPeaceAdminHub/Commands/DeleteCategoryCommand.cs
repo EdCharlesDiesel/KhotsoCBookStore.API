@@ -8,10 +8,10 @@ namespace StarPeaceAdminHub.Commands
 {
     public class DeleteCategoryCommand: ICommand
     {
-        public DeleteCategoryCommand(Guid id)
+        public DeleteCategoryCommand(int id)
         {
             CategoryId = id;
         }
-        public Guid CategoryId { get; private set; }
+        public int CategoryId { get; private set; }
     }
 }

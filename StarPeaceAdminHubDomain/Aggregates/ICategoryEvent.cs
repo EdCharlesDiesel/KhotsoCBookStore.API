@@ -11,7 +11,7 @@ namespace StarPeaceAdminHubDomain.Aggregates
     public interface ICategoryEvent: IEntity<long>
     {
         CategoryEventType Type { get; }
-        Guid CategoryId { get; }
+        int CategoryId { get; }
         //decimal NewPrice { get; }
         string CategoryName {get;}
         long? OldVersion { get;}

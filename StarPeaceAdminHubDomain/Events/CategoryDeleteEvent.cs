@@ -8,12 +8,12 @@ namespace StarPeaceAdminHubDomain.Events
 {
     public class CategoryDeleteEvent: IEventNotification
     {
-        public CategoryDeleteEvent(Guid id, long oldVersion)
+        public CategoryDeleteEvent(int id, long oldVersion)
         {
             CategoryId = id;
             OldVersion = oldVersion;
         }
-        public Guid CategoryId { get; private set; }
+        public int CategoryId { get; private set; }
         public long OldVersion { get; private set; }
         
     }

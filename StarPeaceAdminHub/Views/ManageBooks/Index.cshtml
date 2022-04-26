@@ -42,28 +42,28 @@
                             </a>
                         </td>
                         <td>
-                            @Category.BookName
+                            @Category.CategoryName
                         </td>
                         <td>
-                            @Category.Name
+                            @* @Category.Name *@
                         </td>
                         <td>
-                            @Category.DurationInDays
+                            @* @Category.DurationInDays *@
                         </td>
                         <td>
-                            @Category.Price
+                            @* @Category.Price *@
                         </td>
                         <td>
-                            @(Category.StartValidityDate.HasValue ?
+                            @* @(Category.StartValidityDate.HasValue ?
                                 Category.StartValidityDate.Value.ToString("d")
                                 :
-                                String.Empty)
+                                String.Empty) *@
                         </td>
                         <td>
-                            @(Category.EndValidityDate.HasValue ?
+                            @* @(Category.EndValidityDate.HasValue ?
                                 Category.EndValidityDate.Value.ToString("d")
                                 :
-                                String.Empty)
+                                String.Empty) *@
                         </td>
 
                     </tr>

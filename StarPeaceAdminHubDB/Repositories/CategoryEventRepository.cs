@@ -20,7 +20,7 @@ namespace StarPeaceAdminHubDB.Repositories
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<IEnumerable<ICategoryEvent>> GetFirstN(Guid n)
+        public async Task<IEnumerable<ICategoryEvent>> GetFirstN(int n)
         {
             return await context.CategoryEvents
                 .OrderBy(m => m.Id)
@@ -28,7 +28,7 @@ namespace StarPeaceAdminHubDB.Repositories
                 .ToListAsync();
         }
 
-        public ICategoryEvent New(CategoryEventType type, Guid id, long oldVersion, long? newVersion=null, decimal price=0)
+        public ICategoryEvent New(CategoryEventType type, int id, long oldVersion, long? newVersion=null, string categoryName=null)
         {
             var model = new CategoryEvent
             {
@@ -36,7 +36,7 @@ namespace StarPeaceAdminHubDB.Repositories
                 CategoryId = id,
                 OldVersion = oldVersion,
                 NewVersion = newVersion,
-                NewPrice = price
+                CategoryName = categoryName
             };
             context.CategoryEvents.Add(model);
             return model;

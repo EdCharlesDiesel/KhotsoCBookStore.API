@@ -13,18 +13,18 @@ namespace StarPeaceAdminHub.Models.Categorys
         public CategoryFullEditViewModel() { }
         public CategoryFullEditViewModel(ICategory o)
         {
-            CategoryId = o.Id;
+            Id = o.Id;
             BookId = o.BookId;
-            CategoryName = o.CategoryName;
+            CategoryName = o.CategoryName;           
             
         }
-        public Guid CategoryId { get; set; }
+        public int Id { get; set; }
         
         [StringLength(128, MinimumLength = 5), Required]
         [Display(Name = "CategoryName")]        
         public string CategoryName { get; set; }
         
         [Display(Name = "Book")]
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
     }
 }

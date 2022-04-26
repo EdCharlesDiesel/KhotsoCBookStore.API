@@ -21,7 +21,7 @@ namespace StarPeaceAdminHubDB.Repositories
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<IBook> Get(Guid id)
+        public async Task<IBook> Get(int id)
         {
             return await context.Books.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();

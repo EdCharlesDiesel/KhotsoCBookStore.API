@@ -21,7 +21,7 @@ namespace StarPeaceAdminHubDB
             base.OnModelCreating(builder);
             builder.Entity<Book>()
                 .HasMany(m => m.Categorys)
-                .WithOne(m => m.MyBook)
+                .WithOne(m => m.Book)
                 .HasForeignKey(m => m.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -32,16 +32,13 @@ namespace StarPeaceAdminHubDB
             //    .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Book>()
-                .HasIndex(m => m.Country);
+                .HasIndex(m => m.ISBN);
 
             builder.Entity<Book>()
-                .HasIndex(m => m.Name);
+                .HasIndex(m => m.Title);
 
             builder.Entity<Category>()
-                .HasIndex(m => m.Name);
-
-            builder.Entity<Category>()
-                .HasIndex(nameof(Category.StartValidityDate), nameof(Category.EndValidityDate));
+                .HasIndex(m => m.CategoryName);
         }
 
         public async Task<bool> SaveEntitiesAsync()

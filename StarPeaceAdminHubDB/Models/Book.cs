@@ -3,10 +3,11 @@ using StarPeaceAdminHubDomain.Aggregates;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class Book: Entity<Guid>, IBook
+    public class Book: Entity<int>, IBook
     {
         
         [MaxLength(128), Required]
@@ -19,13 +20,14 @@ namespace StarPeaceAdminHubDB.Models
         [Required]
         public DateTime PublishingDate { get; set; }
         
-        //public Guid PublisherId { get; set; }
+        //public int PublisherId { get; set; }
         
         public decimal Cost { get; set; }    
 
         public decimal RetailPrice { get; set; }     
         
         public string CoverFileName { get; set; }
+        
         public ICollection<Category> Categorys { get; set; }
 
         public void FullUpdate(IBook o)
@@ -34,7 +36,14 @@ namespace StarPeaceAdminHubDB.Models
             {
                 Id = o.Id;
             }
-            CategoryName = o.CategoryName;
+
+            Title = o.Title;
+            ISBN = o.ISBN;
+            PublishingDate = o.PublishingDate;        
+            Cost = o.Cost; 
+            RetailPrice =o.RetailPrice;            
+            CoverFileName = o.CoverFileName; 
+    
         }
     }
 }

@@ -8,15 +8,15 @@ namespace StarPeaceAdminHubDomain.Events
 {
     public class CategoryCategoryNameChangedEvent: IEventNotification
     {
-        public CategoryCategoryNameChangedEvent(Guid id, string CategoryName, long oldVersion, long newVersion)
+        public CategoryCategoryNameChangedEvent(int id, string categoryName, long oldVersion, long newVersion)
         {
             CategoryId = id;
             //NewPrice = price;
-            CategoryName = CategoryName;
+            CategoryName = categoryName;
             OldVersion = oldVersion;
             NewVersion = newVersion;
         }
-        public Guid CategoryId { get; private set; }
+        public int CategoryId { get; private set; }
         //public decimal NewPrice { get; private set; }
         public string CategoryName { get; private set; }
         

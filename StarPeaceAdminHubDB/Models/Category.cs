@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
-    public class Category: Entity<Guid>, ICategory
+    public class Category: Entity<int>, ICategory
     {
         public void FullUpdate(ICategoryFullEditDTO o)
         {
@@ -22,8 +22,8 @@ namespace StarPeaceAdminHubDB.Models
                 //     this.AddDomainEvent(new CategoryPriceChangedEvent(
                 //             Id, o.Price, EntityVersion, EntityVersion+1));
                 if (o.CategoryName != this.CategoryName)
-                     this.AddDomainEvent(new CategoryPriceChangedEvent(
-                             Id, o.CategoryName, EntityVersion, EntityVersion+1));
+                     this.AddDomainEvent(new CategoryCategoryNameChangedEvent(
+                             Id, o.CategoryName, EntityVersion, EntityVersion + 1));
 
             }
 
@@ -42,7 +42,7 @@ namespace StarPeaceAdminHubDB.Models
         [ConcurrencyCheck]
         public long EntityVersion{ get; set; }
 
-        public Guid BookId { get; set; }  
+        public int BookId { get; set; }  
                         
     }
 }
