@@ -1,5 +1,6 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IDestinationRepository:IRepository<IDestination>
+    public interface ICategoryRepository:IRepository<ICategory>
     {
-        Task<IDestination> Get(int id);
-        IDestination New();
+        Task<Category> Get(Guid id);
+        Category New();
     }
 }

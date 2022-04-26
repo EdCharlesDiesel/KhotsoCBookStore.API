@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    [Table("WishList")]
+    [Table("WishLists")]
     public class WishList : AuditableEntity
     {
         [Key]

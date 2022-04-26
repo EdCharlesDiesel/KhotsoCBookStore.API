@@ -23,10 +23,8 @@ namespace StarPeaceAdminHub.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
-
-
         }
+        
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {

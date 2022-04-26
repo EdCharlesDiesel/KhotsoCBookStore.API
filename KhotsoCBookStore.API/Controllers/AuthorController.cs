@@ -107,8 +107,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public async Task<ActionResult> UpdateAuthor(Guid authorId,
-            AuthorForUpdateDto authorToUpdate)
+        public async Task<ActionResult> UpdateAuthor(Guid authorId,AuthorForUpdateDto authorToUpdate)
         {
             if (!await _authorRepository.AuthorIfExistsAsync(authorId))
             {

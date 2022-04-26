@@ -5,12 +5,11 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public interface IDestination: IEntity<int>
+    public interface ICategory: IEntity<Guid>
     {
-        void FullUpdate(IDestination o);
+        void FullUpdate(ICategory o);
         string Name { get; }
         string Country { get;}
-        string Description { get;}
-        
+        string Description { get;}        
     }
 }

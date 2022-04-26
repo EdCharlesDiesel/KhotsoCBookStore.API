@@ -2,10 +2,17 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using DDD.DomainLayer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace StarPeaceAdminHubDB.Contexts
 {
-    public class MainDbContext: DbContext
+    public class MainDbContext: IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
     {
         
         public DbSet<BookSeriesExtras> BookSeriesExtras { get; set; }
@@ -22,7 +29,7 @@ namespace StarPeaceAdminHubDB.Contexts
 
         public DbSet<OrderItem> OrderItems { get; set; }
         
-        public DbSet<ProductSubscription> ProductSubscriptions { get; set; }
+        public DbSet<ProductSubscription> Subscriptions { get; set; }
 
         public DbSet<ProductSubscriptionItem> ProductSubscriptionItems { get; set; }
 
@@ -132,21 +139,21 @@ namespace StarPeaceAdminHubDB.Contexts
 
         }
 
-        // public async Task StartAsync()
-        // {
-        //     await Database.BeginTransactionAsync();
-        // }
+        public async Task StartAsync()
+        {
+            await Database.BeginTransactionAsync();
+        }
 
-        // public Task CommitAsync()
-        // {
-        //     Database.CommitTransaction();
-        //     return Task.CompletedTask;
-        // }
+        public Task CommitAsync()
+        {
+            Database.CommitTransaction();
+            return Task.CompletedTask;
+        }
 
-        // public Task RollbackAsync()
-        // {
-        //     Database.RollbackTransaction();
-        //     return Task.CompletedTask;
-        // }   
+        public Task RollbackAsync()
+        {
+            Database.RollbackTransaction();
+            return Task.CompletedTask;
+        }   
     }
 }

@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using StarPeaceAdminHubDomain.Aggregates;
+using DDD.DomainLayer;
 
 namespace StarPeaceAdminHubDB.Models
 {
     [Table("Books")]
-    public class Book: AuditableEntity
+    public class Book: Entity<int>, IBook
     {
         private int likes;
         private int dislikes;
-        private int loves;       
-        // public Book(string title)
-        // {
-        //     Title = title;
-        // }        
+        private int loves;               
 
         public int Likes
         {

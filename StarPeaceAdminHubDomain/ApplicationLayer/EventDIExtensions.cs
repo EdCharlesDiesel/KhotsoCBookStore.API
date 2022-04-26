@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DDD.ApplicationLayer
 {
+     /*RepositoryExtensions class whose AddAllRepositories IServiceCollection
+        extension method automatically discovers all the repository implementations
+        contained in an assembly and adds them to the dependency injection engine*/
     public static class EventDIExtensions
     {
         public static IServiceCollection AddEventHandler<T, H>

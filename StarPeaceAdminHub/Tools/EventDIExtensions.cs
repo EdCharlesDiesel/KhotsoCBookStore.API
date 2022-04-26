@@ -8,6 +8,16 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DDD.ApplicationLayer
 {
+    ///methods for the
+    // automatic discovery and registration of command handlers and event handlers. The
+    // GitHub repository also contains an IEventMediator interface and its EventMediator
+    // implementation, whose TriggerEvents(IEnumerable<IEventNotification>
+    // events) method retrieves all the handlers associated with the events it receives
+    // in its argument from the dependency injection engine and executes them. It is
+    // sufficient to have IEventMediator injected into a class so that it can trigger events.
+    // EventDIExtensions also contains an extension method that discovers all the queries
+    // that implement the empty IQuery interface and adds them to the dependency
+    // injection engine.
     public static class EventDIExtensions
     {
         public static IServiceCollection AddEventHandler<T, H>

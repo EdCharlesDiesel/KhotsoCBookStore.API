@@ -7,8 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class UserMaster: IdentityUser<int>
-    {
+    public class UserMaster    {
 
         // [Required]
         // [Display(Name = "user name")]

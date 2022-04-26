@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    [Table("ProductSubscriptions")]
+    [Table("Subscriptions")]
     public class ProductSubscription : AuditableEntity
     {   
         [Key]

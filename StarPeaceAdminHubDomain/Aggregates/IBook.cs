@@ -6,7 +6,7 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public interface IBook : IEntity<int>
+    public interface IBook : IEntity<Guid>
     {
         void FullUpdate(IBookFullEditDTO o);
         string Name { get; set; }
@@ -18,7 +18,5 @@ namespace StarPeaceAdminHubDomain.Aggregates
         DateTime? EndValidityDate { get;  }
         int DestinationId { get; }
         
-    }
-
-    
+    }   
 }

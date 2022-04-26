@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Promotions")]
     public class Promotion: AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid PromoId { get; set; }  =Guid.NewGuid();
+        public Guid PromotionId { get; set; }
         
         public decimal MinimumRetail { get; set; }
 

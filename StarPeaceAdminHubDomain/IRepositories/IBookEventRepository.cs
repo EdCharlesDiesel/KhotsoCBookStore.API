@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IBookEventRepository:IRepository<IBookEvent>
+    public interface IBookEventRepository: IRepository<IBookEvent>
     {
-        Task<IEnumerable<IBookEvent>> GetFirstN(int n);
-        IBookEvent New(BookEventType type, int id, long oldVersion, long? newVersion= null, decimal price = 0);
+        Task<IEnumerable<IBookEvent>> GetFirstN(Guid n);
+        IBookEvent New(BookEventType type, Guid id, long oldVersion, long? newVersion= null, decimal price = 0);
     }
 }

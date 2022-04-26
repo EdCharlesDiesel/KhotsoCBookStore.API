@@ -8,12 +8,12 @@ namespace StarPeaceAdminHubDomain.Events
 {
     public class BookDeleteEvent: IEventNotification
     {
-        public BookDeleteEvent(int id, long oldVersion)
+        public BookDeleteEvent(Guid id, long oldVersion)
         {
             BookId = id;
             OldVersion = oldVersion;
         }
-        public int BookId { get; private set; }
+        public Guid BookId { get; private set; }
         public long OldVersion { get; private set; }
         
     }

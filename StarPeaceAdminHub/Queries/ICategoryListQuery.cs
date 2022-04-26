@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Queries
 {
-    public interface IDestinationListQuery: IQuery
+    public interface ICategoryListQuery: IQuery
     {
-        Task<IEnumerable<SelectListItem>> AllDestinations();
+        Task<IEnumerable<SelectListItem>> AllCategorys();
     }
 }

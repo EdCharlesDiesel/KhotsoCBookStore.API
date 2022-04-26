@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    [Table("Publisher")]
+    [Table("Publishers")]
     public class Publisher : AuditableEntity
     {
         [Key]

@@ -8,6 +8,6 @@ namespace StarPeaceAdminHubDomain.Products
 {
     public class BookSeries
     {
-        public List<BookSeriesExtras> BookSeriesExtras { get; set; }
+        public List<StarPeaceAdminHubDB.Models.BookSeriesExtras> BookSeriesExtras { get; set; }
     }
 }

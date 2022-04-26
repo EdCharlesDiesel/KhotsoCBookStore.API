@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Employees")]
     public class Employee
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid EmployeeId { get; set; } = Guid.NewGuid();
+        public Guid EmployeeId { get; set; }
         
         [Required]
         public string EmployeeNumber { get; set; }

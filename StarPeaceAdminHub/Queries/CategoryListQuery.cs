@@ -4,25 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using StarPeaceAdminHubDB;
+using StarPeaceAdminHubDB.Contexts;
 
 namespace StarPeaceAdminHub.Queries
 {
-    public class DestinationListQuery : IDestinationListQuery
+    public class CategoryListQuery : ICategoryListQuery
     {
         MainDbContext ctx;
-        public DestinationListQuery(MainDbContext ctx)
+        public CategoryListQuery(MainDbContext ctx)
         {
             this.ctx = ctx;
         }
-        public async Task<IEnumerable<SelectListItem>> AllDestinations()
+        public async Task<IEnumerable<SelectListItem>> AllCategorys()
         {
-            return (await ctx.Destinations.Select(m => new
+            return (await ctx.Categories.Select(m => new
             {
-                Text = m.Country,
+                Text = m.CategoryName,
                 Value = m.Id
             })
-            .OrderBy(m => m.Text)
+            .OrderBy(m => m.CategoryName)
             .ToListAsync())
             .Select(m => new SelectListItem
             {

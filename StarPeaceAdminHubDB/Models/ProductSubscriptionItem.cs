@@ -9,9 +9,10 @@ namespace StarPeaceAdminHubDB.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ProductSubscriptionItemId { get; set; }  =Guid.NewGuid();
+        public Guid ProductSubscriptionItemId { get; set; }
         
         public Guid ProductSubscriptionId { get; set; }
+        
         public ProductSubscription ProductSubscription { get; set; }
         
         public Guid ProductId { get; set; }

@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
 using StarPeaceAdminHubDB.Contexts;
 
+
 namespace StarPeaceAdminHubDB.Repositories
 {
-    public class BookRepository : IDestinationRepository
+    public class BookRepository : ICategoryRepository
 
     {
         private MainDbContext context;
@@ -22,16 +23,16 @@ namespace StarPeaceAdminHubDB.Repositories
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<IDestination> Get(int id)
+        public async Task<Category> Get(Guid id)
         {
-            return await context.Destinations.Where(m => m.Id == id)
+            return await context.Categories.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public IDestination New()
+        public Category New()
         {
-            var model = new Destination();
-            context.Destinations.Add(model);
+            var model = new Categories();
+            context.Categories.Add(model);
             return model;
         }
     }

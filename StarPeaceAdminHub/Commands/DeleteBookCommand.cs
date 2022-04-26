@@ -8,10 +8,10 @@ namespace StarPeaceAdminHub.Commands
 {
     public class DeleteBookCommand: ICommand
     {
-        public DeleteBookCommand(int id)
+        public DeleteBookCommand(Guid id)
         {
             BookId = id;
         }
-        public int BookId { get; private set; }
+        public Guid BookId { get; private set; }
     }
 }

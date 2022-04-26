@@ -9,9 +9,19 @@ namespace StarPeaceAdminHubDB.Models
     public class BookEvent: Entity<long>, IBookEvent
     {
         public BookEventType Type { get; set; }
-        public int BookId { get; set; }
+        
+        public Guid BookId { get; set; }
+        
         public decimal NewPrice { get; set; }
+
+
+        public decimal NewCost { get; set; }    
+
+        public decimal NewRetailPrice { get; set; }
+        
         public long? OldVersion { get; set; }
+        
         public long? NewVersion { get; set; }
+
     }
 }
