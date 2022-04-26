@@ -1,7 +1,7 @@
-﻿@model  StarPeaceAdminHub.Models.Books.BooksListViewModel
+﻿@model  StarPeaceAdminHub.Models.Categorys.CategorysListViewModel
 @using StarPeaceAdminHub.Controllers
 @{
-    ViewData["Title"] = "Manage packages";
+    ViewData["Title"] = "Manage Books";
 }
 
     <div class="container">
@@ -12,54 +12,56 @@
                     <tr>
                         <th scope="col">Delete</th>
                         <th scope="col">Edit</th>
-                        <th scope="col">Destination</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">ISBN</th>
                         <th scope="col">Duration/days</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Retail Price</th>
                         <th scope="col">Availble from</th>
                         <th scope="col">Availble to</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var package in Model.Items)
+                    @foreach(var Category in Model.Items)
                     {
                     <tr>
                         <td>
-                            <a asp-controller="ManageBooks"
+                            <button class="btn btn-primary">
+                            <a asp-controller="ManageCategorys"
                                asp-action="@nameof(ManageBooksController.Delete)"
-                               asp-route-id="@package.Id">
+                               asp-route-id="@Category.Id">
                                 delete
                             </a>
+                            </button>
                         </td>
                         <td>
-                            <a asp-controller="ManageBooks"
+                            <a asp-controller="ManageCategorys"
                                asp-action="@nameof(ManageBooksController.Edit)"
-                               asp-route-id="@package.Id">
+                               asp-route-id="@Category.Id">
                                 edit
                             </a>
                         </td>
                         <td>
-                            @package.DestinationName
+                            @Category.BookName
                         </td>
                         <td>
-                            @package.Name
+                            @Category.Name
                         </td>
                         <td>
-                            @package.DurationInDays
+                            @Category.DurationInDays
                         </td>
                         <td>
-                            @package.Price
+                            @Category.Price
                         </td>
                         <td>
-                            @(package.StartValidityDate.HasValue ?
-                                package.StartValidityDate.Value.ToString("d")
+                            @(Category.StartValidityDate.HasValue ?
+                                Category.StartValidityDate.Value.ToString("d")
                                 :
                                 String.Empty)
                         </td>
                         <td>
-                            @(package.EndValidityDate.HasValue ?
-                                package.EndValidityDate.Value.ToString("d")
+                            @(Category.EndValidityDate.HasValue ?
+                                Category.EndValidityDate.Value.ToString("d")
                                 :
                                 String.Empty)
                         </td>
@@ -70,8 +72,8 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-primary" asp-controller="ManageBooks"
+        <a class="btn btn-primary" asp-controller="ManageCategorys"
               asp-action="@nameof(ManageBooksController.Create)">
-            New package
+            New Book
         </a>
     </div>

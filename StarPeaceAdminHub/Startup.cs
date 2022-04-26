@@ -23,6 +23,7 @@ namespace StarPeaceAdminHub
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //cookie settings
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -43,9 +44,13 @@ namespace StarPeaceAdminHub
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                // Where I add middlewareCustom 
+                // !Whats is a custom middleware
+                // app.UseMiddleware<MyCustomddleWare>();
             }
             else
             {
@@ -54,6 +59,7 @@ namespace StarPeaceAdminHub
                 app.UseHsts();
             }
 
+            //app.UseMiddleware<MyCustomModule>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

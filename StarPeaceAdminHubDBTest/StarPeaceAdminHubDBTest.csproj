@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StarPeaceAdminHubDB\StarPeaceAdminDB.csproj" />
-    <ProjectReference Include="..\StarPeaceAdminHubDomain\StarPeaceAdminDomain.csproj" />
+    <ProjectReference Include="..\StarPeaceAdminHubDB\StarPeaceAdminHubDB.csproj" />
+    <ProjectReference Include="..\StarPeaceAdminHubDomain\StarPeaceAdminHubDomain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

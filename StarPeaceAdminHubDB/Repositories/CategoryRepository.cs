@@ -1,24 +1,20 @@
 ﻿using DDD.DomainLayer;
-using StarPeaceAdminHub.Aggregates;
-using StarPeaceAdminHubDB.IRepositories;
+using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using StarPeaceAdminHub.Models;
-using StarPeaceAdminHub.Events;
-using StarPeaceAdminHubDB.Contexts;
-using StarPeaceAdminHubDomain.IRepositories;
-using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDB.Models;
+using StarPeaceAdminHubDomain.Events;
 
 namespace StarPeaceAdminHubDB.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly MainDbContext context;
+        private MainDbContext context;
         public CategoryRepository(MainDbContext context)
         {
             this.context = context;
@@ -27,24 +23,23 @@ namespace StarPeaceAdminHubDB.Repositories
 
         public async Task<ICategory> Get(Guid id)
         {
-            return await context.Categories.Where(m => m.Id == id)
+            return await context.Categorys.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();
         }
         public async Task<ICategory> Delete(Guid id)
         {
             var model = await Get(id);
-            if (model is not Category category) return null;
-            context.Categories.Remove(category);
+            if (model == null) return null;
+            context.Categorys.Remove(model as Category);
             model.AddDomainEvent(
-               new CategoryDeleteEvent(
-                    model.Id, category.EntityVersion));
+                new CategoryDeleteEvent(
+                    model.Id, (model as Category).EntityVersion));
             return model;
-
         }
         public ICategory New()
         {
             var model = new Category() {EntityVersion=1 };
-            context.Categories.Add(model);
+            context.Categorys.Add(model);
             return model;
         }
     }

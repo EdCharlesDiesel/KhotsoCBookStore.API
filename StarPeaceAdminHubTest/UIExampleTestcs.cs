@@ -12,9 +12,11 @@ using System.IO;
 
 namespace StarPeaceAdminHubTest
 {
-    public class UIExampleTestcs: IClassFixture<WebApplicationFactory<Startup>>
+    public class UIExampleTestcs:
+         IClassFixture<WebApplicationFactory<Startup>>
     {
-        private readonly  WebApplicationFactory<Startup> _factory;
+        private readonly
+            WebApplicationFactory<Startup> _factory;
         public UIExampleTestcs(WebApplicationFactory<Startup> factory)
         {
             _factory = factory;
@@ -37,7 +39,7 @@ namespace StarPeaceAdminHubTest
             string source = await response.Content.ReadAsStringAsync();
             var document = await context.OpenAsync(req =>
                 req.Content(source));
-            var node = document.QuerySelector("a[href=\"/ManageBooks\"]");   
+            var node = document.QuerySelector("a[href=\"/ManagePackages\"]");   
 
             Assert.NotNull(node);
         }

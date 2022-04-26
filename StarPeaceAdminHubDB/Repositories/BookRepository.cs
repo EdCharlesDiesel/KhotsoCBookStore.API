@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
-using StarPeaceAdminHubDB.Contexts;
-
 
 namespace StarPeaceAdminHubDB.Repositories
 {
-    public class BookRepository : ICategoryRepository
+    public class BookRepository : IBookRepository
 
     {
         private MainDbContext context;
@@ -23,16 +21,16 @@ namespace StarPeaceAdminHubDB.Repositories
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<Category> Get(Guid id)
+        public async Task<IBook> Get(Guid id)
         {
-            return await context.Categories.Where(m => m.Id == id)
+            return await context.Books.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public Category New()
+        public IBook New()
         {
-            var model = new Categories();
-            context.Categories.Add(model);
+            var model = new Book();
+            context.Books.Add(model);
             return model;
         }
     }

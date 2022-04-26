@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StarPeaceAdminHub.Models;
 using StarPeaceAdminHub.Models.Account;
 
 namespace StarPeaceAdminHub.Controllers
@@ -23,8 +17,10 @@ namespace StarPeaceAdminHub.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
+
+
+
         }
-        
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {

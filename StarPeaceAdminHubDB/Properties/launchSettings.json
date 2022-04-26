@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "StarPeaceAdminHubDB": {
+    "PackagesManagementDB": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

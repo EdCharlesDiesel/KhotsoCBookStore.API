@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IBookRepository: IRepository<IBook>
+    public interface IBookRepository:IRepository<IBook>
     {
         Task<IBook> Get(Guid id);
         IBook New();
-        Task<IBook> Delete(Guid id);
     }
 }

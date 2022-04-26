@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 using StarPeaceAdminHub.Controllers;
-using StarPeaceAdminHub.Models.Books;
+using StarPeaceAdminHub.Models.Categorys;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace StarPeaceAdminHubTest
             var controller = new ManageBooksController();
             controller.ModelState
                 .AddModelError("Name", "fake error");
-            var vm = new BookFullEditViewModel();
+            var vm = new CategoryFullEditViewModel();
             var result = await controller.Edit(vm, null);
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(vm, viewResult.Model);
@@ -29,16 +29,16 @@ namespace StarPeaceAdminHubTest
         {
             var controller = new ManageBooksController();
             var commandDependency =
-                new Mock<ICommandHandler<UpdateBookCommand>>();
+                new Mock<ICommandHandler<UpdateCategoryCommand>>();
             commandDependency
-                .Setup(m => m.HandleAsync(It.IsAny<UpdateBookCommand>()))
+                .Setup(m => m.HandleAsync(It.IsAny<UpdateCategoryCommand>()))
                 .Returns(Task.CompletedTask);
-            var vm = new BookFullEditViewModel();
+            var vm = new CategoryFullEditViewModel();
 
             var result = await controller.Edit(vm, 
                 commandDependency.Object);
                 commandDependency.Verify(m => m.HandleAsync(
-                It.IsAny<UpdateBookCommand>()), 
+                It.IsAny<UpdateCategoryCommand>()), 
                 Times.Once);
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
              

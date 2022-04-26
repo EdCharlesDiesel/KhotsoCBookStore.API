@@ -1,9 +1,9 @@
 ﻿
-@model StarPeaceAdminHub.Models.Books.BookFullEditViewModel
-@inject StarPeaceAdminHub.Queries.IDestinationListQuery destinationsQuery
+@model StarPeaceAdminHub.Models.Categorys.CategoryFullEditViewModel
+@inject StarPeaceAdminHub.Queries.IBookListQuery BooksQuery
 @{
-    ViewData["Title"] = "Edit/Create package";
-    var allDestinations = await destinationsQuery.AllDestinations();
+    ViewData["Title"] = "Edit/Create book";
+    var allBooks = await BooksQuery.AllBooks();
 }
 <div class="container">
     <h2>@ViewData["Title"]</h2>
@@ -21,17 +21,17 @@
                     }
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label asp-for="Name"></label>
-                            <input asp-for="Name" class="form-control" />
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label asp-for="DestinationId"></label>
-                            <select asp-for="DestinationId" asp-items="allDestinations" class="form-control">
-                                <option value="">select destination</option>
+                            <label asp-for="BookId"></label>
+                            <select asp-for="BookId" asp-items="allBooks" class="form-control">
+                                <option value="">Select Category</option>
                             </select>
-                            <span asp-validation-for="DestinationId" class="text-danger"></span>
+                            <span asp-validation-for="BookId" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -42,12 +42,12 @@
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label asp-for="Price"></label>
-                            <input type="number"  asp-for="Price" class="form-control" />
-                            <span asp-validation-for="Price" class="text-danger"></span>
+                            <label asp-for="CategoryName"></label>
+                            <input type="number"  asp-for="CategoryName" class="form-control" />
+                            <span asp-validation-for="CategoryName" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    @* <div class="row">
                         <div class="form-group col-sm-6">
                             <label asp-for="StartValidityDate"></label>
                             <input type="date" asp-for="StartValidityDate" class="form-control" />
@@ -59,8 +59,8 @@
                             <input type="date"  asp-for="EndValidityDate" class="form-control" />
                             <span asp-validation-for="EndValidityDate" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div> *@
+                    @* <div class="row">
                         <div class="form-group col-12">
                             <label asp-for="Description"></label>
                             <textarea rows="4" asp-for="Description" class="form-control" >
@@ -68,7 +68,7 @@
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
-                    </div>
+                    </div> *@
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
