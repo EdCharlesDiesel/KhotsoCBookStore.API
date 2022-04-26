@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.DTOs
 {
-    public interface IPackageFullEditDTO
+    public interface IBookFullEditDTO
     {
         int Id { get; set; }
         string Name { get; set; }

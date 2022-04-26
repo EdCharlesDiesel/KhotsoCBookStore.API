@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StarPeaceAdminHub</title>
+    <title>@ViewData["Title"] - StarPeace Admin HUB</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -32,7 +32,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="ManagePackages" asp-action="Index">Manage packages</a>
+                            <a class="nav-link text-dark" asp-controller="ManageBooks" asp-action="Index">Manage Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -49,9 +52,7 @@
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -69,7 +70,7 @@
     }
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - StarPeaceAdminHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - StarPeace Admin Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

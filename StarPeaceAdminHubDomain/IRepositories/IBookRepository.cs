@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IPackageRepository: IRepository<IPackage>
+    public interface IBookRepository: IRepository<IBook>
     {
-        Task<IPackage> Get(int id);
-        IPackage New();
-        Task<IPackage> Delete(int id);
+        Task<IBook> Get(int id);
+        IBook New();
+        Task<IBook> Delete(int id);
     }
 }

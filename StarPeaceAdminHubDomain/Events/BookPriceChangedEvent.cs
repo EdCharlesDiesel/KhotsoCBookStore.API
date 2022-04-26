@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.Events
 {
-    public class PackagePriceChangedEvent: IEventNotification
+    public class BookPriceChangedEvent: IEventNotification
     {
-        public PackagePriceChangedEvent(int id, decimal price, long oldVersion, long newVersion)
+        public BookPriceChangedEvent(int id, decimal price, long oldVersion, long newVersion)
         {
-            PackageId = id;
+            BookId = id;
             NewPrice = price;
             OldVersion = oldVersion;
             NewVersion = newVersion;
         }
-        public int PackageId { get; private set; }
+        public int BookId { get; private set; }
         public decimal NewPrice { get; private set; }
         public long OldVersion { get; private set; }
         public long NewVersion { get; private set; }

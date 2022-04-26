@@ -14,7 +14,7 @@ namespace StarPeaceAdminHubDB.Models
         [MaxLength(128), Required]
         public string Country { get; set; }
         public string Description { get; set; }
-        public ICollection<Package> Packages { get; set; }
+        public ICollection<Book> Books { get; set; }
 
         public void FullUpdate(IDestination o)
         {

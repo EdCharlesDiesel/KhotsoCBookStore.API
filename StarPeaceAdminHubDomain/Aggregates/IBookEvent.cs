@@ -5,11 +5,11 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public enum PackageEventType {Deleted, CostChanged}
-    public interface IPackageEvent: IEntity<long>
+    public enum BookEventType {Deleted, CostChanged}
+    public interface IBookEvent: IEntity<long>
     {
-        PackageEventType Type { get; }
-        int PackageId { get; }
+        BookEventType Type { get; }
+        int BookId { get; }
         decimal NewPrice { get; }
         long? OldVersion { get;}
         long? NewVersion { get;}

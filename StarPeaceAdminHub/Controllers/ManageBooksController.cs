@@ -14,7 +14,7 @@ using StarPeaceAdminHubDomain.IRepositories;
 
 namespace StarPeaceAdminHub.Controllers
 {
-    //[Authorize(Roles= "Admins")]
+    [Authorize(Roles= "Admins")]
     public class ManageBooksController : Controller
     {
         [HttpGet]
@@ -24,15 +24,15 @@ namespace StarPeaceAdminHub.Controllers
             var vm = new BooksListViewModel { Items = results };
             return View(vm);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View("Edit");
         }
+        
         [HttpPost]
-        public async Task<IActionResult> Create(
-            BookFullEditViewModel vm,
-            [FromServices] ICommandHandler<CreateBookCommand> command)
+        public async Task<IActionResult> Create(BookFullEditViewModel vm, [FromServices] ICommandHandler<CreateBookCommand> command)
         {
             if (ModelState.IsValid) { 
                 await command.HandleAsync(new CreateBookCommand(vm));
@@ -42,10 +42,9 @@ namespace StarPeaceAdminHub.Controllers
             else
                 return View("Edit", vm);
         }
+
         [HttpGet]
-        public async Task<IActionResult> Edit(
-            int id,
-            [FromServices] IBookRepository repo)
+        public async Task<IActionResult> Edit(int id,[FromServices] IBookRepository repo)
         {
             if (id == 0) return RedirectToAction(
                 nameof(ManageBooksController.Index));
@@ -55,10 +54,9 @@ namespace StarPeaceAdminHub.Controllers
             var vm = new BookFullEditViewModel(aggregate);
             return View(vm);
         }
+
         [HttpPost]
-        public async Task<IActionResult> Edit(
-            BookFullEditViewModel vm,
-            [FromServices] ICommandHandler<UpdateBookCommand> command)
+        public async Task<IActionResult> Edit(BookFullEditViewModel vm, [FromServices] ICommandHandler<UpdateBookCommand> command)
         {
             if (ModelState.IsValid)
             {
@@ -71,9 +69,7 @@ namespace StarPeaceAdminHub.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(
-            int id,
-            [FromServices] ICommandHandler<DeleteBookCommand> command)
+        public async Task<IActionResult> Delete(int id, [FromServices] ICommandHandler<DeleteBookCommand> command)
         {
             if (id>0)
             {

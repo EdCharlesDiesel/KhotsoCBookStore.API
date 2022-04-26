@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.Events
 {
-    public class PackageDeleteEvent: IEventNotification
+    public class BookDeleteEvent: IEventNotification
     {
-        public PackageDeleteEvent(int id, long oldVersion)
+        public BookDeleteEvent(int id, long oldVersion)
         {
-            PackageId = id;
+            BookId = id;
             OldVersion = oldVersion;
         }
-        public int PackageId { get; private set; }
+        public int BookId { get; private set; }
         public long OldVersion { get; private set; }
         
     }

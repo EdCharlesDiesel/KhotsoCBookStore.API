@@ -52,9 +52,9 @@ namespace StarPeaceAdminHubDB.Extensions
                 {
                     Name = "Florence",
                     Country = "Italy",
-                    Packages = new List<Package>()
+                    Books = new List<Book>()
                         {
-                            new Package
+                            new Book
                             {
                                 Name = "Summer in Florence",
                                 StartValidityDate = new DateTime(2019, 6, 1),
@@ -63,7 +63,7 @@ namespace StarPeaceAdminHubDB.Extensions
                                 Price=1000,
                                 EntityVersion=1
                             },
-                            new Package
+                            new Book
                             {
                                 Name = "Winter in Florence",
                                 StartValidityDate = new DateTime(2019, 12, 1),

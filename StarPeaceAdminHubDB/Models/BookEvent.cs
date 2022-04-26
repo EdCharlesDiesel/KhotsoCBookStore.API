@@ -6,10 +6,10 @@ using System.Text;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class PackageEvent: Entity<long>, IPackageEvent
+    public class BookEvent: Entity<long>, IBookEvent
     {
-        public PackageEventType Type { get; set; }
-        public int PackageId { get; set; }
+        public BookEventType Type { get; set; }
+        public int BookId { get; set; }
         public decimal NewPrice { get; set; }
         public long? OldVersion { get; set; }
         public long? NewVersion { get; set; }

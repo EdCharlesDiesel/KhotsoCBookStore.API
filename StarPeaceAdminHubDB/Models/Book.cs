@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
-    public class Book: Entity<int>, IPackage
+    public class Book: Entity<int>, IBook
     {
-        public void FullUpdate(IPackageFullEditDTO o)
+        public void FullUpdate(IBookFullEditDTO o)
         {
             if (IsTransient())
             {
@@ -19,7 +19,7 @@ namespace StarPeaceAdminHubDB.Models
             else
             {
                 if (o.Price != this.Price)
-                    this.AddDomainEvent(new PackagePriceChangedEvent(
+                    this.AddDomainEvent(new BookPriceChangedEvent(
                             Id, o.Price, EntityVersion, EntityVersion+1));
             }
             Name = o.Name;
