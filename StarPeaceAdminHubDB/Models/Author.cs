@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StarPeaceAdminHubDB.Models
 {
+    [Table("Author")]
     public class Author: AuditableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid AuthorId { get; set; }  =Guid.NewGuid();
+        public Guid AuthorId { get; set; }
 
         [Required(ErrorMessage = "You should provide a first name value.")]
         [MaxLength(150)]

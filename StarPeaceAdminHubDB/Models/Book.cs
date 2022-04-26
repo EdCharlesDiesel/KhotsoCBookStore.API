@@ -10,13 +10,33 @@ namespace StarPeaceAdminHubDB.Models
     {
         private int likes;
         private int dislikes;
-        private int loves;
-        public Book(string title)
+        private int loves;       
+        // public Book(string title)
+        // {
+        //     Title = title;
+        // }        
+
+        public int Likes
         {
-            Title = title;
+            get { return likes; }
+            set { likes = value; }
+        }        
+
+        public int Dislikes
+        {
+            get { return dislikes; }
+            set { dislikes = value; }
         }
         
+        public int Love
+        {
+            get { return loves; }
+            set { loves = value; }
+        }
+        
+        
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid BookId { get; set; }
 
         [MaxLength(128), Required]
@@ -42,54 +62,6 @@ namespace StarPeaceAdminHubDB.Models
         
         public ICollection<Category> Categories { get; set; }
 
-        public void Like()
-        {
-            likes++;
-            PresentStatus();
-        }
-
-        private void PresentStatus()
-        {
-            if (likes == 1)
-                Console.WriteLine($"There is {likes} like to package {Name}");
-            if (likes > 1)
-                Console.WriteLine($"There are {likes} likes to package {Name}");
-            if (dislikes == 1)
-                Console.WriteLine($"There is {dislikes} dislike to package {Name}");
-            if (dislikes > 1)
-                Console.WriteLine($"There are {dislikes} dislikes to package {Name}");
-            if (loves == 1)
-                Console.WriteLine($"There is {loves} love to package {Name}");
-            if (dislikes > 1)
-                Console.WriteLine($"There are {loves} loves to package {Name}");
-        }
-
-        internal void UndoLike()
-        {
-            likes--;
-            PresentStatus();
-        }
-
-        public void Dislike()
-        {
-            dislikes++;
-            PresentStatus();
-        }
-        public void UndoDislike()
-        {
-            dislikes--;
-            PresentStatus();
-        }
-
-        public void Love()
-        {
-            loves++;
-            PresentStatus();
-        }
-        public void UndoLove()
-        {
-            loves--;
-            PresentStatus();
-        }
+        
     }
 }

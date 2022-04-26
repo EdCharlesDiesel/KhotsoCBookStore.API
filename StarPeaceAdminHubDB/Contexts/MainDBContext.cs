@@ -7,6 +7,7 @@ namespace StarPeaceAdminHubDB.Contexts
 {
     public class MainDbContext: DbContext
     {
+        
         public DbSet<BookSeriesExtras> BookSeriesExtras { get; set; }
         
         public DbSet<Publisher> Publishers { get; set; }
@@ -131,21 +132,21 @@ namespace StarPeaceAdminHubDB.Contexts
 
         }
 
-        public async Task StartAsync()
-        {
-            await Database.BeginTransactionAsync();
-        }
+        // public async Task StartAsync()
+        // {
+        //     await Database.BeginTransactionAsync();
+        // }
 
-        public Task CommitAsync()
-        {
-            Database.CommitTransaction();
-            return Task.CompletedTask;
-        }
+        // public Task CommitAsync()
+        // {
+        //     Database.CommitTransaction();
+        //     return Task.CompletedTask;
+        // }
 
-        public Task RollbackAsync()
-        {
-            Database.RollbackTransaction();
-            return Task.CompletedTask;
-        }   
+        // public Task RollbackAsync()
+        // {
+        //     Database.RollbackTransaction();
+        //     return Task.CompletedTask;
+        // }   
     }
 }

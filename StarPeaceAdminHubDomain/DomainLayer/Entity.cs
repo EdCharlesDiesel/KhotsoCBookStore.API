@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DDD.DomainLayer
 {
-    public abstract class Entity<K>: IEntity<K>
-        where K: IEquatable<K>
+    public abstract class Entity<K>: IEntity<K>  where K: IEquatable<K>
     {
         
         public virtual K Id { get; protected set; }
