@@ -10,23 +10,21 @@ namespace DDD.ApplicationLayer
 {
     public static class EventDIExtensions
     {
-        public static IServiceCollection AddEventHandler<T, H>
-            (this IServiceCollection services)
-            where T : IEventNotification
-            where H : class, IEventHandler<T>
+        public static IServiceCollection AddEventHandler<T, H>  (this IServiceCollection services)  where T : IEventNotification  where H : class, IEventHandler<T>
         {
             services.TryAddScoped(typeof(EventTrigger<>));
             services.AddScoped<IEventHandler<T>, H>();
 
             return services;
         }
+
         public static IServiceCollection AddEventMediator(this IServiceCollection service)
         {
             service.AddTransient<IEventMediator, EventMediator>();
             return service;
         }
-        public static IServiceCollection AddAllEventHandlers
-            (this IServiceCollection service, Assembly assembly)
+
+        public static IServiceCollection AddAllEventHandlers (this IServiceCollection service, Assembly assembly)
         {
             var method=typeof(EventDIExtensions).GetMethod("AddEventHandler",
                 BindingFlags.Static | BindingFlags.Public);
@@ -49,8 +47,7 @@ namespace DDD.ApplicationLayer
             service.AddEventMediator();
             return service;
         }
-        public static IServiceCollection AddAllCommandHandlers
-            (this IServiceCollection service, Assembly assembly)
+        public static IServiceCollection AddAllCommandHandlers   (this IServiceCollection service, Assembly assembly)
         {
             var handlers = assembly.GetTypes()
                 .Where(x => !x.IsAbstract && x.IsClass
@@ -67,8 +64,7 @@ namespace DDD.ApplicationLayer
             }
             return service;
         }
-        public static IServiceCollection AddAllQueries
-            (this IServiceCollection service, Assembly assembly)
+        public static IServiceCollection AddAllQueries  (this IServiceCollection service, Assembly assembly)
         {
             var queries = assembly.GetTypes()
                 .Where(x => !x.IsAbstract && x.IsClass

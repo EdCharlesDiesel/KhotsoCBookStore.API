@@ -1,4 +1,5 @@
 ﻿using DDD.DomainLayer;
+using StarPeaceAdminHubDomain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,10 +7,7 @@ using System.Text;
 namespace StarPeaceAdminHubDomain.Aggregates
 {
     public interface IBook: IEntity<int>
-    {
-        
-        void FullUpdate(IBook o);
-            
+    {        
         public string Title { get; set; }
 
         public string ISBN { get; set; }
@@ -20,7 +18,8 @@ namespace StarPeaceAdminHubDomain.Aggregates
 
         decimal RetailPrice { get; set; }     
         
-        string CoverFileName { get; set; }   
-        
+        string CoverFileName { get; set; } 
+
+        void FullUpdate(IBookFullEditDTO o);        
     }
 }

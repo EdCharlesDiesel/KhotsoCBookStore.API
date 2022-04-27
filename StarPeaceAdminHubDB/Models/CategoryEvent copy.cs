@@ -6,13 +6,13 @@ using System.Text;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class CategoryEvent: Entity<long>, ICategoryEvent
+    public class BookEvent: Entity<long>, IBookEvent
     {
-        public CategoryEventType Type { get; set; }
+        public BookEventType Type { get; set; }
         
-        public int CategoryId { get; set; }
+        public int BookId { get; set; }
         
-        public string CategoryName { get; set; } 
+        public string Title { get; set; } 
         
         public long? OldVersion { get; set; }
         

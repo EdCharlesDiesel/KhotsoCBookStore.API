@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarPeaceAdminHubDB;
 
 namespace StarPeaceAdminHubDB.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428005030_Cleaning up")]
+    partial class Cleaningup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,33 +258,6 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.HasIndex("Title");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("StarPeaceAdminHubDB.Models.BookEvent", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("NewVersion")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("OldVersion")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookEvents");
                 });
 
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Category", b =>

@@ -28,7 +28,7 @@
                         <td>
                             <button class="btn btn-primary">
                             <a asp-controller="ManageCategorys"
-                               asp-action="@nameof(ManageCategorysController.Delete)"
+                               asp-action="@nameof(ManageCategoriesController.Delete)"
                                asp-route-id="@Category.Id">
                                 delete
                             </a>
@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             <a asp-controller="ManageCategorys"
-                               asp-action="@nameof(ManageCategorysController.Edit)"
+                               asp-action="@nameof(ManageCategoriesController.Edit)"
                                asp-route-id="@Category.Id">
                                 edit
                             </a>
@@ -73,7 +73,7 @@
             </table>
         </div>
         <a class="btn btn-primary" asp-controller="ManageCategorys"
-              asp-action="@nameof(ManageCategorysController.Create)">
+              asp-action="@nameof(ManageCategoriesController.Create)">
             New Book
         </a>
     </div>
@@ -397,8 +397,8 @@
                     </tbody>
                 </table>
             </div>
-                <a class="btn btn-primary" asp-controller="ManageCategorys"
-              asp-action="@nameof(ManageCategorysController.Create)">
+                <a class="btn btn-primary" asp-controller="ManageCategories"
+              asp-action="@nameof(ManageCategoriesController.Create)">
             New Book
         </a>
         </div>

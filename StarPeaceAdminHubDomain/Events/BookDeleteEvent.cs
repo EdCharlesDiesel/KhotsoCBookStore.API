@@ -13,8 +13,9 @@ namespace StarPeaceAdminHubDomain.Events
             BookId = id;
             OldVersion = oldVersion;
         }
-        public int BookId { get; private set; }
-        public long OldVersion { get; private set; }
         
+        public int BookId { get; private set; }
+        
+        public long OldVersion { get; private set; }          
     }
 }

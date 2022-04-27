@@ -1,21 +1,21 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.DTOs;
+using StarPeaceAdminHubDomain.Events;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
 
 namespace StarPeaceAdminHubDB.Models
 {
     public class Book: Entity<int>, IBook
-    {
-        
-        [MaxLength(128), Required]
+    {        
         public string Title { get; set; }
-
-
-        [MaxLength(128), Required]
-        public string ISBN { get; set; }        
+       
+        public string ISBN { get; set; }  
+        
+        public string Descripion { get; set; }     
 
         [Required]
         public DateTime PublishingDate { get; set; }
@@ -25,10 +25,13 @@ namespace StarPeaceAdminHubDB.Models
         public decimal RetailPrice { get; set; }     
         
         public string CoverFileName { get; set; }
+
+        [ConcurrencyCheck]
+        public long EntityVersion{ get; set; }
         
         public ICollection<Category> Categorys { get; set; }
 
-        public void FullUpdate(IBook o)
+        public void FullUpdate(IBookFullEditDTO o)
         {
             if (IsTransient())
             {

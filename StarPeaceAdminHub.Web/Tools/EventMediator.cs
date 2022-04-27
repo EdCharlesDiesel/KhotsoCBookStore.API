@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DDD.ApplicationLayer
 {
+    // 1.0 To increase modularity and decoupling, communication among entities
+    // is usually encoded with events, that is, with a Publisher/Subscriber pattern.
+    // This means entity updates can trigger events that have been hooked to business
+    // operations, and these events act on other entities.
     public class EventMediator : IEventMediator
     {
         IServiceProvider services;

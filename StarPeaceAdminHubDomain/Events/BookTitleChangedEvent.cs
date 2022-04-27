@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.Events
 {
-    public class CategoryCategoryNameChangedEvent: IEventNotification
+    public class BookTitleChangedEvent: IEventNotification
     {
-        public CategoryCategoryNameChangedEvent(int id, string categoryName, long oldVersion, long newVersion)
+        public BookTitleChangedEvent(int id, string title, long oldVersion, long newVersion)
         {
             CategoryId = id;
-            CategoryName = categoryName;
+            Title = title;
             OldVersion = oldVersion;
             NewVersion = newVersion;
         }
         public int CategoryId { get; private set; }
 
-        public string CategoryName { get; private set; }
+        public string Title { get; private set; }
         
         public long OldVersion { get; private set; }
         

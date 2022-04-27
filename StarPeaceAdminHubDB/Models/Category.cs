@@ -23,6 +23,18 @@ namespace StarPeaceAdminHubDB.Models
     // database during its execution.
     public class Category: Entity<int>, ICategory
     {
+       
+
+        [MaxLength(128), Required]        
+        public string CategoryName { get; set; }
+        
+        public Book Book { get; set; }
+        
+        [ConcurrencyCheck]
+        public long EntityVersion{ get; set; }
+
+        public int BookId { get; set; }  
+
         public void FullUpdate(ICategoryFullEditDTO o)
         {
             if (IsTransient())
@@ -40,16 +52,6 @@ namespace StarPeaceAdminHubDB.Models
 
             CategoryName = o.CategoryName;
         }
-
-        [MaxLength(128), Required]        
-        public string CategoryName { get; set; }
-        
-        public Book Book { get; set; }
-        
-        [ConcurrencyCheck]
-        public long EntityVersion{ get; set; }
-
-        public int BookId { get; set; }  
                         
     }
 }

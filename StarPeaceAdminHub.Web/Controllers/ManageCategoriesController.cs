@@ -15,7 +15,7 @@ using StarPeaceAdminHubDomain.IRepositories;
 namespace StarPeaceAdminHub.Controllers
 {
    [Authorize(Roles= "Admins")]
-    public class ManageCategorysController : Controller
+    public class ManageCategoriesController : Controller
     {
         // 1. A controller's action method receives one or more ViewModels and performs validation.
         [HttpGet]
@@ -47,7 +47,7 @@ namespace StarPeaceAdminHub.Controllers
             if (ModelState.IsValid) { 
                 await command.HandleAsync(new CreateCategoryCommand(vm));
                 return RedirectToAction(
-                    nameof(ManageCategorysController.Index));
+                    nameof(ManageCategoriesController.Index));
             }
             else
                 return View("Edit", vm);
@@ -58,10 +58,10 @@ namespace StarPeaceAdminHub.Controllers
             [FromServices] ICategoryRepository repo)
         {
             if (id == 0) return RedirectToAction(
-                nameof(ManageCategorysController.Index));
+                nameof(ManageCategoriesController.Index));
             var aggregate = await repo.Get(id);
             if (aggregate == null) return RedirectToAction(
-                nameof(ManageCategorysController.Index));
+                nameof(ManageCategoriesController.Index));
             var vm = new CategoryFullEditViewModel(aggregate);
             return View(vm);
         }
@@ -74,7 +74,7 @@ namespace StarPeaceAdminHub.Controllers
             {
                 await command.HandleAsync(new UpdateCategoryCommand(vm));
                 return RedirectToAction(
-                    nameof(ManageCategorysController.Index));
+                    nameof(ManageCategoriesController.Index));
             }
             else
                 return View(vm);
@@ -91,7 +91,7 @@ namespace StarPeaceAdminHub.Controllers
                 
             }
             return RedirectToAction(
-                    nameof(ManageCategorysController.Index));
+                    nameof(ManageCategoriesController.Index));
         }
     }
 }

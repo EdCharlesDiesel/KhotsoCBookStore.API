@@ -1,9 +1,9 @@
-﻿@* 
+﻿
 @model StarPeaceAdminHub.Models.Categorys.CategoryFullEditViewModel
 @inject StarPeaceAdminHub.Queries.ICategorysListQuery CategorysQuery
 @{
     ViewData["Title"] = "Edit/Create book";
-    var allCategorys = await CategorysQuery.AllBooks();
+    var allCategorys = await CategorysQuery.GetAllCategorys();
 }
 <div class="container">
     <h2>@ViewData["Title"]</h2>
@@ -71,10 +71,10 @@
                     </div> 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                    </div>*@
                 </form>              
             </section>  
         </div>
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-} *@
+}

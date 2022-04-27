@@ -23,6 +23,8 @@ namespace StarPeaceAdminHubDB
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<CategoryEvent> CategoryEvents { get; set; }
+
+        public DbSet<BookEvent> BookEvents { get; set; }
         public MainDbContext(DbContextOptions options)
             : base(options)
         {
@@ -62,9 +64,7 @@ namespace StarPeaceAdminHubDB
             {
                 foreach (var entry in ex.Entries)
                 {
-
                     entry.State = EntityState.Detached;
-
                 }
                 throw;
             }

@@ -14,11 +14,10 @@ namespace StarPeaceAdminHubDomain.DTOs
     public interface IBookFullEditDTO
     {
         int Id { get; set; }
+
         string Title { get; set; }
-        int BookId { get; }
 
-
-         string ISBN { get; set; }
+        string ISBN { get; set; }
         
         DateTime PublishingDate { get; set; }
         

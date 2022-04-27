@@ -72,6 +72,7 @@ namespace StarPeaceAdminHubDB.Extensions
                     Cost = 750.00M,
                     RetailPrice = 1250.99M,
                     PublishingDate = new DateTime(2016,01,01),
+                    EntityVersion = 1,
                     Categorys = new List<Category>()
                         {
                             new Category
@@ -95,6 +96,7 @@ namespace StarPeaceAdminHubDB.Extensions
                     Cost = 1200.00M,
                     RetailPrice = 2250.99M,
                     PublishingDate = new DateTime(2016,01,01),
+                    EntityVersion = 1,
                     Categorys = new List<Category>()
                         {
                             new Category
@@ -114,9 +116,54 @@ namespace StarPeaceAdminHubDB.Extensions
                             }
                         }
                 };
+
+                var thirdBook = new Book
+                {
+                    Title = "FUNDAMENTALS OF COMPUTER PROGRAMMING WITH C#",
+                    ISBN = "XXX-00000-000-6TG",
+                    CoverFileName = "Default Cover",
+                    Cost = 5200.00M,
+                    RetailPrice = 250.99M,
+                    PublishingDate = new DateTime(2016,01,01),
+                    EntityVersion = 1,
+                    Categorys = new List<Category>()
+                        {
+                            new Category
+                            {
+                                CategoryName = "C#",
+                                EntityVersion = 1
+
+                            },
+                            new Category
+                            {
+                                CategoryName = "Funadamentals",
+                                EntityVersion = 1
+                            }                            
+                        }
+                };
+
+                var fourthBook = new Book
+                {
+                    Title = "xUnit Test Patterns",
+                    ISBN = "XXX-00000-000-XUN",
+                    CoverFileName = "Default Cover",
+                    Cost = 600.00M,
+                    RetailPrice = 850.99M,
+                    PublishingDate = new DateTime(2016,01,01),
+                    EntityVersion = 1,
+                    Categorys = new List<Category>()
+                        {                 
+                            new Category
+                            {
+                                CategoryName = "Unit Testing",
+                                EntityVersion = 1
+                            }                            
+                        }
+                };
                 
                 context.Books.Add(firstBook);
                 context.Books.Add(secondBook);
+                context.Books.Add(thirdBook);
                 await context.SaveChangesAsync();
             }
         }
