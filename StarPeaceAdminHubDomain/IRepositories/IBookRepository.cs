@@ -14,5 +14,6 @@ namespace StarPeaceAdminHubDomain.IRepositories
     {
         Task<IBook> Get(int id);
         IBook New();
+        Task<IBook> Delete(int id);
     }
 }

@@ -11,32 +11,25 @@ namespace StarPeaceAdminHub.Controllers
         private readonly UserManager<IdentityUser<int>> _userManager;
         private readonly SignInManager<IdentityUser<int>> _signInManager;
 
-        public AccountController(
-            UserManager<IdentityUser<int>> userManager,
-            SignInManager<IdentityUser<int>> signInManager)
+        public AccountController(UserManager<IdentityUser<int>> userManager, SignInManager<IdentityUser<int>> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
-
-
         }
+
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie 
             //to ensure a clean login process
-            await HttpContext
-                .SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
         
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(
-            LoginViewModel model,
-           string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model,string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (User.Identity.IsAuthenticated)
@@ -68,6 +61,7 @@ namespace StarPeaceAdminHub.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

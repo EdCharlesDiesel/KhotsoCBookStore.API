@@ -30,5 +30,11 @@ namespace StarPeaceAdminHub.Queries
                 Value = m.Value.ToString()
             });
         }
+
+        //! Will remove later
+        public async Task<IEnumerable<IBook>> FakeAllBooks()
+        {
+            return await _bookRepository.GetAllBooksAync();
+        }
     }
 }

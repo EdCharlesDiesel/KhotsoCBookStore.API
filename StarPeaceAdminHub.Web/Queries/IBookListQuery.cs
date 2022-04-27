@@ -10,5 +10,7 @@ namespace StarPeaceAdminHub.Queries
     public interface IBookListQuery: IQuery
     {
         Task<IEnumerable<SelectListItem>> AllBooks();
+        Task<IEnumerable<IBook>> FakeAllBooks();
+
     }
 }

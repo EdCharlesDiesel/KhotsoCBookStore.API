@@ -42,23 +42,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/icons" ? "active" : "")" href="@Url.Action("Icons")">
-                            <i class="ni ni-planet text-orange"></i> Icons
+                        <a class="nav-link @(Context.Request.Path == "/managebooks" ? "active" : "")" href="@Url.Action("Icons")">
+                            <i class="ni ni-books"></i> Manage Books
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/maps" ? "active" : "")" href="@Url.Action("Maps")">
-                            <i class="ni ni-pin-3 text-primary"></i> Google
+                        <a class="nav-link @(Context.Request.Path == "/profile" ? "active" : "")" href="@Url.Action("Maps")">
+                            <i class="ni ni-single-02 text-red"></i> Manage Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/profile" ? "active" : "")" href="@Url.Action("Profile")">
-                            <i class="ni ni-single-02 text-yellow"></i> Profile
+                        <a class="nav-link @(Context.Request.Path == "/circle-08" ? "active" : "")" href="@Url.Action("Profile")">
+                            <i class="ni ni-single-02 text-yellow"></i> Manage Employees
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @(Context.Request.Path == "/tables" ? "active" : "")" href="@Url.Action("Tables")">
-                            <i class="ni ni-bullet-list-67 text-default"></i> Tables
+                            <i class="ni ni-bullet-list-67 text-default"></i> Hub Administration
                         </a>
                     </li>
                     
@@ -78,7 +78,7 @@
                     <li class="nav-item">
                         <a class="nav-link @(Context.Request.Path == "/upgrade" ? "active" : "")" href="@Url.Action("Upgrade")">
                             <i class="ni ni-send text-dark"></i>
-                            <span class="nav-link-text">Upgrade</span>
+                            <span class="nav-link-text">KhotsoCBookStore API</span>
                         </a>
                     </li>
                 </ul>
@@ -94,32 +94,26 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="/docs/getting-started/overview">
+                        <a class="nav-link" href="#">
                             <i class="ni ni-spaceship"></i> Getting started
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/docs/foundation/colors">
-                            <i class="ni ni-palette"></i> Foundation
+                        <a class="nav-link" href="#">
+                            <i class="ni ni-user-run"></i> How to run this app
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/docs/components/alerts">
-                            <i class="ni ni-ui-04"></i> Components
+                        <a class="nav-link" href="#">
+                            <i class="ni ni-ui-04"></i> How to run tests
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
-                            <i class="ni ni-chart-pie-35"></i>
-                            <span class="nav-link-text">Plugins</span>
+                        <a class="nav-link" href="#" target="_blank">
+                            <i class="ni ni-atom"></i>
+                            <span class="nav-link-text">Software requied</span>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active active-pro" href="#">
-                            <i class="ni ni-send text-dark"></i>
-                            <span class="nav-link-text">Upgrade to PRO</span>
-                        </a>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
         </div>

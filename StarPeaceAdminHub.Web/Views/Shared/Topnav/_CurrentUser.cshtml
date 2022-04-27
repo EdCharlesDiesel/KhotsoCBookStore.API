@@ -1,5 +1,5 @@
 @using Microsoft.AspNetCore.Identity
-@* @inject SignInManager<ApplicationUser> SignInManager *@
+@inject SignInManager<IdentityUser<int>> signInManager
 
 <!-- Current user (right part of the website) -->
 <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
@@ -11,6 +11,7 @@
                 </span>
                 <div class="media-body  ml-2  d-none d-lg-block">
                     <span class="mb-0 text-sm  font-weight-bold">
+                        @* ToDo *@
                         @* @if (SignInManager.IsSignedIn(User))
                         {
                             @User.GetFullNameOrEmail()

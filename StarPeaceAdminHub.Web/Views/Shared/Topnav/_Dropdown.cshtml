@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@* @inject SignInManager<ApplicationUser> SignInManager *@
+@inject SignInManager<IdentityUser<int>> signInManager
 
 <div class="dropdown-menu dropdown-menu-right">
     <div class="dropdown-header noti-title">
@@ -24,7 +24,8 @@
             <span>Support</span>
         </a>
         <div class="dropdown-divider"></div>
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+        <form class="form-inline" asp-page="/Account/Logout"
+        asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
             <button type="submit" class="dropdown-item logout">
                 <i class="ni ni-user-run"></i>
                 <span class="logout">Logout</span>
@@ -33,10 +34,9 @@
     @* }
     else
     { *@
-        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">
+        <a class="dropdown-item" asp-page="/Account/Login">
             <i class="ni ni-single-02"></i>
             <span>Login</span>
         </a>
-
     @* } *@
 </div>

@@ -33,5 +33,16 @@ namespace StarPeaceAdminHubDB.Repositories
             context.Books.Add(model);
             return model;
         }
+
+        public async Task<IBook> Delete(int id)
+        {
+            var model = await Get(id);
+            if (model == null) return null;
+            context.Books.Remove(model as Book);
+            model.AddDomainEvent(
+                new BookDeleteEvent(
+                    model.Id, (model as Book).EntityVersion));
+            return model;
+        }
     }
 }

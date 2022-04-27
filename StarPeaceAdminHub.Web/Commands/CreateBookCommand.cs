@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace StarPeaceAdminHub.Commands
 {
     //3. They are used to fill the properties of a command object.
-    public class CreateBookCommand: ICommand
+    public class CreateCategoryCommand: ICommand
     {
-        public CreateBookCommand(IBookFullEditDTO values)
+        public CreateCategoryCommand(ICategoryFullEditDTO values)
         {
             Values = values;
         }
-        public IBookFullEditDTO Values { get; private set; }
+        public ICategoryFullEditDTO Values { get; private set; }
     }
 }
