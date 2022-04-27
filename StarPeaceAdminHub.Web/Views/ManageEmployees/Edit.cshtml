@@ -1,5 +1,5 @@
-﻿
-@model StarPeaceAdminHub.Models.Categorys.CategoryFullEditViewModel
+﻿@* 
+@model StarPeaceAdminHub.Models.Books.BookFullEditViewModel
 @inject StarPeaceAdminHub.Queries.IBookListQuery BooksQuery
 @{
     ViewData["Title"] = "Edit/Create book";
@@ -24,17 +24,17 @@
                             <label asp-for="Title"></label>
                             <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Title" class="text-danger"></span>
-                        </div> *@
+                        </div> 
 
                         <div class="form-group col-sm-6">
                             <label asp-for="BookId"></label>
                             <select asp-for="BookId" asp-items="allBooks" class="form-control">
-                                <option value="">Select Category</option>
+                                <option value="">Select Book</option>
                             </select>
                             <span asp-validation-for="BookId" class="text-danger"></span>
                         </div>
                     </div>
-                    @* <div class="row">
+                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label asp-for="DurationInDays"></label>
                             <input type="number" asp-for="DurationInDays" class="form-control" />
@@ -42,9 +42,9 @@
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label asp-for="CategoryName"></label>
-                            <input type="number"  asp-for="CategoryName" class="form-control" />
-                            <span asp-validation-for="CategoryName" class="text-danger"></span>
+                            <label asp-for="BookName"></label>
+                            <input type="number"  asp-for="BookName" class="form-control" />
+                            <span asp-validation-for="BookName" class="text-danger"></span>
                         </div>
                     </div> *@
                     @* <div class="row">
@@ -68,7 +68,7 @@
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
-                    </div> *@
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
@@ -77,4 +77,4 @@
         </div>
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+} *@

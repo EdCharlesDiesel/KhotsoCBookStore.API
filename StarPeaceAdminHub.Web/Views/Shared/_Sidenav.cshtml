@@ -37,48 +37,35 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/" ? "active" : "")" href="@Url.Action("Index")">
+                        <a class="nav-link"  href="/index">
                             <i class="ni ni-tv-2 text-primary"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/managebooks" ? "active" : "")" href="@Url.Action("Icons")">
+                        <a class="nav-link" href="/managebooks">
                             <i class="ni ni-books"></i> Manage Books
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/profile" ? "active" : "")" href="@Url.Action("Maps")">
+                        <a class="nav-link" href="/manageusers">
                             <i class="ni ni-single-02 text-red"></i> Manage Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/circle-08" ? "active" : "")" href="@Url.Action("Profile")">
+                        <a class="nav-link" href="/manageemployees">
                             <i class="ni ni-single-02 text-yellow"></i> Manage Employees
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/tables" ? "active" : "")" href="@Url.Action("Tables")">
+                        <a class="nav-link" href="/settings">
                             <i class="ni ni-bullet-list-67 text-default"></i> Hub Administration
                         </a>
                     </li>
-                    
-                    @* Not required for now *@
-                    
-                    @* <li class="nav-item"> *@
-                    @*     <a class="nav-link" href="#"> *@
-                    @*         <i class="ni ni-key-25 text-info"></i> Login *@
-                    @*     </a> *@
-                    @* </li> *@
-                    @* <li class="nav-item"> *@
-                    @*     <a class="nav-link" href="#"> *@
-                    @*         <i class="ni ni-circle-08 text-pink"></i> Register *@
-                    @*     </a> *@
-                    @* </li> *@
-                    
+                                      
                     <li class="nav-item">
-                        <a class="nav-link @(Context.Request.Path == "/upgrade" ? "active" : "")" href="@Url.Action("Upgrade")">
+                        <a class="nav-link" href="https://localhost:5000">
                             <i class="ni ni-send text-dark"></i>
-                            <span class="nav-link-text">KhotsoCBookStore API</span>
+                            KhotsoCBookStore API
                         </a>
                     </li>
                 </ul>
@@ -118,5 +105,4 @@
             </div>
         </div>
     </div>
-
 </nav>

@@ -413,6 +413,56 @@
             <returns>An IActionResult</returns>
             <response code="200">Returns the requested employes.</response>
         </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.GetAuthorsAPIOptions">
+            <summary>
+            Get supported resource actions
+            </summary>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.GetAuthors">
+            <summary>
+            Get all authors resources.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested authors.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.GetAuthorById(System.Guid)">
+            <summary>
+            Get a single author resource by authorId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.CreateAuthor(KhotsoCBookStore.API.Dtos.AuthorForCreateDto)">
+            <summary>
+            Create an author resource.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the created author.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.UpdateAuthor(System.Guid,KhotsoCBookStore.API.Dtos.AuthorForUpdateDto)">
+            <summary>
+            Update author resource by authorId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns no content.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.PartiallyUpdateAuthor(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{KhotsoCBookStore.API.Dtos.AuthorForUpdateDto})">
+            <summary>
+            Partial update author resource by authorId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns no content.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.SeedController.DeleteAuthor(System.Guid)">
+            <summary>
+            Delete a single author resource by authorId.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested employes.</response>
+        </member>
         <member name="M:KhotsoCBookStore.API.Controllers.ShoppingCartController.GetAuthorsAPIOptions">
             <summary>
             Get supported resource actions

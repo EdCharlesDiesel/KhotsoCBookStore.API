@@ -137,8 +137,8 @@ namespace KhotsoCBookStore.API
             {
                 setupAction.SwaggerDoc("KhotsoCBookStoreAPISpecification", new OpenApiInfo()
                 {
-                    Title = "KhotsoCBookStore API V2.1.1",
-                    Version = "2.1.1",
+                    Title = "KhotsoCBookStore API V3.2.2",
+                    Version = "3.2.2",
                     Description = "API for an online book store where a user can purchase a subscription to any book available in the product catalogue created with ASP.NET Core 5.0",
                     Contact = new OpenApiContact()
                     {
