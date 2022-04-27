@@ -9,8 +9,24 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDB.Extensions
 {
+    // It reads the entity from the database and formally removes it from the Packages
+    // dataset. This will force the entity to be deleted in the database when changes are saved
+    // to the database. Moreover, it adds PackageDeleteEvent to the aggregate list of events.
+    // The Extensions folder contains the DBExtensions static class, which, in turn, defines
+    // two extension methods to be added to the application DI engine and the ASP.NET
+    // Core pipeline, respectively. Once added to the pipeline, these two methods will
+    // connect the database layer to the application layer.
+    // The IServiceCollection extension of AddDbLayer accepts (as its input parameters)
+    // the database connection string and the name of the .dll file that contains all
+    // migrations. Then, it does the following:
     public static class DBExtensions
     {
+
+        // That is, it adds and configures all the types needed to handle database-based
+        // authentication. In particular, it adds the UserManager and RoleManager types, which
+        // the application layer can use to manage users and roles. AddDefaultTokenProviders
+        // adds the provider that creates the authentication tokens using data contained in the
+        // database when users log in.
         public static IServiceCollection AddDbLayer(this IServiceCollection services,
             string connectionString, string migrationAssembly)
         {
@@ -66,12 +82,12 @@ namespace StarPeaceAdminHubDB.Extensions
                             new Category
                             {
                                 CategoryName = "Asp.Net",
-                                EntityVersion=1
+                                EntityVersion = 1
                             }
                         }
                 };
 
-                var SecondBook = new Book
+                var secondBook = new Book
                 {
                     Title = "Software Architecture with C# 9 and .NET 5",
                     ISBN = "XXX-00000-000-2nd",
@@ -89,16 +105,18 @@ namespace StarPeaceAdminHubDB.Extensions
                             new Category
                             {
                                 CategoryName = "Asp.Net",
-                                EntityVersion=1
+                                EntityVersion = 1
                             },
                             new Category
                             {
                                 CategoryName = "Architecture",
-                                EntityVersion=1
+                                EntityVersion = 1
                             }
                         }
                 };
+                
                 context.Books.Add(firstBook);
+                context.Books.Add(secondBook);
                 await context.SaveChangesAsync();
             }
         }

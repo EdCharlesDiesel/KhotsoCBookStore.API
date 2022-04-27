@@ -16,14 +16,11 @@ namespace StarPeaceAdminHubDomain.Aggregates
         
         DateTime PublishingDate { get; set; }
         
-        //public Guid PublisherId { get; set; }
-        
         decimal Cost { get; set; }    
 
         decimal RetailPrice { get; set; }     
         
-        string CoverFileName { get; set; }
-    
+        string CoverFileName { get; set; }   
         
     }
 }

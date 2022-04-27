@@ -24,6 +24,10 @@ namespace StarPeaceAdminHub.Handlers
             this.repo = repo;
             this.mediator = mediator;
         }
+
+        // Its constructor has automatically injected the ICategoryRepository repository and an
+        // IEventMediator instance needed to trigger event handlers. The following code also
+        // shows the implementation of the standard HandleAsync command handler method:
         public async Task HandleAsync(UpdateCategoryCommand command)
         {
             bool done = false;

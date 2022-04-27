@@ -20,7 +20,7 @@ namespace StarPeaceAdminHub.Handlers
         }
         public Task HandleAsync(CategoryCategoryNameChangedEvent ev)
         {
-            repo.New(CategoryEventType.categoryNameChanged, ev.CategoryId, ev.OldVersion, ev.NewVersion, ev.CategoryName);
+            repo.New(CategoryEventType.CategoryNameChanged, ev.CategoryId, ev.OldVersion, ev.NewVersion, ev.CategoryName);
             return Task.CompletedTask;
         }
     }

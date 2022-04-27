@@ -34,6 +34,11 @@ namespace StarPeaceAdminHub.Controllers
         {
             return View("Edit");
         }
+
+        // It has a constructor that accepts an ICategory aggregate. This way, package data is
+        // copied into the ViewModel that is used to populate the edit view. It implements the
+        // ICategoryFullEditDTO DTO interface defined in the domain layer. This way, it can be
+        // directly used to send ICategory updates to the domain layer.
         [HttpPost]
         public async Task<IActionResult> Create(
             CategoryFullEditViewModel vm,

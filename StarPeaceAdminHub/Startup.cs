@@ -36,6 +36,8 @@ namespace StarPeaceAdminHub
             services.AddDbLayer(Configuration.GetConnectionString("DefaultConnection"),
                 "StarPeaceAdminHubDB");
 
+            // The code that automatically discovers and adds
+            // all queries, command handlers, and event handlers to the DI engine
             services.AddAllQueries(this.GetType().Assembly);
             services.AddAllCommandHandlers(this.GetType().Assembly);
             services.AddAllEventHandlers(this.GetType().Assembly);

@@ -14,7 +14,7 @@ namespace StarPeaceAdminHub.Models.Categorys
         public int BookId { get; set; }
         public override string ToString()
         {
-            return string.Format("{0}. bookId, CategoryName: {3}",
+            return string.Format("{0}. bookId, CategoryName: {1}",
                 BookId, CategoryName);
         }
     }

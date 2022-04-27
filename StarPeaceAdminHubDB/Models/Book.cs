@@ -20,8 +20,6 @@ namespace StarPeaceAdminHubDB.Models
         [Required]
         public DateTime PublishingDate { get; set; }
         
-        //public int PublisherId { get; set; }
-        
         public decimal Cost { get; set; }    
 
         public decimal RetailPrice { get; set; }     

@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Queries
 {
-    public class CategorysListQuery:ICategorysListQuery
+    // The query object is automatically injected into the application DB context. 
+    // The GetAllCategorys method uses LINQ to project all of the required information
+    // into CategoryInfosViewModel and sorts all results in descending order on the
+    // EndValidityDate property.
+    public class CategorysListQuery : ICategorysListQuery
     {
         MainDbContext ctx;
         public CategorysListQuery(MainDbContext ctx)
