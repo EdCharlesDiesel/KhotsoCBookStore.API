@@ -12,6 +12,9 @@ using StarPeaceAdminHubDomain.Events;
 
 namespace StarPeaceAdminHubDB.Repositories
 {
+    // 4. These interfaces must be defined in the
+    // domain layer since they will be used as arguments of the repository methods
+    // defined there.
     public class CategoryRepository : ICategoryRepository
     {
         private MainDbContext context;

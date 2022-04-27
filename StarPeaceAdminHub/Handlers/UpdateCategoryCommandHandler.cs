@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Handlers
 {
+    // 8. Handlers
+    // use the IUnitOfWork interface contained in each IRepository, as well as
+    // the concurrency exceptions returned by the data layer, to organize their
+    // operations as transactions. It is worth pointing out that each aggregate has
+    // its own IRepository, and that the whole logic for updating each aggregate is
+    // defined in the aggregate itself, not in its associated IRepository, to keep the
+    // code more modular.
     public class UpdateCategoryCommandHandler : ICommandHandler<UpdateCategoryCommand>
     {
         ICategoryRepository repo;

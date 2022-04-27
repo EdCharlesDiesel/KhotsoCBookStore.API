@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Models.Categorys
 {
+    // 2. One or more ViewModels containing changes to apply are hidden behind
+    // interfaces (IMyUpdate) defined in the domain layer.
     public class CategoryFullEditViewModel: ICategoryFullEditDTO
     {
         public CategoryFullEditViewModel() { }

@@ -15,15 +15,20 @@ using StarPeaceAdminHubDomain.IRepositories;
 namespace StarPeaceAdminHub.Controllers
 {
     [Authorize(Roles= "Admins")]
-    public class ManageBooksController : Controller
+    public class ManageCategorysController : Controller
     {
+        // 1. A controller's action method receives one or more ViewModels and performs validation.
         [HttpGet]
-        public async Task<IActionResult> Index([FromServices] ICategorysListQuery query)
+        public async Task<IActionResult> Index(
+            // 5. A command handler matching the previous command is retrieved via DI in
+            // the controller action method (through the[FromServices]
+            [FromServices] ICategorysListQuery query)
         {
             var results = await query.GetAllCategorys();
             var vm = new CategorysListViewModel { Items = results };
             return View(vm);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -37,7 +42,7 @@ namespace StarPeaceAdminHub.Controllers
             if (ModelState.IsValid) { 
                 await command.HandleAsync(new CreateCategoryCommand(vm));
                 return RedirectToAction(
-                    nameof(ManageBooksController.Index));
+                    nameof(ManageCategorysController.Index));
             }
             else
                 return View("Edit", vm);
@@ -48,10 +53,10 @@ namespace StarPeaceAdminHub.Controllers
             [FromServices] ICategoryRepository repo)
         {
             if (id == 0) return RedirectToAction(
-                nameof(ManageBooksController.Index));
+                nameof(ManageCategorysController.Index));
             var aggregate = await repo.Get(id);
             if (aggregate == null) return RedirectToAction(
-                nameof(ManageBooksController.Index));
+                nameof(ManageCategorysController.Index));
             var vm = new CategoryFullEditViewModel(aggregate);
             return View(vm);
         }
@@ -64,7 +69,7 @@ namespace StarPeaceAdminHub.Controllers
             {
                 await command.HandleAsync(new UpdateCategoryCommand(vm));
                 return RedirectToAction(
-                    nameof(ManageBooksController.Index));
+                    nameof(ManageCategorysController.Index));
             }
             else
                 return View(vm);
@@ -81,7 +86,7 @@ namespace StarPeaceAdminHub.Controllers
                 
             }
             return RedirectToAction(
-                    nameof(ManageBooksController.Index));
+                    nameof(ManageCategorysController.Index));
         }
     }
 }

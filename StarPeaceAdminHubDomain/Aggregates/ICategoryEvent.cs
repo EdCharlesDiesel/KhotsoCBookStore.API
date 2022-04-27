@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public enum CategoryEventType {Deleted, CategoryName}
+    public enum CategoryEventType {Deleted, categoryNameChanged}
     //public enum CategoryEventType {Deleted}
     
     public interface ICategoryEvent: IEntity<long>

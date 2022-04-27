@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHub.Commands
 {
+    //3. They are used to fill the properties of a command object.
     public class CreateCategoryCommand: ICommand
     {
         public CreateCategoryCommand(ICategoryFullEditDTO values)
