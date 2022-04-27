@@ -39,9 +39,8 @@ namespace StarPeaceAdminHubDB.Models
             ISBN = o.ISBN;
             PublishingDate = o.PublishingDate;        
             Cost = o.Cost; 
-            RetailPrice =o.RetailPrice;            
-            CoverFileName = o.CoverFileName; 
-    
+            RetailPrice = o.RetailPrice;            
+            CoverFileName = o.CoverFileName;    
         }
     }
 }

@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DDD.DomainLayer
 {
-    public abstract class Entity<K>: IEntity<K>
-        where K: IEquatable<K>
+    // 01. It is common to override the Object.Equals method of all
+    // the DDD entities in such a way that two objects are considered equal whenever they
+    // have the same primary keys. This is easily achieved by letting all the entities inherit
+    // from an abstract Entity class
+    public abstract class Entity<K>: IEntity<K>  where K: IEquatable<K>
     {
-        
         public virtual K Id { get; protected set; }
         public bool IsTransient()
         {
-            return Object.Equals(Id, default(K));
-            
+            return Object.Equals(Id, default(K));            
         }
+        
         public override bool Equals(object obj)
         {
             return obj is Entity<K> entity &&
@@ -52,6 +54,7 @@ namespace DDD.DomainLayer
         {
             return !(left == right);
         }
+        
         [NotMapped]
         public List<IEventNotification> DomainEvents { get; private set; }
         public void AddDomainEvent(IEventNotification evt)
