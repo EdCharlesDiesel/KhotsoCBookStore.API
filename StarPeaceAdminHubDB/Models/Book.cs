@@ -7,40 +7,31 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
-    public class Book: Entity<int>, IBook
+    public class Book
     {
-        public void FullUpdate(IBookFullEditDTO o)
-        {
-            if (IsTransient())
-            {
-                Id = o.Id;
-                DestinationId = o.DestinationId;
-            }
-            else
-            {
-                if (o.Price != this.Price)
-                    this.AddDomainEvent(new BookPriceChangedEvent(
-                            Id, o.Price, EntityVersion, EntityVersion+1));
-            }
-            Name = o.Name;
-            Description = o.Description;
-            Price = o.Price;
-            DurationInDays = o.DurationInDays;
-            StartValidityDate = o.StartValidityDate;
-            EndValidityDate = o.EndValidityDate;
-        }
         [MaxLength(128), Required]
-        public string Name { get; set; }
+        public string Title { get; set; }
         [MaxLength(128)]
         public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int DurationInDays { get; set; }
+        
+        public int DurationOnShelfInDays { get; set; }
         public DateTime? StartValidityDate { get; set; }
         public DateTime? EndValidityDate { get; set; }
-        public Destination MyDestination { get; set; }
-        [ConcurrencyCheck]
-        public long EntityVersion{ get; set; }
+        public Category Category { get; set; }
 
-        public int DestinationId { get; set; }
+        public Guid CategoryId { get; set; }
+
+        [Required]
+        public DateTime PublishingDate { get; set; }
+        
+        public Guid PublisherId { get; set; }
+
+        public Publisher Publisher { get; set; }
+
+        public decimal Cost { get; set; }    
+
+        public decimal RetailPrice { get; set; }     
+        
+        public string CoverFileName { get; set; }
     }
 }
