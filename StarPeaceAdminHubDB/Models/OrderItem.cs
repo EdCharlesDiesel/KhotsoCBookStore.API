@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
     [Table("OrderItems")]
-    public class OrderItem: AuditableEntity
+    public class OrderItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

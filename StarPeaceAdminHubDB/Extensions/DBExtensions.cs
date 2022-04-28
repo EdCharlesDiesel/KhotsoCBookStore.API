@@ -68,6 +68,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 {
                     Title = "Beginning SOLID Principles and Design Patterns for ASP.NET Developers",
                     ISBN = "XXX-00000-000-YGB",
+                    Descripion = "SOLID Principles and Design Patterns",
                     CoverFileName = "Default Cover",
                     Cost = 750.00M,
                     RetailPrice = 1250.99M,
@@ -92,6 +93,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 {
                     Title = "Software Architecture with C# 9 and .NET 5",
                     ISBN = "XXX-00000-000-2nd",
+                    Descripion = "Architecting software solutions using microservices,DevOps, and design patterns for Azure",
                     CoverFileName = "Default Cover",
                     Cost = 1200.00M,
                     RetailPrice = 2250.99M,
@@ -121,6 +123,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 {
                     Title = "FUNDAMENTALS OF COMPUTER PROGRAMMING WITH C#",
                     ISBN = "XXX-00000-000-6TG",
+                    Descripion = "The Bulgarian C# Programming Book",
                     CoverFileName = "Default Cover",
                     Cost = 5200.00M,
                     RetailPrice = 250.99M,
@@ -146,6 +149,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 {
                     Title = "xUnit Test Patterns",
                     ISBN = "XXX-00000-000-XUN",
+                    Descripion = "",
                     CoverFileName = "Default Cover",
                     Cost = 600.00M,
                     RetailPrice = 850.99M,

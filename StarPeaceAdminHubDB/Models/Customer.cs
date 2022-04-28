@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
     [Table("Customers")]
-    public class Customer : AuditableEntity
+    public class Customer 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

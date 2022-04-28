@@ -15,9 +15,11 @@ namespace StarPeaceAdminHubDomain.DTOs
     {
         int Id { get; set; }
 
-        string Title { get; set; }
+        string Title { get; set; }        
 
         string ISBN { get; set; }
+
+        string Descripion { get; set; }
         
         DateTime PublishingDate { get; set; }
         

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class CartItem : AuditableEntity
+    public class CartItem 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

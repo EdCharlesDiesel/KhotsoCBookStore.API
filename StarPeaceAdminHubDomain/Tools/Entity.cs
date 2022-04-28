@@ -83,5 +83,13 @@ namespace DDD.DomainLayer
         {
             DomainEvents?.Remove(evt);
         }
+
+        public virtual DateTime CreatedOn { get; set; } = DateTime.Now;
+       
+        public virtual string CreatedBy { get; set; } = "System";
+
+        public virtual DateTime UpdatedOn { get; set; }
+
+        public virtual string UpdatedBy { get; set; }
     }
 }

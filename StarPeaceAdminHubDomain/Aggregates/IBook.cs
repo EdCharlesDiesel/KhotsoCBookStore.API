@@ -8,9 +8,11 @@ namespace StarPeaceAdminHubDomain.Aggregates
 {
     public interface IBook: IEntity<int>
     {        
-        public string Title { get; set; }
+        string Title { get; set; }
 
-        public string ISBN { get; set; }
+        string ISBN { get; set; }
+
+        string Description {get;set;}
         
         DateTime PublishingDate { get; set; }
         

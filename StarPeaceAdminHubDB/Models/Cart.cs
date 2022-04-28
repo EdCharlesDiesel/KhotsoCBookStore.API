@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class Cart : AuditableEntity
+    public class Cart 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CartId { get; set; } = Guid.NewGuid();
+        public Guid CartId { get; set; }
 
         [ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }        
