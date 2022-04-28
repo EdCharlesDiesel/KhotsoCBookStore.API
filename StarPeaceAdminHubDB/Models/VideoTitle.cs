@@ -1,80 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("VideoTitle")]
     public class VideoTitle
     {
         [Key]
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
-        [Column(Name = "VideoProducer", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Producer is required")]
-        public string VideoProducer { get; set; } // nvarchar(50), not null
+        public string VideoProducer { get; set; } 
 
-        [Column(Name = "VideoDirector", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Director is required")]
-        public string VideoDirector { get; set; } // nvarchar(50), not null
+        public string VideoDirector { get; set; } 
 
-        [Column(Name = "VideoCategory", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Category is required")]
-        public string VideoCategory { get; set; } // nvarchar(50), not null
+        public string VideoCategory { get; set; } 
 
-        [Column(Name = "VideoSubCategory", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Sub Category is required")]
-        public string VideoSubCategory { get; set; } // nvarchar(50), not null
+        public string VideoSubCategory { get; set; } 
 
-        [Column(Name = "ClosedCaptions", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Closed Captions is required")]
-        public string ClosedCaptions { get; set; } // nvarchar(50), not null
+        public string ClosedCaptions { get; set; } 
 
-        [Column(Name = "Language", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Language is required")]
-        public string Language { get; set; } // nvarchar(50), not null
+        public string Language { get; set; } 
 
-        [Column(Name = "RunningTime", TypeName = "smallint")]
         [Required(ErrorMessage = "Running Time is required")]
-        public short RunningTime { get; set; } // smallint, not null
+        public short RunningTime { get; set; }
 
-        [Column(Name = "VideoMediaType", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Media Type is required")]
-        public string VideoMediaType { get; set; } // nvarchar(50), not null
+        public string VideoMediaType { get; set; } 
 
-        [Column(Name = "VideoEncoding", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Video Encoding is required")]
-        public string VideoEncoding { get; set; } // nvarchar(50), not null
+        public string VideoEncoding { get; set; } 
 
-        [Column(Name = "ScreenAspect", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Screen Aspect is required")]
-        public string ScreenAspect { get; set; } // nvarchar(50), not null
+        public string ScreenAspect { get; set; } 
 
-        [Column(Name = "Rating", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Rating is required")]
-        public string Rating { get; set; } // nvarchar(50), not null
+        public string Rating { get; set; } 
 
-        [Column(Name = "ProductTitleNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Title Number is required")]
-        public int ProductTitleNumber { get; set; } // int, not null
+        public int ProductTitleNumber { get; set; } 
 
         // dbo.VideoTitle.ProductNumber -> dbo.Title.ProductNumber (FK_VideoTitle_Title)
         [ForeignKey("ProductNumber")]

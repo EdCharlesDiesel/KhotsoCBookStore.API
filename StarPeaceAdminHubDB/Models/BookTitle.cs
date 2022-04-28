@@ -1,26 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("BookTitle")]
     public class BookTitle
     {
         [Key]
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
-        [Column(Name = "ISBN", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "ISBN is required")]
-        public string ISBN { get; set; } // nvarchar(50), not null
+        public string ISBN { get; set; } 
 
-        [Column(Name = "PublishedDate", TypeName = "smalldatetime")]
         [Required(ErrorMessage = "Published Date is required")]
-        public DateTime PublishedDate { get; set; } // smalldatetime, not null
+        public DateTime PublishedDate { get; set; } 
 
-        [Column(Name = "EntityVersion", TypeName = "int")]
         [Required(ErrorMessage = "Entity Version is required")]
-        public int EntityVersion { get; set; } // int, not null
+        public int EntityVersion { get; set; } 
 
         // dbo.BookTitle.ProductNumber -> dbo.Title.ProductNumber (FK_BookTitle_Title)
         [ForeignKey("ProductNumber")]

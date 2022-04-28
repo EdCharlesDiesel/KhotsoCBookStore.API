@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("Title")]
@@ -9,38 +14,29 @@ namespace StarPeaceAdminHubDB
         }
 
         [Key]
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
-        [Column(Name = "TitleOfWork", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
-        [Required(ErrorMessage = "Title Of Work is required")]
-        public string TitleOfWork { get; set; } // nvarchar(50), not null
+        [Required(ErrorMessage = "Title Of book is required")]
+        public string TitleBook { get; set; } 
 
-        [Column(Name = "TitleCover", TypeName = "image")]
         [Required(ErrorMessage = "Title Cover is required")]
-        public byte[] TitleCover { get; set; } // image, not null
+        public byte[] TitleCover { get; set; } 
 
-        [Column(Name = "CatelogDescription", TypeName = "nvarchar")]
         [MaxLength]
         [Required(ErrorMessage = "Catelog Description is required")]
-        public string CatelogDescription { get; set; } // nvarchar(max), not null
+        public string CatelogDescription { get; set; } 
 
-        [Column(Name = "CopyRightDate", TypeName = "smalldatetime")]
         [Required(ErrorMessage = "Copy Right Date is required")]
-        public DateTime CopyRightDate { get; set; } // smalldatetime, not null
+        public DateTime CopyRightDate { get; set; } 
 
-        [Column(Name = "TitleCategory", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Title Category is required")]
-        public string TitleCategory { get; set; } // nvarchar(50), not null
+        public string TitleCategory { get; set; } 
 
-        [Column(Name = "CreditValue", TypeName = "smallint")]
         [Required(ErrorMessage = "Credit Value is required")]
-        public short CreditValue { get; set; } // smallint, not null
+        public short CreditValue { get; set; } 
 
         // dbo.Title.ProductNumber -> dbo.Product.ProductNumber (FK_Title_Product)
         [ForeignKey("ProductNumber")]

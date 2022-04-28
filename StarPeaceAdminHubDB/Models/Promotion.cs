@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("Promotion")]
@@ -10,25 +15,19 @@ namespace StarPeaceAdminHubDB
         }
 
         [Key]
-        [Column(Name = "PromotionNumber", TypeName = "int")]
         [Required(ErrorMessage = "Promotion Number is required")]
-        public int PromotionNumber { get; set; } // int, not null
+        public int PromotionNumber { get; set; } 
 
-        [Column(Name = "PromotionReleaseDate", TypeName = "smalldatetime")]
         [Required(ErrorMessage = "Promotion Release Date is required")]
-        public DateTime PromotionReleaseDate { get; set; } // smalldatetime, not null
+        public DateTime PromotionReleaseDate { get; set; } 
 
-        [Column(Name = "PromotionStatus", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Promotion Status is required")]
-        public string PromotionStatus { get; set; } // nvarchar(50), not null
+        public string PromotionStatus { get; set; } 
 
-        [Column(Name = "PromotionType", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Promotion Type is required")]
-        public string PromotionType { get; set; } // nvarchar(50), not null
+        public string PromotionType { get; set; } 
 
         // dbo.MemberOrder.PromotionNumber -> dbo.Promotion.PromotionNumber (FK_MemberOrder_Promotion)
         public IEnumerable<MemberOrder> MemberOrders { get; set; }

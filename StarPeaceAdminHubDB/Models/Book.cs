@@ -1,11 +1,9 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDomain.DTOs;
-using StarPeaceAdminHubDomain.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
@@ -15,7 +13,7 @@ namespace StarPeaceAdminHubDB.Models
        
         public string ISBN { get; set; }  
         
-        public string Descripion { get; set; }     
+        public string Description { get; set; }     
 
         [Required]
         public DateTime PublishingDate { get; set; }

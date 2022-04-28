@@ -1,34 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("Merchandise")]
     public class Merchandise
     {
         [Key]
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
-        [Column(Name = "MerchandiseName", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Merchandise Name is required")]
-        public string MerchandiseName { get; set; } // nvarchar(50), not null
+        public string MerchandiseName { get; set; } 
 
-        [Column(Name = "MerchandiseDescription", TypeName = "ntext")]
         [Required(ErrorMessage = "Merchandise Description is required")]
-        public string MerchandiseDescription { get; set; } // ntext, not null
+        public string MerchandiseDescription { get; set; }
 
-        [Column(Name = "MerchandiseType", TypeName = "nvarchar")]
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Merchandise Type is required")]
-        public string MerchandiseType { get; set; } // nvarchar(50), not null
+        public string MerchandiseType { get; set; } 
 
-        [Column(Name = "UnitOfMeasure", TypeName = "nvarchar")]
+
         [MaxLength(50)]
-        [StringLength(50)]
         [Required(ErrorMessage = "Unit Of Measure is required")]
-        public string UnitOfMeasure { get; set; } // nvarchar(50), not null
+        public string UnitOfMeasure { get; set; } 
 
         // dbo.Merchandise.ProductNumber -> dbo.Product.ProductNumber (FK_Merchandise_Product)
         [ForeignKey("ProductNumber")]

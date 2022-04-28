@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("Product")]
@@ -9,49 +14,37 @@ namespace StarPeaceAdminHubDB
         }
 
         [Key]
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
-        [Column(Name = "UPC", TypeName = "nchar")]
         [MaxLength(10)]
-        [StringLength(10)]
         [Required(ErrorMessage = "UPC is required")]
-        public string UPC { get; set; } // nchar(10), not null
+        public string UPC { get; set; } 
 
-        [Column(Name = "QuantityInStock", TypeName = "smallint")]
         [Required(ErrorMessage = "Quantity In Stock is required")]
-        public short QuantityInStock { get; set; } // smallint, not null
+        public short QuantityInStock { get; set; } 
 
-        [Column(Name = "ProductType", TypeName = "nvarchar")]
         [MaxLength(10)]
-        [StringLength(10)]
         [Required(ErrorMessage = "Product Type is required")]
-        public string ProductType { get; set; } // nvarchar(10), not null
+        public string ProductType { get; set; } 
 
-        [Column(Name = "SuggestedRetailPrice", TypeName = "money")]
         [Required(ErrorMessage = "Suggested Retail Price is required")]
-        public decimal SuggestedRetailPrice { get; set; } // money, not null
+        public decimal SuggestedRetailPrice { get; set; } 
 
-        [Column(Name = "DefaultUnitPrice", TypeName = "money")]
         [Required(ErrorMessage = "Default Unit Price is required")]
-        public decimal DefaultUnitPrice { get; set; } // money, not null
+        public decimal DefaultUnitPrice { get; set; } 
 
-        [Column(Name = "CurrentSpecialPrice", TypeName = "money")]
         [Required(ErrorMessage = "Current Special Price is required")]
-        public decimal CurrentSpecialPrice { get; set; } // money, not null
+        public decimal CurrentSpecialPrice { get; set; } 
 
-        [Column(Name = "MonthlyUnitsSold", TypeName = "smallint")]
         [Required(ErrorMessage = "Monthly Units Sold is required")]
-        public short MonthlyUnitsSold { get; set; } // smallint, not null
+        public short MonthlyUnitsSold { get; set; } 
 
-        [Column(Name = "YearlyUnitsSold", TypeName = "int")]
         [Required(ErrorMessage = "Yearly Units Sold is required")]
-        public int YearlyUnitsSold { get; set; } // int, not null
+        public int YearlyUnitsSold { get; set; } 
 
-        [Column(Name = "TotalUnitsSold", TypeName = "int")]
         [Required(ErrorMessage = "Total Units Sold is required")]
-        public int TotalUnitsSold { get; set; } // int, not null
+        public int TotalUnitsSold { get; set; } 
 
         // dbo.Merchandise.ProductNumber -> dbo.Product.ProductNumber (FK_Merchandise_Product)
         public Merchandise Merchandise { get; set; }

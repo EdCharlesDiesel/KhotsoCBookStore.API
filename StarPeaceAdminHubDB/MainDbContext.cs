@@ -20,10 +20,11 @@ namespace StarPeaceAdminHubDB
     // operation, their updated versions will be reloaded from the database.
     public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
     {
+        public DbSet<Title> Titles { get; set; }
+        public DbSet<BookTitle> BookTitles { get; set; }
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<CategoryEvent> CategoryEvents { get; set; }
-
         public DbSet<BookEvent> BookEvents { get; set; }
         public MainDbContext(DbContextOptions options)
             : base(options)

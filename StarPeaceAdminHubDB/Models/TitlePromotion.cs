@@ -1,15 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StarPeaceAdminHubDB
 {
     [Table("TitlePromotion")]
     public class TitlePromotion
     {
-        [Column(Name = "PromotionNumber", TypeName = "int")]
         [Required(ErrorMessage = "Promotion Number is required")]
-        public int PromotionNumber { get; set; } // int, not null
+        public int PromotionNumber { get; set; } 
 
-        [Column(Name = "ProductNumber", TypeName = "int")]
         [Required(ErrorMessage = "Product Number is required")]
-        public int ProductNumber { get; set; } // int, not null
+        public int ProductNumber { get; set; } 
 
         // dbo.TitlePromotion.PromotionNumber -> dbo.Promotion.PromotionNumber (FK_TitlePromotion_Promotion)
         [ForeignKey("PromotionNumber")]

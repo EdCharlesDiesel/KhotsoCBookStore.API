@@ -39,8 +39,5 @@ namespace StarPeaceAdminHubDB.Models
 
         public ICollection<Order> Orders { get; set; }
 
-        public ICollection<WishList> WishLists { get; set; }
-
-        public ICollection<ProductSubscription>  ProductSubscriptions{ get; set; }
     }
 }

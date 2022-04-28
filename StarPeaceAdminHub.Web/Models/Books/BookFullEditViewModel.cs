@@ -37,6 +37,7 @@ namespace StarPeaceAdminHub.Models.Books
 
         public decimal RetailPrice { get; set; }     
         
-        public string CoverFileName { get; set; }  
+        public string CoverFileName { get; set; }
+        public string Descripion { get ; set ; }
     }
 }
