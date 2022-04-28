@@ -8,12 +8,11 @@ namespace StarPeaceAdminHubDB
     [Table("TitlePromotion")]
     public class TitlePromotion
     {
-        [Required(ErrorMessage = "Promotion Number is required")]
+        [Key]
         public int PromotionNumber { get; set; } 
 
-        [Required(ErrorMessage = "Product Number is required")]
         public int ProductNumber { get; set; } 
-
+       
         // dbo.TitlePromotion.PromotionNumber -> dbo.Promotion.PromotionNumber (FK_TitlePromotion_Promotion)
         [ForeignKey("PromotionNumber")]
         public Promotion Promotion { get; set; }

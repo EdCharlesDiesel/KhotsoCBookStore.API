@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IBookRepository : IRepository<IBook>
+    public interface IBookRepository : IRepository<IBookTitle>
     {
         Task<IBook> Get(int id);
         IBook New();

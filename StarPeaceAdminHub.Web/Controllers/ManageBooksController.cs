@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using DDD.ApplicationLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StarPeaceAdminHub.Commands;
-using StarPeaceAdminHub.Models;
 using StarPeaceAdminHub.Models.Books;
 using StarPeaceAdminHub.Queries;
 using StarPeaceAdminHubDomain.IRepositories;
 
 namespace StarPeaceAdminHub.Web.Controllers
 {
-    [Authorize(Roles= "Admins")]
+  //  [Authorize(Roles= "Admins")]
     public class ManageBooksController: Controller
     {
         [HttpGet]

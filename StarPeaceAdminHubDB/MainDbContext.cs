@@ -22,6 +22,7 @@ namespace StarPeaceAdminHubDB
     {
         public DbSet<Title> Titles { get; set; }
         public DbSet<BookTitle> BookTitles { get; set; }
+        public DbSet<BookTitleEvent> BookTitleEvents { get; set; }
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<CategoryEvent> CategoryEvents { get; set; }

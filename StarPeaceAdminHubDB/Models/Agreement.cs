@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB
 {
-    [Table("Agreement")]
     public class Agreement
     {
         public Agreement()

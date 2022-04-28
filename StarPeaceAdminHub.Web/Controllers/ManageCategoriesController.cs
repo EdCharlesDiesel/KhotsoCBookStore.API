@@ -14,7 +14,7 @@ using StarPeaceAdminHubDomain.IRepositories;
 
 namespace StarPeaceAdminHub.Controllers
 {
-   [Authorize(Roles= "Admins")]
+  // [Authorize(Roles= "Admins")]
     public class ManageCategoriesController : Controller
     {
         // 1. A controller's action method receives one or more ViewModels and performs validation.

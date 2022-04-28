@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB
 {
-    [Table("ActiveMember")]
+
     public class ActiveMember
     {
         public ActiveMember()
