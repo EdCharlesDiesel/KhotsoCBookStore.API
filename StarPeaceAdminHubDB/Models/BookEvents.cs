@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB
 {
-    [Table("BookEvents")]
     public class BookEvents
     {
         [Key]

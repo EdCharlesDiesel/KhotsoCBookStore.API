@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StarPeaceAdminHub.Web\StarPeaceAdminHub.csproj" />
     <ProjectReference Include="..\StarPeaceAdminHubDB\StarPeaceAdminHubDB.csproj" />
     <ProjectReference Include="..\StarPeaceAdminHubDomain\StarPeaceAdminHubDomain.csproj" />
   </ItemGroup>

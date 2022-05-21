@@ -90,3 +90,100 @@ namespace StarPeaceAdminHubDB
         }
     }
 }
+
+
+// protected override void OnModelCreating(ModelBuilder modelBuilder)
+//     {
+//         base.OnModelCreating(modelBuilder);
+
+//         //Seeding a  'Administrator' role to AspNetRoles table
+//         modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole {Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
+
+
+//         //a hasher to hash the password before seeding the user to the db
+//         var hasher = new PasswordHasher<IdentityUser>();
+
+
+//         //Seeding the User to AspNetUsers table
+//         modelBuilder.Entity<IdentityUser>().HasData(
+//             new IdentityUser
+//             {
+//                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
+//                 UserName = "myuser",
+//                 NormalizedUserName = "MYUSER",
+//                 PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+//             }
+//         );
+
+
+//         //Seeding the relation between our user and role to AspNetUserRoles table
+//         modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+//             new IdentityUserRole<string>
+//             {
+//                 RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
+//                 UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+//             }
+//         );
+        
+
+//     }
+
+// public void ConfigureServices(IServiceCollection services)  
+//        {  
+//            #region database configuration              
+//            string connectionString = config.GetConnectionString("AppDb");  
+  
+//            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(connectionString));  
+  
+//            services.AddIdentity<User, IdentityRole>()  
+//                .AddEntityFrameworkStores<AppDbContext>();  
+//            #endregion                         
+//        }
+
+
+// public class AppDbContext : IdentityDbContext<User>  
+//     {  
+//         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)  
+//         {  
+  
+//         }  
+  
+//         protected override void OnModelCreating(ModelBuilder builder)  
+//         {  
+//             base.OnModelCreating(builder);  
+//             this.SeedUsers(builder);  
+//             this.SeedUserRoles(builder);  
+//         }  
+  
+//         private void SeedUsers(ModelBuilder builder)  
+//         {  
+//             User user = new User()  
+//             {  
+//                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",  
+//                 UserName = "Admin",  
+//                 Email = "admin@gmail.com",  
+//                 LockoutEnabled = false,  
+//                 PhoneNumber = "1234567890"  
+//             };  
+  
+//             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();  
+//             passwordHasher.HashPassword(user, "Admin*123");  
+  
+//             builder.Entity<User>().HasData(user);  
+//         }  
+  
+//         private void SeedRoles(ModelBuilder builder)  
+//         {  
+//             builder.Entity<IdentityRole>().HasData(  
+//                 new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },  
+//                 new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "HR", ConcurrencyStamp = "2", NormalizedName = "Human Resource" }  
+//                 );  
+//         }  
+  
+//         private void SeedUserRoles(ModelBuilder builder)  
+//         {  
+//             builder.Entity<IdentityUserRole<string>>().HasData(  
+//                 new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }  
+//                 );  
+//         }  
+//     }  

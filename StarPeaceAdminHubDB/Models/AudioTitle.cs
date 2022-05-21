@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB
 {
-    [Table("AudioTitle")]
     public class AudioTitle
     {
         [Key]

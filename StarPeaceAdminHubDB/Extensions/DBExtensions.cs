@@ -50,6 +50,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 await roleManager.CreateAsync(role);
 
             }
+            
             if (!await context.Users.AnyAsync())
             {
 
@@ -62,6 +63,7 @@ namespace StarPeaceAdminHubDB.Extensions
                 await userManager.AddToRoleAsync(currUser, "Admins");
 
             }
+
             if (!await context.Books.AnyAsync())
             {
                 var firstBook = new Book
