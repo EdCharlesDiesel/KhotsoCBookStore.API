@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StarPeaceAdminHubDB.Extensions;
+//using StarPeaceAdminHubDB.Extensions;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -33,8 +33,8 @@ namespace StarPeaceAdminHub
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddDbLayer(Configuration.GetConnectionString("DefaultConnection"),
-                "StarPeaceAdminHubDB");
+            // services.AddDbLayer(Configuration.GetConnectionString("DefaultConnection"),
+            //     "StarPeaceAdminHubDB");
 
             // The code that automatically discovers and adds
             // all queries, command handlers, and event handlers to the DI engine

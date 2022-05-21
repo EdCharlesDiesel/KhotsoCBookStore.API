@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StarPeaceAdminHubDB;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
@@ -61,8 +62,8 @@ namespace KhotsoCBookStore.API
             services.AddHttpContextAccessor();
 
 
-            var connectionString = Configuration["ConnectionStrings:KhotsoCbookStoreDBConnectionString"];
-            services.AddDbContext<KhotsoCBookStoreDbContext>(o => o.UseSqlServer(connectionString));
+            //var connectionString = Configuration["DefaultConnection"];
+            services.AddDbContext<MainDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -88,17 +89,17 @@ namespace KhotsoCBookStore.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ICustomerService, CustomerRepository>();
-            services.AddTransient<IEmployeeService, EmployeeRepository>();
-            services.AddTransient<IBookService, BookRepository>();
-            services.AddTransient<IProductSubscriptionService, ProductSubscriptionRepository>();
-            services.AddTransient<ICartService, CartRepository>();
-            services.AddTransient<IOrderService, OrderRepository>();
-            services.AddTransient<IWishListService, WishListRepository>();
             services.AddTransient<IMailService, LocalMailRepository>();
-            services.AddTransient<IAuthorService, AuthorRepository>();
-            services.AddTransient<IPublisherService, PublisherRepository>();
-            services.AddTransient<IPromotionService, PromotionRepository>();
+            // services.AddTransient<ICustomerService, CustomerRepository>();
+            // services.AddTransient<IEmployeeService, EmployeeRepository>();
+            // services.AddTransient<IBookService, BookRepository>();
+            // services.AddTransient<IProductSubscriptionService, ProductSubscriptionRepository>();
+            // services.AddTransient<ICartService, CartRepository>();
+            // services.AddTransient<IOrderService, OrderRepository>();
+            // services.AddTransient<IWishListService, WishListRepository>();            
+            // services.AddTransient<IAuthorService, AuthorRepository>();
+            // services.AddTransient<IPublisherService, PublisherRepository>();
+            // services.AddTransient<IPromotionService, PromotionRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddJwtBearer(options =>
@@ -184,7 +185,7 @@ namespace KhotsoCBookStore.API
 
             app.UseSwaggerUI(setupAction =>
             {
-                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json", "KhotsoCBookStore API V2.1.1");
+                setupAction.SwaggerEndpoint("/swagger/KhotsoCBookStoreAPISpecification/swagger.json", "KhotsoCBookStore API V3.2.2");
 
                 setupAction.RoutePrefix = "";
 

@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 
 namespace StarPeaceAdminHubDomain.IRepositories
 {
-    public interface IBookRepository : IRepository<IBook>
+    public interface IAuthorRepository: IRepository<IAuthor>
     {
-        Task<IBook> Get(int id);
-        IBook New();        
+        Task<IAuthor> Get(int id);
+        IAuthor New();
+        Task<IAuthor> Delete(int id);
     }
 }

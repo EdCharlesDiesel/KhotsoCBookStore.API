@@ -8,11 +8,14 @@ using System.ComponentModel.DataAnnotations;
 namespace StarPeaceAdminHubDB.Models
 {
     public class Book: Entity<int>, IBook
-    {        
+    {      
+        [MaxLength(128), Required]  
         public string Title { get; set; }
-       
+
+        [MaxLength(128), Required]       
         public string ISBN { get; set; }  
         
+        [MaxLength(400)]
         public string Description { get; set; }     
 
         [Required]
@@ -27,7 +30,7 @@ namespace StarPeaceAdminHubDB.Models
         [ConcurrencyCheck]
         public long EntityVersion{ get; set; }
         
-        public ICollection<Category> Categorys { get; set; }
+        public ICollection<Author> Authors { get; set; }
 
         public void FullUpdate(IBookFullEditDTO o)
         {

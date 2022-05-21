@@ -1,14 +1,14 @@
-using AutoMapper;
+// using AutoMapper;
 
-namespace KhotsoCBookStore.API.Profiles
-{
-    public class BookMappingProfile : Profile
-    {
-        public BookMappingProfile()
-        {
-            CreateMap<Entities.Book, Dtos.BookDto>();
-            CreateMap<Dtos.BookForCreateDto,Entities.Book>();
-            CreateMap<Dtos.BookForUpdateDto,Entities.Book>();
-        }
-    }
-}
+// namespace KhotsoCBookStore.API.Profiles
+// {
+//     public class BookMappingProfile : Profile
+//     {
+//         public BookMappingProfile()
+//         {
+//             CreateMap<Entities.Book, DTOs.BookDto>();
+//             CreateMap<DTOs.BookForCreateDto,Entities.Book>();
+//             CreateMap<DTOs.BookForUpdateDto,Entities.Book>();
+//         }
+//     }
+// }

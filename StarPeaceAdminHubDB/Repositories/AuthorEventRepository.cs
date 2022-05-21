@@ -1,44 +1,42 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
-using StarPeaceAdminHubDomain.IRepositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
+using AuthorsManagementDomain.IRepositories;
 
 namespace StarPeaceAdminHubDB.Repositories
 {
-    public class CategoryEventRepository : ICategoryEventRepository
+    public class AuthorEventRepository : IAuthorEventRepository
     {
         private MainDbContext context;
-        public CategoryEventRepository(MainDbContext context)
+        public AuthorEventRepository(MainDbContext context)
         {
             this.context = context;
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<IEnumerable<ICategoryEvent>> GetFirstN(int n)
+        public async Task<IEnumerable<IAuthorEvent>> GetFirstN(int n)
         {
-            return await context.CategoryEvents
+            return await context.AuthorEvents
                 .OrderBy(m => m.Id)
                 .Take(n)
                 .ToListAsync();
         }
 
-        public ICategoryEvent New(CategoryEventType type, int id, long oldVersion, long? newVersion=null, string categoryName=null)
+        public IAuthorEvent New(AuthorEventType type, int id, long oldVersion, long? newVersion=null, decimal price=0)
         {
-            var model = new CategoryEvent
+            var model = new AuthorEvent
             {
                 Type = type,
-                CategoryId = id,
+                AuthorId = id,
                 OldVersion = oldVersion,
                 NewVersion = newVersion,
-                CategoryName = categoryName
+                NewBookStartPrice = price
             };
-            context.CategoryEvents.Add(model);
+            context.AuthorEvents.Add(model);
             return model;
         }
     }

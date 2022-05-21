@@ -18,27 +18,43 @@ namespace StarPeaceAdminHubDB
     // concurrency exceptions and detaches all the entities involved in the concurrency
     // error from the context. This way, next time a command retries the whole failed
     // operation, their updated versions will be reloaded from the database.
-    public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
+    
+    //public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
+    public class MainDbContext : DbContext, IUnitOfWork
     {
-        public DbSet<Title> Titles { get; set; }
-        public DbSet<BookTitle> BookTitles { get; set; }
-        public DbSet<BookTitleEvent> BookTitleEvents { get; set; }
-        public DbSet<Category> Categorys { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<CategoryEvent> CategoryEvents { get; set; }
-        public DbSet<BookEvent> BookEvents { get; set; }
+        public DbSet<AuthorEvent> AuthorEvents { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        // public virtual DbSet<Publisher> Publishers { get; set; }
+        // public virtual DbSet<Promotion> Promotions { get; set; }
+        // public virtual DbSet<Author> Authors { get; set; }
+        // public virtual DbSet<Customer> Customers { get; set; }
+        // public virtual DbSet<Employee> Employees { get; set; }
+        // public virtual DbSet<Book> Books { get; set; }
+        // public virtual DbSet<ProductSubscription> ProductSubscriptions { get; set; }
+        // public virtual DbSet<ProductSubscriptionItem> ProductSubscriptionItems { get; set; }
+        // public virtual DbSet<Cart> Carts { get; set; }
+        // public virtual DbSet<CartItem> CartItems { get; set; }
+        // public virtual DbSet<Category> Categories { get; set; }
+        // public virtual DbSet<OrderItem> OrderItems { get; set; }
+        // public virtual DbSet<Order> Orders { get; set; }
+        // public virtual DbSet<UserType> UserTypes { get; set; }
+        // public virtual DbSet<UserMaster> UserMasters { get; set; }
+        // public virtual DbSet<WishList> WishLists { get; set; }
+        // public virtual DbSet<WishListItem> WishListItems { get; set; }
+        
         public MainDbContext(DbContextOptions options)
             : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            builder.Entity<Book>()
-                .HasMany(m => m.Categorys)
-                .WithOne(m => m.Book)
-                .HasForeignKey(m => m.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // base.OnModelCreating(builder);
+            // builder.Entity<Book>()
+            //     .HasMany(m => m.Categorys)
+            //     .WithOne(m => m.Book)
+            //     .HasForeignKey(m => m.BookId)
+            //     .OnDelete(DeleteBehavior.Cascade);
 
             //builder.Entity<Category>()
             //    .HasOne(m => m.MyBook)
@@ -46,15 +62,40 @@ namespace StarPeaceAdminHubDB
             //    .HasForeignKey(m => m.BookId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Book>()
-                .HasIndex(m => m.ISBN);
+            // builder.Entity<Book>()
+            //     .HasIndex(m => m.ISBN);
 
-            builder.Entity<Book>()
-                .HasIndex(m => m.Title);
+            // builder.Entity<Book>()
+            //     .HasIndex(m => m.Title);
 
-            builder.Entity<Category>()
-                .HasIndex(m => m.CategoryName);
-        }
+            // builder.Entity<Category>()
+            //     .HasIndex(m => m.CategoryName);
+
+//             var hasher = new PasswordHasher<IdentityUser>();
+
+
+// //         //Seeding the User to AspNetUsers table
+//         builder.Entity<IdentityUser>().HasData(
+//             new IdentityUser
+//             {
+//                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
+//                 //Id = 1,
+//                 UserName = "myuser",
+//                 NormalizedUserName = "MYUSER",
+//                 PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+//             }
+//         );
+
+
+        //Seeding the relation between our user and role to AspNetUserRoles table
+        // builder.Entity<IdentityUserRole<string>>().HasData(
+        //     new IdentityUserRole<string>
+        //     {
+        //         RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
+        //         UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+        //     }
+        // );
+         }
 
         public async Task<bool> SaveEntitiesAsync()
         {
