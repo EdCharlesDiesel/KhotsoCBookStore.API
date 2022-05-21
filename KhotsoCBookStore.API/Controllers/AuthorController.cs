@@ -6,6 +6,7 @@ using AutoMapper;
 using KhotsoCBookStore.API.Dtos;
 using KhotsoCBookStore.API.DTOs;
 using KhotsoCBookStore.API.Entities;
+using KhotsoCBookStore.API.Queries;
 using KhotsoCBookStore.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -18,8 +19,8 @@ namespace KhotsoCBookStore.API.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class AuthorController : ControllerBase
-    { 
-        private readonly IMailService _mailService;   
+    {
+        private readonly IMailService _mailService;
         public AuthorController(IMailService mailService)
         {
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
@@ -68,48 +69,100 @@ namespace KhotsoCBookStore.API.Controllers
                 return StatusCode(500, err);
             }
         }
-    
 
-        // /// <summary>
-        // /// Get a single author resource by authorId.
-        // /// </summary>
-        // /// <returns>An IActionResult</returns>
-        // /// <response code="200">Returns the requested employes.</response>
-        // [HttpGet("{authorId}", Name = "GetAuthor")]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // public async Task<ActionResult<AuthorDto>> GetAuthorById(Guid authorId)
+        //  public async Task<IActionResult> GetAllAuthors([FromServices] IAuthorsListQuery query)
         // {
-        //     if (authorId == new Guid())
+        //      try
         //     {
-        //        return NotFound();
+        //     var results = await query.GetAllAuthors();
+        //     var response = new AuthorsListViewModel { Items = results };
+        //     return Ok(response);
         //     }
-
-        //     var author = await _authorRepository.GetAuthorByIdAsync(authorId);
-        //     return Ok(_mapper.Map<AuthorDto>(author));
+        //      catch (Exception err)
+        //     {
+        //         return StatusCode(500, err);
+        //     }
         // }
+
+        /// <summary>
+        /// Get a single author resource by authorId.
+        /// </summary>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the requested employes.</response>
+        [HttpGet("{authorId}", Name = "GetAuthor")]
+        [ProducesResponseType(typeof(IEnumerable<AuthorDTO>), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<AuthorDTO>> GetAuthorById([FromServices] MainDbContext ctx, int authorId)
+        {
+            try
+            {
+                if (authorId == 0)
+                {
+                    return NotFound();
+                }
+
+                var response = await ctx.Authors
+                       .Where(m => m.Id == authorId)
+                        .Select(m => new AuthorDTO
+                        {
+                            Id = m.BookId,
+                            FirstName = m.FirstName,
+                            LastName = m.LastName,
+                            StartPublishingDate = m.StartPublishingDate,
+                            EndPublishingDate = m.EndPublishingDate
+                        }).FirstOrDefaultAsync();
+
+                return Ok(response);
+            }
+            catch (Exception err)
+            {
+                return StatusCode(500, err);
+            }
+        }
 
         // /// <summary>
         // /// Create an author resource.
         // /// </summary>
-        // /// <returns>An IActionResult</returns>
-        // /// <response code="200">Returns the created author.</response>
+        // /// <returns>A new author which is just created</returns>
+        // /// <response code="201">Returns the created author.</response>
         // [HttpPost()]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // public async Task<ActionResult> CreateAuthor([FromBody] AuthorForCreateDto newAuthor)
+        // [ProducesResponseType(201)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<ActionResult> CreateAuthor([FromServices] MainDbContext ctx,[FromBody] AuthorForCreateDTO newAuthor)
         // {
-        //     var authorToCreate = _mapper.Map<Entities.Author>(newAuthor);
+
+        //     try
+        //     {
+
+        //           var authorToCreate = _mapper.Map<Entities.Author>(newAuthor);
         //     await _authorRepository.CreateAuthorAsync(authorToCreate);
         //     await _authorRepository.SaveChangesAsync();
 
         //     var authorToReturn = _mapper.Map<Author>(authorToCreate);
 
-        //     return CreatedAtRoute("GetAuthor",
-        //         new { authorId = authorToReturn.AuthorId },
+            
+
+
+        //         if (newAuthor != null)
+        //         {
+        //             return NotFound();
+        //         }
+
+        //         var response = await ctx.Authors.AddAsync(newAuthor);
+             
+
+        //         return CreatedAtRoute("GetAuthor",
+        //         new { authorId = response.AuthorId },
         //         authorToReturn);
+        //     }
+        //     catch (Exception err)
+        //     {
+        //         return StatusCode(500, err);
+        //     }
+          
         // }
 
         // /// <summary>
@@ -169,7 +222,7 @@ namespace KhotsoCBookStore.API.Controllers
 
         //     //patchDocument.ApplyTo(authorToPatch, ModelState);
         //     patchDocument.ApplyTo(authorToPatch);
-            
+
         //     if (!ModelState.IsValid)
         //     {
         //         return BadRequest(ModelState);
@@ -220,3 +273,71 @@ namespace KhotsoCBookStore.API.Controllers
         // }
     }
 }
+
+
+//  [HttpGet]
+//         public async Task<IActionResult> Index([FromServices] IAuthorsListQuery query)
+//         {
+//             var results = await query.GetAllAuthors();
+//             var vm = new AuthorsListViewModel { Items = results };
+//             return View(vm);
+//         }
+//         [HttpGet]
+//         public IActionResult Create()
+//         {
+//             return View("Edit");
+//         }
+//         [HttpPost]
+//         public async Task<IActionResult> Create(
+//             AuthorFullEditViewModel vm,
+//             [FromServices] ICommandHandler<CreateAuthorCommand> command)
+//         {
+//             if (ModelState.IsValid) { 
+//                 await command.HandleAsync(new CreateAuthorCommand(vm));
+//                 return RedirectToAction(
+//                     nameof(ManageAuthorsController.Index));
+//             }
+//             else
+//                 return View("Edit", vm);
+//         }
+//         [HttpGet]
+//         public async Task<IActionResult> Edit(
+//             int id,
+//             [FromServices] IAuthorRepository repo)
+//         {
+//             if (id == 0) return RedirectToAction(
+//                 nameof(ManageAuthorsController.Index));
+//             var aggregate = await repo.Get(id);
+//             if (aggregate == null) return RedirectToAction(
+//                 nameof(ManageAuthorsController.Index));
+//             var vm = new AuthorFullEditViewModel(aggregate);
+//             return View(vm);
+//         }
+//         [HttpPost]
+//         public async Task<IActionResult> Edit(
+//             AuthorFullEditViewModel vm,
+//             [FromServices] ICommandHandler<UpdateAuthorCommand> command)
+//         {
+//             if (ModelState.IsValid)
+//             {
+//                 await command.HandleAsync(new UpdateAuthorCommand(vm));
+//                 return RedirectToAction(
+//                     nameof(ManageAuthorsController.Index));
+//             }
+//             else
+//                 return View(vm);
+//         }
+
+//         [HttpGet]
+//         public async Task<IActionResult> Delete(
+//             int id,
+//             [FromServices] ICommandHandler<DeleteAuthorCommand> command)
+//         {
+//             if (id>0)
+//             {
+//                 await command.HandleAsync(new DeleteAuthorCommand(id));
+                
+//             }
+//             return RedirectToAction(
+//                     nameof(ManageAuthorsController.Index));
+//         }
