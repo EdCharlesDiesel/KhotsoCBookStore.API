@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    [Table("Customers")]
     public class Customer 
     {
         [Key]

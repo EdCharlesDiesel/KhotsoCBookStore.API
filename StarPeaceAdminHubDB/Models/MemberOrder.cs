@@ -5,13 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB
 {
-    [Table("MemberOrder")]
     public class MemberOrder
     {
-        public MemberOrder()
-        {
-            this.Transactions = new List<Transaction>();
-        }
 
         [Key]
         [Required(ErrorMessage = "Order Number is required")]
@@ -71,12 +66,5 @@ namespace StarPeaceAdminHubDB
 
         [Required(ErrorMessage = "Promotion Number is required")]
         public int PromotionNumber { get; set; } 
-
-        // dbo.MemberOrder.PromotionNumber -> dbo.Promotion.PromotionNumber (FK_MemberOrder_Promotion)
-        [ForeignKey("PromotionNumber")]
-        public Promotion Promotion { get; set; }
-
-        // dbo.Transaction.OrderNumber -> dbo.MemberOrder.OrderNumber (FK_Transaction_MemberOrder)
-        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }
