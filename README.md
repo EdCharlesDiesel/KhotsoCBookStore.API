@@ -1,3 +1,4 @@
+
 # KhotsoCBookStore.API
 
 KhotsoCBookStore.API is an API back-end of the angular front-end application [KhotsoCBookStore](https://microsoft.com/cli). This project was generated with [dotnet CLI](https://microsoft.com/cli) version 5.0.
@@ -41,3 +42,4 @@ Run `dotnet test --collect:"XPlat Code Coverage"` to execute the upnit tests via
 ## Further help
 
 To get more help on the dotnet CLI use `dotnet --help` or go check out the [dotnet CLI Overview and Command Reference](https:/microsoft.com/cli) page.
+---
