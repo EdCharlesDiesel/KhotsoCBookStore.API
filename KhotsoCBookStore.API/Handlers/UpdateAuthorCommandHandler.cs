@@ -6,7 +6,7 @@ using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDomain.IRepositories;
 using System.Threading.Tasks;
 
-namespace AuthorsManagement.Handlers
+namespace  KhotsoCBookStore.API.Handlers
 {
     public class UpdateAuthorCommandHandler : ICommandHandler<UpdateAuthorCommand>
     {

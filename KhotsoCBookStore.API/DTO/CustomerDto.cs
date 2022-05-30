@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Dtos
+namespace KhotsoCBookStore.API.DTOs
 {
-    public class CustomerDto
+    public class CustomerDTO
     {
         public Guid CustomerId { get; set; }
 

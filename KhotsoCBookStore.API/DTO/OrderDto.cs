@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace KhotsoCBookStore.API.Dtos
+namespace KhotsoCBookStore.API.DTOs
 {
-    public class OrderDto
+    public class OrderDTO
     {
         public Guid OrderId { get; set; } 
         
@@ -19,6 +18,5 @@ namespace KhotsoCBookStore.API.Dtos
 
         public decimal CartTotal { get; set; }
 
-        public List<CartItemDto> OrderItems { get; set; }
     }
 }

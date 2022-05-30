@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using KhotsoCBookStore.API.Dtos;
+using System.Net;
 using KhotsoCBookStore.API.DTOs;
-using KhotsoCBookStore.API.Entities;
-using KhotsoCBookStore.API.Queries;
-using KhotsoCBookStore.API.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using StarPeaceAdminHubDB;
+using KhotsoCBookStore.API.Exceptions;
+using KhotsoCBookStore.API.Queries;
+using KhotsoCBookStore.API.Models.Authors;
 
 namespace KhotsoCBookStore.API.Controllers
 {
@@ -20,12 +14,6 @@ namespace KhotsoCBookStore.API.Controllers
     [Route("api/[controller]")]
     public class AuthorController : ControllerBase
     {
-        private readonly IMailService _mailService;
-        public AuthorController(IMailService mailService)
-        {
-            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-        }
-
         /// <summary>
         /// Get supported resource actions
         /// </summary>
@@ -46,27 +34,23 @@ namespace KhotsoCBookStore.API.Controllers
         /// <response code="200">Returns the requested authors.</response>
         [HttpGet()]
         [ProducesResponseType(typeof(IEnumerable<AuthorsListDTO>), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAuthors([FromServices] MainDbContext ctx)
+        public async Task<IActionResult> GetAuthors([FromServices] IAuthorsListQuery query)
         {
             try
             {
-                var response = await ctx.Authors
-                    .Select(m => new AuthorsListDTO
-                    {
-                        Id = m.BookId,
-                        FirstName = m.FirstName,
-                        LastName = m.LastName,
-                        StartPublishingDate = m.StartPublishingDate,
-                        EndPublishingDate = m.EndPublishingDate
-                    })
-                    .ToListAsync();
-                return Ok(response);
+                var results = await query.GetAllAuthors();
+                var vm = new AuthorsListViewModel { Items = results };
+                return StatusCode((int)HttpStatusCode.OK, vm);
             }
-            catch (Exception err)
+            catch(AuthorNotFoundException)
             {
-                return StatusCode(500, err);
+                return StatusCode((int) HttpStatusCode.NotFound, "No authors were found in the database"); 
+            }
+            catch (Exception)
+            {
+                  return StatusCode((int) HttpStatusCode.InternalServerError, "An error occurred");
             }
         }
 
@@ -84,43 +68,44 @@ namespace KhotsoCBookStore.API.Controllers
         //     }
         // }
 
-        /// <summary>
-        /// Get a single author resource by authorId.
-        /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the requested employes.</response>
-        [HttpGet("{authorId}", Name = "GetAuthor")]
-        [ProducesResponseType(typeof(IEnumerable<AuthorDTO>), 200)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<AuthorDTO>> GetAuthorById([FromServices] MainDbContext ctx, int authorId)
-        {
-            try
-            {
-                if (authorId == 0)
-                {
-                    return NotFound();
-                }
+        // /// <summary>
+        // /// Get a single author resource by authorId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="200">Returns the requested employes.</response>
+        // [HttpGet("{authorId}", Name = "GetAuthor")]
+        // [ProducesResponseType(typeof(IEnumerable<AuthorDTO>), 200)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<ActionResult<AuthorDTO>> GetAuthorById([FromServices] MainDbContext ctx, int authorId)
+        // {
+        //     try
+        //     {
+        //         if (authorId == 0)
+        //         {
+        //             return NotFound();
+        //         }
 
-                var response = await ctx.Authors
-                       .Where(m => m.Id == authorId)
-                        .Select(m => new AuthorDTO
-                        {
-                            Id = m.BookId,
-                            FirstName = m.FirstName,
-                            LastName = m.LastName,
-                            StartPublishingDate = m.StartPublishingDate,
-                            EndPublishingDate = m.EndPublishingDate
-                        }).FirstOrDefaultAsync();
+        //         var response = await ctx.Authors
+        //                .Where(m => m.Id == authorId)
+        //                 .Select(m => new AuthorDTO
+        //                 {
+        //                     Id = m.BookId,
+        //                     FirstName = m.FirstName,
+        //                     LastName = m.LastName,
+        //                     StartPublishingDate = m.StartPublishingDate,
+        //                     EndPublishingDate = m.EndPublishingDate
+        //                 }).FirstOrDefaultAsync();
 
-                return Ok(response);
-            }
-            catch (Exception err)
-            {
-                return StatusCode(500, err);
-            }
-        }
+        //         return Ok(response);
+        //     }
+        //     catch (Exception err)
+        //     {
+
+        //         return StatusCode((int) HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
         // /// <summary>
         // /// Create an author resource.

@@ -1,50 +1,46 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using DDD.DomainLayer;
+﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDomain.DTOs;
 using StarPeaceAdminHubDomain.Events;
-
-namespace StarPeaceAdminHubDB
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace StarPeaceAdminHubDB.Models
 {
-    public class Author : Entity<int>, IAuthor
+    public class Author: Entity<int>, IPackage
     {
-        public void FullUpdate(IAuthorFullEditDTO o)
+        public void FullUpdate(IPackageFullEditDTO o)
         {
             if (IsTransient())
             {
                 Id = o.Id;
-                BookId = o.BookId;
+                DestinationId = o.DestinationId;
             }
             else
             {
-                if (o.BookStartPrice != this.BookStartPrice)
-                    this.AddDomainEvent(new AuthorBookStartPriceChangedEvent(
-                            Id, o.BookStartPrice, EntityVersion, EntityVersion + 1));
+                if (o.Price != this.Price)
+                    this.AddDomainEvent(new PackagePriceChangedEvent(
+                            Id, o.Price, EntityVersion, EntityVersion+1));
             }
-            FirstName = o.FirstName;
-            LastName = o.LastName;
-            StartPublishingDate = o.StartPublishingDate;
-            EndPublishingDate = o.EndPublishingDate;
-            BookStartPrice = o.BookStartPrice;
+            Name = o.Name;
+            Description = o.Description;
+            Price = o.Price;
+            DurationInDays = o.DurationInDays;
+            StartValidityDate = o.StartValidityDate;
+            EndValidityDate = o.EndValidityDate;
         }
-
-        [MaxLength(150), Required(ErrorMessage = "You should provide a first name.")]
-        public string FirstName { get; set; }
-
-
-        [MaxLength(150), Required(ErrorMessage = "You should provide a last name.")]
-        public string LastName { get; set; }
-
-        public DateTime? StartPublishingDate { get; set; }
-
-        public DateTime? EndPublishingDate { get; set; }
-
-        public decimal BookStartPrice { get; set; }
-
+        [MaxLength(128), Required]
+        public string Name { get; set; }
+        [MaxLength(128)]
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public int DurationInDays { get; set; }
+        public DateTime? StartValidityDate { get; set; }
+        public DateTime? EndValidityDate { get; set; }
+        public Destination MyDestination { get; set; }
         [ConcurrencyCheck]
-        public long EntityVersion { get; set; }
+        public long EntityVersion{ get; set; }
 
-        public int BookId { get; set; }
+        public int DestinationId { get; set; }
     }
 }

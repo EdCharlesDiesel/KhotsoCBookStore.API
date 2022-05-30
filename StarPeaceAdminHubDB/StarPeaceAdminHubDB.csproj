@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StarPeaceAdminHubDomain\StarPeaceAdminHubDomain.csproj" />
+    
   </ItemGroup>
 
 </Project>

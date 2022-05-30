@@ -7,7 +7,7 @@ namespace StarPeaceAdminHubDB
         : IDesignTimeDbContextFactory<MainDbContext>
     {
         private const string  connectionString =
-            @"Server=(localdb)\mssqllocaldb;Database=StarPeaceAdminHubDB;
+            @"Server=(localdb)\mssqllocaldb;Database=StarPeaceAdminHubDB2;
                 Trusted_Connection=True;MultipleActiveResultSets=true";
         public MainDbContext CreateDbContext(params string[] args)
         {

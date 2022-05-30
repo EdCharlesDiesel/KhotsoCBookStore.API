@@ -3,7 +3,7 @@ using StarPeaceAdminHubDomain.Aggregates;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AuthorsManagementDomain.IRepositories
+namespace StarPeaceAdminHubDomain.IRepositories
 {
     public interface IAuthorEventRepository:IRepository<IAuthorEvent>
     {

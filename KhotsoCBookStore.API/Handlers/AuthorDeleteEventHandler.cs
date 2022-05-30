@@ -1,10 +1,10 @@
 ﻿using DDD.ApplicationLayer;
-using AuthorsManagementDomain.IRepositories;
 using System.Threading.Tasks;
 using StarPeaceAdminHubDomain.Events;
 using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.IRepositories;
 
-namespace AuthorsManagement.Handlers
+namespace KhotsoCBookStore.API.Handlers
 {
     public class AuthorDeleteEventHandler :
         IEventHandler<AuthorDeleteEvent>

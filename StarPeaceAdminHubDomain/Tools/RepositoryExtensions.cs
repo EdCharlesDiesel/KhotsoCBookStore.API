@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DDD.DomainLayer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DDD.DomainLayer
 {
-    
     public static class RepositoryExtensions
     {
         public static IServiceCollection AddAllRepositories

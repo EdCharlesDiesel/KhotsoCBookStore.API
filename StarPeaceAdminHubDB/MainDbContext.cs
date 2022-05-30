@@ -5,44 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
 using System.Threading.Tasks;
 
+
 namespace StarPeaceAdminHubDB
 {
-    // This context defines the user's tables needed for the authentication. In our case, we
-    // opted for the IdentityUser<T> standard and IdentityRole<S> for users and roles,
-    // respectively, and used integers for both the T and S Entity keys. However, we may
-    // also use classes that inherit from IdentityUser and IdentityRole and then add
-    // further properties.
-
-    // The preceding implementation just calls the SaveChangesAsync DbContext
-    // context method, which saves all changes to the database, but then it intercepts all
-    // concurrency exceptions and detaches all the entities involved in the concurrency
-    // error from the context. This way, next time a command retries the whole failed
-    // operation, their updated versions will be reloaded from the database.
-    
-    //public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
-    public class MainDbContext : DbContext, IUnitOfWork
+    public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
     {
+        public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<AuthorEvent> AuthorEvents { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        // public virtual DbSet<Publisher> Publishers { get; set; }
-        // public virtual DbSet<Promotion> Promotions { get; set; }
-        // public virtual DbSet<Author> Authors { get; set; }
-        // public virtual DbSet<Customer> Customers { get; set; }
-        // public virtual DbSet<Employee> Employees { get; set; }
-        // public virtual DbSet<Book> Books { get; set; }
-        // public virtual DbSet<ProductSubscription> ProductSubscriptions { get; set; }
-        // public virtual DbSet<ProductSubscriptionItem> ProductSubscriptionItems { get; set; }
-        // public virtual DbSet<Cart> Carts { get; set; }
-        // public virtual DbSet<CartItem> CartItems { get; set; }
-        // public virtual DbSet<Category> Categories { get; set; }
-        // public virtual DbSet<OrderItem> OrderItems { get; set; }
-        // public virtual DbSet<Order> Orders { get; set; }
-        // public virtual DbSet<UserType> UserTypes { get; set; }
-        // public virtual DbSet<UserMaster> UserMasters { get; set; }
-        // public virtual DbSet<WishList> WishLists { get; set; }
-        // public virtual DbSet<WishListItem> WishListItems { get; set; }
-        
         public MainDbContext(DbContextOptions options)
             : base(options)
         {
@@ -50,52 +20,32 @@ namespace StarPeaceAdminHubDB
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // base.OnModelCreating(builder);
-            // builder.Entity<Book>()
-            //     .HasMany(m => m.Categorys)
-            //     .WithOne(m => m.Book)
-            //     .HasForeignKey(m => m.BookId)
+            // builder.Entity<Destination>()
+            //     .HasMany(m => m.Packages)
+            //     .WithOne(m => m.MyDestination)
+            //     .HasForeignKey(m => m.DestinationId)
             //     .OnDelete(DeleteBehavior.Cascade);
 
-            //builder.Entity<Category>()
-            //    .HasOne(m => m.MyBook)
-            //    .WithMany(m => m.Categorys)
-            //    .HasForeignKey(m => m.BookId)
+            //builder.Entity<Package>()
+            //    .HasOne(m => m.MyDestination)
+            //    .WithMany(m => m.Packages)
+            //    .HasForeignKey(m => m.DestinationId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            // builder.Entity<Book>()
-            //     .HasIndex(m => m.ISBN);
+            // builder.Entity<Destination>()
+            //     .HasIndex(m => m.Country);
 
-            // builder.Entity<Book>()
-            //     .HasIndex(m => m.Title);
+            // builder.Entity<Destination>()
+            //     .HasIndex(m => m.Name);
 
-            // builder.Entity<Category>()
-            //     .HasIndex(m => m.CategoryName);
+            // builder.Entity<Package>()
+            //     .HasIndex(m => m.Name);
 
-//             var hasher = new PasswordHasher<IdentityUser>();
+            // builder.Entity<Package>()
+            //     .HasIndex(nameof(Package.StartValidityDate), nameof(Package.EndValidityDate));
 
-
-// //         //Seeding the User to AspNetUsers table
-//         builder.Entity<IdentityUser>().HasData(
-//             new IdentityUser
-//             {
-//                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-//                 //Id = 1,
-//                 UserName = "myuser",
-//                 NormalizedUserName = "MYUSER",
-//                 PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
-//             }
-//         );
-
-
-        //Seeding the relation between our user and role to AspNetUserRoles table
-        // builder.Entity<IdentityUserRole<string>>().HasData(
-        //     new IdentityUserRole<string>
-        //     {
-        //         RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
-        //         UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
-        //     }
-        // );
-         }
+            
+        }
 
         public async Task<bool> SaveEntitiesAsync()
         {
@@ -107,10 +57,13 @@ namespace StarPeaceAdminHubDB
             {
                 foreach (var entry in ex.Entries)
                 {
+
                     entry.State = EntityState.Detached;
+
                 }
                 throw;
             }
+
         }
 
         public async Task StartAsync()
@@ -131,100 +84,3 @@ namespace StarPeaceAdminHubDB
         }
     }
 }
-
-
-// protected override void OnModelCreating(ModelBuilder modelBuilder)
-//     {
-//         base.OnModelCreating(modelBuilder);
-
-//         //Seeding a  'Administrator' role to AspNetRoles table
-//         modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole {Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
-
-
-//         //a hasher to hash the password before seeding the user to the db
-//         var hasher = new PasswordHasher<IdentityUser>();
-
-
-//         //Seeding the User to AspNetUsers table
-//         modelBuilder.Entity<IdentityUser>().HasData(
-//             new IdentityUser
-//             {
-//                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-//                 UserName = "myuser",
-//                 NormalizedUserName = "MYUSER",
-//                 PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
-//             }
-//         );
-
-
-//         //Seeding the relation between our user and role to AspNetUserRoles table
-//         modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-//             new IdentityUserRole<string>
-//             {
-//                 RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
-//                 UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
-//             }
-//         );
-        
-
-//     }
-
-// public void ConfigureServices(IServiceCollection services)  
-//        {  
-//            #region database configuration              
-//            string connectionString = config.GetConnectionString("AppDb");  
-  
-//            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(connectionString));  
-  
-//            services.AddIdentity<User, IdentityRole>()  
-//                .AddEntityFrameworkStores<AppDbContext>();  
-//            #endregion                         
-//        }
-
-
-// public class AppDbContext : IdentityDbContext<User>  
-//     {  
-//         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)  
-//         {  
-  
-//         }  
-  
-//         protected override void OnModelCreating(ModelBuilder builder)  
-//         {  
-//             base.OnModelCreating(builder);  
-//             this.SeedUsers(builder);  
-//             this.SeedUserRoles(builder);  
-//         }  
-  
-//         private void SeedUsers(ModelBuilder builder)  
-//         {  
-//             User user = new User()  
-//             {  
-//                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",  
-//                 UserName = "Admin",  
-//                 Email = "admin@gmail.com",  
-//                 LockoutEnabled = false,  
-//                 PhoneNumber = "1234567890"  
-//             };  
-  
-//             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();  
-//             passwordHasher.HashPassword(user, "Admin*123");  
-  
-//             builder.Entity<User>().HasData(user);  
-//         }  
-  
-//         private void SeedRoles(ModelBuilder builder)  
-//         {  
-//             builder.Entity<IdentityRole>().HasData(  
-//                 new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },  
-//                 new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "HR", ConcurrencyStamp = "2", NormalizedName = "Human Resource" }  
-//                 );  
-//         }  
-  
-//         private void SeedUserRoles(ModelBuilder builder)  
-//         {  
-//             builder.Entity<IdentityUserRole<string>>().HasData(  
-//                 new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }  
-//                 );  
-//         }  
-//     }  

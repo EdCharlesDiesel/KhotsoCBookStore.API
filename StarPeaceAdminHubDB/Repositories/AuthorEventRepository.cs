@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
-using AuthorsManagementDomain.IRepositories;
+using StarPeaceAdminHubDomain.IRepositories;
 
 namespace StarPeaceAdminHubDB.Repositories
 {

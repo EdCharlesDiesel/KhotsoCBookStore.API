@@ -1,12 +1,9 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
+using System.Collections.Generic;
 
-// namespace AuthorsManagement.Models.Authors
-// {
-//     public class AuthorsListViewModel
-//     {
-//         public IEnumerable<AuthorInfosViewModel> Items { get; set; }
-//     }
-// }
+namespace KhotsoCBookStore.API.Models.Authors
+{
+    public class AuthorsListViewModel
+    {
+        public IEnumerable<AuthorInfosViewModel> Items { get; set; }
+    }
+}

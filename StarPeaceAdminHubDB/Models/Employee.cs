@@ -4,17 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    [Table("Employees")]
     public class Employee
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid EmployeeId { get; set; }
+        public int Id { get; set; }
         
-        [Required]
+       
+
+      
         public string EmployeeNumber { get; set; }
+         public string FirstName { get; set; }
+          public string LastName { get; set; }
+
+           public string Occupation { get; set; }
+           public DateTime DateOfBirth { get; set; }
+           public int IdNumber { get; set; }
+           public string HighestQualification { get; set; }
         
-        [Required]
         public DateTime DateOfStartEmployment { get; set; }
         
         public DateTime DateOfEndEmployment { get; set; }

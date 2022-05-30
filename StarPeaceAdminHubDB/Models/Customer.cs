@@ -6,26 +6,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StarPeaceAdminHubDB.Models
 {
     public class Customer 
+    // IdentityUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CustomerId { get; set; } 
+        public int Id { get; set; } 
 
-        [Required]
-        [MaxLength(150)]
+       
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(150)]
+
         public string LastName { get; set; }
 
-        [Required]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
         public string Username { get; set; } 
 
-        [Required]
+        [EmailAddress]
         public string EmailAddress { get; set; }  
              
         public string Address { get; set; }
@@ -36,7 +33,7 @@ namespace StarPeaceAdminHubDB.Models
 
         public int Postal { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<MemberOrder> Orders { get; set; }
 
     }
 }

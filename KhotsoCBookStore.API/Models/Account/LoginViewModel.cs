@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KhotsoCBookStore.Models.Account
+namespace KhotsoCBookStore.API.Models.Account
 {
     public class LoginViewModel
     {

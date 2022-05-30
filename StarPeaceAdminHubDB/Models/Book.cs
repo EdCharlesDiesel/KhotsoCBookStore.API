@@ -4,6 +4,7 @@ using StarPeaceAdminHubDomain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using StarPeaceAdminHubDB.Models;
 
 namespace StarPeaceAdminHubDB.Models
 {
@@ -11,11 +12,10 @@ namespace StarPeaceAdminHubDB.Models
     {      
         [MaxLength(128), Required]  
         public string Title { get; set; }
-
-        [MaxLength(128), Required]       
+      
         public string ISBN { get; set; }  
         
-        [MaxLength(400)]
+    
         public string Description { get; set; }     
 
         [Required]
