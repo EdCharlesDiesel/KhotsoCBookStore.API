@@ -1,134 +1,134 @@
-using System;
-using Xunit;
-using KhotsoCBookStore.API.Entities;
+// using System;
+// using Xunit;
+// using KhotsoCBookStore.API.Entities;
 
-namespace KhotsoCBookStore.API.Tests.Entities
-{
-    public class CustomerTests : IDisposable
-    {
-        Customer customer;
-        public CustomerTests() => customer = new Customer
-        {
-            CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
-            FirstName = "Khotso",
-            LastName = "Mokhethi",
-            EmailAddress = "Mokhetkc@hotmail.com",
-            Address = "Mandela Street Sandton Drive",
-            City = "Sandton",
-            Province = "Gauteng",
-            Postal = 2007,
-            CreatedBy = "system",
-            CreatedOn = DateTime.Now            
-        };
+// namespace KhotsoCBookStore.API.Tests.Entities
+// {
+//     public class CustomerTests : IDisposable
+//     {
+//         Customer customer;
+//         public CustomerTests() => customer = new Customer
+//         {
+//             CustomerId = new Guid("FEB6F8D2-A51A-4EC6-8812-71A2C1819601"),
+//             FirstName = "Khotso",
+//             LastName = "Mokhethi",
+//             EmailAddress = "Mokhetkc@hotmail.com",
+//             Address = "Mandela Street Sandton Drive",
+//             City = "Sandton",
+//             Province = "Gauteng",
+//             Postal = 2007,
+//             CreatedBy = "system",
+//             CreatedOn = DateTime.Now            
+//         };
 
-        public void Dispose()
-        {
-           customer  = null;
-        }
+//         public void Dispose()
+//         {
+//            customer  = null;
+//         }
 
-        [Fact]
-        public void CanChangePostal()
-        {
-            //Arrange
-            var expected = 18521;
+//         [Fact]
+//         public void CanChangePostal()
+//         {
+//             //Arrange
+//             var expected = 18521;
 
-            //Act
-            customer.Postal = 18521;
+//             //Act
+//             customer.Postal = 18521;
 
-            //Assert
-            Assert.Equal(expected, customer.Postal);
-        }
+//             //Assert
+//             Assert.Equal(expected, customer.Postal);
+//         }
 
-        [Fact]
-        public void CanChangeProvince()
-        {
-            //Arrange
-            var expected = "North West";
+//         [Fact]
+//         public void CanChangeProvince()
+//         {
+//             //Arrange
+//             var expected = "North West";
 
-            //Act
-            customer.Province = "North West";
+//             //Act
+//             customer.Province = "North West";
 
-            //Assert
-            Assert.Equal(expected, customer.Province);
-        }
+//             //Assert
+//             Assert.Equal(expected, customer.Province);
+//         }
 
-        [Fact]
-        public void CanChangeCity()
-        {
-            //Arrange
-            var expected = "Sandton";
+//         [Fact]
+//         public void CanChangeCity()
+//         {
+//             //Arrange
+//             var expected = "Sandton";
 
-            //Act
-            customer.City = "Sandton";
+//             //Act
+//             customer.City = "Sandton";
 
-            //Assert
-            Assert.Equal(expected, customer.City);
-        }
+//             //Assert
+//             Assert.Equal(expected, customer.City);
+//         }
 
-        [Fact]
-        public void CanChangeAddress()
-        {
-            //Arrange
-            var expected = "Mandela Street Sandton Drive Gauteng";
+//         [Fact]
+//         public void CanChangeAddress()
+//         {
+//             //Arrange
+//             var expected = "Mandela Street Sandton Drive Gauteng";
 
-            //Act
-            customer.Address = "Mandela Street Sandton Drive Gauteng";
+//             //Act
+//             customer.Address = "Mandela Street Sandton Drive Gauteng";
 
-            //Assert
-            Assert.Equal(expected, customer.Address);
-        }
+//             //Assert
+//             Assert.Equal(expected, customer.Address);
+//         }
 
-        [Fact]
-        public void CanChangeEmailAddress()
-        {
-            //Arrange
-            var customer = new Customer();
+//         [Fact]
+//         public void CanChangeEmailAddress()
+//         {
+//             //Arrange
+//             var customer = new Customer();
             
-            //Act
-            customer.EmailAddress = "Mokhetkc1@hotmail.com";
+//             //Act
+//             customer.EmailAddress = "Mokhetkc1@hotmail.com";
 
-            //Assert
-            Assert.Equal("Mokhetkc1@hotmail.com", customer.EmailAddress);
-        }
+//             //Assert
+//             Assert.Equal("Mokhetkc1@hotmail.com", customer.EmailAddress);
+//         }
 
-        [Fact]
-        public void CanChangeFirstName()
-        {
-            //Arrange
-            var customer = new Customer();
+//         [Fact]
+//         public void CanChangeFirstName()
+//         {
+//             //Arrange
+//             var customer = new Customer();
             
-            //Act
-            customer.FirstName = "Data Structures And Algotithms";
+//             //Act
+//             customer.FirstName = "Data Structures And Algotithms";
 
-            //Assert
-            Assert.Equal("Data Structures And Algotithms", customer.FirstName);
-        }
+//             //Assert
+//             Assert.Equal("Data Structures And Algotithms", customer.FirstName);
+//         }
 
-        [Fact]
-        public void CanChangeId()
-        {
-            //Arrange
-            var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
+//         [Fact]
+//         public void CanChangeId()
+//         {
+//             //Arrange
+//             var expected = new Guid("D1D9BEA1-2E36-4D6A-9D85-0B97419609C9");
             
-            //Act
-            var customer = new Customer();
-            customer.CustomerId = expected;
+//             //Act
+//             var customer = new Customer();
+//             customer.CustomerId = expected;
 
-            Assert.Equal(expected, customer.CustomerId);
-        }
+//             Assert.Equal(expected, customer.CustomerId);
+//         }
 
-        [Fact]
-        public void CanChangeLastName()
-        {
-            //Arrange
-            var customer = new Customer();
+//         [Fact]
+//         public void CanChangeLastName()
+//         {
+//             //Arrange
+//             var customer = new Customer();
             
-            //Act
-            customer.LastName = "Data Structures And Algotithms";
+//             //Act
+//             customer.LastName = "Data Structures And Algotithms";
 
-            //Assert
-            Assert.Equal("Data Structures And Algotithms", customer.LastName);
-        }       
-    }
-}
+//             //Assert
+//             Assert.Equal("Data Structures And Algotithms", customer.LastName);
+//         }       
+//     }
+// }
     
