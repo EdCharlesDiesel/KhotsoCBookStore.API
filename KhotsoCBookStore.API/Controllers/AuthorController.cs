@@ -6,10 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using KhotsoCBookStore.API.Exceptions;
 using KhotsoCBookStore.API.Queries;
 using KhotsoCBookStore.API.Models.Authors;
-using AutoMapper;
-using KhotsoCBookStore.API.DTO;
-using StarPeaceAdminHubDB;
-using System.Linq;
 using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
 using Microsoft.AspNetCore.JsonPatch;
@@ -97,11 +93,11 @@ namespace KhotsoCBookStore.API.Controllers
             }
         }
 
-        /// <summary>
-        /// Create an author resource.
-        /// </summary>
-        /// <returns>A new author which is just created</returns>
-        /// <response code="201">Returns the created author.</response>
+        // /// <summary>
+        // /// Create an author resource.
+        // /// </summary>
+        // /// <returns>A new author which is just created</returns>
+        // /// <response code="201">Returns the created author.</response>
         // [HttpPost()]
         // [ProducesResponseType(typeof(AuthorFullEditViewModel), 201)]
         // [ProducesResponseType(400)]
@@ -127,7 +123,6 @@ namespace KhotsoCBookStore.API.Controllers
         //     {
         //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
         //     }
-
         // }
 
         // /// <summary>
@@ -139,49 +134,83 @@ namespace KhotsoCBookStore.API.Controllers
         // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(404)]
-        // [ProducesResponseType(500)]        
-        // public async Task<ActionResult> UpdateAuthor(AuthorFullEditViewModel vm,
-        //     [FromServices] ICommandHandler<UpdateAuthorCommand> command)
-        // {
+        // [ProducesResponseType(500)]
+        // public async Task<ActionResult> UpdateAuthor(AuthorFullEditViewModel vm
+        //     // ,
+        //     //     [FromServices] ICommandHandler<UpdateAuthorCommand> command
 
-        //     await command.HandleAsync(new UpdateAuthorCommand(vm)); 
-        //     return NoContent();
+        //     )
+        // {
+        //     try
+        //     {
+
+        //         // await command.HandleAsync(new CreateAuthorCommand(vm));
+
+        //         // return CreatedAtRoute("GetAuthor",
+        //         //         new { authorId = vm.Id },
+        //         //         vm);await command.HandleAsync(new UpdateAuthorCommand(vm)); 
+        //         return NoContent();
+        //         throw new NotImplementedException();
+
+        //     }
+        //     catch (AuthorNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
         // }
 
-        /// <summary>
-        /// Partial update author resource by authorId.
-        /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns no content.</response>
-        [HttpPatch("{authorId}")]
-        [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(405)]
-        public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
-            JsonPatchDocument<AuthorForUpdateDto> patchDocument)
-        {
-            
-//             await command.HandleAsync(new UpdateAuthorCommand(vm));
-// //                 return RedirectToAction(
-// //                     nameof(ManageAuthorsController.Index));
-//             //patchDocument.ApplyTo(authorToPatch, ModelState);
-//             patchDocument.ApplyTo(authorToPatch);
+        // /// <summary>
+        // /// Partial update author resource by authorId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="200">Returns no content.</response>
+        // [HttpPatch("{authorId}")]
+        // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(405)]
+        // public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
+        //     JsonPatchDocument<AuthorForUpdateDto> patchDocument)
+        // {
 
-//             if (!ModelState.IsValid)
-//             {
-//                 return BadRequest(ModelState);
-//             }
+        //     try
+        //     {
+        //         //      if (!ModelState.IsValid)
+        //         //             {
+        //         //                 return BadRequest(ModelState);
+        //         //             }
 
-//             if (!TryValidateModel(authorToPatch))
-//             {
-//                 return BadRequest(ModelState);
-//             }
+        //         //             if (!TryValidateModel(authorToPatch))
+        //         //             {
+        //         //                 return BadRequest(ModelState);
+        //         //             }
+        //         //             await command.HandleAsync(new UpdateAuthorCommand(vm));
+        //         // //                 return RedirectToAction(
+        //         // //                     nameof(ManageAuthorsController.Index));
+        //         //             //patchDocument.ApplyTo(authorToPatch, ModelState);
+        //         //             patchDocument.ApplyTo(authorToPatch);
+        //         // await command.HandleAsync(new CreateAuthorCommand(vm));
 
-//             return NoContent();
+        //         // return CreatedAtRoute("GetAuthor",
+        //         //         new { authorId = vm.Id },
+        //         //         vm);await command.HandleAsync(new UpdateAuthorCommand(vm)); 
+        //         // return NoContent();
+        //         throw new NotImplementedException();
 
-                throw new NotImplementedException();
-        }
+        //     }
+        //     catch (AuthorNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
         // /// <summary>
         // /// Delete a single author resource by authorId.
@@ -192,24 +221,35 @@ namespace KhotsoCBookStore.API.Controllers
         // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(400)]
-        // public async Task<ActionResult> DeleteAuthor(int authorId,[FromServices] ICommandHandler<DeleteAuthorCommand> command)
+        // public async Task<ActionResult> DeleteAuthor(int authorId
+        // // , [FromServices] ICommandHandler<DeleteAuthorCommand> command
+        // )
         // {
+        //     try
+        //     {
+        //         // if (authorId>0)
+        //         // {
+        //         //     await command.HandleAsync(new DeleteAuthorCommand(authorId));
 
-        //     // if (authorId>0)
-        //     // {
-        //     //     await command.HandleAsync(new DeleteAuthorCommand(authorId));
+        //         // }
+        //         // return RedirectToAction(
+        //         //         nameof(ManageAuthorsController.Index));
 
-        //     // }
-        //     // return RedirectToAction(
-        //     //         nameof(ManageAuthorsController.Index));
-           
+        //         // //  _mailService.Send(
+        //         // //      "Author deleted.",
+        //         // //   $"Author named {authorEntity.FirstName} with id {authorEntity.AuthorId} was deleted.");
 
-        //     // //  _mailService.Send(
-        //     // //      "Author deleted.",
-        //     // //   $"Author named {authorEntity.FirstName} with id {authorEntity.AuthorId} was deleted.");
-
-        //     // return NoContent();
-        //     throw new NotImplementedException();
+        //         // return NoContent();
+        //         throw new NotImplementedException();
+        //     }
+        //     catch (AuthorNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
         // }
     }
 }
