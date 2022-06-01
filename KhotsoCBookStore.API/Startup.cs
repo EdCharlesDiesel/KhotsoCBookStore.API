@@ -1,3 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,8 +43,8 @@ namespace KhotsoCBookStore.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "KhotsoCBookStore.API", Version = "v1" });
             });
-
-            services.AddControllersWithViews();
+			
+			services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbLayer(Configuration.GetConnectionString("DefaultConnection"),
                 "StarPeaceAdminHubDB");
@@ -39,11 +52,6 @@ namespace KhotsoCBookStore.API
             services.AddAllQueries(this.GetType().Assembly);
             services.AddAllCommandHandlers(this.GetType().Assembly);
             services.AddAllEventHandlers(this.GetType().Assembly);
-
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            //IAuthorsListQuery, AuthorDTO>();
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,12 +23,12 @@ namespace KhotsoCBookStore.API.Queries
                 Value = m.Id
             })
             .OrderBy(m => m.Text)
-            .ToListAsync());
-            // .Select(m => new SelectListItem
-            // {
-            //     Text = m.Text,
-            //     Value = m.Value.ToString()
-            // });
+            .ToListAsync())
+            .Select(m => new SelectListItem
+            {
+                Text = m.Text,
+                Value = m.Value.ToString()
+            });
         }
     }
 }

@@ -1,37 +1,37 @@
 
-using KhotsoCBookStore.API.Helpers;
-using Xunit;
+// using KhotsoCBookStore.API.Helpers;
+// using Xunit;
 
-namespace KhotsoCBookStore.API.Tests
-{
-    public class AppSettingsTests
-    {
-        AppSettings appSettings;
+// namespace KhotsoCBookStore.API.Tests
+// {
+//     public class AppSettingsTests
+//     {
+//         AppSettings appSettings;
         
-        public AppSettingsTests()
-        {
-            appSettings = new AppSettings
-            {
-             Secret = "victoria's secret"
-            };
-        }
+//         public AppSettingsTests()
+//         {
+//             appSettings = new AppSettings
+//             {
+//              Secret = "victoria's secret"
+//             };
+//         }
 
-        public void Dispose()
-        {
-           appSettings  = null;
-        }
+//         public void Dispose()
+//         {
+//            appSettings  = null;
+//         }
 
-        [Fact]
-        public void CanChangeSecret()
-        {
-            //Arrange
-            var expected = "Victoria's secret";
+//         [Fact]
+//         public void CanChangeSecret()
+//         {
+//             //Arrange
+//             var expected = "Victoria's secret";
             
-            //Act
-            appSettings.Secret = "Victoria's secret";
+//             //Act
+//             appSettings.Secret = "Victoria's secret";
 
-            //Assert
-            Assert.Equal(expected, appSettings.Secret);
-        }
-    }
-}
+//             //Assert
+//             Assert.Equal(expected, appSettings.Secret);
+//         }
+//     }
+// }

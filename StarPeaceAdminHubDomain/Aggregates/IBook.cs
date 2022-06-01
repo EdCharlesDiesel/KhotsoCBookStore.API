@@ -1,27 +1,26 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.DTOs;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
     public interface IBook: IEntity<int>
-    {        
-        string Title { get; set; }
-
-        string ISBN { get; set; }
-
-        string Description {get;set;}
+    {    
+        void FullUpdate(IBookFullEditDTO o);    
         
-        DateTime PublishingDate { get; set; }
-        
-        decimal Cost { get; set; }    
+        string Title { get;  }
 
-        decimal RetailPrice { get; set; }     
-        
-        string CoverFileName { get; set; } 
+        string ISBN { get; }
 
-        void FullUpdate(IBookFullEditDTO o);        
+        string Description {get;}
+        
+        DateTime PublishingDate { get;  }
+        
+        decimal Cost { get;  }    
+
+        decimal RetailPrice { get;  }     
+        
+        string CoverFileName { get;  } 
+               
     }
 }

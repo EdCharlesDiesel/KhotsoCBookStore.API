@@ -33,75 +33,75 @@ namespace KhotsoCBookStore.API.Controllers
             return Ok();
         }
 
-        // /// <summary>
-        // /// Get all authors resources.
-        // /// </summary>
-        // /// <returns>An AuthorsListViewModel of authors</returns>
-        // /// <response code="200">Returns the requested authors.</response>
-        // [HttpGet()]
-        // [ProducesResponseType(typeof(IEnumerable<AuthorsListViewModel>), 200)]
-        // [ProducesResponseType(404)]
-        // [ProducesResponseType(500)]
-        // public async Task<IActionResult> GetAuthors([FromServices] IAuthorsListQuery query)
-        // {
-        //     try
-        //     {
-        //         var results = await query.GetAllAuthors();
-        //         var vm = new AuthorsListViewModel { Authors = results };
-        //         return StatusCode((int)HttpStatusCode.OK, vm);
-        //     }
-        //     catch (AuthorNotFoundException)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.NotFound, "No authors were found in the database");
-        //     }
-        //     catch (Exception)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
-        //     }
-        // }
+        /// <summary>
+        /// Get all authors resources.
+        /// </summary>
+        /// <returns>An AuthorsListViewModel of authors</returns>
+        /// <response code="200">Returns the requested authors.</response>
+        [HttpGet()]
+        [ProducesResponseType(typeof(IEnumerable<AuthorsListViewModel>), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetAuthors([FromServices] IAuthorsListQuery query)
+        {
+            try
+            {
+                var results = await query.GetAllAuthors();
+                var vm = new AuthorsListViewModel { Authors = results };
+                return StatusCode((int)HttpStatusCode.OK, vm);
+            }
+            catch (AuthorNotFoundException)
+            {
+                return StatusCode((int)HttpStatusCode.NotFound, "No authors were found in the database");
+            }
+            catch (Exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+            }
+        }
 
 
-        // /// <summary>
-        // /// Get a single author resource by authorId.
-        // /// </summary>
-        // /// <returns>An IActionResult</returns>
-        // /// <response code="201">Returns the requested employes.</response>
-        // [HttpGet("{authorId}", Name = "GetAuthor")]
-        // [ProducesResponseType(typeof(IEnumerable<AuthorInfosViewModel>), 200)]
-        // [ProducesResponseType(404)]
-        // [ProducesResponseType(400)]
-        // [ProducesResponseType(500)]
-        // public async Task<IActionResult> GetAuthorById([FromServices] IAuthorQuery query, int authorId)
-        // {
-        //     try
-        //     {
-        //         var results = await query.GetAuthorById(authorId);
-        //         var vm = new AuthorInfosViewModel
-        //         {
-        //             Id = results.Id,
-        //             FirstName = results.FirstName,
-        //             // LastName = results.LastName,
-        //             BookStartPrice = results.BookStartPrice,
-        //             StartPublishingDate = results.StartPublishingDate,
-        //             EndPublishingDate = results.EndPublishingDate
-        //         };
-        //         return StatusCode((int)HttpStatusCode.OK, vm);
-        //     }
-        //     catch (AuthorNotFoundException)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.NotFound, "No author was found in the database");
-        //     }
-        //     catch (Exception)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
-        //     }
-        // }
+        /// <summary>
+        /// Get a single author resource by authorId.
+        /// </summary>
+        /// <returns>An IActionResult</returns>
+        /// <response code="201">Returns the requested employes.</response>
+        [HttpGet("{authorId}", Name = "GetAuthor")]
+        [ProducesResponseType(typeof(IEnumerable<AuthorInfosViewModel>), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetAuthorById([FromServices] IAuthorQuery query, int authorId)
+        {
+            try
+            {
+                var results = await query.GetAuthorById(authorId);
+                var vm = new AuthorInfosViewModel
+                {
+                    Id = results.Id,
+                    FirstName = results.FirstName,
+                    // LastName = results.LastName,
+                    BookStartPrice = results.BookStartPrice,
+                    StartPublishingDate = results.StartPublishingDate,
+                    EndPublishingDate = results.EndPublishingDate
+                };
+                return StatusCode((int)HttpStatusCode.OK, vm);
+            }
+            catch (AuthorNotFoundException)
+            {
+                return StatusCode((int)HttpStatusCode.NotFound, "No author was found in the database");
+            }
+            catch (Exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+            }
+        }
 
-        // /// <summary>
-        // /// Create an author resource.
-        // /// </summary>
-        // /// <returns>A new author which is just created</returns>
-        // /// <response code="201">Returns the created author.</response>
+        /// <summary>
+        /// Create an author resource.
+        /// </summary>
+        /// <returns>A new author which is just created</returns>
+        /// <response code="201">Returns the created author.</response>
         // [HttpPost()]
         // [ProducesResponseType(typeof(AuthorFullEditViewModel), 201)]
         // [ProducesResponseType(400)]
@@ -148,19 +148,19 @@ namespace KhotsoCBookStore.API.Controllers
         //     return NoContent();
         // }
 
-        // /// <summary>
-        // /// Partial update author resource by authorId.
-        // /// </summary>
-        // /// <returns>An IActionResult</returns>
-        // /// <response code="200">Returns no content.</response>
-        // [HttpPatch("{authorId}")]
-        // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
-        // [ProducesResponseType(404)]
-        // [ProducesResponseType(400)]
-        // [ProducesResponseType(405)]
-        // public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
-        //     JsonPatchDocument<AuthorForUpdateDto> patchDocument)
-        // {
+        /// <summary>
+        /// Partial update author resource by authorId.
+        /// </summary>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns no content.</response>
+        [HttpPatch("{authorId}")]
+        [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(405)]
+        public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
+            JsonPatchDocument<AuthorForUpdateDto> patchDocument)
+        {
             
 //             await command.HandleAsync(new UpdateAuthorCommand(vm));
 // //                 return RedirectToAction(
@@ -180,8 +180,8 @@ namespace KhotsoCBookStore.API.Controllers
 
 //             return NoContent();
 
-        //         throw new NotImplementedException();
-        // }
+                throw new NotImplementedException();
+        }
 
         // /// <summary>
         // /// Delete a single author resource by authorId.

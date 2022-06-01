@@ -1,11 +1,13 @@
 ﻿using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.IRepositories;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB.Models;
-using StarPeaceAdminHubDomain.IRepositories;
 
 namespace StarPeaceAdminHubDB.Repositories
 {
@@ -26,7 +28,7 @@ namespace StarPeaceAdminHubDB.Repositories
                 .ToListAsync();
         }
 
-        public IAuthorEvent New(AuthorEventType type, int id, long oldVersion, long? newVersion=null, decimal price=0)
+        public IAuthorEvent New(AuthorEventType type, int id, long oldVersion, long? newVersion=null, decimal bookStartPrice=0)
         {
             var model = new AuthorEvent
             {
@@ -34,7 +36,7 @@ namespace StarPeaceAdminHubDB.Repositories
                 AuthorId = id,
                 OldVersion = oldVersion,
                 NewVersion = newVersion,
-                NewBookStartPrice = price
+                NewBookStartPrice = bookStartPrice
             };
             context.AuthorEvents.Add(model);
             return model;
