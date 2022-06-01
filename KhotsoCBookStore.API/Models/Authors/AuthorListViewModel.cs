@@ -4,6 +4,6 @@ namespace KhotsoCBookStore.API.Models.Authors
 {
     public class AuthorsListViewModel
     {
-        public IEnumerable<AuthorInfosViewModel> Items { get; set; }
+        public IEnumerable<AuthorInfosViewModel> Authors { get; set; }
     }
 }

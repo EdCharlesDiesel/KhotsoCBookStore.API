@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Queries
 {
-    public class AuthorsListQuery : IAuthorsListQuery
+    public class AuthorQuery : IAuthorQuery
     {
         private readonly MainDbContext ctx;
-        public AuthorsListQuery(MainDbContext ctx)
+        public AuthorQuery(MainDbContext ctx)
         {
             this.ctx = ctx;
         }
@@ -19,25 +19,23 @@ namespace KhotsoCBookStore.API.Queries
             return await ctx.Authors.Select(m => new AuthorInfosViewModel
             {
                 FirstName = m.FirstName,
-             //   LastName = m.LastName,
+                //LastName = m.LastName,
                 StartPublishingDate = m.StartPublishingDate,
                 EndPublishingDate = m.EndPublishingDate,
                 BookStartPrice = m.BookStartPrice
             }).ToListAsync();
         }
 
-      
         public async Task<AuthorInfosViewModel> GetAuthorById(int authorId)
         {
             return await ctx.Authors.Select(m => new AuthorInfosViewModel
             {
                 FirstName = m.FirstName,
-                //LastName = m.LastName,
+               // LastName = m.LastName,
                 StartPublishingDate = m.StartPublishingDate,
                 EndPublishingDate = m.EndPublishingDate,
                 BookStartPrice = m.BookStartPrice
             }).FirstOrDefaultAsync();
         }
-        
     }
 }

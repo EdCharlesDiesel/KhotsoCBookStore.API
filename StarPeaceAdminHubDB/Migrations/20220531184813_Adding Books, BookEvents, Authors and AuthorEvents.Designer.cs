@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarPeaceAdminHubDB;
 
 namespace StarPeaceAdminHubDB.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220531184813_Adding Books, BookEvents, Authors and AuthorEvents")]
+    partial class AddingBooksBookEventsAuthorsandAuthorEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

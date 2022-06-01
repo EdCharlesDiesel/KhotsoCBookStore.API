@@ -8,7 +8,7 @@ namespace KhotsoCBookStore.API.Models.Authors
 
         public string FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public string LastName { get; }
 
         public decimal BookStartPrice { get; set; }
         

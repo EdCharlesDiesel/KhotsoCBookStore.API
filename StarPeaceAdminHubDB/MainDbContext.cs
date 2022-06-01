@@ -10,21 +10,25 @@ namespace StarPeaceAdminHubDB
 {
     public class MainDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>, IUnitOfWork
     {
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<Destination> Destinations { get; set; }
+        public DbSet<PackageEvent> PackageEvents { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<AuthorEvent> AuthorEvents { get; set; }
+
         public MainDbContext(DbContextOptions options)
             : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // base.OnModelCreating(builder);
-            // builder.Entity<Destination>()
-            //     .HasMany(m => m.Packages)
-            //     .WithOne(m => m.MyDestination)
-            //     .HasForeignKey(m => m.DestinationId)
-            //     .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(builder);
+            builder.Entity<Destination>()
+                .HasMany(m => m.Packages)
+                .WithOne(m => m.MyDestination)
+                .HasForeignKey(m => m.DestinationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //builder.Entity<Package>()
             //    .HasOne(m => m.MyDestination)
@@ -32,17 +36,17 @@ namespace StarPeaceAdminHubDB
             //    .HasForeignKey(m => m.DestinationId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            // builder.Entity<Destination>()
-            //     .HasIndex(m => m.Country);
+            builder.Entity<Destination>()
+                .HasIndex(m => m.Country);
 
-            // builder.Entity<Destination>()
-            //     .HasIndex(m => m.Name);
+            builder.Entity<Destination>()
+                .HasIndex(m => m.Name);
 
-            // builder.Entity<Package>()
-            //     .HasIndex(m => m.Name);
+            builder.Entity<Package>()
+                .HasIndex(m => m.Name);
 
-            // builder.Entity<Package>()
-            //     .HasIndex(nameof(Package.StartValidityDate), nameof(Package.EndValidityDate));
+            builder.Entity<Package>()
+                .HasIndex(nameof(Package.StartValidityDate), nameof(Package.EndValidityDate));
 
             
         }

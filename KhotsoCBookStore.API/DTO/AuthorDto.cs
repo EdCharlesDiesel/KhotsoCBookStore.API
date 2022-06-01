@@ -1,10 +1,11 @@
+
 using System;
 
-namespace KhotsoCBookStore.API.DTOs
+namespace KhotsoCBookStore.API.DTO
 {
     public class AuthorDTO
     {
-        public int Id { get; set; }    
+        public int AuthorId { get; }
 
         public string FirstName { get; set; }
 
@@ -12,11 +13,9 @@ namespace KhotsoCBookStore.API.DTOs
 
         public decimal BookStartPrice { get; set; }
 
-        public DateTime? StartPublishingDate { get;set;}
+        public DateTime? StartPublishingDate { get;}
         
-        public DateTime? EndPublishingDate { get; set; }
-
-        int BookId { get; } 
+        public DateTime? EndPublishingDate { get;  }
 
     }
 }

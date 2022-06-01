@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using DDD.ApplicationLayer;
 using StarPeaceAdminHubDB.Extensions;
+using System;
+using KhotsoCBookStore.API.Queries;
+using KhotsoCBookStore.API.DTO;
 
 namespace KhotsoCBookStore.API
 {
@@ -36,6 +39,11 @@ namespace KhotsoCBookStore.API
             services.AddAllQueries(this.GetType().Assembly);
             services.AddAllCommandHandlers(this.GetType().Assembly);
             services.AddAllEventHandlers(this.GetType().Assembly);
+
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //IAuthorsListQuery, AuthorDTO>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
