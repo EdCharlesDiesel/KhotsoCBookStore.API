@@ -26,7 +26,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// </summary>
         /// <returns>API actions allowed</returns>
         /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        /// <response code="200">Returns the list of all requests allowed on this end-point.</response>
         [HttpOptions]
         public IActionResult GetAuthorsAPIOptions()
         {
