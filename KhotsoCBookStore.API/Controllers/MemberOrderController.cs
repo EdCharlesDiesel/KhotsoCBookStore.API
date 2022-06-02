@@ -1,17 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KhotsoCBookStore.API.Controllers
 {
-    [Produces("application/json")]
+     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class PublisherController : Controller
+    public class MemberOrderController : Controller
     {
 
         /// <summary>
@@ -21,32 +17,32 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the list of all requests allowed on this end-point</response>
         [HttpOptions]
-        public IActionResult GetPublishersAPIOptions()
+        public IActionResult GetMemberOrdersAPIOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
         }
 
         // /// <summary>
-        // /// Get all publishers resources.
+        // /// Get all memberOrders resources.
         // /// </summary>
-        // /// <returns>An PublishersListViewModel of publishers</returns>
-        // /// <response code="200">Returns the requested publishers.</response>
+        // /// <returns>An MemberOrdersListViewModel of memberOrders</returns>
+        // /// <response code="200">Returns the requested memberOrders.</response>
         // [HttpGet()]
-        // [ProducesResponseType(typeof(IEnumerable<PublishersListViewModel>), 200)]
+        // [ProducesResponseType(typeof(IEnumerable<MemberOrdersListViewModel>), 200)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(500)]
-        // public async Task<IActionResult> GetPublishers([FromServices] IPublishersListQuery query)
+        // public async Task<IActionResult> GetMemberOrders([FromServices] IMemberOrdersListQuery query)
         // {
         //     try
         //     {
-        //         var results = await query.GetAllPublishers();
-        //         var vm = new PublishersListViewModel { Publishers = results };
+        //         var results = await query.GetAllMemberOrders();
+        //         var vm = new MemberOrdersListViewModel { MemberOrders = results };
         //         return StatusCode((int)HttpStatusCode.OK, vm);
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.NotFound, "No publishers were found in the database");
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No memberOrders were found in the database");
         //     }
         //     catch (Exception)
         //     {
@@ -56,21 +52,21 @@ namespace KhotsoCBookStore.API.Controllers
 
 
         // /// <summary>
-        // /// Get a single publisher resource by publisherId.
+        // /// Get a single memberOrder resource by memberOrderId.
         // /// </summary>
         // /// <returns>An IActionResult</returns>
         // /// <response code="201">Returns the requested employes.</response>
-        // [HttpGet("{publisherId}", Name = "GetPublisher")]
-        // [ProducesResponseType(typeof(IEnumerable<PublisherInfosViewModel>), 200)]
+        // [HttpGet("{memberOrderId}", Name = "GetMemberOrder")]
+        // [ProducesResponseType(typeof(IEnumerable<MemberOrderInfosViewModel>), 200)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(500)]
-        // public async Task<IActionResult> GetPublisherById([FromServices] IPublisherQuery query, int publisherId)
+        // public async Task<IActionResult> GetMemberOrderById([FromServices] IMemberOrderQuery query, int memberOrderId)
         // {
         //     try
         //     {
-        //         var results = await query.GetPublisherById(publisherId);
-        //         var vm = new PublisherInfosViewModel
+        //         var results = await query.GetMemberOrderById(memberOrderId);
+        //         var vm = new MemberOrderInfosViewModel
         //         {
         //             Id = results.Id,
         //             FirstName = results.FirstName,
@@ -81,9 +77,9 @@ namespace KhotsoCBookStore.API.Controllers
         //         };
         //         return StatusCode((int)HttpStatusCode.OK, vm);
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.NotFound, "No publisher was found in the database");
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No memberOrder was found in the database");
         //     }
         //     catch (Exception)
         //     {
@@ -92,30 +88,30 @@ namespace KhotsoCBookStore.API.Controllers
         // }
 
         // /// <summary>
-        // /// Create an publisher resource.
+        // /// Create an memberOrder resource.
         // /// </summary>
-        // /// <returns>A new publisher which is just created</returns>
-        // /// <response code="201">Returns the created publisher.</response>
+        // /// <returns>A new memberOrder which is just created</returns>
+        // /// <response code="201">Returns the created memberOrder.</response>
         // [HttpPost()]
-        // [ProducesResponseType(typeof(PublisherFullEditViewModel), 201)]
+        // [ProducesResponseType(typeof(MemberOrderFullEditViewModel), 201)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(500)]
-        // public async Task<ActionResult> CreatePublisher(PublisherFullEditViewModel vm, [FromServices] ICommandHandler<CreatePublisherCommand> command)
+        // public async Task<ActionResult> CreateMemberOrder(MemberOrderFullEditViewModel vm, [FromServices] ICommandHandler<CreateMemberOrderCommand> command)
         // {
         //     try
         //     {
 
-        //         await command.HandleAsync(new CreatePublisherCommand(vm));
+        //         await command.HandleAsync(new CreateMemberOrderCommand(vm));
 
-        //         return CreatedAtRoute("GetPublisher",
-        //                 new { publisherId = vm.Id },
+        //         return CreatedAtRoute("GetMemberOrder",
+        //                 new { memberOrderId = vm.Id },
         //                 vm);
         //         // throw new NotImplementedException();
 
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.BadRequest, "No publisher was found in the database");
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No memberOrder was found in the database");
         //     }
         //     catch (Exception)
         //     {
@@ -125,33 +121,33 @@ namespace KhotsoCBookStore.API.Controllers
         // }
 
         // /// <summary>
-        // /// Update publisher resource by publisherId.
+        // /// Update memberOrder resource by memberOrderId.
         // /// </summary>
         // /// <returns>An IActionResult</returns>
         // /// <response code="204">Returns no content.</response>
-        // [HttpPut("{publisherId}")]
-        // [ProducesResponseType(typeof(PublisherFullEditViewModel), 204)]
+        // [HttpPut("{memberOrderId}")]
+        // [ProducesResponseType(typeof(MemberOrderFullEditViewModel), 204)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(500)]
         // public async Task<IActionResult> Edit(
-        //     int publisherId,
-        //     [FromServices] IPublisherRepository repo, PublisherFullEditViewModel vm,
-        //     [FromServices] ICommandHandler<UpdatePublisherCommand> command)
+        //     int memberOrderId,
+        //     [FromServices] IMemberOrderRepository repo, MemberOrderFullEditViewModel vm,
+        //     [FromServices] ICommandHandler<UpdateMemberOrderCommand> command)
         // {
         //     try
         //     {
-        //         var aggregate = await repo.Get(publisherId);
+        //         var aggregate = await repo.Get(memberOrderId);
         //         if (aggregate == null) return NotFound();
 
 
-        //         var viewModel = new PublisherFullEditViewModel(aggregate);
-        //         await command.HandleAsync(new UpdatePublisherCommand(vm));
+        //         var viewModel = new MemberOrderFullEditViewModel(aggregate);
+        //         await command.HandleAsync(new UpdateMemberOrderCommand(vm));
         //         return NoContent();
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.BadRequest, "No publisher was found in the database");
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No memberOrder was found in the database");
         //     }
         //     catch (Exception)
         //     {
@@ -161,40 +157,40 @@ namespace KhotsoCBookStore.API.Controllers
         // }
 
         // /// <summary>
-        // /// Partial update publisher resource by publisherId.
+        // /// Partial update memberOrder resource by memberOrderId.
         // /// </summary>
         // /// <returns>An IActionResult</returns>
         // /// <response code="200">Returns no content.</response>
-        // [HttpPatch("{publisherId}")]
-        // [ProducesResponseType(typeof(PublisherFullEditViewModel), 204)]
+        // [HttpPatch("{memberOrderId}")]
+        // [ProducesResponseType(typeof(MemberOrderFullEditViewModel), 204)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(405)]
-        // public async Task<ActionResult> PartiallyUpdatePublisher(Guid publisherId,
-        //     JsonPatchDocument<PublisherForUpdateDto> patchDocument)
+        // public async Task<ActionResult> PartiallyUpdateMemberOrder(Guid memberOrderId,
+        //     JsonPatchDocument<MemberOrderForUpdateDto> patchDocument)
         // {
         //     try
         //     {
-        //         // await command.HandleAsync(new UpdatePublisherCommand(vm));
+        //         // await command.HandleAsync(new UpdateMemberOrderCommand(vm));
         //         // return RedirectToAction(
-        //         // nameof(ManagePublishersController.Index));      
+        //         // nameof(ManageMemberOrdersController.Index));      
 
-        //         //         patchDocument.ApplyTo(publisherToPatch);
+        //         //         patchDocument.ApplyTo(memberOrderToPatch);
         //         //          if (!ModelState.IsValid)
         //         // {
         //         //     return BadRequest(ModelState);
         //         // }
 
-        //         // if (!TryValidateModel(publisherToPatch))
+        //         // if (!TryValidateModel(memberOrderToPatch))
         //         // {
         //         //     return BadRequest(ModelState);
         //         // }
 
         //         throw new NotImplementedException();
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.BadRequest, "No publisher was found in the database");
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No memberOrder was found in the database");
         //     }
         //     catch (Exception)
         //     {
@@ -204,32 +200,32 @@ namespace KhotsoCBookStore.API.Controllers
 
 
         // /// <summary>
-        // /// Delete a single publisher resource by publisherId.
+        // /// Delete a single memberOrder resource by memberOrderId.
         // /// </summary>
         // /// <returns>An ActionResult</returns>
         // /// <response code="204">Returns the requested employes.</response>
-        // [HttpDelete("{publisherId}")]
+        // [HttpDelete("{memberOrderId}")]
         // [ProducesResponseType(204)]
         // [ProducesResponseType(404)]
         // [ProducesResponseType(400)]
         // [ProducesResponseType(500)]
-        // public async Task<IActionResult> DeletePublisher(
-        //     int publisherId,
-        //     [FromServices] ICommandHandler<DeletePublisherCommand> command)
+        // public async Task<IActionResult> DeleteMemberOrder(
+        //     int memberOrderId,
+        //     [FromServices] ICommandHandler<DeleteMemberOrderCommand> command)
         // {
         //     try
         //     {
-        //         if (publisherId > 0)
+        //         if (memberOrderId > 0)
         //         {
-        //             await command.HandleAsync(new DeletePublisherCommand(publisherId));
+        //             await command.HandleAsync(new DeleteMemberOrderCommand(memberOrderId));
         //         }
         //         // return RedirectToAction(
-        //         //         nameof(ManagePublishersController.Index));
+        //         //         nameof(ManageMemberOrdersController.Index));
         //         return NoContent();
         //     }
-        //     catch (PublisherNotFoundException)
+        //     catch (MemberOrderNotFoundException)
         //     {
-        //         return StatusCode((int)HttpStatusCode.BadRequest, "No publisher was found in the database");
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No memberOrder was found in the database");
         //     }
         //     catch (Exception)
         //     {

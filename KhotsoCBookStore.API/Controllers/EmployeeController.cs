@@ -1,202 +1,238 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Threading.Tasks;
-// using AutoMapper;
-// using KhotsoCBookStore.API.Dtos;
-// using KhotsoCBookStore.API.Services;
-// using Microsoft.AspNetCore.Http;
-// using Microsoft.AspNetCore.JsonPatch;
-// using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 
-// namespace KhotsoCBookStore.API.Controllers
-// {
-//     [Produces("application/json")]
-//     [Route("api/[controller]")]
-//     public class EmployeeController : Controller
-//     {
-//         readonly IEmployeeService _employeeService;
-//         private readonly IMailService _mailService;
-//         private readonly IMapper _mapper;
-//         public EmployeeController(IEmployeeService employeeService,
-//             IMapper mapper, IMailService mailService)
-//         {
-//             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(_employeeService));
-//             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-//             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-//         }
+namespace KhotsoCBookStore.API.Controllers
+{
 
-//         /// <summary>
-//         /// Get supported resource actions
-//         /// </summary>
-//         /// <returns>API actions allowed</returns>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the list of all requests allowed on this end-point</response>
-//         [HttpOptions]
-//         public IActionResult GetEmployeesAPIOptions()
-//         {
-//             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
-//             return Ok();
-//         }
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class EmployeeController : ControllerBase
+    {
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetEmployeesAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            return Ok();
+        }
 
-//         /// <summary>
-//         /// Get all employees resources.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employees.</response>
-//         [HttpGet()]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         [ProducesDefaultResponseType]
-//         public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
-//         {
-//             var employees = await _employeeService.GetAllEmployeesAync();
-//             return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(employees));
-//         }
+        // /// <summary>
+        // /// Get all employees resources.
+        // /// </summary>
+        // /// <returns>An EmployeesListViewModel of employees</returns>
+        // /// <response code="200">Returns the requested employees.</response>
+        // [HttpGet()]
+        // [ProducesResponseType(typeof(IEnumerable<EmployeesListViewModel>), 200)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> GetEmployees([FromServices] IEmployeesListQuery query)
+        // {
+        //     try
+        //     {
+        //         var results = await query.GetAllEmployees();
+        //         var vm = new EmployeesListViewModel { Employees = results };
+        //         return StatusCode((int)HttpStatusCode.OK, vm);
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No employees were found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
-//         /// <summary>
-//         /// Get a single employee resource by employeeId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpGet("{employeeId}")]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult<EmployeeDto>> GetEmployee(Guid employeeId)
-//         {
-//             if (employeeId == new Guid())
-//             {
-//                 return NotFound();
-//             }
-//             var employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
-//             return Ok(_mapper.Map<EmployeeDto>(employee));
-//         }
 
-//         /// <summary>
-//         /// Create employee resource by employeeId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPost]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult<EmployeeForCreateDto>> CreateEmployee(EmployeeForCreateDto newEmployee)
-//         {
-//             await _employeeService.CreateEmployeeAsync(newEmployee);
-//             await _employeeService.SaveChangesAsync();
+        // /// <summary>
+        // /// Get a single employee resource by employeeId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="201">Returns the requested employes.</response>
+        // [HttpGet("{employeeId}", Name = "GetEmployee")]
+        // [ProducesResponseType(typeof(IEnumerable<EmployeeInfosViewModel>), 200)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> GetEmployeeById([FromServices] IEmployeeQuery query, int employeeId)
+        // {
+        //     try
+        //     {
+        //         var results = await query.GetEmployeeById(employeeId);
+        //         var vm = new EmployeeInfosViewModel
+        //         {
+        //             Id = results.Id,
+        //             FirstName = results.FirstName,
+        //             // LastName = results.LastName,
+        //             BookStartPrice = results.BookStartPrice,
+        //             StartPublishingDate = results.StartPublishingDate,
+        //             EndPublishingDate = results.EndPublishingDate
+        //         };
+        //         return StatusCode((int)HttpStatusCode.OK, vm);
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No employee was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
-//             var createdEmployeeToReturn =
-//                 _mapper.Map<EmployeeForCreateDto>(newEmployee);
+        // /// <summary>
+        // /// Create an employee resource.
+        // /// </summary>
+        // /// <returns>A new employee which is just created</returns>
+        // /// <response code="201">Returns the created employee.</response>
+        // [HttpPost()]
+        // [ProducesResponseType(typeof(EmployeeFullEditViewModel), 201)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<ActionResult> CreateEmployee(EmployeeFullEditViewModel vm, [FromServices] ICommandHandler<CreateEmployeeCommand> command)
+        // {
+        //     try
+        //     {
 
-//             return CreatedAtRoute("GetEmployee", createdEmployeeToReturn);
-//         }
+        //         await command.HandleAsync(new CreateEmployeeCommand(vm));
 
-//         /// <summary>
-//         /// Update employee resource by employeeId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPut("{employeeId}")]
-//         [ProducesResponseType(StatusCodes.Status204NoContent)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> UpdateEmployee(Guid employeeId,
-//             EmployeeForUpdateDto employeeToUpdate)
-//         {
-//             if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
-//             {
-//                 return NotFound();
-//             }
+        //         return CreatedAtRoute("GetEmployee",
+        //                 new { employeeId = vm.Id },
+        //                 vm);
+        //         // throw new NotImplementedException();
 
-//             var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
-//             if (employeeEntity == null)
-//             {
-//                 return NotFound();
-//             }
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No employee was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
 
-//             _mapper.Map(employeeToUpdate, employeeEntity);
+        // }
 
-//             await _employeeService.SaveChangesAsync();
+        // /// <summary>
+        // /// Update employee resource by employeeId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="204">Returns no content.</response>
+        // [HttpPut("{employeeId}")]
+        // [ProducesResponseType(typeof(EmployeeFullEditViewModel), 204)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> Edit(
+        //     int employeeId,
+        //     [FromServices] IEmployeeRepository repo, EmployeeFullEditViewModel vm,
+        //     [FromServices] ICommandHandler<UpdateEmployeeCommand> command)
+        // {
+        //     try
+        //     {
+        //         var aggregate = await repo.Get(employeeId);
+        //         if (aggregate == null) return NotFound();
 
-//             return NoContent();
-//         }
 
-//         /// <summary>
-//         /// Partial update employee resource by employeeId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPatch("{employeeId}")]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> PartiallyUpdateEmployee(Guid employeeId,
-//             JsonPatchDocument<EmployeeForUpdateDto> patchDocument)
-//         {
-//             if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
-//             {
-//                 return NotFound();
-//             }
+        //         var viewModel = new EmployeeFullEditViewModel(aggregate);
+        //         await command.HandleAsync(new UpdateEmployeeCommand(vm));
+        //         return NoContent();
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No employee was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
 
-//             var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
-//             if (employeeEntity == null)
-//             {
-//                 return NotFound();
-//             }
+        // }
 
-//             var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
+        // /// <summary>
+        // /// Partial update employee resource by employeeId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="200">Returns no content.</response>
+        // [HttpPatch("{employeeId}")]
+        // [ProducesResponseType(typeof(EmployeeFullEditViewModel), 204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(405)]
+        // public async Task<ActionResult> PartiallyUpdateEmployee(Guid employeeId,
+        //     JsonPatchDocument<EmployeeForUpdateDto> patchDocument)
+        // {
+        //     try
+        //     {
+        //         // await command.HandleAsync(new UpdateEmployeeCommand(vm));
+        //         // return RedirectToAction(
+        //         // nameof(ManageEmployeesController.Index));      
 
-//             //patchDocument.ApplyTo(employeeToPatch, ModelState);
+        //         //         patchDocument.ApplyTo(employeeToPatch);
+        //         //          if (!ModelState.IsValid)
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
 
-//             if (!ModelState.IsValid)
-//             {
-//                 return BadRequest(ModelState);
-//             }
+        //         // if (!TryValidateModel(employeeToPatch))
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
 
-//             if (!TryValidateModel(employeeToPatch))
-//             {
-//                 return BadRequest(ModelState);
-//             }
+        //         throw new NotImplementedException();
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No employee was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
-//             _mapper.Map(employeeToPatch, employeeEntity);
-//             await _employeeService.SaveChangesAsync();
 
-//             return NoContent();
-//         }
-
-//         /// <summary>
-//         /// Delete a single employee resource by employeeId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpDelete("{employeeId}")]
-//         [ProducesResponseType(StatusCodes.Status204NoContent)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> DeleteEmployee(Guid employeeId)
-//         {
-//             if (!await _employeeService.EmployeeIfExistsAsync(employeeId))
-//             {
-//                 return NotFound();
-//             }
-
-//             var employeeEntity = await _employeeService.GetEmployeeByIdAsync(employeeId);
-
-//             if (employeeEntity == null)
-//             {
-//                 return NotFound();
-//             }
-
-//             _employeeService.DeleteEmployee(employeeEntity);
-//             await _employeeService.SaveChangesAsync();
-
-//             _mailService.Send(
-//                 "Employee deleted.",
-//                 $"Employee named {employeeEntity.FirstName} with id {employeeEntity.EmployeeId} was deleted.");
-
-//             return NoContent();
-//         }
-//     }
-// }
+        // /// <summary>
+        // /// Delete a single employee resource by employeeId.
+        // /// </summary>
+        // /// <returns>An ActionResult</returns>
+        // /// <response code="204">Returns the requested employes.</response>
+        // [HttpDelete("{employeeId}")]
+        // [ProducesResponseType(204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> DeleteEmployee(
+        //     int employeeId,
+        //     [FromServices] ICommandHandler<DeleteEmployeeCommand> command)
+        // {
+        //     try
+        //     {
+        //         if (employeeId > 0)
+        //         {
+        //             await command.HandleAsync(new DeleteEmployeeCommand(employeeId));
+        //         }
+        //         // return RedirectToAction(
+        //         //         nameof(ManageEmployeesController.Index));
+        //         return NoContent();
+        //     }
+        //     catch (EmployeeNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No employee was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
+    }
+}

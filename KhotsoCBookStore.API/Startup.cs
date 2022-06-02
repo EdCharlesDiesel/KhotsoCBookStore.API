@@ -1,21 +1,17 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using StarPeaceAdminHubDB;
-using Swashbuckle.AspNetCore.Filters;
+using DDD.ApplicationLayer;
+using StarPeaceAdminHubDB.Extensions;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace KhotsoCBookStore.API
 {
@@ -26,15 +22,18 @@ namespace KhotsoCBookStore.API
             Configuration = configuration;
         }
 
-         public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllers();
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
 
+             
                 setupAction.OutputFormatters.Add(new XmlSerializerOutputFormatter());
 
                 var jsonOutputFormatter = setupAction.OutputFormatters
@@ -50,74 +49,7 @@ namespace KhotsoCBookStore.API
                     }
                 }
             });
-
-            services.AddHttpContextAccessor();
-
-            services.AddDbContext<MainDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var actionExecutingContext =
-                        actionContext as Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext;
-
-                    // if there are modelstate errors & all keys were correctly
-                    // found/parsed we're dealing with validation errors
-                    if (actionContext.ModelState.ErrorCount > 0
-                        && actionExecutingContext?.ActionArguments.Count == actionContext.ActionDescriptor.Parameters.Count)
-                    {
-                        //return a 422 incase of a validation error because by default  api controllers return a 400 bad request
-                        return new UnprocessableEntityObjectResult(actionContext.ModelState);
-                    }
-
-                    // if one of the keys wasn't correctly found / couldn't be parsed
-                    // we're dealing with null/unparseable input
-                    return new BadRequestObjectResult(actionContext.ModelState);
-                };
-            });            
-
-            // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            // services.AddTransient<IMailService, LocalMailRepository>();
-            // services.AddTransient<ICustomerService, CustomerRepository>();
-            // services.AddTransient<IEmployeeService, EmployeeRepository>();
-            // services.AddTransient<IBookService, BookRepository>();
-            // services.AddTransient<IProductSubscriptionService, ProductSubscriptionRepository>();
-            // services.AddTransient<ICartService, CartRepository>();
-            // services.AddTransient<IOrderService, OrderRepository>();
-            // services.AddTransient<IWishListService, WishListRepository>();            
-            // services.AddTransient<IAuthorService, AuthorRepository>();
-            // services.AddTransient<IPublisherService, PublisherRepository>();
-            // services.AddTransient<IPromotionService, PromotionRepository>();
-
-        //     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        //    .AddJwtBearer(options =>
-        //    {
-        //        options.RequireHttpsMetadata = false;
-        //        options.SaveToken = true;
-        //        options.TokenValidationParameters = new TokenValidationParameters
-        //        {
-        //            ValidateIssuer = true,
-        //            ValidateAudience = true,
-        //            ValidateLifetime = true,
-        //            ValidateIssuerSigningKey = true,
-        //            ValidIssuer = Configuration["Jwt:Issuer"],
-        //            ValidAudience = Configuration["Jwt:Audience"],
-        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-        //            ClockSkew = TimeSpan.Zero // Override the default clock skew of 5 mins
-        //         };
-
-        //        services.AddCors();
-        //    });
-
-            // services.AddAuthorization(config =>
-            // {
-            //     config.AddPolicy(UserRoles.Admin, Policies.AdminPolicy());
-            //     config.AddPolicy(UserRoles.User, Policies.UserPolicy());
-            // });
-
-
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOriginsHeadersAndMethods",
@@ -139,13 +71,13 @@ namespace KhotsoCBookStore.API
                     }
                 });
 
-                // setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                // {
-                //     Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
-                //     Name = "Authorization",
-                //     In = ParameterLocation.Header,
-                //     Type = SecuritySchemeType.ApiKey
-                // });
+                setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard JWT Authorization header. Example: \"bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
 
                 setupAction.OperationFilter<SecurityRequirementsOperationFilter>();
 
@@ -155,23 +87,28 @@ namespace KhotsoCBookStore.API
 
                 setupAction.IncludeXmlComments(xmlCommentsFullPath);
             });
+			
+			services.AddControllersWithViews();
+            services.AddRazorPages();
+            services.AddDbLayer(Configuration.GetConnectionString("DefaultConnection"),
+                "StarPeaceAdminHubDB");
 
+            services.AddAllQueries(this.GetType().Assembly);
+            services.AddAllCommandHandlers(this.GetType().Assembly);
+            services.AddAllEventHandlers(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        [Obsolete]
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                // app.UseSwagger();
+                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KhotsoCBookStore.API v1"));
             }
-            
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseRouting();
 
-            app.UseSwagger();
+             app.UseSwagger();
 
             app.UseSwaggerUI(setupAction =>
             {
@@ -187,12 +124,11 @@ namespace KhotsoCBookStore.API
                 setupAction.DisplayOperationId();
             });
 
-            // Enable CORS
-            app.UseCors("AllowAllOriginsHeadersAndMethods");
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

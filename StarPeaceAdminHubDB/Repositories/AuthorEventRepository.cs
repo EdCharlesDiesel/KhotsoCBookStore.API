@@ -30,16 +30,18 @@ namespace StarPeaceAdminHubDB.Repositories
 
         public IAuthorEvent New(AuthorEventType type, int id, long oldVersion, long? newVersion=null, decimal bookStartPrice=0)
         {
-            var model = new AuthorEvent
-            {
-                Type = type,
-                AuthorId = id,
-                OldVersion = oldVersion,
-                NewVersion = newVersion,
-                NewBookStartPrice = bookStartPrice
-            };
-            context.AuthorEvents.Add(model);
-            return model;
+            // var model = new AuthorEvent
+            // {
+            //     Type = type,
+            //     AuthorId = id,
+            //     OldVersion = oldVersion,
+            //     NewVersion = newVersion,
+            //     NewBookStartPrice = bookStartPrice
+            // };
+            // context.AuthorEvents.Add(model);
+            // return model;
+
+            throw new NotImplementedException();
         }
     }
 }

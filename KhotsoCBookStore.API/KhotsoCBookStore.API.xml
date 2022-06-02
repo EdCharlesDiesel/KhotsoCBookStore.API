@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KhotsoCBookStore.API</name>
+    </assembly>
+    <members>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthorsAPIOptions">
+            <summary>
+            Get supported resource actions
+            </summary>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.AuthorController.GetAuthors(StarPeaceAdminHubDB.MainDbContext)">
+            <summary>
+            Get all authors resources.
+            </summary>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the requested authors.</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.GetLoginAPIOptions">
+            <summary>
+            Get supported resource actions
+            </summary>
+            <returns>API actions allowed</returns>
+            <returns>An IActionResult</returns>
+            <response code="200">Returns the list of all requests allowed on this end-point</response>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Login(KhotsoCBookStore.API.Authentication.UserMaster)">
+            <summary>
+            Login.
+            </summary>
+            <param name="userMaster"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KhotsoCBookStore.API.Controllers.LoginController.Logout">
+            <summary>
+            Logout
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

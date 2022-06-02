@@ -1,208 +1,233 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace KhotsoCBookStore.API.Controllers
+{
+
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class CustomerController : ControllerBase
+    {
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point</response>
+        [HttpOptions]
+        public IActionResult GetCustomersAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            return Ok();
+        }
+
+        // /// <summary>
+        // /// Get all customers resources.
+        // /// </summary>
+        // /// <returns>An CustomersListViewModel of customers</returns>
+        // /// <response code="200">Returns the requested customers.</response>
+        // [HttpGet()]
+        // [ProducesResponseType(typeof(IEnumerable<CustomersListViewModel>), 200)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> GetCustomers([FromServices] ICustomersListQuery query)
+        // {
+        //     try
+        //     {
+        //         var results = await query.GetAllCustomers();
+        //         var vm = new CustomersListViewModel { Customers = results };
+        //         return StatusCode((int)HttpStatusCode.OK, vm);
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No customers were found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
 
-// using System;
-// using System.Collections.Generic;
-// using System.Threading.Tasks;
-// using AutoMapper;
-// using KhotsoCBookStore.API.Dtos;
-// using KhotsoCBookStore.API.Services;
-// using Microsoft.AspNetCore.Http;
-// using Microsoft.AspNetCore.JsonPatch;
-// using Microsoft.AspNetCore.Mvc;
-// using KhotsoCBookStore.API.Entities;
+        // /// <summary>
+        // /// Get a single customer resource by customerId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="201">Returns the requested employes.</response>
+        // [HttpGet("{customerId}", Name = "GetCustomer")]
+        // [ProducesResponseType(typeof(IEnumerable<CustomerInfosViewModel>), 200)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> GetCustomerById([FromServices] ICustomerQuery query, int customerId)
+        // {
+        //     try
+        //     {
+        //         var results = await query.GetCustomerById(customerId);
+        //         var vm = new CustomerInfosViewModel
+        //         {
+        //             Id = results.Id,
+        //             FirstName = results.FirstName,
+        //             // LastName = results.LastName,
+        //             BookStartPrice = results.BookStartPrice,
+        //             StartPublishingDate = results.StartPublishingDate,
+        //             EndPublishingDate = results.EndPublishingDate
+        //         };
+        //         return StatusCode((int)HttpStatusCode.OK, vm);
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.NotFound, "No customer was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
-// namespace KhotsoCBookStore.API.Controllers
-// {
-//     [Produces("application/json")]
-//     [Route("api/[controller]")]
-//     public class CustomerController : ControllerBase
-//     {
-//         readonly ICustomerService _customerRepository;
-//         private readonly IMailService _mailService;
-//         private readonly IMapper _mapper;
-//         readonly ICartService _cartService;
-//         public CustomerController(ICustomerService customerRepository,
-//             IMapper mapper, IMailService mailService, ICartService cartService)
-//         {
-//             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-//             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(_customerRepository));
-//             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-//             _cartService = cartService ?? throw new ArgumentNullException(nameof(_cartService));
-//         }
+        // /// <summary>
+        // /// Create an customer resource.
+        // /// </summary>
+        // /// <returns>A new customer which is just created</returns>
+        // /// <response code="201">Returns the created customer.</response>
+        // [HttpPost()]
+        // [ProducesResponseType(typeof(CustomerFullEditViewModel), 201)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<ActionResult> CreateCustomer(CustomerFullEditViewModel vm, [FromServices] ICommandHandler<CreateCustomerCommand> command)
+        // {
+        //     try
+        //     {
 
-//         /// <summary>
-//         /// Get supported resource actions
-//         /// </summary>
-//         /// <returns>API actions allowed</returns>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the list of all requests allowed on this end-point</response>
-//         [HttpOptions]
-//         public IActionResult GetCustomersAPIOptions()
-//         {
-//             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
-//             return Ok();
-//         }
+        //         await command.HandleAsync(new CreateCustomerCommand(vm));
 
-//         /// <summary>
-//         /// Get all customers resources.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested customers.</response>
-//         [HttpGet()]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         [ProducesDefaultResponseType]
-//         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
-//         {
-//             var customers = await _customerRepository.GetAllCustomersAync();
-//             return Ok(_mapper.Map<IEnumerable<CustomerDto>>(customers));
-//         }
+        //         return CreatedAtRoute("GetCustomer",
+        //                 new { customerId = vm.Id },
+        //                 vm);
+        //         // throw new NotImplementedException();
 
-//         /// <summary>
-//         /// Get a single customer resource by customerId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpGet("{customerId}", Name = "GetCustomer")]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult<CustomerDto>> GetCustomer(Guid customerId)
-//         {
-//             if (customerId == new Guid())
-//             {
-//                 return NotFound();
-//             }
-//             var customer = await _customerRepository.GetCustomerByIdAsync(customerId);
-//             return Ok(_mapper.Map<CustomerDto>(customer));
-//         }
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
 
-//         /// <summary>
-//         /// Create customer resource by customerId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPost()]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult<CustomerForCreateDto>> CreateCustomer([FromBody] CustomerForCreateDto customer)
-//         {
-//             var newCustomer = _mapper.Map<Customer>(customer);
-//             await _customerRepository.CreateCustomerAsync(newCustomer);
-//             await _customerRepository.SaveChangesAsync();
+        // }
+
+        // /// <summary>
+        // /// Update customer resource by customerId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="204">Returns no content.</response>
+        // [HttpPut("{customerId}")]
+        // [ProducesResponseType(typeof(CustomerFullEditViewModel), 204)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> Edit(
+        //     int customerId,
+        //     [FromServices] ICustomerRepository repo, CustomerFullEditViewModel vm,
+        //     [FromServices] ICommandHandler<UpdateCustomerCommand> command)
+        // {
+        //     try
+        //     {
+        //         var aggregate = await repo.Get(customerId);
+        //         if (aggregate == null) return NotFound();
 
 
-//             var customerToReturn = _mapper.Map<Customer>(newCustomer);
+        //         var viewModel = new CustomerFullEditViewModel(aggregate);
+        //         await command.HandleAsync(new UpdateCustomerCommand(vm));
+        //         return NoContent();
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
 
-//             return CreatedAtRoute("GetCustomer",
-//                 new { customerId = customerToReturn.CustomerId },
-//                 customerToReturn);
-                     
-//         }
+        // }
+
+        // /// <summary>
+        // /// Partial update customer resource by customerId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="200">Returns no content.</response>
+        // [HttpPatch("{customerId}")]
+        // [ProducesResponseType(typeof(CustomerFullEditViewModel), 204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(405)]
+        // public async Task<ActionResult> PartiallyUpdateCustomer(Guid customerId,
+        //     JsonPatchDocument<CustomerForUpdateDto> patchDocument)
+        // {
+        //     try
+        //     {
+        //         // await command.HandleAsync(new UpdateCustomerCommand(vm));
+        //         // return RedirectToAction(
+        //         // nameof(ManageCustomersController.Index));      
+
+        //         //         patchDocument.ApplyTo(customerToPatch);
+        //         //          if (!ModelState.IsValid)
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
+
+        //         // if (!TryValidateModel(customerToPatch))
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
+
+        //         throw new NotImplementedException();
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
 
-//         /// <summary>
-//         /// Update customer resource by customerId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPut("{customerId}")]
-//         [ProducesResponseType(StatusCodes.Status204NoContent)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> UpdateCustomer(Guid customerId,
-//             CustomerForUpdateDto customerToUpdate)
-//         {
-//             if (!await _customerRepository.CustomerIfExistsAsync(customerId))
-//             {
-//                 return NotFound();
-//             }
-
-//             var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
-//             if (customerEntity == null)
-//             {
-//                 return NotFound();
-//             }
-
-//             _mapper.Map(customerToUpdate, customerEntity);
-
-//             await _customerRepository.SaveChangesAsync();
-
-//             return NoContent();
-//         }
-
-//         /// <summary>
-//         /// Partial update customer resource by customerId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpPatch("{customerId}")]
-//         [ProducesResponseType(StatusCodes.Status200OK)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> PartiallyUpdateCustomer(Guid customerId,
-//             JsonPatchDocument<CustomerForUpdateDto> patchDocument)
-//         {
-//             if (!await _customerRepository.CustomerIfExistsAsync(customerId))
-//             {
-//                 return NotFound();
-//             }
-
-//             var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
-//             if (customerEntity == null)
-//             {
-//                 return NotFound();
-//             }
-
-//             var customerToPatch = _mapper.Map<CustomerForUpdateDto>(customerEntity);
-
-//             patchDocument.ApplyTo(customerToPatch);
-
-//             if (!ModelState.IsValid)
-//             {
-//                 return BadRequest(ModelState);
-//             }
-
-//             if (!TryValidateModel(customerToPatch))
-//             {
-//                 return BadRequest(ModelState);
-//             }
-
-//             _mapper.Map(customerToPatch, customerEntity);
-//             await _customerRepository.SaveChangesAsync();
-
-//             return NoContent();
-//         }
-
-//         /// <summary>
-//         /// Delete a single customer resource by customerId.
-//         /// </summary>
-//         /// <returns>An IActionResult</returns>
-//         /// <response code="200">Returns the requested employes.</response>
-//         [HttpDelete("{customerId}")]
-//         [ProducesResponseType(StatusCodes.Status204NoContent)]
-//         [ProducesResponseType(StatusCodes.Status404NotFound)]
-//         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-//         public async Task<ActionResult> DeleteCustomer(Guid customerId)
-//         {
-
-//             var customerEntity = await _customerRepository.GetCustomerByIdAsync(customerId);
-
-//             if (customerEntity == null)
-//             {
-//                 return NotFound();
-//             }
-
-//             _customerRepository.DeleteCustomer(customerEntity.CustomerId);
-//             await _customerRepository.SaveChangesAsync();
-
-//             _mailService.Send(
-//                 "Customer deleted.",
-//                 $"Customer named {customerEntity.FirstName} with id {customerEntity.CustomerId} was deleted.");
-
-//             return NoContent();
-//         }
-//     }
-// }
+        // /// <summary>
+        // /// Delete a single customer resource by customerId.
+        // /// </summary>
+        // /// <returns>An ActionResult</returns>
+        // /// <response code="204">Returns the requested employes.</response>
+        // [HttpDelete("{customerId}")]
+        // [ProducesResponseType(204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> DeleteCustomer(
+        //     int customerId,
+        //     [FromServices] ICommandHandler<DeleteCustomerCommand> command)
+        // {
+        //     try
+        //     {
+        //         if (customerId > 0)
+        //         {
+        //             await command.HandleAsync(new DeleteCustomerCommand(customerId));
+        //         }
+        //         // return RedirectToAction(
+        //         //         nameof(ManageCustomersController.Index));
+        //         return NoContent();
+        //     }
+        //     catch (CustomerNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
+    }
+}
