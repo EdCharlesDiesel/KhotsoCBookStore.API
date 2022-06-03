@@ -10,15 +10,13 @@ namespace StarPeaceAdminHubDomain.Aggregates
 
         string FirstName { get; set; }
 
-        string LastName { get;}
+        string LastName { get;set;}
 
-        string IdNumber { get; set; }
+        int IdNumber { get; set; }
 
-        decimal BookStartPrice { get; set; }
-
-        DateTime BeginingOfEmployement { get;}
+        DateTime StartOfEmployment { get;set;}
         
-        DateTime? EndOfEmployement { get;  }
+        DateTime? EndOfEmployement { get;set;  }
        
     }    
 }

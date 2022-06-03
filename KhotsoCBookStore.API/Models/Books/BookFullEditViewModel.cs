@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDomain.DTOs;
 
@@ -20,21 +19,19 @@ namespace KhotsoCBookStore.API.Models.Books
         }
 
 
-        int Id { get; set; }
+        public int Id { get ;set; }
 
-        string Title { get; set; }        
+        public string Title { get; set ;}
+        public string ISBN { get; set; }
 
-        string ISBN { get; set; }
+        public string Descripion { get ; set; }
 
-        string Descripion { get; set; }
-        
-        DateTime PublishingDate { get; set; }
-        
-        decimal Cost { get; set; }    
+        public DateTime PublishingDate { get ;set; }
 
-        decimal RetailPrice { get; set; }     
-        
-        string CoverFileName { get; set; }
-        
+        public decimal Cost { get;set ; }
+
+        public decimal RetailPrice { get ;set ; }
+
+        public string CoverFileName { get ; set; }
     }
 }

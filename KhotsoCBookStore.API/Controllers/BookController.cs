@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
+using KhotsoCBookStore.API.Exceptions;
 using KhotsoCBookStore.API.Models;
 using KhotsoCBookStore.API.Models.Books;
 using KhotsoCBookStore.API.Queries;
@@ -14,7 +15,7 @@ namespace KhotsoCBookStore.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class BookController : Controller
+    public class BookController : ControllerBase
     {
         /// <summary>
         /// Get supported resource actions
@@ -43,7 +44,7 @@ namespace KhotsoCBookStore.API.Controllers
             try
             {
                 var results = await query.GetAllBooks();
-                var vm = new BooksListViewModel { Books = results };
+                var vm = new BooksListViewModel { AllBooks = results };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
             catch (BookNotFoundException)
@@ -66,19 +67,22 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetBookById([FromServices] IBookQuery query, int bookId)
+        public async Task<IActionResult> GetBookById([FromServices] IBooksListQuery query, int bookId)
         {
             try
             {
                 var results = await query.GetBookById(bookId);
                 var vm = new BookInfosViewModel
                 {
+
                     Id = results.Id,
-                    FirstName = results.FirstName,
-                    // LastName = results.LastName,
-                    BookStartPrice = results.BookStartPrice,
-                    StartPublishingDate = results.StartPublishingDate,
-                    EndPublishingDate = results.EndPublishingDate
+                    Title = results.Title,
+                    ISBN = results.ISBN,
+                    Description = results.Description,
+                    Cost = results.Cost,
+                    PublishingDate= results.PublishingDate,
+                    RetailPrice = results.RetailPrice,
+                    CoverFileName= results.CoverFileName
                 };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
@@ -150,7 +154,6 @@ namespace KhotsoCBookStore.API.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
             }
-
         }
 
         /// <summary>

@@ -1,13 +1,13 @@
 ﻿using DDD.ApplicationLayer;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using KhotsoCBookStore.API.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Queries
 {
     public interface IBooksListQuery: IQuery
-    {
-        Task<IEnumerable<SelectListItem>> GetAllBooks();       
-
+    {      
+        Task<IEnumerable<BookInfosViewModel>> GetAllBooks();
+        Task<BookInfosViewModel> GetBookById(int authorId);
     }
 }

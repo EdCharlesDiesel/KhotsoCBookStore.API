@@ -6,23 +6,25 @@ namespace KhotsoCBookStore.API.Models
     {
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
 
-        public string LastName { get; }
+        public string Title { get; set ;}
+        public string ISBN { get; set; }
 
-        public decimal BookStartPrice { get; set; }
-        
-        public DateTime? StartPublishingDate { get; set; }
+        public string Description { get ; set; }
 
-        public DateTime? EndPublishingDate { get; set; }
-    
-        public int BookId { get; set; }
+        public DateTime PublishingDate { get ;set; }
+
+        public decimal Cost { get;set ; }
+
+        public decimal RetailPrice { get ;set ; }
+
+        public string CoverFileName { get ; set; }
         
         
         public override string ToString()
         {
-            return string.Format("Author {0} {1} Book Id {2}, Has an Id of  price: {3}",
-                FirstName, LastName, BookId, Id);
+            return string.Format("Book {0} {1} Book Id {2}, Has an Id of  price: {3}",
+                Title, Description, Id);
         }
     }
 }

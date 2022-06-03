@@ -8,16 +8,13 @@ namespace StarPeaceAdminHubDomain.DTOs
 
         string FirstName { get; set; }
 
-        string LastName { get; }
+        string LastName { get;set; }
 
-        DateTime DateOfBirth { get; }
-
-        DateTime? EndPublishingDate { get; }
+        DateTime DateOfBirth { get;set; }
         
-        int IdNumber { get; }
+        int IdNumber { get;set; }
 
         string SocialMediaFaceBook { get; set; }
 
-       // int BookId { get; }
     }
 }

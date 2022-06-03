@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KhotsoCBookStore.API.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB;
@@ -15,20 +16,26 @@ namespace KhotsoCBookStore.API.Queries
         {
             this.ctx = ctx;
         }
-        public async Task<IEnumerable<SelectListItem>> GetAllBooks()
+        public async Task<IEnumerable<BookInfosViewModel>> GetAllBooks()
         {
-            return (await ctx.Books.Select(m => new
+            return await ctx.Books.Select(m => new BookInfosViewModel
             {
-                Text = m.Title,
-                Value = m.Id
-            })
-            .OrderBy(m => m.Text)
-            .ToListAsync())
-            .Select(m => new SelectListItem
-            {
-                Text = m.Text,
-                Value = m.Value.ToString()
-            });
-        }    
+                Id = m.Id,
+                Title = m.Title,
+                ISBN = m.ISBN,
+                Description = m.Description,
+                Cost = m.Cost,
+                PublishingDate= m.PublishingDate,
+                RetailPrice = m.RetailPrice,
+                CoverFileName= m.CoverFileName     
+           
+            }).ToListAsync();
+            
+        }
+
+        public Task<BookInfosViewModel> GetBookById(int authorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

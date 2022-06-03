@@ -15,30 +15,34 @@ namespace StarPeaceAdminHubDB.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0-preview6.19304.10")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -48,13 +52,17 @@ namespace StarPeaceAdminHubDB.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -67,49 +75,64 @@ namespace StarPeaceAdminHubDB.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
@@ -119,13 +142,17 @@ namespace StarPeaceAdminHubDB.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -136,13 +163,17 @@ namespace StarPeaceAdminHubDB.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderDisplayName");
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -153,9 +184,11 @@ namespace StarPeaceAdminHubDB.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("RoleId");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -166,34 +199,274 @@ namespace StarPeaceAdminHubDB.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Value");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("StarPeaceAdminHubDB.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("BookStartPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("EndPublishingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("StartPublishingDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("IdNumber")
+                        .HasMaxLength(13)
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SocialMediaFaceBook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime?>("EndOfEmployement")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("IdNumber")
+                        .HasMaxLength(13)
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("StartOfEmployment")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.AuthorEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("NewBookStartPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthorEvents");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CoverFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ISBN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PublishingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("RetailPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.BookEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookEvents");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.CustomerEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("NewBookStartPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerEvents");
+                });
+
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Destination", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("Id");
 
@@ -204,31 +477,64 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.ToTable("Destinations");
                 });
 
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.EmployeeEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeEvents");
+                });
+
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Package", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Description")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("DestinationId");
+                    b.Property<int>("DestinationId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("DurationInDays");
+                    b.Property<int>("DurationInDays")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndValidityDate");
+                    b.Property<DateTime?>("EndValidityDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("EntityVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("StartValidityDate");
+                    b.Property<DateTime?>("StartValidityDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -245,21 +551,51 @@ namespace StarPeaceAdminHubDB.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
-                    b.Property<decimal>("NewPrice");
+                    b.Property<decimal>("NewPrice")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long?>("NewVersion");
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
 
-                    b.Property<long?>("OldVersion");
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("PackageId");
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Type");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("PackageEvents");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.PublisherEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PublisherEvents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -313,6 +649,15 @@ namespace StarPeaceAdminHubDB.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StarPeaceAdminHubDB.Author", b =>
+                {
+                    b.HasOne("StarPeaceAdminHubDB.Models.Book", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Package", b =>
                 {
                     b.HasOne("StarPeaceAdminHubDB.Models.Destination", "MyDestination")
@@ -320,6 +665,18 @@ namespace StarPeaceAdminHubDB.Migrations
                         .HasForeignKey("DestinationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MyDestination");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.Book", b =>
+                {
+                    b.Navigation("Authors");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.Destination", b =>
+                {
+                    b.Navigation("Packages");
                 });
 #pragma warning restore 612, 618
         }

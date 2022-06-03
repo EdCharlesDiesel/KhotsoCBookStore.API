@@ -4,6 +4,6 @@ namespace KhotsoCBookStore.API.Models
 {
     public class BooksListViewModel
     {
-        public IEnumerable<BookInfosViewModel> Books { get; set; }
+        public IEnumerable<BookInfosViewModel> AllBooks { get; set; }
     }
 }

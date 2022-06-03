@@ -2,7 +2,7 @@
 
 namespace KhotsoCBookStore.API.Exceptions
 {
-    public class BookNotFoundException : Exception
+    public class EmployeeNotFoundException : Exception
     {
     }
 }

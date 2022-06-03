@@ -1,42 +1,35 @@
-// using System;
-// using System.ComponentModel.DataAnnotations;
-// using StarPeaceAdminHubDomain.Aggregates;
-// using StarPeaceAdminHubDomain.DTOs;
+using System;
+using System.ComponentModel.DataAnnotations;
+using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.DTOs;
 
-// namespace KhotsoCBookStore.API.Models.Books
-// {
-//     public class CustomerFullEditViewModel: ICustomerFullEditDTO
-//     {
-//         public CustomerFullEditViewModel() { }
-//         public CustomerFullEditViewModel(IBook o)
-//         {
-//             Id = o.Id;
-//             FirstName = o.FirstName;
-//             LastName = o.LastName;
-//             BookStartPrice = o.BookStartPrice;
-//             StartPublishingDate = o.StartPublishingDate;
-//             EndPublishingDate = o.EndPublishingDate;
-//         }
+namespace KhotsoCBookStore.API.Models.Books
+{
+    public class CustomerFullEditViewModel: ICustomerFullEditDTO
+    {
+        public CustomerFullEditViewModel() { }
+        public CustomerFullEditViewModel(ICustomer o)
+        {
+            Id = o.Id;
+            FirstName = o.FirstName;
+            LastName = o.LastName;
+            DateOfBirth = o.DateOfBirth;
+            IdNumber = o.IdNumber;
+            SocialMediaFaceBook = o.SocialMediaFaceBook;
+        }
         
-//         public int Id { get; set; }
+        public int Id { get; set; }
 
-//         [StringLength(150, MinimumLength = 5), Required]
-//         [Display(Name = "First Name")]
-//         public string FirstName { get; set; }
+        [StringLength(150, MinimumLength = 5), Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
 
-//         [StringLength(150, MinimumLength = 5), Required]
-//         [Display(Name = "Last Name")]
-//         public string LastName { get; set; }
+        [StringLength(150, MinimumLength = 5), Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
-//         [Display(Name = "Book Starting Price")]
-//         [Range(0, 100000)]
-//         public decimal BookStartPrice { get; set; }
-        
-//         public DateTime? StartPublishingDate { get; set; }
-
-//         public DateTime? EndPublishingDate { get; set; }
-        
-//         [Display(Name = "Book")]
-//         public int BookId { get; set; }
-//     }
-// }
+        public DateTime DateOfBirth { get; set; }
+        public int IdNumber { get; set; }
+        public string SocialMediaFaceBook { get; set; }
+    }
+}

@@ -8,21 +8,19 @@ namespace KhotsoCBookStore.API.Models.Employees
 
         public string FirstName { get; set; }
 
-        public string LastName { get; }
+        public string LastName { get; set; }
 
-        public decimal BookStartPrice { get; set; }
+        public int IdNumber { get; set; }
         
-        public DateTime? StartPublishingDate { get; set; }
+        public DateTime StartOfEmployment { get; set; }
 
-        public DateTime? EndPublishingDate { get; set; }
-    
-        public int BookId { get; set; }
+        public DateTime? EndOfEmployement { get; set; }
         
         
         public override string ToString()
         {
             return string.Format("Employee {0} {1} Book Id {2}, Has an Id of  price: {3}",
-                FirstName, LastName, BookId, Id);
+                FirstName, LastName, Id);
         }
     }
 }

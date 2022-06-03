@@ -8,7 +8,6 @@ namespace KhotsoCBookStore.API.Queries
     public interface IAuthorsListQuery: IQuery
     {
         Task<IEnumerable<AuthorInfosViewModel>> GetAllAuthors();
-       // Task<AuthorInfosViewModel> GetAuthorById(int authorId);
-        
+        Task<AuthorInfosViewModel> GetAuthorById(int authorId);
     }
 }

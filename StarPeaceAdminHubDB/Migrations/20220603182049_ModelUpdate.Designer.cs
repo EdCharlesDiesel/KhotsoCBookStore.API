@@ -10,8 +10,8 @@ using StarPeaceAdminHubDB;
 namespace StarPeaceAdminHubDB.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20220531184813_Adding Books, BookEvents, Authors and AuthorEvents")]
-    partial class AddingBooksBookEventsAuthorsandAuthorEvents
+    [Migration("20220603182049_ModelUpdate")]
+    partial class ModelUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,6 +258,78 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.ToTable("Authors");
                 });
 
+            modelBuilder.Entity("StarPeaceAdminHubDB.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("IdNumber")
+                        .HasMaxLength(13)
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SocialMediaFaceBook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime?>("EndOfEmployement")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("IdNumber")
+                        .HasMaxLength(13)
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("StartOfEmployment")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.AuthorEvent", b =>
                 {
                     b.Property<long>("Id")
@@ -324,6 +396,60 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.BookEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookEvents");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.CustomerEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("NewBookStartPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerEvents");
+                });
+
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Destination", b =>
                 {
                     b.Property<int>("Id")
@@ -351,6 +477,30 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Destinations");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.EmployeeEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeEvents");
                 });
 
             modelBuilder.Entity("StarPeaceAdminHubDB.Models.Package", b =>
@@ -424,6 +574,30 @@ namespace StarPeaceAdminHubDB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PackageEvents");
+                });
+
+            modelBuilder.Entity("StarPeaceAdminHubDB.Models.PublisherEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<long?>("NewVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OldVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PublisherEvents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
