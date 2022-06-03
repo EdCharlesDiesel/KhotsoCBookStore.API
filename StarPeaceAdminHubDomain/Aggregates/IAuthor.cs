@@ -4,7 +4,7 @@ using System;
 
 namespace StarPeaceAdminHubDomain.Aggregates
 {
-    public interface IAuthor : IEntity<int>
+    public  interface IAuthor : IEntity<int>
     {
         void FullUpdate(IAuthorFullEditDTO o);
 

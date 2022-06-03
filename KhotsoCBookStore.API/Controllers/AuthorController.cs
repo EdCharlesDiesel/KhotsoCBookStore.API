@@ -6,13 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using KhotsoCBookStore.API.Exceptions;
 using KhotsoCBookStore.API.Queries;
 using KhotsoCBookStore.API.Models.Authors;
-using AutoMapper;
-using KhotsoCBookStore.API.DTO;
-using StarPeaceAdminHubDB;
-using System.Linq;
 using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
-using Microsoft.AspNetCore.JsonPatch;
 using StarPeaceAdminHubDomain.IRepositories;
 
 namespace KhotsoCBookStore.API.Controllers
@@ -115,8 +110,9 @@ namespace KhotsoCBookStore.API.Controllers
                 await command.HandleAsync(new CreateAuthorCommand(vm));
 
                 return CreatedAtRoute("GetAuthor",
-                        new { authorId = vm.Id },
-                        vm);
+                        new { authorId = vm.Id }, vm);
+
+                        
                 // throw new NotImplementedException();
 
             }
@@ -141,7 +137,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Edit(
+        public async Task<IActionResult> UpdateAuthor(
             int authorId,
             [FromServices] IAuthorRepository repo, AuthorFullEditViewModel vm,
             [FromServices] ICommandHandler<UpdateAuthorCommand> command)
@@ -167,47 +163,47 @@ namespace KhotsoCBookStore.API.Controllers
 
         }
 
-        /// <summary>
-        /// Partial update author resource by authorId.
-        /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="200">Returns no content.</response>
-        [HttpPatch("{authorId}")]
-        [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(405)]
-        public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
-            JsonPatchDocument<AuthorForUpdateDto> patchDocument)
-        {
-            try
-            {
-                // await command.HandleAsync(new UpdateAuthorCommand(vm));
-                // return RedirectToAction(
-                // nameof(ManageAuthorsController.Index));      
+        // /// <summary>
+        // /// Partial update author resource by authorId.
+        // /// </summary>
+        // /// <returns>An IActionResult</returns>
+        // /// <response code="200">Returns no content.</response>
+        // [HttpPatch("{authorId}")]
+        // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        // [ProducesResponseType(405)]
+        // public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
+        //     JsonPatchDocument<AuthorForUpdateDto> patchDocument)
+        // {
+        //     try
+        //     {
+        //         // await command.HandleAsync(new UpdateAuthorCommand(vm));
+        //         // return RedirectToAction(
+        //         // nameof(ManageAuthorsController.Index));      
 
-                //         patchDocument.ApplyTo(authorToPatch);
-                //          if (!ModelState.IsValid)
-                // {
-                //     return BadRequest(ModelState);
-                // }
+        //         //         patchDocument.ApplyTo(authorToPatch);
+        //         //          if (!ModelState.IsValid)
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
 
-                // if (!TryValidateModel(authorToPatch))
-                // {
-                //     return BadRequest(ModelState);
-                // }
+        //         // if (!TryValidateModel(authorToPatch))
+        //         // {
+        //         //     return BadRequest(ModelState);
+        //         // }
 
-                throw new NotImplementedException();
-            }
-            catch (AuthorNotFoundException)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
-            }
-            catch (Exception)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
-            }
-        }
+        //         throw new NotImplementedException();
+        //     }
+        //     catch (AuthorNotFoundException)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
+        //     }
+        // }
 
 
         /// <summary>

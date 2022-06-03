@@ -1,4 +1,4 @@
-namespace KhotsoCBookStore.API.Controllers
+namespace KhotsoCBookStore.API.DTO
 {
     public class AuthorForUpdateDto
     {
