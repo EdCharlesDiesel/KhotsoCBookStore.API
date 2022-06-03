@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace KhotsoCBookStore.API.Queries
 {
-    public interface IBookListQuery: IQuery
+    public interface IBooksListQuery: IQuery
     {
-        Task<IEnumerable<SelectListItem>> AllBooks();       
+        Task<IEnumerable<SelectListItem>> GetAllBooks();       
 
     }
 }

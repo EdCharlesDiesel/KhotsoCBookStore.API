@@ -6,6 +6,7 @@ using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
 using KhotsoCBookStore.API.Models;
 using KhotsoCBookStore.API.Models.Books;
+using KhotsoCBookStore.API.Queries;
 using Microsoft.AspNetCore.Mvc;
 using StarPeaceAdminHubDomain.IRepositories;
 
@@ -177,7 +178,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
             catch (BookNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No book was found in the database");
+                return StatusCode((int)HttpStatusCode.NotFound, "No book was found in the database");
             }
             catch (Exception)
             {

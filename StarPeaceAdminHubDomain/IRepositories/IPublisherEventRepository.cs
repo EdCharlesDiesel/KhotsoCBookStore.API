@@ -8,6 +8,6 @@ namespace StarPeaceAdminHubDomain.IRepositories
     public interface IPublisherEventRepository:IRepository<IPublisherEvent>
     {
         Task<IEnumerable<IPublisherEvent>> GetFirstN(int n);
-        IPublisherEvent New(PublisherEventType type, int id, long oldVersion, long? newVersion= null, decimal bookStartprice = 0);
+        IPublisherEvent New(PublisherEventType type, int id, long oldVersion, long? newVersion= null);
     }
 }

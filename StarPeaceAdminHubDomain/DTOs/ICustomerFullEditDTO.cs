@@ -10,12 +10,14 @@ namespace StarPeaceAdminHubDomain.DTOs
 
         string LastName { get; }
 
-        decimal BookStartPrice { get; set; }
-
-        DateTime? StartPublishingDate { get; }
+        DateTime DateOfBirth { get; }
 
         DateTime? EndPublishingDate { get; }
+        
+        int IdNumber { get; }
 
-        int BookId { get; }
+        string SocialMediaFaceBook { get; set; }
+
+       // int BookId { get; }
     }
 }

@@ -10,7 +10,7 @@ namespace StarPeaceAdminHubDomain.DTOs
 
         string Title { get; set; }        
 
-        string ISBN { get; set; }
+        string ISBN { get; }
 
         string Descripion { get; set; }
         

@@ -8,6 +8,6 @@ namespace StarPeaceAdminHubDomain.IRepositories
     public interface IMemberOrderEventRepository:IRepository<IMemberOrderEvent>
     {
         Task<IEnumerable<IMemberOrderEvent>> GetFirstN(int n);
-        IMemberOrderEvent New(MemberOrderEventType type, int id, long oldVersion, long? newVersion= null, decimal bookStartprice = 0);
+        IMemberOrderEvent New(MemberOrderEventType type, int id, long oldVersion, long? newVersion= null);
     }
 }

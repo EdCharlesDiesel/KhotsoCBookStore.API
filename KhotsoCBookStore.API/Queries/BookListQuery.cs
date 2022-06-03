@@ -8,14 +8,14 @@ using StarPeaceAdminHubDB;
 
 namespace KhotsoCBookStore.API.Queries
 {
-    public class BookListQuery : IBookListQuery
+    public class BookListQuery : IBooksListQuery
     {
         MainDbContext ctx;
         public BookListQuery(MainDbContext ctx)
         {
             this.ctx = ctx;
         }
-        public async Task<IEnumerable<SelectListItem>> AllBooks()
+        public async Task<IEnumerable<SelectListItem>> GetAllBooks()
         {
             return (await ctx.Books.Select(m => new
             {

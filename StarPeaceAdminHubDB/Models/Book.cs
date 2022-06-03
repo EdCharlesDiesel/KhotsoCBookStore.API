@@ -9,7 +9,22 @@ using StarPeaceAdminHubDB.Models;
 namespace StarPeaceAdminHubDB.Models
 {
     public class Book: Entity<int>, IBook
-    {      
+    {     
+        public void FullUpdate(IBookFullEditDTO o)
+        {
+            if (IsTransient())
+            {
+                Id = o.Id;
+            }
+
+            Title = o.Title;
+            ISBN = o.ISBN;
+            PublishingDate = o.PublishingDate;        
+            Cost = o.Cost; 
+            RetailPrice = o.RetailPrice;            
+            CoverFileName = o.CoverFileName;    
+        } 
+        
         [MaxLength(128), Required]  
         public string Title { get; set; }
       
@@ -32,19 +47,6 @@ namespace StarPeaceAdminHubDB.Models
         
         public ICollection<Author> Authors { get; set; }
 
-        public void FullUpdate(IBookFullEditDTO o)
-        {
-            if (IsTransient())
-            {
-                Id = o.Id;
-            }
-
-            Title = o.Title;
-            ISBN = o.ISBN;
-            PublishingDate = o.PublishingDate;        
-            Cost = o.Cost; 
-            RetailPrice = o.RetailPrice;            
-            CoverFileName = o.CoverFileName;    
-        }
+       
     }
 }

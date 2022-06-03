@@ -1,50 +1,45 @@
-// using System;
-// using System.ComponentModel.DataAnnotations;
-// using DDD.DomainLayer;
-// using StarPeaceAdminHubDomain.Aggregates;
-// using StarPeaceAdminHubDomain.DTOs;
-// using StarPeaceAdminHubDomain.Events;
+using System;
+using System.ComponentModel.DataAnnotations;
+using DDD.DomainLayer;
+using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.DTOs;
+using StarPeaceAdminHubDomain.Events;
 
-// namespace StarPeaceAdminHubDB
-// {
-//     public class Customer : Entity<int>, ICustomer
-//     {
-//         public void FullUpdate(ICustomerFullEditDTO o)
-//         {
-//             if (IsTransient())
-//             {
-//                 Id = o.Id;
-//                 BookId = o.BookId;
-//             }
-//             else
-//             {
-//                 if (o.BookStartPrice != this.BookStartPrice)
-//                     this.AddDomainEvent(new CustomerBookStartPriceChangedEvent(
-//                             Id, o.BookStartPrice, EntityVersion, EntityVersion + 1));
-//             }
-//             FirstName = o.FirstName;
-//             LastName = o.LastName;
-//             StartPublishingDate = o.StartPublishingDate;
-//             EndPublishingDate = o.EndPublishingDate;
-//             BookStartPrice = o.BookStartPrice;
-//         }
+namespace StarPeaceAdminHubDB
+{
+    public class Customer : Entity<int>, ICustomer
+    {
+        public void FullUpdate(ICustomerFullEditDTO o)
+        {
+            if (IsTransient())
+            {
+                Id = o.Id;
+               // BookId = o.BookId;
+            }
+          
+            FirstName = o.FirstName;
+            LastName = o.LastName;
+            DateOfBirth = o.DateOfBirth;
+            IdNumber = o.IdNumber;
+            SocialMediaFaceBook = o.SocialMediaFaceBook;
+        }
 
-//         [MaxLength(150), Required(ErrorMessage = "You should provide a first name.")]
-//         public string FirstName { get; set; }
+        [MaxLength(150), Required(ErrorMessage = "You should provide a first name.")]
+        public string FirstName { get; set; }
 
 
-//         [MaxLength(150), Required(ErrorMessage = "You should provide a last name.")]
-//         public string LastName { get; set; }
+        [MaxLength(150), Required(ErrorMessage = "You should provide a last name.")]
+        public string LastName { get; set; }
 
-//         public DateTime? StartPublishingDate { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        [MaxLength(13), Required(ErrorMessage = "You should provide the Id number.")]
+        public int IdNumber { get; set; }
 
-//         public DateTime? EndPublishingDate { get; set; }
+        public string SocialMediaFaceBook { get; set; }
 
-//         public decimal BookStartPrice { get; set; }
+        [ConcurrencyCheck]
+        public long EntityVersion { get; set; }
 
-//         [ConcurrencyCheck]
-//         public long EntityVersion { get; set; }
-
-//         public int BookId { get; set; }
-//     }
-// }
+       // public int BookId { get; set; }
+    }
+}

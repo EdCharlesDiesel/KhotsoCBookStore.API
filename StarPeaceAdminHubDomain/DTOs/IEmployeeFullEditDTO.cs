@@ -5,17 +5,19 @@ namespace StarPeaceAdminHubDomain.DTOs
     public interface IEmployeeFullEditDTO
     {
         int Id { get; set; }
-
+ 
         string FirstName { get; set; }
 
-        string LastName { get; }
+        string LastName { get;}
+
+        string IdNumber { get; set; }
 
         decimal BookStartPrice { get; set; }
 
-        DateTime? StartPublishingDate { get; }
+        DateTime BeginingOfEmployement { get;}
+        
+        DateTime? EndOfEmployement { get;  }
 
-        DateTime? EndPublishingDate { get; }
-
-        int BookId { get; }
+        //int BookId { get; }
     }
 }
