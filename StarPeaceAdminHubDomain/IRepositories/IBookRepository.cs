@@ -7,6 +7,7 @@ namespace StarPeaceAdminHubDomain.IRepositories
     public interface IBookRepository : IRepository<IBook>
     {
         Task<IBook> Get(int id);
-        IBook New();        
+        IBook New();   
+        Task<IBook> Delete(int id);     
     }
 }

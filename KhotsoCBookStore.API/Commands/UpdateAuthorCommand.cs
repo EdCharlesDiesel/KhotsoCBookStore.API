@@ -1,7 +1,7 @@
 using DDD.ApplicationLayer;
 using StarPeaceAdminHubDomain.DTOs;
 
-namespace KhotsoCBookStore.API.Controllers
+namespace KhotsoCBookStore.API.Commands
 {
     public class UpdateAuthorCommand: ICommand
     {

@@ -10,7 +10,6 @@ namespace StarPeaceAdminHubDomain.Aggregates
     {
         PublisherEventType Type { get; }
         int PublisherId { get; }
-        decimal NewBookStartPrice { get; }
         long? OldVersion { get;}
         long? NewVersion { get;}
     }

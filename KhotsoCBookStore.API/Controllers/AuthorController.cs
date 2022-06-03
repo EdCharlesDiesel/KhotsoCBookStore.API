@@ -56,12 +56,11 @@ namespace KhotsoCBookStore.API.Controllers
             }
         }
 
-
         /// <summary>
         /// Get a single author resource by authorId.
         /// </summary>
-        /// <returns>An IActionResult</returns>
-        /// <response code="201">Returns the requested employes.</response>
+        /// <returns>An AuthorInfosViewModel of a single author</returns>
+        /// <response code="200">Returns a requested author.</response>
         [HttpGet("{authorId}", Name = "GetAuthor")]
         [ProducesResponseType(typeof(IEnumerable<AuthorInfosViewModel>), 200)]
         [ProducesResponseType(404)]
@@ -106,25 +105,17 @@ namespace KhotsoCBookStore.API.Controllers
         {
             try
             {
-
                 await command.HandleAsync(new CreateAuthorCommand(vm));
-
-                return CreatedAtRoute("GetAuthor",
-                        new { authorId = vm.Id }, vm);
-
-                        
-                // throw new NotImplementedException();
-
+                return CreatedAtRoute("GetAuthor", new { authorId = vm.Id }, vm);
             }
             catch (AuthorNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
             }
             catch (Exception)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
             }
-
         }
 
         /// <summary>
@@ -147,14 +138,13 @@ namespace KhotsoCBookStore.API.Controllers
                 var aggregate = await repo.Get(authorId);
                 if (aggregate == null) return NotFound();
 
-
                 var viewModel = new AuthorFullEditViewModel(aggregate);
                 await command.HandleAsync(new UpdateAuthorCommand(vm));
                 return NoContent();
             }
             catch (AuthorNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
             }
             catch (Exception)
             {
@@ -162,49 +152,6 @@ namespace KhotsoCBookStore.API.Controllers
             }
 
         }
-
-        // /// <summary>
-        // /// Partial update author resource by authorId.
-        // /// </summary>
-        // /// <returns>An IActionResult</returns>
-        // /// <response code="200">Returns no content.</response>
-        // [HttpPatch("{authorId}")]
-        // [ProducesResponseType(typeof(AuthorFullEditViewModel), 204)]
-        // [ProducesResponseType(404)]
-        // [ProducesResponseType(400)]
-        // [ProducesResponseType(405)]
-        // public async Task<ActionResult> PartiallyUpdateAuthor(Guid authorId,
-        //     JsonPatchDocument<AuthorForUpdateDto> patchDocument)
-        // {
-        //     try
-        //     {
-        //         // await command.HandleAsync(new UpdateAuthorCommand(vm));
-        //         // return RedirectToAction(
-        //         // nameof(ManageAuthorsController.Index));      
-
-        //         //         patchDocument.ApplyTo(authorToPatch);
-        //         //          if (!ModelState.IsValid)
-        //         // {
-        //         //     return BadRequest(ModelState);
-        //         // }
-
-        //         // if (!TryValidateModel(authorToPatch))
-        //         // {
-        //         //     return BadRequest(ModelState);
-        //         // }
-
-        //         throw new NotImplementedException();
-        //     }
-        //     catch (AuthorNotFoundException)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
-        //     }
-        //     catch (Exception)
-        //     {
-        //         return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred");
-        //     }
-        // }
-
 
         /// <summary>
         /// Delete a single author resource by authorId.
@@ -226,8 +173,7 @@ namespace KhotsoCBookStore.API.Controllers
                 {
                     await command.HandleAsync(new DeleteAuthorCommand(authorId));
                 }
-                // return RedirectToAction(
-                //         nameof(ManageAuthorsController.Index));
+
                 return NoContent();
             }
             catch (AuthorNotFoundException)

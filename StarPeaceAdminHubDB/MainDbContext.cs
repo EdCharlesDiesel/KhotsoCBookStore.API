@@ -17,6 +17,8 @@ namespace StarPeaceAdminHubDB
         public DbSet<Book> Books { get; set; }
         public DbSet<AuthorEvent> AuthorEvents { get; set; }
 
+        public DbSet<BookEvent> BookEvents { get; set; }
+
         public MainDbContext(DbContextOptions options)
             : base(options)
         {

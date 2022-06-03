@@ -7,9 +7,9 @@ using StarPeaceAdminHubDomain.Events;
 
 namespace StarPeaceAdminHubDB
 {
-    public class Publisher : Entity<int>, IPublisher
+    public class Employee : Entity<int>, IEmployee
     {
-        public void FullUpdate(IPublisherFullEditDTO o)
+        public void FullUpdate(IEmployeeFullEditDTO o)
         {
             if (IsTransient())
             {
@@ -19,7 +19,7 @@ namespace StarPeaceAdminHubDB
             else
             {
                 if (o.BookStartPrice != this.BookStartPrice)
-                    this.AddDomainEvent(new PublisherBookStartPriceChangedEvent(
+                    this.AddDomainEvent(new EmployeeBookStartPriceChangedEvent(
                             Id, o.BookStartPrice, EntityVersion, EntityVersion + 1));
             }
             FirstName = o.FirstName;

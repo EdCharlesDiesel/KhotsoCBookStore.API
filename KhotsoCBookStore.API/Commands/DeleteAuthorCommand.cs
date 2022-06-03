@@ -1,6 +1,6 @@
 using DDD.ApplicationLayer;
 
-namespace KhotsoCBookStore.API.Controllers
+namespace KhotsoCBookStore.API.Commands
 {
  public class DeleteAuthorCommand: ICommand
     {

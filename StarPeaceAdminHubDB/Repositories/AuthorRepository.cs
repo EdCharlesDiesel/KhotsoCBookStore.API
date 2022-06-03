@@ -22,7 +22,15 @@ namespace StarPeaceAdminHubDB.Repositories
             return await context.Authors.Where(m => m.Id == id)
                 .FirstOrDefaultAsync();
         }
-        public async Task<IAuthor> Delete(int id)
+       
+        public IAuthor New()
+        {
+            var model = new Author() {EntityVersion=1 };
+            context.Authors.Add(model);
+            return model;
+        }
+
+         public async Task<IAuthor> Delete(int id)
         {
             var model = await Get(id);
             if (model == null) return null;
@@ -30,12 +38,6 @@ namespace StarPeaceAdminHubDB.Repositories
             model.AddDomainEvent(
                 new AuthorDeleteEvent(
                     model.Id, (model as Author).EntityVersion));
-            return model;
-        }
-        public IAuthor New()
-        {
-            var model = new Author() {EntityVersion=1 };
-            context.Authors.Add(model);
             return model;
         }
     }

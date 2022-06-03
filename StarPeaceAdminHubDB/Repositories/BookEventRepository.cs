@@ -9,36 +9,34 @@ using StarPeaceAdminHubDB.Models;
 
 namespace StarPeaceAdminHubDB.Repositories
 {
-    public class AuthorEventRepository : IAuthorEventRepository
+    public class BookEventRepository : IBookEventRepository
     {
         private MainDbContext context;
-        public AuthorEventRepository(MainDbContext context)
+        public BookEventRepository(MainDbContext context)
         {
             this.context = context;
         }
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<IEnumerable<IAuthorEvent>> GetFirstN(int n)
+        public async Task<IEnumerable<IBookEvent>> GetFirstN(int n)
         {
-            return await context.AuthorEvents
+            return await context.BookEvents
                 .OrderBy(m => m.Id)
                 .Take(n)
                 .ToListAsync();
         }
 
-        public IAuthorEvent New(AuthorEventType type, int id, long oldVersion, long? newVersion=null, decimal bookStartPrice=0)
+        public IBookEvent New(BookEventType type, int id, long oldVersion, long? newVersion=null)
         {
-            var model = new AuthorEvent
+            var model = new BookEvent
             {
                 Type = type,
-                AuthorId = id,
+                BookId = id,
                 OldVersion = oldVersion,
                 NewVersion = newVersion,
-                NewBookStartPrice = bookStartPrice
             };
-            context.AuthorEvents.Add(model);
+            context.BookEvents.Add(model);
             return model;
-
         }
     }
 }

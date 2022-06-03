@@ -1,50 +1,50 @@
-// using System;
-// using Xunit;
-// using StarPeaceAdminHub.Controllers;
-// using StarPeaceAdminHub.Models.Packages;
-// using Moq;
-// using Microsoft.AspNetCore.Mvc;
-// using System.Threading.Tasks;
-// using DDD.ApplicationLayer;
-// using StarPeaceAdminHub.Commands;
-// using System.Linq;
+using System;
+using Xunit;
+using StarPeaceAdminHub.Controllers;
+using StarPeaceAdminHub.Models.Packages;
+using Moq;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using DDD.ApplicationLayer;
+using StarPeaceAdminHub.Commands;
+using System.Linq;
 
-// namespace StarPeaceAdminHubTest
-// {
-//     public class ManagePackagesControllerTests
-//     {
-//         [Fact]
-//         public async Task DeletePostValidationFailedTest()
-//         {
-//             var controller = new ManagePackagesController();
-//             controller.ModelState
-//                 .AddModelError("Name", "fake error");
-//             var vm = new PackageFullEditViewModel();
-//             var result = await controller.Edit(vm, null);
-//             var viewResult = Assert.IsType<ViewResult>(result);
-//             Assert.Equal(vm, viewResult.Model);
-//         }
-//         [Fact]
-//         public async Task DeletePostSuccessTest()
-//         {
-//             var controller = new ManagePackagesController();
-//             var commandDependency =
-//                 new Mock<ICommandHandler<UpdatePackageCommand>>();
-//             commandDependency
-//                 .Setup(m => m.HandleAsync(It.IsAny<UpdatePackageCommand>()))
-//                 .Returns(Task.CompletedTask);
-//             var vm = new PackageFullEditViewModel();
+namespace StarPeaceAdminHubTest
+{
+    public class ManagePackagesControllerTests
+    {
+        [Fact]
+        public async Task DeletePostValidationFailedTest()
+        {
+            var controller = new ManagePackagesController();
+            controller.ModelState
+                .AddModelError("Name", "fake error");
+            var vm = new PackageFullEditViewModel();
+            var result = await controller.Edit(vm, null);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(vm, viewResult.Model);
+        }
+        [Fact]
+        public async Task DeletePostSuccessTest()
+        {
+            var controller = new ManagePackagesController();
+            var commandDependency =
+                new Mock<ICommandHandler<UpdatePackageCommand>>();
+            commandDependency
+                .Setup(m => m.HandleAsync(It.IsAny<UpdatePackageCommand>()))
+                .Returns(Task.CompletedTask);
+            var vm = new PackageFullEditViewModel();
 
-//             var result = await controller.Edit(vm, 
-//                 commandDependency.Object);
-//                 commandDependency.Verify(m => m.HandleAsync(
-//                 It.IsAny<UpdatePackageCommand>()), 
-//                 Times.Once);
-//             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+            var result = await controller.Edit(vm, 
+                commandDependency.Object);
+                commandDependency.Verify(m => m.HandleAsync(
+                It.IsAny<UpdatePackageCommand>()), 
+                Times.Once);
+            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
              
-//             Assert.Equal(nameof(ManagePackagesController.Index), 
-//                 redirectResult.ActionName);
-//             Assert.Null(redirectResult.ControllerName);
-//         }
-//     }
-// }
+            Assert.Equal(nameof(ManagePackagesController.Index), 
+                redirectResult.ActionName);
+            Assert.Null(redirectResult.ControllerName);
+        }
+    }
+}

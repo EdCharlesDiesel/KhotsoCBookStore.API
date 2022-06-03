@@ -1,43 +1,40 @@
-// using System;
-// using System.ComponentModel.DataAnnotations;
-// using StarPeaceAdminHubDomain.Aggregates;
-// using StarPeaceAdminHubDomain.DTOs;
+using System;
+using System.ComponentModel.DataAnnotations;
+using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.DTOs;
 
-// namespace KhotsoCBookStore.API.Models.Books
-// {
-//     public class BookFullEditViewModel: IBookFullEditDTO
-//     {
-//         public BookFullEditViewModel() { }
-//         public BookFullEditViewModel(IBook o)
-//         {
-//             Id = o.Id;
-//             FirstName = o.FirstName;
-//             LastName = o.LastName;
-//             BookStartPrice = o.BookStartPrice;
-//             StartPublishingDate = o.StartPublishingDate;
-//             EndPublishingDate = o.EndPublishingDate;
-//         }
+namespace KhotsoCBookStore.API.Models.Books
+{
+    public class BookFullEditViewModel: IBookFullEditDTO
+    {
+        public BookFullEditViewModel(IBook o)
+        {
+            Id = o.Id;
+            Title = o.Title;
+            ISBN = o.ISBN;
+            Descripion = o.Description;
+            Cost = o.Cost;
+            PublishingDate= o.PublishingDate;
+            RetailPrice = o.RetailPrice;
+            CoverFileName= o.CoverFileName;
+        }
+
+
+        int Id { get; set; }
+
+        string Title { get; set; }        
+
+        string ISBN { get; set; }
+
+        string Descripion { get; set; }
         
-//         public int Id { get; set; }
-
-//         [StringLength(150, MinimumLength = 5), Required]
-//         [Display(Name = "First Name")]
-//         public string FirstName { get; set; }
-
-//         [StringLength(150, MinimumLength = 5), Required]
-//         [Display(Name = "Last Name")]
-//         public string LastName { get; set; }
-
-//         [Display(Name = "Book Starting Price")]
-//         [Range(0, 100000)]
-//         public decimal BookStartPrice { get; set; }
+        DateTime PublishingDate { get; set; }
         
-//         public DateTime? StartPublishingDate { get; set; }
+        decimal Cost { get; set; }    
 
-//         public DateTime? EndPublishingDate { get; set; }
+        decimal RetailPrice { get; set; }     
         
-//         [Display(Name = "Book")]
-//         public int BookId { get; set; }
+        string CoverFileName { get; set; }
         
-//     }
-// }
+    }
+}
