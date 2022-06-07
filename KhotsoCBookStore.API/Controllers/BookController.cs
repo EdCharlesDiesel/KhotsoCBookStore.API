@@ -26,7 +26,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetBooksAPIOptions()
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT");
             return Ok();
         }
 
@@ -74,7 +74,6 @@ namespace KhotsoCBookStore.API.Controllers
                 var results = await query.GetBookById(bookId);
                 var vm = new BookInfosViewModel
                 {
-
                     BookId = results.BookId,
                     Title = results.Title,
                     ISBN = results.ISBN,
@@ -99,7 +98,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Create an book resource.
         /// </summary>
-        /// <returns>A new book which is just created</returns>
+        /// <returns>A new created book.</returns>
         /// <response code="201">Returns the created book.</response>
         [HttpPost()]
         [ProducesResponseType(typeof(BookFullEditViewModel), 201)]
@@ -112,9 +111,9 @@ namespace KhotsoCBookStore.API.Controllers
                 await command.HandleAsync(new CreateBookCommand(vm));
                 return CreatedAtRoute("GetBook", new { bookId = vm.BookId }, vm);
             }
-            catch (BookNotFoundException)
+            catch (CouldNotAddBookToDatabaseException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured while adding please validate with the API schema");
             }
             catch (Exception)
             {
@@ -146,9 +145,9 @@ namespace KhotsoCBookStore.API.Controllers
                 await command.HandleAsync(new UpdateBookCommand(vm));
                 return NoContent();
             }
-            catch (BookNotFoundException)
+            catch (CouldNotAddEntityToDatabaseException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured while updating please validate with the schema");
             }
             catch (Exception)
             {
@@ -159,8 +158,8 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Delete a single book resource by bookId.
         /// </summary>
-        /// <returns>An ActionResult</returns>
-        /// <response code="204">Returns the requested employes.</response>
+        /// <returns>An no content.</returns>
+        /// <response code="204">Returns no content.</response>
         [HttpDelete("{bookId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]

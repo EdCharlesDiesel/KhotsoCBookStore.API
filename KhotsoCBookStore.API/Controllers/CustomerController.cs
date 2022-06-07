@@ -27,7 +27,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetCustomersAPIOptions()
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT");
             return Ok();
         }
 
@@ -117,9 +117,9 @@ namespace KhotsoCBookStore.API.Controllers
                 await command.HandleAsync(new CreateCustomerCommand(vm));
                 return CreatedAtRoute("GetCustomer", new { customerId = vm.CustomerId }, vm);
             }
-            catch (CustomerNotFoundException)
+            catch (CouldNotAddCustomerToDatabaseException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured while adding please validate with the schema");
             }
             catch (Exception)
             {
@@ -153,7 +153,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
             catch (CustomerNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured while updating please validate with the schema");
             }
             catch (Exception)
             {
@@ -166,7 +166,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// Delete a single customer resource by customerId.
         /// </summary>
         /// <returns>An ActionResult</returns>
-        /// <response code="204">Returns the requested employes.</response>
+        /// <response code="204">Returns no content.</response>
         [HttpDelete("{customerId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -187,7 +187,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
             catch (CustomerNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
+                return StatusCode((int)HttpStatusCode.NotFound, "No customer was found in the database");
             }
             catch (Exception)
             {

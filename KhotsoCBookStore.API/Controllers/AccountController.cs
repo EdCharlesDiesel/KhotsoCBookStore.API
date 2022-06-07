@@ -1,38 +1,44 @@
-﻿// using System.Threading.Tasks;
-// using KhotsoCBookStore.API.Models.Account;
-// using Microsoft.AspNetCore.Authentication;
-// using Microsoft.AspNetCore.Identity;
-// using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using KhotsoCBookStore.API.Models.Account;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
-// namespace StarPeaceAdminHub.Controllers
-// {
-//     [Produces("application/json")]
-//     [Route("api/[controller]")]
-//     public class AccountController : Controller
-//     {
-//         private readonly UserManager<IdentityUser<int>> _userManager;
-//         private readonly SignInManager<IdentityUser<int>> _signInManager;
+namespace StarPeaceAdminHub.Controllers
+{
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class AccountController : ControllerBase
+    {
+        private readonly UserManager<IdentityUser<int>> _userManager;
+        private readonly SignInManager<IdentityUser<int>> _signInManager;
 
         
-//         public AccountController(
-//             UserManager<IdentityUser<int>> userManager,
-//             SignInManager<IdentityUser<int>> signInManager)
-//         {
-//             _userManager = userManager;
-//             _signInManager = signInManager;
-//         }
+        public AccountController(
+            UserManager<IdentityUser<int>> userManager,
+            SignInManager<IdentityUser<int>> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
 
-//         [HttpOptions]
-//         public IActionResult GetLoginAPIOptions()
-//         {
-//             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
-//             return Ok();
-//         }
-//         [HttpGet]
-//         [ProducesResponseType(404)]
-//         [ProducesResponseType(500)]
-//         public async Task<IActionResult> Login(string returnUrl = null)
-//         {
+        /// <summary>
+        /// Get supported resource actions
+        /// </summary>
+        /// <returns>API actions allowed</returns>
+        /// <returns>An IActionResult</returns>
+        /// <response code="200">Returns the list of all requests allowed on this end-point.</response>
+        [HttpOptions]
+        public IActionResult GetAccountAPIOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
+        // [HttpGet]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(500)]
+        // public async Task<IActionResult> Login(string returnUrl = null)
+        // {
 //             // Clear the existing external cookie 
 //             //to ensure a clean login process
 //             // await HttpContext
@@ -86,5 +92,5 @@
 //             return NoContent();
 //             // return RedirectToAction(nameof(HomeController.Index), "Home");
 //         }
-//     }
-// }
+    }
+}

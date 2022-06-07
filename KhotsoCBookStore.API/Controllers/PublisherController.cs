@@ -120,9 +120,9 @@ namespace KhotsoCBookStore.API.Controllers
                 await command.HandleAsync(new CreatePublisherCommand(vm));
                 return CreatedAtRoute("GetPublisher", new { publisherId = vm.PublisherId }, vm);
             }
-            catch (PublisherNotFoundException)
+            catch (CouldNotAddPublisherToDatabaseException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
+                return StatusCode((int)HttpStatusCode.BadRequest, "An error occured while adding please validate with the schema");
             }
             catch (Exception)
             {

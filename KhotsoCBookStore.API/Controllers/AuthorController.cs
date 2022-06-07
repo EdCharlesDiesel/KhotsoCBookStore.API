@@ -26,14 +26,14 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetAuthorsAPIOptions()
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT");
             return Ok();
         }
 
         /// <summary>
         /// Get all authors resources.
         /// </summary>
-        /// <returns>An AuthorsListViewModel of authors</returns>
+        /// <returns>An AuthorsListViewModel of authors.</returns>
         /// <response code="200">Returns the requested authors.</response>
         [HttpGet()]
         [ProducesResponseType(typeof(IEnumerable<AuthorsListViewModel>), 200)]
@@ -60,7 +60,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get a single author resource by authorId.
         /// </summary>
-        /// <returns>An AuthorInfosViewModel of a single author</returns>
+        /// <returns>An AuthorInfosViewModel of a single author.</returns>
         /// <response code="200">Returns a requested author.</response>
         [HttpGet("{authorId}", Name = "GetAuthor")]
         [ProducesResponseType(typeof(IEnumerable<AuthorInfosViewModel>), 200)]
@@ -96,7 +96,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Create an author resource.
         /// </summary>
-        /// <returns>A new author which is just created</returns>
+        /// <returns>A new created author.</returns>
         /// <response code="201">Returns the created author.</response>
         [HttpPost()]
         [ProducesResponseType(typeof(AuthorFullEditViewModel), 201)]
@@ -157,16 +157,14 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Delete a single author resource by authorId.
         /// </summary>
-        /// <returns>An ActionResult</returns>
-        /// <response code="204">Returns the requested employes.</response>
+        /// <returns>No content.</returns>
+        /// <response code="204">Returns no content.</response>
         [HttpDelete("{authorId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteAuthor(
-            int authorId,
-            [FromServices] ICommandHandler<DeleteAuthorCommand> command)
+        public async Task<IActionResult> DeleteAuthor(int authorId, [FromServices] ICommandHandler<DeleteAuthorCommand> command)
         {
             try
             {
@@ -179,7 +177,7 @@ namespace KhotsoCBookStore.API.Controllers
             }
             catch (AuthorNotFoundException)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "No author was found in the database");
+                return StatusCode((int)HttpStatusCode.NotFound, "No author was found in the database");
             }
             catch (Exception)
             {

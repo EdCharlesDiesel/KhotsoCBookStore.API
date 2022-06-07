@@ -27,7 +27,7 @@ namespace KhotsoCBookStore.API.Controllers
         [HttpOptions]
         public IActionResult GetEmployeesAPIOptions()
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT");
             return Ok();
         }
 
