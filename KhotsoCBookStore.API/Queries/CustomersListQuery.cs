@@ -16,27 +16,39 @@ namespace KhotsoCBookStore.API.Queries
         }
         public async Task<IEnumerable<CustomerInfosViewModel>> GetAllCustomers()
         {
-            return await ctx.Customers.Select(m => new CustomerInfosViewModel
+            return await ctx.Customers.Select(o => new CustomerInfosViewModel
             {
-                Id = m.Id,
-                FirstName = m.FirstName,
-                LastName = m.LastName,
-                DateOfBirth = m.DateOfBirth,
-                IdNumber = m.IdNumber,
-                SocialMediaFaceBook = m.SocialMediaFaceBook
+                CustomerId = o.Id,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                DateOfBirth = o.DateOfBirth,
+                ContactTitle = o.ContactTitle,
+                Address = o.Address,
+                City = o.City,
+                Region = o.Region,
+                PostalCode = o.PostalCode,
+                Country = o.Country,
+                Phone = o.Phone,
+                MobileNumber = o.MobileNumber,
             }).ToListAsync();
         }
 
         public async Task<CustomerInfosViewModel> GetCustomerById(int customerId)
         {
-               return await ctx.Customers.Select(m => new CustomerInfosViewModel
+            return await ctx.Customers.Select(o => new CustomerInfosViewModel
             {
-                Id = m.Id,
-                FirstName = m.FirstName,
-                LastName = m.LastName,
-                DateOfBirth = m.DateOfBirth,
-                IdNumber = m.IdNumber,
-                SocialMediaFaceBook = m.SocialMediaFaceBook
+                CustomerId = o.Id,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                DateOfBirth = o.DateOfBirth,
+                ContactTitle = o.ContactTitle,
+                Address = o.Address,
+                City = o.City,
+                Region = o.Region,
+                PostalCode = o.PostalCode,
+                Country = o.Country,
+                Phone = o.Phone,
+                MobileNumber = o.MobileNumber,
             }).FirstOrDefaultAsync();
         }
     }

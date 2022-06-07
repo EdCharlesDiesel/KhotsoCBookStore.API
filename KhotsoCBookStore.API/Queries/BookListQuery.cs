@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KhotsoCBookStore.API.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB;
 
@@ -18,22 +17,25 @@ namespace KhotsoCBookStore.API.Queries
         }
         public async Task<IEnumerable<BookInfosViewModel>> GetAllBooks()
         {
-            return await ctx.Books.Select(m => new BookInfosViewModel
+            return await ctx.Books.Select(o => new BookInfosViewModel
             {
-                Id = m.Id,
-                Title = m.Title,
-                ISBN = m.ISBN,
-                Description = m.Description,
-                Cost = m.Cost,
-                PublishingDate= m.PublishingDate,
-                RetailPrice = m.RetailPrice,
-                CoverFileName= m.CoverFileName     
-           
+                BookId = o.Id,
+                Title = o.Title,
+                ISBN = o.ISBN,
+                PublishingDate = o.PublishingDate,
+                UnitCost = o.UnitCost,
+                SupplierId = o.SupplierId,
+                UnitPrice = o.UnitPrice,
+                UnitsInStock = o.UnitsInStock,
+                UnitsOnOrder = o.UnitsOnOrder,
+                ReorderLevel = o.ReorderLevel,
+                Discontinued = o.Discontinued
+
             }).ToListAsync();
-            
+
         }
 
-        public Task<BookInfosViewModel> GetBookById(int authorId)
+        public Task<BookInfosViewModel> GetBookById(int bookId)
         {
             throw new NotImplementedException();
         }

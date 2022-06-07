@@ -3,10 +3,10 @@ using StarPeaceAdminHubDomain.Aggregates;
 
 namespace StarPeaceAdminHubDB.Models
 {
-    public class MemberOrderEvent: Entity<long>, IMemberOrderEvent
+    public class OrderEvent: Entity<long>, IOrderEvent
     {
-        public MemberOrderEventType Type { get; set; }
-        public int MemberOrderId { get; set; }
+        public OrderEventType Type { get; set; }
+        public int OrderId { get; set; }
         public long? OldVersion { get; set; }
         public long? NewVersion { get; set; }
     }

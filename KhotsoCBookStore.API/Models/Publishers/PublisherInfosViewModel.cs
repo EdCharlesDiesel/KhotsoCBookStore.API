@@ -1,28 +1,36 @@
-using System;
-
 namespace KhotsoCBookStore.API.Models.Publishers
 {
     public class PublisherInfosViewModel
     {
-        public int Id { get; set; }
+        public int PublisherId { get; set; }
 
-        public string FirstName { get; set; }
+        public string CompanyName { get; set; }
 
-        public string LastName { get; }
+        public string ContactName { get; set; }
 
-        public decimal BookStartPrice { get; set; }
-        
-        public DateTime? StartPublishingDate { get; set; }
+        public string ContactTitle { get; set; }
 
-        public DateTime? EndPublishingDate { get; set; }
-    
-        public int BookId { get; set; }
+        public string Address { get; set; }
+
+        public string City { get; set; }
+
+        public string Region { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public string Country { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Fax { get; set; }
+
+        public string HomePage { get; set; }
         
         
         public override string ToString()
         {
-            return string.Format("Publisher {0} {1} Book Id {2}, Has an Id of  price: {3}",
-                FirstName, LastName, BookId, Id);
+            return string.Format("Publisher {0} from company {1} has an Id of : {2}",
+                ContactName, CompanyName,  PublisherId);
         }
     }
 }

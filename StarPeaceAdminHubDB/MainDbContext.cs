@@ -17,14 +17,14 @@ namespace StarPeaceAdminHubDB
         public DbSet<AuthorEvent> AuthorEvents { get; set; }
          public DbSet<Book> Books { get; set; }
         public DbSet<BookEvent> BookEvents { get; set; }
-        //public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<PublisherEvent> PublisherEvents { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerEvent> CustomerEvents { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeEvent> EmployeeEvents { get; set; }
-        // public DbSet<MemberOrder> MemberOrders { get; set; }
-        // public DbSet<MemberOrder> MemberOrderEvents { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderEvent> OrderEvents { get; set; }
 
         
 

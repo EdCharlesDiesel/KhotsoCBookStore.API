@@ -1,50 +1,70 @@
-// using System;
-// using System.ComponentModel.DataAnnotations;
-// using DDD.DomainLayer;
-// using StarPeaceAdminHubDomain.Aggregates;
-// using StarPeaceAdminHubDomain.DTOs;
-// using StarPeaceAdminHubDomain.Events;
+using System.ComponentModel.DataAnnotations;
+using DDD.DomainLayer;
+using StarPeaceAdminHubDomain.Aggregates;
+using StarPeaceAdminHubDomain.DTOs;
 
-// namespace StarPeaceAdminHubDB
-// {
-//     public class Publisher : Entity<int>, IPublisher
-//     {
-//         public void FullUpdate(IPublisherFullEditDTO o)
-//         {
-//             if (IsTransient())
-//             {
-//                 Id = o.Id;
-//                 BookId = o.BookId;
-//             }
-//             else
-//             {
-//                 if (o.BookStartPrice != this.BookStartPrice)
-//                     this.AddDomainEvent(new PublisherBookStartPriceChangedEvent(
-//                             Id, o.BookStartPrice, EntityVersion, EntityVersion + 1));
-//             }
-//             FirstName = o.FirstName;
-//             LastName = o.LastName;
-//             StartPublishingDate = o.StartPublishingDate;
-//             EndPublishingDate = o.EndPublishingDate;
-//             BookStartPrice = o.BookStartPrice;
-//         }
+namespace StarPeaceAdminHubDB
+{
+    public class Publisher : Entity<int>, IPublisher
+    {
+        public void FullUpdate(IPublisherFullEditDTO o)
+        {
+            if (IsTransient())
+            {
+                PublisherId = o.PublisherId;                
+            }
+            
+            CompanyName = o.CompanyName;
+            ContactName = o.ContactName;
+            ContactTitle = o.ContactTitle;
+            Address = o.Address;
+            Address = o.Address;
+            City = o.City;
+            Region = o.Region;
+            PostalCode = o.PostalCode;
+            Country = o.Country;
+            Phone = o.Phone;
+            Fax = o.Fax;
+            HomePage = o.HomePage;
+        }    
 
-//         [MaxLength(150), Required(ErrorMessage = "You should provide a first name.")]
-//         public string FirstName { get; set; }
+        public int PublisherId { get; set; }
 
+        [MaxLength(40)]
+        public string CompanyName { get; set; }
 
-//         [MaxLength(150), Required(ErrorMessage = "You should provide a last name.")]
-//         public string LastName { get; set; }
+        [MaxLength(30)]
+        public string ContactName { get; set; }
 
-//         public DateTime? StartPublishingDate { get; set; }
+        [MaxLength(30)]
+        public string ContactTitle { get; set; }
 
-//         public DateTime? EndPublishingDate { get; set; }
+        [MaxLength(60)]
+        public string Address { get; set; }
 
-//         public decimal BookStartPrice { get; set; }
+        [MaxLength(15)]
+        public string City { get; set; }
 
-//         [ConcurrencyCheck]
-//         public long EntityVersion { get; set; }
+        [MaxLength(100)]
+        public string Region { get; set; }
 
-//         public int BookId { get; set; }
-//     }
-// }
+        [MaxLength(10)]
+        public string PostalCode { get; set; }
+
+        [MaxLength(15)]
+        public string Country { get; set; }
+
+        [MaxLength(24)]
+        public string Phone { get; set; }
+
+        [MaxLength(24)]
+        public string Fax { get; set; }
+
+        public string HomePage { get; set; }
+
+        [ConcurrencyCheck]
+        public long EntityVersion { get; set; }
+
+      //  public IEnumerable<Products> Products { get; set; }
+    }
+}

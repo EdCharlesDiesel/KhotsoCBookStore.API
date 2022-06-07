@@ -6,11 +6,7 @@ using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
 using KhotsoCBookStore.API.Exceptions;
 using KhotsoCBookStore.API.Models;
-using KhotsoCBookStore.API.Models.Books;
-using KhotsoCBookStore.API.Models.Employees;
 using KhotsoCBookStore.API.Queries;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using StarPeaceAdminHub.Commands;
 using StarPeaceAdminHubDomain.IRepositories;
@@ -49,7 +45,7 @@ namespace KhotsoCBookStore.API.Controllers
             try
             {
                 var results = await query.GetAllEmployees();
-                var vm = new EmployeesListViewModel { Employees = results };
+                var vm = new EmployeesListViewModel { AllEmployees = results };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
             catch (EmployeeNotFoundException)
@@ -79,11 +75,24 @@ namespace KhotsoCBookStore.API.Controllers
                 var results = await query.GetEmployeeById(employeeId);
                 var vm = new EmployeeInfosViewModel
                 {
-                    Id = results.Id,
+                    EmployeeId = results.EmployeeId,
                     FirstName = results.FirstName,
                     IdNumber = results.IdNumber,
-                    StartOfEmployment = results.StartOfEmployment,
-                    EndOfEmployement = results.EndOfEmployement
+                    Title = results.Title,
+                    TitleOfCourtesy = results.TitleOfCourtesy,
+                    BirthDate = results.BirthDate,
+                    HireDate = results.HireDate,
+                    Address = results.Address,
+                    City = results.City,
+                    Region = results.Region,
+                    PostalCode = results.PostalCode,
+                    Country = results.Country,
+                    HomePhone = results.HomePhone,
+                    Extension = results.Extension,
+                    Photo = results.Photo,
+                    Notes = results.Notes,
+                    ReportsTo = results.ReportsTo,
+                    PhotoPath = results.PhotoPath
                 };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
@@ -111,7 +120,7 @@ namespace KhotsoCBookStore.API.Controllers
             try
             {
                 await command.HandleAsync(new CreateEmployeeCommand(vm));
-                return CreatedAtRoute("GetEmployee", new { employeeId = vm.Id }, vm);
+                return CreatedAtRoute("GetEmployee", new { employeeId = vm.EmployeeId }, vm);
             }
             catch (EmployeeNotFoundException)
             {

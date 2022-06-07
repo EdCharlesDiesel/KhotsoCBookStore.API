@@ -10,15 +10,20 @@ namespace KhotsoCBookStore.API.Models.Books
         public CustomerFullEditViewModel() { }
         public CustomerFullEditViewModel(ICustomer o)
         {
-            Id = o.Id;
-            FirstName = o.FirstName;
+             FirstName = o.FirstName;
             LastName = o.LastName;
             DateOfBirth = o.DateOfBirth;
-            IdNumber = o.IdNumber;
-            SocialMediaFaceBook = o.SocialMediaFaceBook;
+            ContactTitle = o.ContactTitle;
+            Address = o.Address;
+            City = o.City;
+            Region = o.Region;
+            PostalCode = o.PostalCode;
+            Country = o.Country;
+            Phone = o.Phone;
+            MobileNumber = o.MobileNumber;
         }
         
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
 
         [StringLength(150, MinimumLength = 5), Required]
         [Display(Name = "First Name")]
@@ -31,5 +36,13 @@ namespace KhotsoCBookStore.API.Models.Books
         public DateTime DateOfBirth { get; set; }
         public int IdNumber { get; set; }
         public string SocialMediaFaceBook { get; set; }
+        public string ContactTitle { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+        public string Phone { get; set; }
+        public string MobileNumber { get; set; }
     }
 }

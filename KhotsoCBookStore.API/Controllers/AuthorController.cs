@@ -44,7 +44,7 @@ namespace KhotsoCBookStore.API.Controllers
             try
             {
                 var results = await query.GetAllAuthors();
-                var vm = new AuthorsListViewModel { Authors = results };
+                var vm = new AuthorsListViewModel { AllAuthors = results };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
             catch (AuthorNotFoundException)
@@ -67,7 +67,7 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAuthorById([FromServices] IAuthorQuery query, int authorId)
+        public async Task<IActionResult> GetAuthorById([FromServices] IAuthorsListQuery query, int authorId)
         {
             try
             {

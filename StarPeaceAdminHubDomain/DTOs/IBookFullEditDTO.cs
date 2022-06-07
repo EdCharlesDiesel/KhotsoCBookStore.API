@@ -1,25 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StarPeaceAdminHubDomain.DTOs
 {
     public interface IBookFullEditDTO
     {
-        int Id { get; set; }
+        int BookId { get; set; }
 
-        string Title { get; set; }        
+        string Title { get;set;  }
 
-        string ISBN { get; }
+        string ISBN { get; set;}
 
-        string Descripion { get; set; }
+        string Description {get;set;}
         
         DateTime PublishingDate { get; set; }
         
-        decimal Cost { get; set; }    
-
-        decimal RetailPrice { get; set; }     
+        decimal UnitCost { get;set;  }        
         
-        string CoverFileName { get; set; }  
+        string CoverFileName { get; set; }
+
+        public int? SupplierId { get; set; }
+
+        public decimal? UnitPrice { get; set; }
+
+        public short? UnitsInStock { get; set; }
+
+        public short? UnitsOnOrder { get; set; }
+
+        public short? ReorderLevel { get; set; }
+
+        public bool Discontinued { get; set; } 
     }
 }

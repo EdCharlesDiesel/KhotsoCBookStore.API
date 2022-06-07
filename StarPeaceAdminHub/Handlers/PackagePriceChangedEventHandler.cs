@@ -16,7 +16,7 @@ namespace StarPeaceAdminHub.Handlers
         }
         public Task HandleAsync(PackagePriceChangedEvent ev)
         {
-            repo.New(PackageEventType.CostChanged, ev.PackageId, ev.OldVersion, ev.NewVersion, ev.NewPrice);
+         //   repo.New(PackageEventType.CostChanged, ev.PackageId, ev.OldVersion, ev.NewVersion, ev.NewPrice);
             return Task.CompletedTask;
         }
     }

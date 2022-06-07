@@ -25,7 +25,7 @@ namespace KhotsoCBookStore.API.Handlers
             {
                 try
                 {
-                    model = await repo.Get(command.Updates.Id);
+                    model = await repo.Get(command.Updates.CustomerId);
                     if (model == null) return;
                     model.FullUpdate(command.Updates);
                     await mediator.TriggerEvents(model.DomainEvents);

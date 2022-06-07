@@ -1,4 +1,4 @@
-﻿using KhotsoCBookStore.API.Models.Employees;
+﻿using KhotsoCBookStore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using StarPeaceAdminHubDB;
 using System.Collections.Generic;
@@ -21,12 +21,23 @@ namespace KhotsoCBookStore.API.Queries
                 FirstName = o.FirstName,
                 LastName = o.LastName,
                 IdNumber = o.IdNumber,
-                StartOfEmployment = o.StartOfEmployment,
-                EndOfEmployement = o.EndOfEmployement,
+                Title = o.Title,
+                TitleOfCourtesy = o.TitleOfCourtesy,
+                BirthDate = o.BirthDate,
+                HireDate = o.HireDate,
+                Address = o.Address,
+                City = o.City,
+                Region = o.Region,
+                PostalCode = o.PostalCode,
+                Country = o.Country,
+                Photo = o.Photo,
+                Notes = o.Notes,
+                ReportsTo = o.ReportsTo,
+                PhotoPath = o.PhotoPath
             }).ToListAsync();
         }
 
-      
+
         public async Task<EmployeeInfosViewModel> GetEmployeeById(int authorId)
         {
             return await ctx.Employees.Select(o => new EmployeeInfosViewModel
@@ -34,10 +45,21 @@ namespace KhotsoCBookStore.API.Queries
                 FirstName = o.FirstName,
                 LastName = o.LastName,
                 IdNumber = o.IdNumber,
-                StartOfEmployment = o.StartOfEmployment,
-                EndOfEmployement = o.EndOfEmployement,
+                Title = o.Title,
+                TitleOfCourtesy = o.TitleOfCourtesy,
+                BirthDate = o.BirthDate,
+                HireDate = o.HireDate,
+                Address = o.Address,
+                City = o.City,
+                Region = o.Region,
+                PostalCode = o.PostalCode,
+                Country = o.Country,
+                Photo = o.Photo,
+                Notes = o.Notes,
+                ReportsTo = o.ReportsTo,
+                PhotoPath = o.PhotoPath
             }).FirstOrDefaultAsync();
         }
-        
+
     }
 }

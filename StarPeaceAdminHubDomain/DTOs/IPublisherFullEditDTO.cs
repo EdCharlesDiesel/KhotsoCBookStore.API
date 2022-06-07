@@ -1,21 +1,29 @@
-﻿using System;
-
-namespace StarPeaceAdminHubDomain.DTOs
+﻿namespace StarPeaceAdminHubDomain.DTOs
 {
     public interface IPublisherFullEditDTO
     {
-        int Id { get; set; }
+        int PublisherId { get; set; }
 
-        string FirstName { get; set; }
+        public string CompanyName { get; set; }
 
-        string LastName { get; }
+        string ContactName { get; set; }
 
-        decimal BookStartPrice { get; set; }
+        string ContactTitle { get; set; }
 
-        DateTime? StartPublishingDate { get; }
+        string Address { get; set; }
 
-        DateTime? EndPublishingDate { get; }
+        string City { get; set; }
 
-        int BookId { get; }
+        string Region { get; set; }
+
+        string PostalCode { get; set; }
+
+        string Country { get; set; }
+
+        string Phone { get; set; }
+
+        string Fax { get; set; }
+
+        string HomePage { get; set; }   
     }
 }

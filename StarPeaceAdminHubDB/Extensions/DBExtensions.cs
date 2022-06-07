@@ -46,37 +46,37 @@ namespace StarPeaceAdminHubDB.Extensions
                 await userManager.AddToRoleAsync(currUser, "Admins");
 
             }
-            if (!await context.Destinations.AnyAsync())
-            {
-                var firstDestination = new Destination
-                {
-                    Name = "Florence",
-                    Country = "Italy",
-                    Packages = new List<Package>()
-                        {
-                            new Package
-                            {
-                                Name = "Summer in Florence",
-                                StartValidityDate = new DateTime(2019, 6, 1),
-                                EndValidityDate = new DateTime(2019, 10, 1),
-                                DurationInDays=7,
-                                Price=1000,
-                                EntityVersion=1
-                            },
-                            new Package
-                            {
-                                Name = "Winter in Florence",
-                                StartValidityDate = new DateTime(2019, 12, 1),
-                                EndValidityDate = new DateTime(2020, 2, 1),
-                                DurationInDays=7,
-                                Price=500,
-                                EntityVersion=1
-                            }
-                        }
-                };
-                context.Destinations.Add(firstDestination);
-                await context.SaveChangesAsync();
-            }
+            // if (!await context.Destinations.AnyAsync())
+            // {
+                // var firstDestination = new Destination
+                // {
+                //     Name = "Florence",
+                //     Country = "Italy",
+                //     Packages = new List<Package>()
+                //         {
+                //             new Package
+                //             {
+                //                 Name = "Summer in Florence",
+                //                 StartValidityDate = new DateTime(2019, 6, 1),
+                //                 EndValidityDate = new DateTime(2019, 10, 1),
+                //                 DurationInDays=7,
+                //                 Price=1000,
+                //                 EntityVersion=1
+                //             },
+                //             new Package
+                //             {
+                //                 Name = "Winter in Florence",
+                //                 StartValidityDate = new DateTime(2019, 12, 1),
+                //                 EndValidityDate = new DateTime(2020, 2, 1),
+                //                 DurationInDays=7,
+                //                 Price=500,
+                //                 EntityVersion=1
+                //             }
+                //         }
+                // };
+                // context.Destinations.Add(firstDestination);
+                // await context.SaveChangesAsync();
+            //}
         }
 
     }

@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using DDD.DomainLayer;
 using StarPeaceAdminHubDomain.Aggregates;
 using StarPeaceAdminHubDomain.DTOs;
-using StarPeaceAdminHubDomain.Events;
 
 namespace StarPeaceAdminHubDB
 {
@@ -13,15 +12,22 @@ namespace StarPeaceAdminHubDB
         {
             if (IsTransient())
             {
-                Id = o.Id;
-               // BookId = o.BookId;
+                Id = o.CustomerId;
             }
           
             FirstName = o.FirstName;
             LastName = o.LastName;
             DateOfBirth = o.DateOfBirth;
             IdNumber = o.IdNumber;
-            SocialMediaFaceBook = o.SocialMediaFaceBook;
+            ContactTitle = o.ContactTitle;
+            Address = o.Address;
+            City = o.City;
+            Region = o.Region;
+            PostalCode = o.PostalCode;
+            Country = o.Country;
+            Phone = o.Phone;
+            MobileNumber = o.MobileNumber;
+           
         }
 
         [MaxLength(150), Required(ErrorMessage = "You should provide a first name.")]
@@ -31,15 +37,22 @@ namespace StarPeaceAdminHubDB
         [MaxLength(150), Required(ErrorMessage = "You should provide a last name.")]
         public string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
         [MaxLength(13), Required(ErrorMessage = "You should provide the Id number.")]
         public int IdNumber { get; set; }
 
-        public string SocialMediaFaceBook { get; set; }
-
+        public DateTime DateOfBirth { get; set; }
+       
+        public string ContactTitle { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+        public string Phone { get; set; }
+        public string MobileNumber { get; set; }
         [ConcurrencyCheck]
         public long EntityVersion { get; set; }
 
-       // public int BookId { get; set; }
+        // public int BookId { get; set; }
     }
 }

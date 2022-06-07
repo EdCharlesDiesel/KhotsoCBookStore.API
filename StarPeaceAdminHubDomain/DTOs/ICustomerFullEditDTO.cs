@@ -4,17 +4,31 @@ namespace StarPeaceAdminHubDomain.DTOs
 {
     public interface ICustomerFullEditDTO
     {
-        int Id { get; set; }
+        int CustomerId { get; set; }
 
-        string FirstName { get; set; }
+         string FirstName { get; set; }
 
-        string LastName { get;set; }
+        string LastName { get; set; }
 
-        DateTime DateOfBirth { get;set; }
-        
-        int IdNumber { get;set; }
+        int IdNumber { get; set; }
 
-        string SocialMediaFaceBook { get; set; }
+        string ContactTitle { get; set; }
+
+        DateTime DateOfBirth { get; set; }
+
+        string Address { get; set; }
+
+        string City { get; set; }
+
+        string Region { get; set; }
+
+        string PostalCode { get; set; }
+
+        string Country { get; set; }
+
+        string Phone { get; set; }
+
+        string MobileNumber { get; set; }
 
     }
 }

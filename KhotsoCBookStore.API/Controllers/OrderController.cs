@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -6,18 +6,18 @@ using DDD.ApplicationLayer;
 using KhotsoCBookStore.API.Commands;
 using KhotsoCBookStore.API.Exceptions;
 using KhotsoCBookStore.API.Models;
-using KhotsoCBookStore.API.Models.Books;
 using KhotsoCBookStore.API.Queries;
 using Microsoft.AspNetCore.Mvc;
+using StarPeaceAdminHub.Commands;
 using StarPeaceAdminHubDomain.IRepositories;
 
 namespace KhotsoCBookStore.API.Controllers
 {
-
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class CustomerController : ControllerBase
+    public class OrderController : Controller
     {
+
         /// <summary>
         /// Get supported resource actions
         /// </summary>
@@ -25,7 +25,7 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>An IActionResult</returns>
         /// <response code="200">Returns the list of all requests allowed on this end-point.</response>
         [HttpOptions]
-        public IActionResult GetCustomersAPIOptions()
+        public IActionResult GetOrdersAPIOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST,DELETE,PUT,PATCH");
             return Ok();
@@ -34,21 +34,21 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get all customers resources.
         /// </summary>
-        /// <returns>An CustomersListViewModel of customers</returns>
+        /// <returns>An OrdersListViewModel of customers</returns>
         /// <response code="200">Returns the requested customers.</response>
         [HttpGet()]
-        [ProducesResponseType(typeof(IEnumerable<CustomersListViewModel>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<OrdersListViewModel>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetCustomers([FromServices] ICustomersListQuery query)
+        public async Task<IActionResult> GetOrders([FromServices] IOrdersListQuery query)
         {
             try
             {
-                var results = await query.GetAllCustomers();
-                var vm = new CustomersListViewModel { AllCustomers = results };
+                var results = await query.GetAllOrders();
+                var vm = new OrdersListViewModel { AllOrders = results };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
-            catch (CustomerNotFoundException)
+            catch (OrderNotFoundException)
             {
                 return StatusCode((int)HttpStatusCode.NotFound, "No customers were found in the database");
             }
@@ -61,37 +61,37 @@ namespace KhotsoCBookStore.API.Controllers
         /// <summary>
         /// Get a single customer resource by customerId.
         /// </summary>
-        /// <returns>An CustomerInfosViewModel of a single customer</returns>
+        /// <returns>An OrderInfosViewModel of a single customer</returns>
         /// <response code="200">Returns a requested customer.</response>
-        [HttpGet("{customerId}", Name = "GetCustomer")]
-        [ProducesResponseType(typeof(IEnumerable<CustomerInfosViewModel>), 200)]
+        [HttpGet("{customerId}", Name = "GetOrder")]
+        [ProducesResponseType(typeof(IEnumerable<OrderInfosViewModel>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetCustomerById([FromServices] ICustomersListQuery query, int customerId)
+        public async Task<IActionResult> GetOrderById([FromServices] IOrdersListQuery query, int customerId)
         {
             try
             {
-                var results = await query.GetCustomerById(customerId);
-                var vm = new CustomerInfosViewModel
+                var results = await query.GetOrderById(customerId);
+                var vm = new OrderInfosViewModel
                 {
-                    CustomerId = results.CustomerId,
-                    FirstName = results.FirstName,
-                    LastName = results.LastName,
-                    DateOfBirth = results.DateOfBirth,
-                    IdNumber = results.IdNumber,
-                    ContactTitle = results.ContactTitle,
-                    Address = results.Address,
-                    City = results.City,
-                    Region = results.Region,
-                    PostalCode = results.PostalCode,
-                    Country = results.Country,
-                    Phone = results.Phone,
+                    OrderId = results.OrderId,
+                    OrderDate = results.OrderDate,
+                    RequiredDate = results.RequiredDate,
+                    ShippedDate = results.ShippedDate,
+                    ShipVia = results.ShipVia,
+                    Freight = results.Freight,
+                    ShipName = results.ShipName,
+                    ShipAddress = results.ShipAddress,
+                    ShipCity = results.ShipCity,
+                    ShipRegion = results.ShipRegion,
+                    ShipPostalCode = results.ShipPostalCode,
+                    ShipCountry = results.ShipCountry
 
                 };
                 return StatusCode((int)HttpStatusCode.OK, vm);
             }
-            catch (CustomerNotFoundException)
+            catch (OrderNotFoundException)
             {
                 return StatusCode((int)HttpStatusCode.NotFound, "No customer was found in the database");
             }
@@ -107,17 +107,17 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>A new customer which is just created</returns>
         /// <response code="201">Returns the created customer.</response>
         [HttpPost()]
-        [ProducesResponseType(typeof(CustomerFullEditViewModel), 201)]
+        [ProducesResponseType(typeof(OrderFullEditViewModel), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult> CreateCustomer(CustomerFullEditViewModel vm, [FromServices] ICommandHandler<CreateCustomerCommand> command)
+        public async Task<ActionResult> CreateOrder(OrderFullEditViewModel vm, [FromServices] ICommandHandler<CreateOrderCommand> command)
         {
             try
             {
-                await command.HandleAsync(new CreateCustomerCommand(vm));
-                return CreatedAtRoute("GetCustomer", new { customerId = vm.CustomerId }, vm);
+                await command.HandleAsync(new CreateOrderCommand(vm));
+                return CreatedAtRoute("GetOrder", new { customerId = vm.OrderId }, vm);
             }
-            catch (CustomerNotFoundException)
+            catch (OrderNotFoundException)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
             }
@@ -133,25 +133,25 @@ namespace KhotsoCBookStore.API.Controllers
         /// <returns>An IActionResult</returns>
         /// <response code="204">Returns no content.</response>
         [HttpPut("{customerId}")]
-        [ProducesResponseType(typeof(CustomerFullEditViewModel), 204)]
+        [ProducesResponseType(typeof(OrderFullEditViewModel), 204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateCustomer(
+        public async Task<IActionResult> UpdateOrder(
             int customerId,
-            [FromServices] ICustomerRepository repo, CustomerFullEditViewModel vm,
-            [FromServices] ICommandHandler<UpdateCustomerCommand> command)
+            [FromServices] IOrderRepository repo, OrderFullEditViewModel vm,
+            [FromServices] ICommandHandler<UpdateOrderCommand> command)
         {
             try
             {
                 var aggregate = await repo.Get(customerId);
                 if (aggregate == null) return NotFound();
 
-                var viewModel = new CustomerFullEditViewModel(aggregate);
-                await command.HandleAsync(new UpdateCustomerCommand(vm));
+                var viewModel = new OrderFullEditViewModel(aggregate);
+                await command.HandleAsync(new UpdateOrderCommand(vm));
                 return NoContent();
             }
-            catch (CustomerNotFoundException)
+            catch (OrderNotFoundException)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, "An error occured please validate with the schema");
             }
@@ -172,20 +172,20 @@ namespace KhotsoCBookStore.API.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteCustomer(
+        public async Task<IActionResult> DeleteOrder(
             int customerId,
-            [FromServices] ICommandHandler<DeleteCustomerCommand> command)
+            [FromServices] ICommandHandler<DeleteOrderCommand> command)
         {
             try
             {
                 if (customerId > 0)
                 {
-                    await command.HandleAsync(new DeleteCustomerCommand(customerId));
+                    await command.HandleAsync(new DeleteOrderCommand(customerId));
                 }
 
                 return NoContent();
             }
-            catch (CustomerNotFoundException)
+            catch (OrderNotFoundException)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, "No customer was found in the database");
             }

@@ -75,7 +75,7 @@ namespace KhotsoCBookStore.API.Controllers
                 var vm = new BookInfosViewModel
                 {
 
-                    Id = results.Id,
+                    BookId = results.BookId,
                     Title = results.Title,
                     ISBN = results.ISBN,
                     Description = results.Description,
@@ -110,7 +110,7 @@ namespace KhotsoCBookStore.API.Controllers
             try
             {
                 await command.HandleAsync(new CreateBookCommand(vm));
-                return CreatedAtRoute("GetBook", new { bookId = vm.Id }, vm);
+                return CreatedAtRoute("GetBook", new { bookId = vm.BookId }, vm);
             }
             catch (BookNotFoundException)
             {
